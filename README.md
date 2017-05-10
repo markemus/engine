@@ -15,7 +15,7 @@ A very basic GUI is included, but it was recently added and is very much a work 
 
 # TO INSTALL
 
-Install python 3.
+Install python 3.  
 Packages: tkinter (avoidable if you don't use the GUI with some minor modifications to index.py)
 
 # TO RUN
