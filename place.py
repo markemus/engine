@@ -5,19 +5,17 @@ import imp, copy
 final = []
 
 class place:
-    name = ""               #place's name
-    elements = []               #elements in the place
-    things = []                 #things in the place
-    borders = {"n" : None, "s" : None, "w" : None, "e" : None, ">" : None}                    #places near the place
-    cantransfer = False             #not sure what this is
-    area = "You are standing in"             #placeholder text for desc() 
+    name = ""
+    elements = []
+    borders = {"n" : None, "s" : None, "w" : None, "e" : None, ">" : None}
+    cantransfer = False
+    area = "You are standing in"
     sprite = "O"
     creatures = []
 
-    def __init__(self, newname, newElements, newsprite, level):          #copies over mutable objects for objects so they don't share them with other objects
+    def __init__(self, newname, newElements, newsprite, level):
         self.name = newname
         self.elements = copy.deepcopy(self.elements)
-        self.things = copy.deepcopy(self.things)
         self.borders = copy.copy(self.borders)
         self.creatures = copy.deepcopy(self.creatures)
         self.sprite = newsprite
@@ -25,13 +23,17 @@ class place:
         for anElem in newElements:
             self.elements.append(anElem)
 
-    def desc(self):         #basic describe function, always called desc
+    def desc(self):
+        """
+        Basic describe function, always called desc.
+        """
         count = 0
         area = "You are standing in " + self.name + " with a "
 
+        #shows visible Elements only (eg not hidden doors)
         for roomElem in self.elements:
             if count == 0:
-                if roomElem.visible == True:           #shows visible Elements only (eg not hidden doors)
+                if roomElem.visible == True:           
                     area = area + roomElem.color + " " + roomElem.name
                     count = count + 1
             elif count > 0:
@@ -39,7 +41,8 @@ class place:
                     area = area + ", a " + roomElem.color + " " + roomElem.name
         print(area + ".")
 
-        for roomElem in self.elements:             #shows visible contents of Elements
+        #show visible contents of Elements
+        for roomElem in self.elements:             
             if len(roomElem.vis_inv) > 0:
                 print("The " + roomElem.name + " contains the following items:")
                 for contents in roomElem.vis_inv:
@@ -58,7 +61,10 @@ class place:
 
         return elem_total
 
-    def get_borders(self):              #gives the Place its Elements' Borders
+    def get_borders(self):
+        """
+        Gives the Place its Elements' Borders.
+        """
         for subElement in self.elements:
             subBorders = subElement.borders
 

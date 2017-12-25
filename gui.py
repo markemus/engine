@@ -1,6 +1,8 @@
 import tkinter as tk
 import random
 
+#this gui is no longer supported.
+
 class Gui(tk.Tk):
 
     def __init__(self, game, *args, **kwargs):

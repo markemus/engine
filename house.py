@@ -26,11 +26,11 @@ w_wall_1 = place.element("wall", "red")
 
 floor_1 = place.element("floor", "carpeted")
 
-coatroom_door_1 = place.element("coatroom door", "dark blue")								#coatroom door
-coatroom_door_1.borders = {"c2" : coatroom_2,"f1" : foyer_1}					#coatroom_door_1 borders
+coatroom_door_1 = place.element("coatroom door", "dark blue")
+coatroom_door_1.borders = {"c2" : coatroom_2,"f1" : foyer_1}
 
-foyer_door_1 = place.element("foyer door", "dark blue")									#foyer door
-foyer_door_1.borders = {"h3" : hallway_3,"f1" : foyer_1}						#foyer_door_1 borders
+foyer_door_1 = place.element("foyer door", "dark blue")
+foyer_door_1.borders = {"h3" : hallway_3,"f1" : foyer_1}
 
 table_1 = place.element("table", "mahogany")
 

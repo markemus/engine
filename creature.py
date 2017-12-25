@@ -19,14 +19,16 @@ class limb(element):                    #body parts for Creatures. Store in a li
     cantransfer = False
     hitpoints = 10
 
-    def __init__(self, newname):                #copies over mutable objects for elements on creation.
+    def __init__(self, newname, color="d_color", texture="d_texture"):                #copies over mutable objects for elements on creation.
         self.name = newname
+        self.color = color
+        self.texture = texture
         self.subelements = copy.deepcopy(self.subelements)
         self.vis_inv = copy.deepcopy(self.vis_inv)
         self.invis_inv = copy.deepcopy(self.invis_inv)
 
     def desc(self):                          #prints all the body parts connected below the element.
-        print("{0} contains:".format(self.name))
+        print("{0} {1} {2} ({3}) contains:".format(self.color, self.texture, self.name, self.hitpoints))
         
         for element in self.subelements:
             print(element.name)
@@ -65,12 +67,6 @@ class limb(element):                    #body parts for Creatures. Store in a li
 
 
 
-
-
-
-
-
-
 class creature(object):
     name        = "NO_NAME_CREATURE"
     team        = None
@@ -81,9 +77,11 @@ class creature(object):
     invis_inv   = []
   
     #copies over mutable objects for objects so they don't share them with other objects
-    def __init__(self, name):
+    def __init__(self, name, color="d_color", texture="d_texture"):
 
         self.name        = name
+        self.color = color
+        self.texture = texture
         self.vis_inv     = []
         self.invis_inv   = []
         self.subelements = []
@@ -123,7 +121,7 @@ class creature(object):
 
     #describes a creature's visible elements
     def fullDesc(self):                 
-        print("{0} contains:".format(self.name))            #creature contains:
+        print("{0} {1} {2} contains:".format(self.color, self.texture, self.name))            #creature contains:
 
         for theElement in self.subelements:                    #the following elements
             print(theElement.name)
@@ -137,9 +135,9 @@ class creature(object):
     def desc(self):
         vis_elements = self.subelements[0].limb_check("isSurface")
 
-        print("\n" + self.name + ":")
+        print("\n{0} {1} {2}:".format(self.color, self.texture, self.name))
         for element in vis_elements:
-            print(element.name, "(" + str(element.hitpoints) + ")")
+            print("a {0} {1} {2} ({3})".format(element.color, element.texture, element.name, element.hitpoints))
 
     def grasp_check(self):
 
@@ -207,5 +205,3 @@ class creature(object):
 
     def get_team(self):
         return self.team
-
-# #testArea

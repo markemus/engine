@@ -59,6 +59,3 @@ class levelmap():
 
     def get_rooms(self):
         return list(self.roomLocations.keys())
-
-
-#testArea

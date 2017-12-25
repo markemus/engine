@@ -1,4 +1,4 @@
-import creature, item, random
+import random
 
 #creature
 def round(actor):
