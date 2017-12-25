@@ -11,11 +11,11 @@ Rooms are very basic, but follow the same principle of being composed of a tree 
 
 When a level is generated it creates a sequence of rooms randomly from collections of elements of different types. Currently all generated rooms are composed of 4 walls and 1 floor. Doors are added to connect rooms together, which allow the player to traverse the level.
 
-A very basic GUI is included, but it was very recently added and is very much a work in progress.
+A very basic GUI is included, but it was recently added and is very much a work in progress.
 
 # TO INSTALL
 
-Install python 3.
+Install python 3.  
 Packages: tkinter (avoidable if you don't use the GUI with some minor modifications to index.py)
 
 # TO RUN
