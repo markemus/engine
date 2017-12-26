@@ -33,7 +33,7 @@ class place:
         #shows visible Elements only (eg not hidden doors)
         for roomElem in self.elements:
             if count == 0:
-                if roomElem.visible == True:           
+                if roomElem.visible == True:
                     area = area + roomElem.color + " " + roomElem.name
                     count = count + 1
             elif count > 0:
@@ -113,8 +113,6 @@ class place:
 class element():
     name = "NO_NAME_PLACE"
     visible = True                  #element is shown during place's desc()
-    moveable = False
-    breakable = False               #can it be broken
     color = "NO_COLOR" 
     vis_inv = []                    #things on element
     invis_inv = []                  #things in element

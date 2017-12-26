@@ -1,31 +1,57 @@
 # import place, item, interface
-import imp, copy
+import imp, copy, random
 
 place = imp.load_source("place", "place.py")
 item = imp.load_source("item", "item.py")
 
 # End of Loading Zone
 
-creatures = {}                                      #dict of all creatures.
+#dict of all creatures.
+creatures = {}
 
-class element():                    #general sub-parts of creatures
+class element():
+    """
+    General sub-parts of creatures
+    """
     name = "NO_NAME_ELEMENT"
     subelements = []
 
-class limb(element):                    #body parts for Creatures. Store in a list in Creature object.
+class limb(element):
+    """
+    Body parts for Creatures. Store in a list in Creature object.
+
+    Limbs are procedurally generated from the class template; limbs of the same class may still be very different objects.
+    """
     name = "NO_NAME_LIMB"
     vis_inv = []
     invis_inv = []
     cantransfer = False
     hitpoints = 10
 
-    def __init__(self, newname, color="d_color", texture="d_texture"):                #copies over mutable objects for elements on creation.
-        self.name = newname
+    def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
         self.texture = texture
         self.subelements = copy.deepcopy(self.subelements)
+        self._elementGen()
         self.vis_inv = copy.deepcopy(self.vis_inv)
         self.invis_inv = copy.deepcopy(self.invis_inv)
+
+    def _elementGen(self):
+        for elemclass in self.subelement_classes:
+            #choose
+            if (type(elemclass) == tuple):
+                elemclass = random.choice(elemclass)
+            #range
+            try:
+                potentialRange = elemclass.appendageRange
+            except AttributeError:
+                raise AttributeError("'{0}' : {1} object has no attribute 'appendageRange'".format(elemclass.name, elemclass))
+            
+            countRange = random.randrange(potentialRange[0], potentialRange[1])
+            #create
+            for count in range(countRange):
+                elem = elemclass(self.color, self.texture)
+                self.subelements.append(elem)
 
     def desc(self):                          #prints all the body parts connected below the element.
         print("{0} {1} {2} ({3}) contains:".format(self.color, self.texture, self.name, self.hitpoints))
@@ -68,6 +94,9 @@ class limb(element):                    #body parts for Creatures. Store in a li
 
 
 class creature(object):
+    """
+    Creatures are procedurally generated from the class template; creatures of the same class may still be very different objects.
+    """
     name        = "NO_NAME_CREATURE"
     team        = None
     cantransfer = False      #can carry items
@@ -76,23 +105,25 @@ class creature(object):
     vis_inv     = []
     invis_inv   = []
   
-    #copies over mutable objects for objects so they don't share them with other objects
     def __init__(self, name, color="d_color", texture="d_texture"):
-
-        self.name        = name
-        self.color = color
-        self.texture = texture
-        self.vis_inv     = []
-        self.invis_inv   = []
-        self.subelements = []
+        self.name = name
+        self.color = random.choice(self.colors)
+        self.texture = random.choice(self.textures)
+        self.vis_inv = []
+        self.invis_inv = []
+        # self.subelements = []
+        self._elementGen()
 
         #generates new creatures and puts them in the creature.creatures dict (SHOULD BE A FILE, NOT PERSISTENT, fine for now)
         creatures.update({self.name: copy.deepcopy(self)})
+
+    def _elementGen(self):
+        baseElem = self.baseElem(self.color, self.texture)
+        self.subelements = [baseElem]
         
     #move to a new Place. Accepts a str input.
     #can only move between bordered Places with this function. Should have a failure option
-    def leave(self, direction): 
-
+    def leave(self, direction):
         left = False
         currentRoom = self.location
         nextRoom = self.location.borders[direction]

@@ -1,10 +1,5 @@
-import creature as cr 
-"""
-Orcs are vile and nasty creatures, born to wreak havoc and destroy. They deserve nothing more
-than a clean death.
-"""
+import creature as cr
 
-#head
 class ear(cr.limb):
     name = "ear"
     subelement_classes = []
@@ -41,9 +36,15 @@ class nose(cr.limb):
     isSurface = True
     appendageRange = (1,2)
 
-class head(cr.limb):
+class hornedhead(cr.limb):
     name = "head"
     subelement_classes = [ear, eye, horn, teeth, tongue, nose]
+    isSurface = True
+    appendageRange = (1,2)
+
+class hornlesshead(cr.limb):
+    name = "head"
+    subelement_classes = [ear, eye, teeth, tongue, nose]
     isSurface = True
     appendageRange = (1,2)
 
@@ -92,18 +93,6 @@ class leg(cr.limb):
 #torso
 class torso(cr.limb):
     name = "body"
-    subelement_classes = [head, arm, leg]
+    subelement_classes = [hornlesshead, arm, leg]
     isSurface = True
     appendageRange = (1,2)
-
-#orc
-class orc(cr.creature):
-    name = "orc"
-    baseElem = torso
-    colors = ["red", "brown", "green", "black", "beige"]
-    textures = ["scaled", "haired", "skinned"]
-
-
-if __name__ == '__main__':
-    oscar = orc("Oscar")
-    oscar.desc()
