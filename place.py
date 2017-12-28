@@ -1,11 +1,11 @@
-import imp, copy
+import imp, copy, random
 
 # End of Loading Zone
 
 final = []
 
 class place:
-    name = ""
+    name = "generic_place"
     elements = []
     borders = {"n" : None, "s" : None, "w" : None, "e" : None, ">" : None}
     cantransfer = False
@@ -13,15 +13,18 @@ class place:
     sprite = "O"
     creatures = []
 
-    def __init__(self, newname, newElements, newsprite, level):
-        self.name = newname
-        self.elements = copy.deepcopy(self.elements)
-        self.borders = copy.copy(self.borders)
-        self.creatures = copy.deepcopy(self.creatures)
-        self.sprite = newsprite
+    def __init__(self, name, level):
+        self.name = name
+        self.elements = []
+        self.borders = {"n" : None, "s" : None, "w" : None, "e" : None, ">" : None}
+        self.creatures = []
+        # self.sprite = newsprite
         self.level = level
-        for anElem in newElements:
-            self.elements.append(anElem)
+        # for anElem in newElements:
+        #     self.elements.append(anElem)
+        self._elementGen()
+        self._populate()
+        self.get_borders()
 
     def desc(self):
         """
@@ -60,6 +63,34 @@ class place:
             elem_total += elem.elem_check(tag)
 
         return elem_total
+
+    def _elementGen(self):
+        for elemclass in self.subelement_classes:
+            #color
+            color = random.choice(self.colors)
+            texture = random.choice(self.textures)
+            #choose
+            if (type(elemclass) == tuple):
+                elemclass = random.choice(elemclass)
+            #count
+            try:
+                potentialRange = elemclass.count
+            except AttributeError:
+                raise AttributeError("'{0}' : {1} object has no attribute 'count'".format(elemclass.name, elemclass))
+            countRange = random.randrange(potentialRange[0], potentialRange[1])
+            #create
+            for count in range(countRange):
+                elem = elemclass(color, texture)
+                self.elements.append(elem)
+
+    def _populate(self):
+        for creature_class in self.creature_classes:
+            if (type(creature_class) == tuple):
+                creature_class = random.choice(creature_class)
+            name = creature_class.name + " of " + self.name
+            creature = creature_class(name, location=self)
+            # print(creature)
+            self.creatures.append(creature)
 
     def get_borders(self):
         """
@@ -114,39 +145,40 @@ class element():
     name = "NO_NAME_PLACE"
     visible = True                  #element is shown during place's desc()
     color = "NO_COLOR" 
-    vis_inv = []                    #things on element
-    invis_inv = []                  #things in element
+    texture = "NO_TEXTURE"
+    # vis_inv = []                    #things on element
+    # invis_inv = []                  #things in element
     elements = []                   #elements in element
-    area = "You see a "
+    # area = "You see a "
 
-    def __init__(self, newname, newcolor):
+    def __init__(self, color, texture):
         self.borders = []
-        self.name = newname
-        self.color = newcolor
-        self.vis_inv = copy.copy(self.vis_inv)
-        self.invis_inv = copy.copy(self.invis_inv)
-        self.elements = copy.copy(self.elements)
+        self.color = color
+        self.texture = texture
+        self.vis_inv = []
+        self.invis_inv = []
+        self.elements = []
 
     def desc(self):
         count = 0
 
         if self.visible == True:
-            self.area = self.area + self.color + " " + self.name
+            area = "You see a {} {} {}".format(self.color, self.texture, self.name)
             
             for subElem in self.elements:
                 if count == 0:
                     if subElem.visible == True:
-                        self.area = self.area + subElem.color + " " + subElem.name
+                        area = area + subElem.color + " " + subElem.name
                         count = count + 1
                 elif count > 0:
                     if subElem.visible == True:
-                        self.area = self.area + ", a " + subElem.color + " " + subElem.name
+                        area = area + ", a " + subElem.color + " " + subElem.name
            
             for contents in self.vis_inv:
                 if contents.visible == True:
-                    self.area = self.area + " containing " + contents.color + " " + contents.name
+                    area = area + " containing " + contents.color + " " + contents.name
 
-            print(self.area + ".")
+            print(area + ".")
 
             for subElem in self.elements:
                 if len(subElem.vis_inv) > 0:

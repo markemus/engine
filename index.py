@@ -1,33 +1,20 @@
-import imp, levelmap, combat, game, gui, styles
+import imp 
+import levelmap, combat, game, gui, man, styles
 
 creature = imp.load_source("creature", "creature.py")
 place = imp.load_source("place", "place.py")
 item = imp.load_source("item", "item.py")
 levelGenerator = imp.load_source("levelGenerator", "levelGenerator.py")
-man = imp.load_source("man", "man.py")
+# man = imp.load_source("man", "man.py")
 
 # End of Loading Zone
 t_game = game.Game("The Howling Manor", styles.Castle)
-#t_levelGenerator = levelGenerator.levelGenerator(t_game)
-#t_levelGenerator.colorGenerator(["door", "window", "floor", "wall"])
-#t_levelGenerator.levelGen("The Saintly Hollows", 9)
 
 thisLevel = t_game.level_list[0]
-# thisGame = game.Game("The Canticles of Darkness")
-# thisGame.add_level(thisLevel)
-#t_game.set_current_level(0)
 
-adam = creature.creature("Adam")
-torso = creature.limb("torso")
-torso.isSurface = True
-torso.damage = 10
-adam.subelements.append(torso)
+adam = man.man("Adam", location=thisLevel.start)
 t_game.set_char(adam)
-
-adam.subelements[0].amble = 1
-adam.location = thisLevel.start
 adam.team = "player"
-t_game.set_char(adam)
 
 thisLevel.printMap()
 print(adam.location.name)

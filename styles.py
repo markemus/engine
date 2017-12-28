@@ -4,75 +4,78 @@ from goblin import goblin
 from hydra import hydra
 from orc import orc
 
+import place as pl
 """
 Styles are used for game generation.
 
 Do not inherit styles directly or the attributes will be inherited as well. Instead,
 register() your classes as abstract subclasses of their parents.
 """
-class RoomStyle(abc.ABC):
-    count = (1,2)
-    colors = []
-    textures = []
-    furniture = []
-    creatures = []
 
 class LevelStyle(abc.ABC):
-    roomstyles = []
-    creatures = []
+    room_classes = []
+    creature_classes = []
 
 class GameStyle(abc.ABC):
     levelorder = [LevelStyle, LevelStyle, LevelStyle]
     links = []
-    creatures = []
+    creature_classes = []
 
 
 
+
+class wall(pl.element):
+    name = "wall"
+    count = (4,5)
+
+class floor(pl.element):
+    name = "floor"
+    count = (1,2)
 
 #example
-class TortureChamber():
+class TortureChamber(pl.place):
     count = (1,3)
     colors = ["black", "gray"]
     textures = ["stone", "iron", "dirt", "timber"]
     furniture = []
-    creatures = [orc, goblin]
-RoomStyle.register(TortureChamber)
+    creature_classes = [orc, goblin]
+    subelement_classes = [wall, floor]
 
-class Cell():
+class Cell(pl.place):
     count = (5,10)
     colors = ["unpainted", "grimy"]
     textures = ["stone", "concrete"]
     furniture = []
-    creatures = [orc, goblin]
-RoomStyle.register(Cell)
+    creature_classes = [orc, goblin]
+    subelement_classes = [wall, floor]
 
 class Dungeon():
-    roomstyles = [TortureChamber, Cell]
-    creatures = []
+    room_classes = [TortureChamber, Cell]
+    creature_classes = []
 LevelStyle.register(Dungeon)
 
 
 
 
-class ThroneRoom():
+class ThroneRoom(pl.place):
     count = (1, 2)
     colors = ["gold", "red"]
     textures = ["brick", "stone"]
     furniture = []
-    creatures = [orc, goblin]
-RoomStyle.register(ThroneRoom)
+    creature_classes = [orc, goblin]
+    subelement_classes = [wall, floor]
 
-class Kitchen():
+class Kitchen(pl.place):
     count = (1, 2)
     colors = ["dirty", "smoke-stained", "unpainted"]
     textures = ["brick", "stone"]
     furniture = []
-    creatures = [orc, goblin]
-RoomStyle.register(Kitchen)
+    creature_classes = [orc, goblin]
+    subelement_classes = [wall, floor]
 
 class MainFloor():
-    roomstyles = [ThroneRoom, Kitchen]
-    creatures = []
+    room_classes = [ThroneRoom, Kitchen]
+    creature_classes = []
 LevelStyle.register(MainFloor)
 
 
@@ -81,5 +84,5 @@ LevelStyle.register(MainFloor)
 class Castle():
     levelorder = [Dungeon, MainFloor]
     links = [(0,1)]
-    creatures = [hydra]
+    creature_classes = [hydra]
 GameStyle.register(Castle)

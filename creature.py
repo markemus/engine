@@ -6,42 +6,30 @@ item = imp.load_source("item", "item.py")
 
 # End of Loading Zone
 
-#dict of all creatures.
-creatures = {}
-
-class element():
-    """
-    General sub-parts of creatures
-    """
-    name = "NO_NAME_ELEMENT"
-    subelements = []
-
-class limb(element):
+class limb():
     """
     Body parts for Creatures. Store in a list in Creature object.
 
     Limbs are procedurally generated from the class template; limbs of the same class may still be very different objects.
     """
     name = "NO_NAME_LIMB"
-    vis_inv = []
-    invis_inv = []
     cantransfer = False
     hitpoints = 10
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
         self.texture = texture
-        self.subelements = copy.deepcopy(self.subelements)
+        self.subelements = []
         self._elementGen()
-        self.vis_inv = copy.deepcopy(self.vis_inv)
-        self.invis_inv = copy.deepcopy(self.invis_inv)
+        self.vis_inv = []
+        self.invis_inv = []
 
     def _elementGen(self):
         for elemclass in self.subelement_classes:
             #choose
             if (type(elemclass) == tuple):
                 elemclass = random.choice(elemclass)
-            #range
+            #count
             try:
                 potentialRange = elemclass.appendageRange
             except AttributeError:
@@ -100,22 +88,20 @@ class creature(object):
     name        = "NO_NAME_CREATURE"
     team        = None
     cantransfer = False      #can carry items
-    subelements = []         #elements of creature
+    # subelements = []         #elements of creature
     location    = "loader"   #name of Place where creature is- object
-    vis_inv     = []
-    invis_inv   = []
   
-    def __init__(self, name, color="d_color", texture="d_texture"):
+    def __init__(self, name, location):
         self.name = name
         self.color = random.choice(self.colors)
         self.texture = random.choice(self.textures)
         self.vis_inv = []
         self.invis_inv = []
-        # self.subelements = []
         self._elementGen()
+        self.location = location
 
         #generates new creatures and puts them in the creature.creatures dict (SHOULD BE A FILE, NOT PERSISTENT, fine for now)
-        creatures.update({self.name: copy.deepcopy(self)})
+        # creatures.update({self.name: copy.deepcopy(self)})
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)

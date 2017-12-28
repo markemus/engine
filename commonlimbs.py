@@ -1,5 +1,11 @@
 import creature as cr
 
+class hair(cr.limb):
+    name = "hair"
+    subelement_classes = []
+    isSurface = 1
+    appendageRange = (1,2)
+
 class ear(cr.limb):
     name = "ear"
     subelement_classes = []
@@ -30,6 +36,12 @@ class tongue(cr.limb):
     subelement_classes = []
     appendageRange = (1,2)
 
+class mouth(cr.limb):
+    name = "mouth"
+    subelement_classes = [teeth, tongue]
+    isSurface = True
+    appendageRange = (1,2)
+
 class nose(cr.limb):
     name = "nose"
     subelement_classes = []
@@ -38,13 +50,13 @@ class nose(cr.limb):
 
 class hornedhead(cr.limb):
     name = "head"
-    subelement_classes = [ear, eye, horn, teeth, tongue, nose]
+    subelement_classes = [ear, eye, horn, mouth, nose]
     isSurface = True
     appendageRange = (1,2)
 
 class hornlesshead(cr.limb):
     name = "head"
-    subelement_classes = [ear, eye, teeth, tongue, nose]
+    subelement_classes = [ear, eye, mouth, nose]
     isSurface = True
     appendageRange = (1,2)
 

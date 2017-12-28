@@ -1,5 +1,4 @@
-import place, copy, levelmap, random, math, creatureGenerator
-
+import place, copy, levelmap, random, math
 import random
 
 class levelGenerator(object):
@@ -8,9 +7,6 @@ class levelGenerator(object):
     """
     def __init__(self):
         pass
-        #temporary list
-        # self.creatureTemplateList = [creatureGenerator.t_templateCreature]
-        # self.RoomGenerator = RoomGenerator()
 
     #generates levels
     def levelGen(self, levelname, levelstyle):
@@ -22,10 +18,7 @@ class levelGenerator(object):
         #get room counts
         roomcounts = self.count_rooms(levelstyle)
         roomNum = sum(roomcounts.values())
-        roomGenerators = self.get_room_generators(levelstyle)
-        # for roomGenerator in roomGenerators:
-        #     print(roomGenerator.colors)
-        # print("levelGen: roomNum, roomcounts: ", roomNum, roomcounts)
+        # roomGenerators = self.get_room_generators(levelstyle)
 
         #create level
         gennedLevel = levelmap.levelmap(levelname, roomNum)
@@ -52,7 +45,8 @@ class levelGenerator(object):
                 del roomcounts[roomType]
 
             #create a room
-            gennedRoom = roomGenerators[roomType].random_room_generator(gennedLevel)
+            # gennedRoom = roomGenerators[roomType].random_room_generator(gennedLevel)
+            gennedRoom = roomType(str(roomType), gennedLevel)
             gennedRoom.sprite = str(thisRoomNum)
 
             #first room needs to be start, doesn't need to connect to previous room
@@ -61,7 +55,8 @@ class levelGenerator(object):
             else:
                 lastRoom = roomList[lastRoomNum]
 
-            roomGenerators[roomType].connectRooms(gennedRoom,lastRoom)
+            # roomGenerators[roomType].connectRooms(gennedRoom,lastRoom)
+            self.connectRooms(gennedRoom,lastRoom)
 
             #add room to gennedLevel's levelMap and roomList
             gennedLevel.addRoom(x,y,gennedRoom)
@@ -81,22 +76,13 @@ class levelGenerator(object):
         
         return gennedLevel
 
-    def get_room_generators(self, levelstyle):
-        roomgens = []
-        for roomstyle in levelstyle.roomstyles:
-            generator = StyleRoomGenerator(roomstyle)
-            roomgens.append(generator)
-
-        return roomgens
-
     def count_rooms(self, levelstyle):
         roomcounts = {}
 
-        for i in range(len(levelstyle.roomstyles)):
-            roomrange = levelstyle.roomstyles[i].count
-            # print(roomrange)
+        for room_class in levelstyle.room_classes:
+            roomrange = room_class.count
             count = random.randrange(*roomrange)
-            roomcounts[i] = count
+            roomcounts[room_class] = count
 
         return roomcounts
 
@@ -146,133 +132,21 @@ class levelGenerator(object):
 
         return (x,y)
 
-class RoomGenerator():
-    """
-    Generates rooms from a template.
-    """
-    def __init__(self, colors, textures, furniture, creatures):
-        self.doors = {}
-        self.walls = {}
-        self.floors = {}
-        self.windows = {}
-        self.ceilings = {}
-        self.elemTypes = {"door" : self.doors, "wall" : self.walls, "floor" : self.floors, 
-                        "window" : self.windows, "ceiling" : self.ceilings}
-
-        # self.colors = colors if colors != [] else ["red", "orange", "green", "blue", "yellow", "purple", "black", "white"]
-        # self.textures = textures if textures != [] else ["wood", "stone", "brick"]
-        # self.creatureTemplates = creatures if creatures != [] else [creatureGenerator.t_templateCreature]
-        self.colors = colors
-        self.textures = textures
-        self.creatureTemplates = creatures
-        
-        self._color_generator()
-    
-    def _color_generator(self):
-        """
-        Populates elemTypes[] sublists.
-        ListOfElements example: ["door", "window", "floor"]
-        Updates them in order of color, for easy later reference, eg elemTypes['wall'][0] will be a red wall
-        """
-        for elem in list(self.elemTypes.keys()):
-            for color in self.colors:
-                self.elemTypes[elem][color] = {}
-                for texture in self.textures:
-                    self.elemTypes[elem][color][texture] = place.element(elem, color + " " + texture)
-                    # self.elemTypes[anElem].append(place.element(anElem, aColor + " " + aTexture))
-
-        # print("self.floors", self.floors)
-        # print("self.colors", self.colors)
-        # for elemlist in self.elemTypes.values():
-        #     for elem in elemlist:
-        #         elem.desc()
-        
-        # print(self.elemTypes)
-
-    def random_room_generator(self, level):
-        firstNameList = ["Opal", "Serene", "Floating", "Orange", "Sinister"]
-        secondNameList = ["Palace", "Dungeon", "Basement", "Tower", "Tomb"]
-
-        #colors
-        floorColor = random.choice(self.colors)
-        wallColor = random.choice(self.colors)
-
-        #textures
-        floorTexture = random.choice(self.textures)
-        wallTexture = random.choice(self.textures)
-
-        #name
-        firstName = random.choice(firstNameList)
-        secondName = random.choice(secondNameList)
-        randomName = firstName + " " + secondName
-
-        randomRoom = self.room_generator(randomName, floorColor, floorTexture, wallColor, wallTexture, 4, "O", level)
-        self.populate_room(randomRoom)
-
-        return randomRoom
-
-    def room_generator(self, newname, floorColor, floorTexture, wallColor, wallTexture, wallNumber, sprite, level):
-        """
-        Returns a room with chosen colors. For random, see randomRoomGenerator.
-        """
-        localElements = []
-        
-        #floor
-        localElements.append(copy.deepcopy(self.floors[floorColor][floorTexture]))
-
-        #walls
-        while wallNumber > 0:
-            #copies the appropriately colored wall into localElements
-            localElements.append(copy.deepcopy(self.walls[wallColor][wallTexture]))
-            wallNumber = wallNumber - 1
-
-        gennedRoom = place.place(newname, localElements, sprite, level)
-
-        return gennedRoom
-
-    def populate_room(self, room):
-        templateIndex = random.randrange(len(self.creatureTemplates))
-        creatureTemplate = self.creatureTemplates[templateIndex]
-        gennedCreatureGenerator = creatureGenerator.creatureGenerator()
-        gennedCreature = gennedCreatureGenerator.creatureGen(creatureTemplate.name + " of " + room.name, creatureTemplate)
-        room.addCreature(gennedCreature)
-        gennedCreature.location = room
-
-    def doorGen(self, newname, color, borders = []):
-        newDoor = place.element(newname, color)
-        for room in borders: 
-            newDoor.addBorder(room)
-
-        return newDoor
-
-    def connectRooms(self, room_1, room_2):
+    def connectRooms(self, room1, room2):
         """
         Add a door connecting room_1 to previous room room_2 (or to nothing if there is no previous room).
         """
-        doorColorIndex = random.randrange(len(self.colors))
-        doorColor = self.colors[doorColorIndex]
+        color = random.choice(room1.colors)
+        texture = random.choice(room1.textures)
+
+        door = place.element(color, texture)
+        
+        door.addBorder(room1)
+        room1.addElement(door)
 
         # if first room generated (DOOR SHOULD CONNECT TO PREVIOUS LEVEL)
-        if room_2 == None:
-            borders = [room_1]
-            currentDoor = self.doorGen("door", doorColor, borders)
-
-        #if not first room
+        if room2 == None:
+            pass
         else:
-            borders = [room_1, room_2]
-            currentDoor = self.doorGen("door", doorColor, borders)
-            room_2.addElement(currentDoor)
-
-        room_1.addElement(currentDoor)
-
-class StyleRoomGenerator(RoomGenerator):
-    """
-    Generates rooms based on a specified RoomStyle.
-    """
-    def __init__(self, roomstyle, *args, **kwargs):
-        colors = roomstyle.colors
-        textures = roomstyle.textures
-        furniture = roomstyle.furniture
-        creatures = roomstyle.creatures
-
-        super().__init__(colors, textures, furniture, creatures, *args, **kwargs)
+            door.addBorder(room2)
+            room2.addElement(door)
