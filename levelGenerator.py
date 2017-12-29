@@ -1,5 +1,9 @@
-import place, copy, levelmap, random, math
+import copy
+import math
 import random
+
+import place 
+import levelmap
 
 class levelGenerator(object):
     """
@@ -139,7 +143,7 @@ class levelGenerator(object):
         color = random.choice(room1.colors)
         texture = random.choice(room1.textures)
 
-        door = place.element(color, texture)
+        door = place.door(color, texture)
         
         door.addBorder(room1)
         room1.addElement(door)

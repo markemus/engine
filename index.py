@@ -1,11 +1,13 @@
-import imp 
-import levelmap, combat, game, gui, man, styles
-
-creature = imp.load_source("creature", "creature.py")
-place = imp.load_source("place", "place.py")
-item = imp.load_source("item", "item.py")
-levelGenerator = imp.load_source("levelGenerator", "levelGenerator.py")
-# man = imp.load_source("man", "man.py")
+import combat
+import creature
+import place
+import item
+import levelGenerator
+import game
+import gui
+import levelmap
+import man
+import styles
 
 # End of Loading Zone
 t_game = game.Game("The Howling Manor", styles.Castle)
@@ -48,6 +50,9 @@ adam.location.creatures[0].desc()
 
 adam.location.desc()
 adam.desc()
+# print(adam.desc())
+
+print(adam.location.desc())
 # gui = gui.Gui(t_game)
 # gui.keyboard.game = thisGame
 # gui.mainloop()

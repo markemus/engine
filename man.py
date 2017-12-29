@@ -1,5 +1,6 @@
 import creature as cr
 import commonlimbs as cl
+import suits
 
 # hair = creature.limb("hair")					#head element
 
@@ -89,10 +90,14 @@ class head(cr.limb):
     subelement_classes = [cl.hair, cl.eye, cl.nose, cl.mouth]
     isSurface = True
     appendageRange = (1,2)
+    wears = "head"
 
 class torso(cr.limb):
     name = "torso"
     subelement_classes = [head, cl.arm, cl.leg]
+    isSurface = True
+    appendageRange = (1,2)
+    wears = "body"
 
 # torso = creature.limb("torso")								#torso elem
 # torso.subelements = [cl.head, cl.arm, cl.leg]
@@ -102,7 +107,8 @@ class man(cr.creature):
     baseElem = torso
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
+    suits = [suits.testsuit]
 
 if __name__ == "__main__":
-    eve = man("Eve")						#main CREATURE
+    eve = man("Eve", location=None)
     eve.desc()

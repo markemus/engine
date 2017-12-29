@@ -13,7 +13,6 @@ def round(actor):
 
 #single attack
 def attack(creature1, creature2):
-
     worst = (None, 0)
 
     for limb in creature1.subelements[0].limb_check("damage"):
@@ -45,10 +44,10 @@ def attack(creature1, creature2):
 def check_damage(limb):
     damage = limb.damage
 
-    for item in limb.get_vis_inv():
-        if hasattr(limb, "damage"):
-            if limb.damage > damage:
-                damage = limb.damage
+    for item in limb.inventory:
+        if hasattr(item, "damage"):
+            if item.damage > damage:
+                damage = item.damage
 
     return damage
 

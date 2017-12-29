@@ -1,4 +1,5 @@
-import imp, copy, random
+import copy
+import random
 
 # End of Loading Zone
 
@@ -26,35 +27,49 @@ class place:
         self._populate()
         self.get_borders()
 
-    def desc(self):
+    # def desc(self):
+    #     """
+    #     Basic describe function, always called desc.
+    #     """
+    #     count = 0
+    #     area = "You are standing in " + self.name + " with a "
+
+    #     #shows visible Elements only (eg not hidden doors)
+    #     for roomElem in self.elements:
+    #         if count == 0:
+    #             if roomElem.visible == True:
+    #                 area = area + roomElem.color + " " + roomElem.name
+    #                 count = count + 1
+    #         elif count > 0:
+    #             if roomElem.visible == True:
+    #                 area = area + ", a " + roomElem.color + " " + roomElem.name
+    #     print(area + ".")
+
+    #     #show visible contents of Elements
+    #     for roomElem in self.elements:             
+    #         if len(roomElem.vis_inv) > 0:
+    #             print("The " + roomElem.name + " contains the following items:")
+    #             for contents in roomElem.vis_inv:
+    #                 print(contents.name)
+    #             for contents in roomElem.vis_inv:
+    #                 contents.desc()
+
+    #     for roomCreature in self.creatures:
+    #         print("You see a: " + roomCreature.name + ".")
+
+    def desc(self, full=True, offset=0):
         """
         Basic describe function, always called desc.
         """
-        count = 0
-        area = "You are standing in " + self.name + " with a "
+        text = (" "*offset) + "# " + self.name
+        if full:
+            for creature in self.creatures:
+                text += "\n" + creature.desc(offset = offset+1)
+            for elem in self.elements:
+                if elem.visible:
+                    text += "\n" + elem.desc(offset = offset+1)
 
-        #shows visible Elements only (eg not hidden doors)
-        for roomElem in self.elements:
-            if count == 0:
-                if roomElem.visible == True:
-                    area = area + roomElem.color + " " + roomElem.name
-                    count = count + 1
-            elif count > 0:
-                if roomElem.visible == True:
-                    area = area + ", a " + roomElem.color + " " + roomElem.name
-        print(area + ".")
-
-        #show visible contents of Elements
-        for roomElem in self.elements:             
-            if len(roomElem.vis_inv) > 0:
-                print("The " + roomElem.name + " contains the following items:")
-                for contents in roomElem.vis_inv:
-                    print(contents.name)
-                for contents in roomElem.vis_inv:
-                    contents.desc()
-
-        for roomCreature in self.creatures:
-            print("You see a: " + roomCreature.name + ".")
+        return text
 
     def elem_check(self, tag):
         elem_total = []
@@ -159,36 +174,50 @@ class element():
         self.invis_inv = []
         self.elements = []
 
-    def desc(self):
-        count = 0
+    # def desc(self):
+    #     count = 0
 
-        if self.visible == True:
-            area = "You see a {} {} {}".format(self.color, self.texture, self.name)
+    #     if self.visible == True:
+    #         area = "You see a {} {} {}".format(self.color, self.texture, self.name)
             
-            for subElem in self.elements:
-                if count == 0:
-                    if subElem.visible == True:
-                        area = area + subElem.color + " " + subElem.name
-                        count = count + 1
-                elif count > 0:
-                    if subElem.visible == True:
-                        area = area + ", a " + subElem.color + " " + subElem.name
+    #         for subElem in self.elements:
+    #             if count == 0:
+    #                 if subElem.visible == True:
+    #                     area = area + subElem.color + " " + subElem.name
+    #                     count = count + 1
+    #             elif count > 0:
+    #                 if subElem.visible == True:
+    #                     area = area + ", a " + subElem.color + " " + subElem.name
            
-            for contents in self.vis_inv:
-                if contents.visible == True:
-                    area = area + " containing " + contents.color + " " + contents.name
+    #         for contents in self.vis_inv:
+    #             if contents.visible == True:
+    #                 area = area + " containing " + contents.color + " " + contents.name
 
-            print(area + ".")
+    #         print(area + ".")
 
-            for subElem in self.elements:
-                if len(subElem.vis_inv) > 0:
-                    print("The " + subElem.name + " contains the following items:")
-                    for contents in subElem.vis_inv:
-                        print(contents.name)
-                    for contents in subElem.vis_inv:
-                        contents.desc()    
-                else:
-                    print("As far as you can tell the " + subElem.name + " contains no items.") 
+    #         for subElem in self.elements:
+    #             if len(subElem.vis_inv) > 0:
+    #                 print("The " + subElem.name + " contains the following items:")
+    #                 for contents in subElem.vis_inv:
+    #                     print(contents.name)
+    #                 for contents in subElem.vis_inv:
+    #                     contents.desc()    
+    #             else:
+    #                 print("As far as you can tell the " + subElem.name + " contains no items.")
+
+    def desc(self, full=True, offset=0):
+        """
+        Basic describe function is always called desc
+        """
+        text = (" "*offset) + "- {} {} {}".format(self.color, self.texture, self.name)
+        if full:
+            for item in self.vis_inv:
+                text += "\n" + item.desc(offset = offset+1)
+            for elem in self.elements:
+                if elem.visible:
+                    text += "\n" + elem.desc(offset = offset+1)
+
+        return text
 
     def elem_check(self, tag):
         elem_total = []
@@ -207,3 +236,6 @@ class element():
 
     def add_vis_item(self, item):
         self.vis_inv.append(item)
+
+class door(element):
+    name = "door"

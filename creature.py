@@ -1,8 +1,5 @@
-# import place, item, interface
-import imp, copy, random
-
-place = imp.load_source("place", "place.py")
-item = imp.load_source("item", "item.py")
+import copy
+import random
 
 # End of Loading Zone
 
@@ -13,7 +10,8 @@ class limb():
     Limbs are procedurally generated from the class template; limbs of the same class may still be very different objects.
     """
     name = "NO_NAME_LIMB"
-    cantransfer = False
+    wears = "generic"
+    # cantransfer = False
     hitpoints = 10
 
     def __init__(self, color="d_color", texture="d_texture"):
@@ -21,8 +19,8 @@ class limb():
         self.texture = texture
         self.subelements = []
         self._elementGen()
-        self.vis_inv = []
-        self.invis_inv = []
+        self.inventory = []
+        # self.invis_inv = []
 
     def _elementGen(self):
         for elemclass in self.subelement_classes:
@@ -41,21 +39,38 @@ class limb():
                 elem = elemclass(self.color, self.texture)
                 self.subelements.append(elem)
 
-    def desc(self):                          #prints all the body parts connected below the element.
-        print("{0} {1} {2} ({3}) contains:".format(self.color, self.texture, self.name, self.hitpoints))
+    # def desc(self):                          #prints all the body parts connected below the element.
+    #     print("{0} {1} {2} ({3}) contains:".format(self.color, self.texture, self.name, self.hitpoints))
         
-        for element in self.subelements:
-            print(element.name)
+    #     for element in self.subelements:
+    #         print(element.name)
 
-        print("")
+    #     print("")
 
-        for element in self.subelements:
-            # print("{0} contains:".format(element.name))
-            if len(element.subelements) >= 1:
-                element.desc()
+    #     for element in self.subelements:
+    #         # print("{0} contains:".format(element.name))
+    #         if len(element.subelements) >= 1:
+    #             element.desc()
 
-    #checks if necessary limbs are present for a task. Creatures must have "body" subelement at subelements[0]
+    def desc(self, full=True, offset=0):
+        """
+        Basic describe function is always called desc
+        """
+        text = (" "*offset) + "+ {} {} {}".format(self.color, self.texture, self.name)
+        if full:
+            for item in self.inventory:
+                text += "\n" + item.desc(offset = offset+1)
+            for elem in self.subelements:
+                text += "\n" + elem.desc(offset = offset+1)
+
+        return text
+
     def limb_check(self, tag):
+        """
+        Returns a list of all nodes where tag is present.
+        tag=name returns all nodes.
+        Used for gathering limbs for a task, eg. tag=grasp to pick up an item.
+        """
         limb_total = []
 
         if hasattr(self, tag):
@@ -71,12 +86,9 @@ class limb():
     def remove_limb(self, limb):
         if limb in self.subelements:
             self.subelements.remove(limb)
-
-        for subLimb in self.subelements:
-            subLimb.remove_limb(limb)   
-
-    def get_vis_inv(self):
-        return self.vis_inv
+        else:
+            for subLimb in self.subelements:
+                subLimb.remove_limb(limb)
 
 
 
@@ -87,7 +99,7 @@ class creature(object):
     """
     name        = "NO_NAME_CREATURE"
     team        = None
-    cantransfer = False      #can carry items
+    # cantransfer = False      #can carry items
     # subelements = []         #elements of creature
     location    = "loader"   #name of Place where creature is- object
   
@@ -95,17 +107,27 @@ class creature(object):
         self.name = name
         self.color = random.choice(self.colors)
         self.texture = random.choice(self.textures)
-        self.vis_inv = []
-        self.invis_inv = []
+        self.inventory = []
         self._elementGen()
-        self.location = location
+        self._clothe()
 
-        #generates new creatures and puts them in the creature.creatures dict (SHOULD BE A FILE, NOT PERSISTENT, fine for now)
-        # creatures.update({self.name: copy.deepcopy(self)})
+        self.location = location
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)
         self.subelements = [baseElem]
+
+    def _clothe(self):
+        for suit in self.suits:
+            if (type(suit) == tuple):
+                suit = random.choice(suit)
+            limbs = self.subelements[0].limb_check("name")
+
+            for limb in limbs:
+                if limb.wears in suit.keys():
+                    article = suit[limb.wears]()
+                    limb.inventory.append(article)
+                    # print(limb, limb.inventory)
         
     #move to a new Place. Accepts a str input.
     #can only move between bordered Places with this function. Should have a failure option
@@ -128,43 +150,49 @@ class creature(object):
 
     #examine Creature inventory and held Item inventories. Recursive
     def viewInv(self):
-
-        for carriedItem in self.vis_inv:
-
+        for carriedItem in self.inventory:
             print(carriedItem.name)
             
             if (len(carriedItem.vis_inv) >= 1):
                 carriedItem.viewInv()
 
-    #describes a creature's visible elements
-    def fullDesc(self):                 
-        print("{0} {1} {2} contains:".format(self.color, self.texture, self.name))            #creature contains:
+    # #describes a creature's visible elements
+    # def fullDesc(self):                 
+    #     print("{0} {1} {2} contains:".format(self.color, self.texture, self.name))            #creature contains:
 
-        for theElement in self.subelements:                    #the following elements
-            print(theElement.name)
+    #     for theElement in self.subelements:                    #the following elements
+    #         print(theElement.name)
         
-        for theElement in self.subelements:                    #these elements contain the following elements
-            if len(theElement.subelements) >= 1:
-                print("")
-                theElement.desc()
+    #     for theElement in self.subelements:                    #these elements contain the following elements
+    #         if len(theElement.subelements) >= 1:
+    #             print("")
+    #             theElement.desc()
 
     #tag: isSurface
-    def desc(self):
-        vis_elements = self.subelements[0].limb_check("isSurface")
+    # def desc(self):
+    #     vis_elements = self.subelements[0].limb_check("isSurface")
 
-        print("\n{0} {1} {2}:".format(self.color, self.texture, self.name))
-        for element in vis_elements:
-            print("a {0} {1} {2} ({3})".format(element.color, element.texture, element.name, element.hitpoints))
+    #     print("\n{0} {1} {2}:".format(self.color, self.texture, self.name))
+    #     for element in vis_elements:
+    #         print("a {0} {1} {2} ({3})".format(element.color, element.texture, element.name, element.hitpoints))
+
+    def desc(self, full=True, offset=0):
+        """
+        Basic describe function is always called desc
+        """
+        text = (" "*offset) + "> " + self.name
+        if full:
+            for elem in self.subelements:
+                text += "\n" + elem.desc(offset = offset+1)
+
+        return text
 
     def grasp_check(self):
-
         graspHand = None
         hands = self.subelements[0].limb_check("grasp")
         
         if len(hands) >= 1:
-            
             for hand in hands:
-
                 if hand.grasp >= 1:
                     f_grasp = 0
                     t_grasp = 0
@@ -186,7 +214,7 @@ class creature(object):
         graspHand = self.grasp_check()
                         
         if graspHand != None:
-            graspHand.vis_inv.append(item)
+            graspHand.inventory.append(item)
             print(self.name + " picks up the " + item.name + " with their " + graspHand.name + ".")
             grasped = True
         else:
@@ -199,8 +227,8 @@ class creature(object):
         hands = self.subelements[0].limb_check("grasp")
 
         for hand in hands:
-            if item in hand.vis_inv:
-                del hand.vis_inv[hand.vis_inv.index(item)]
+            if item in hand.inventory:
+                del hand.inventory[hand.inventory.index(item)]
                 ungrasped = True
 
         return ungrasped
