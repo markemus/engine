@@ -1,5 +1,30 @@
 import random
 
+from transitions import Machine
+
+
+class Fsm():
+    """
+    Keeps track of turn based combat and handles the AI side.
+
+    Player-side combat is handled in controller.py.
+    """
+    def __init__(self, char):
+        self.char = char
+        states = ["player", "ai"]
+        self.machine = Machine(model=self, states=states, initial="player")
+        # machine.on_enter_player("player_handler")
+        self.machine.on_enter_ai("ai_handler")
+
+    def ai_handler(self):
+        room = self.char.get_location()
+
+        for creature in room.get_creatures():
+            if creature is not self.char:
+                round(creature)
+
+        self.to_player()
+
 def get_target_creatures(actor):
     targets = actor.location.get_creatures()
 
@@ -46,10 +71,12 @@ def target_limb(target):
     limbs = target.subelements[0].limb_check("isSurface")
 
     if len(limbs) > 0:
-        chosen = min(limbs, key=lambda x: x.hitpoints)
-        print("chosen: ", chosen)
+        lowest = min(limbs, key=lambda x: x.hitpoints)
+        allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
+        chosen = random.choice(allLowest)
+        # print("chosen: ", chosen)
     else:
-        print("No surface limbs.")
+        # print("No surface limbs.")
         chosen = False
     
     return chosen

@@ -25,12 +25,15 @@ class levelmap():
         self.layout[x][y] = room
         self.roomLocations[room] = (x,y)
 
-    def printMap(self):
+    def printMap(self, char):
         for row in self.layout:
             row_sprite = ""
             for index in row:
-                if hasattr(index,"sprite"):
-                    row_sprite += str(index.sprite)
+                if hasattr(index, "creatures"):
+                    if char in index.creatures:
+                        row_sprite += "U"
+                    else:
+                        row_sprite += str(index.sprite)
                 else:
                     row_sprite += str(index)
             print(row_sprite)
@@ -44,7 +47,7 @@ class levelmap():
                     row_sprite += str(index.sprite)
                 else:
                     row_sprite += str(index)
-            ourMap += "\n" +row_sprite
+            ourMap += "\n" + row_sprite
         return ourMap
 
     def checkIndex(self, x, y):

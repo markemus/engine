@@ -39,7 +39,7 @@ class TortureChamber(pl.place):
     colors = ["black", "gray"]
     textures = ["stone", "iron", "dirt", "timber"]
     furniture = []
-    creature_classes = [orc, goblin]
+    creature_classes = [(orc, goblin)]
     subelement_classes = [wall, floor]
 
 class Cell(pl.place):
@@ -47,7 +47,7 @@ class Cell(pl.place):
     colors = ["unpainted", "grimy"]
     textures = ["stone", "concrete"]
     furniture = []
-    creature_classes = [orc, goblin]
+    creature_classes = [(orc, goblin)]
     subelement_classes = [wall, floor]
 
 class Dungeon():
