@@ -27,47 +27,17 @@ class place:
         self._populate()
         self.get_borders()
 
-    # def desc(self):
-    #     """
-    #     Basic describe function, always called desc.
-    #     """
-    #     count = 0
-    #     area = "You are standing in " + self.name + " with a "
-
-    #     #shows visible Elements only (eg not hidden doors)
-    #     for roomElem in self.elements:
-    #         if count == 0:
-    #             if roomElem.visible == True:
-    #                 area = area + roomElem.color + " " + roomElem.name
-    #                 count = count + 1
-    #         elif count > 0:
-    #             if roomElem.visible == True:
-    #                 area = area + ", a " + roomElem.color + " " + roomElem.name
-    #     print(area + ".")
-
-    #     #show visible contents of Elements
-    #     for roomElem in self.elements:             
-    #         if len(roomElem.vis_inv) > 0:
-    #             print("The " + roomElem.name + " contains the following items:")
-    #             for contents in roomElem.vis_inv:
-    #                 print(contents.name)
-    #             for contents in roomElem.vis_inv:
-    #                 contents.desc()
-
-    #     for roomCreature in self.creatures:
-    #         print("You see a: " + roomCreature.name + ".")
-
     def desc(self, full=True, offset=0):
         """
         Basic describe function, always called desc.
         """
         text = (" "*offset) + "# " + self.name
-        if full:
-            for creature in self.creatures:
-                text += "\n" + creature.desc(offset = offset+1)
-            for elem in self.elements:
-                if elem.visible:
-                    text += "\n" + elem.desc(offset = offset+1)
+        # if full:
+        for creature in self.creatures:
+            text += "\n" + creature.desc(full=full, offset = offset+1)
+        for elem in self.elements:
+            if elem.visible:
+                text += "\n" + elem.desc(full=full, offset = offset+1)
 
         return text
 
@@ -149,7 +119,7 @@ class place:
             None
 
     def get_creatures(self):
-        return self.creatures
+        return copy.copy(self.creatures)
 
     def get_level(self):
         return self.level

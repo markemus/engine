@@ -15,11 +15,6 @@ class Game(object):
         
         #generate
         self._generate(gamestyle)
-        # for i in range(levelcount):
-        #     levelName = "level {}".format(str(i))
-        #     gennedLevel = lg.levelGen(levelName, roomNum=10)
-        #     self.level_list.append(gennedLevel)
-        
         self.set_current_level(0)
 
     def _generate(self, gamestyle):
@@ -50,4 +45,4 @@ if __name__ == '__main__':
 
     for level in x.level_list:
         for room in level.roomLocations.keys():
-            room.desc()
+            print(room.desc(full=False))

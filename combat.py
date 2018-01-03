@@ -1,49 +1,82 @@
 import random
 
-#creature
+def get_target_creatures(actor):
+    targets = actor.location.get_creatures()
+
+    if actor in targets:
+        targets.remove(actor)
+
+    return targets
+
+def get_target_limbs(defender):
+    limbs = defender.subelements[0].limb_check("isSurface")
+
+    return limbs
+
 def round(actor):
+    target = target_creature(actor)
+    limb = target_limb(target)
+    weapon = pick_weapon(actor)
+
+    if all([target, limb, weapon]):
+        #should print weapon name, not hand-holding-weapon's name
+        print(actor.name, "attacks", target.name + "'s", limb.name, "with their", weapon.name + "!")
+        attack(target, limb, weapon)
+
+def target_creature(actor):
     room = actor.get_location()
+    targets = []
 
-    for other in room.get_creatures():
-        if actor is not other:
-            if other.get_team() == actor.get_team():
-                actor.speak("Hello, {}".format(other.name), other)
-            else:
-                attack(actor, other)
+    #gather
+    for creature in room.get_creatures():
+        if actor is not creature:
+            if creature.team != actor.team:
+                targets.append(creature)
 
-#single attack
-def attack(creature1, creature2):
-    worst = (None, 0)
-
-    for limb in creature1.subelements[0].limb_check("damage"):
-        damage = check_damage(limb)
-        if damage > worst[1]:
-            worst = (limb, damage)
-
-    #choose target limb
-    if worst[0] is not None:
-        target_limb = hit_limb(creature2)
-        
-        #deal damage
-        if target_limb is not None:
-            target_limb.hitpoints -= worst[1]
-            print(creature1.name, "deals", worst[1], "damage to", creature2.name + "'s", target_limb.name, "with his", worst[0].name + "!")
-            
-            #remove limb
-            if target_limb.hitpoints <= 0:
-                creature2.subelements[0].remove_limb(target_limb)
-                throw_limb(creature2, target_limb)
-                print(target_limb.name, "is severed from", creature2.name + "'s body!")
-
-        else:
-            print(creature2.name, "is invisible!")
+    #pick
+    if len(targets) > 0:
+        target = random.choice(targets)
     else:
-        print(creature1.name, "has no means of dealing damage to", creature2.name + "!")
+        target = False
 
-#only call on limbs with damage tag
+    return target
+
+def target_limb(target):
+    chosen = None
+    limbs = target.subelements[0].limb_check("isSurface")
+
+    if len(limbs) > 0:
+        chosen = min(limbs, key=lambda x: x.hitpoints)
+        print("chosen: ", chosen)
+    else:
+        print("No surface limbs.")
+        chosen = False
+    
+    return chosen
+
+def pick_weapon(actor):
+    claws = actor.subelements[0].limb_check("damage")
+    hands = actor.subelements[0].limb_check("grasp")
+
+    bigclaw = max(claws, key=check_damage, default=False)
+    swordhand = max(hands, key=check_damage, default=False)
+
+    weapon = max(bigclaw, swordhand, key=check_damage)
+
+    return weapon
+
 def check_damage(limb):
-    damage = limb.damage
+    #no limb
+    if not limb:
+        return 0
 
+    #limb damage
+    try:
+        damage = limb.damage
+    except AttributeError:
+        damage = 0
+
+    #limb's weapons' damage
     for item in limb.inventory:
         if hasattr(item, "damage"):
             if item.damage > damage:
@@ -51,31 +84,51 @@ def check_damage(limb):
 
     return damage
 
-#picks a target limb
-def hit_limb(target):
-    chosen = None
-    limbs = target.subelements[0].limb_check("isSurface")
+def attack(defender, limb, weapon):
+    damage = check_damage(weapon)
+    
+    limb.hitpoints -= damage
+    print("It deals", damage, "damage!") 
 
-    for limb in limbs:
-        if not limb.isSurface:
-            limbs.remove(limb)
-
-    if len(limbs) > 0:
-        chosen = limbs[random.randrange(len(limbs))]
-        print("chosen: ", chosen)
-    else:
-        print("No surface limbs.")
-    return chosen
+    if limb.hitpoints <= 0:
+        defender.remove_limb(limb)
+        print(limb.name, "is severed from", defender.name + "'s body!")
+        
+        throw_limb(defender, limb)
 
 #arms have to land somewhere
 def throw_limb(amputee, limb):
-    landed = False
     room = amputee.get_location()
     landings = room.elem_check("canCatch")
     
     if len(landings) > 0:
         lands_at = landings[random.randrange(len(landings))]
+        lands_at = random.choice(landings)
         lands_at.add_vis_item(limb)
-        landed = True
+        print("The", limb.name, "lands on the", lands_at.name + ".")
+    else:
+        print("Nowhere to land.")
 
-    return landed
+if __name__ == "__main__":
+    import item
+    from orc import orc
+    # orc.baseElem.subelement_classes[1].hitpoints = 5
+
+    o = orc("o", location=None)
+
+    class sword(item.thing):
+        name = "sword"
+        damage = 50
+
+    s = sword()
+    print("sword damage: ", s.damage)
+    
+    print("claw: ", o.subelements[0].subelements[0])
+    o.subelements[0].subelements[0].damage = 5
+
+    print("hand: ", o.subelements[0].subelements[1].subelements[0])
+    o.subelements[0].subelements[1].subelements[0].inventory.append(s)
+    print("hand inventory: ", o.subelements[0].subelements[1].inventory)
+    
+    print("pick_weapon(): ", pick_weapon(o))
+    print("weapon damage: ", check_damage(pick_weapon(o)))

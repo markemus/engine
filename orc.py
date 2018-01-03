@@ -117,7 +117,7 @@ class orc(cr.creature):
     baseElem = torso
     colors = ["red", "brown", "green", "black", "beige"]
     textures = ["scaled", "haired", "skinned"]
-    suits = [suits.testsuit]
+    suits = [suits.testsuit, suits.weapons]
 
 if __name__ == '__main__':
     oscar = orc("Oscar", location=None)

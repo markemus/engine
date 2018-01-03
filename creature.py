@@ -39,19 +39,6 @@ class limb():
                 elem = elemclass(self.color, self.texture)
                 self.subelements.append(elem)
 
-    # def desc(self):                          #prints all the body parts connected below the element.
-    #     print("{0} {1} {2} ({3}) contains:".format(self.color, self.texture, self.name, self.hitpoints))
-        
-    #     for element in self.subelements:
-    #         print(element.name)
-
-    #     print("")
-
-    #     for element in self.subelements:
-    #         # print("{0} contains:".format(element.name))
-    #         if len(element.subelements) >= 1:
-    #             element.desc()
-
     def desc(self, full=True, offset=0):
         """
         Basic describe function is always called desc
@@ -82,7 +69,7 @@ class limb():
 
         return(limb_total)
 
-    #call on subelements[0]
+    #call on creature!
     def remove_limb(self, limb):
         if limb in self.subelements:
             self.subelements.remove(limb)
@@ -125,9 +112,14 @@ class creature(object):
 
             for limb in limbs:
                 if limb.wears in suit.keys():
-                    article = suit[limb.wears]()
+
+                    #choose and construct
+                    article = suit[limb.wears]
+                    if (type(article) == tuple):
+                        article = random.choice(article)
+                    article = article()
+
                     limb.inventory.append(article)
-                    # print(limb, limb.inventory)
         
     #move to a new Place. Accepts a str input.
     #can only move between bordered Places with this function. Should have a failure option
@@ -155,26 +147,6 @@ class creature(object):
             
             if (len(carriedItem.vis_inv) >= 1):
                 carriedItem.viewInv()
-
-    # #describes a creature's visible elements
-    # def fullDesc(self):                 
-    #     print("{0} {1} {2} contains:".format(self.color, self.texture, self.name))            #creature contains:
-
-    #     for theElement in self.subelements:                    #the following elements
-    #         print(theElement.name)
-        
-    #     for theElement in self.subelements:                    #these elements contain the following elements
-    #         if len(theElement.subelements) >= 1:
-    #             print("")
-    #             theElement.desc()
-
-    #tag: isSurface
-    # def desc(self):
-    #     vis_elements = self.subelements[0].limb_check("isSurface")
-
-    #     print("\n{0} {1} {2}:".format(self.color, self.texture, self.name))
-    #     for element in vis_elements:
-    #         print("a {0} {1} {2} ({3})".format(element.color, element.texture, element.name, element.hitpoints))
 
     def desc(self, full=True, offset=0):
         """
@@ -232,6 +204,13 @@ class creature(object):
                 ungrasped = True
 
         return ungrasped
+
+    def remove_limb(self, limb):
+        if limb in self.subelements:
+            self.subelements.remove(limb)
+        else:
+            for subLimb in self.subelements:
+                subLimb.remove_limb(limb)
 
     def speak(self, words, listener):
         room = self.location.get_creatures()

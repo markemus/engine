@@ -23,7 +23,7 @@ print(adam.location.name)
 adam.location.desc()
 adam.speak("hello world", adam.location.creatures[0])
 
-print(adam.location.borders.keys())
+print("adam.location.borders.keys(): ", adam.location.borders.keys())
 
 def tryDirections():
     for direction in adam.location.borders.keys():
@@ -31,28 +31,26 @@ def tryDirections():
             print(direction)
             return direction
 
+def desc_all():
+    print("\n\nadam.desc():")
+    print(adam.desc())
+
+    print("\n\nadam.location.desc()")
+    print(adam.location.desc())
+
 adam.leave(tryDirections())
-adam.location.desc()
 adam.speak("Stand and deliver!", adam.location.creatures[0])
 
 adam.leave(tryDirections())
-adam.location.desc()
 combat.round(adam)
 adam.leave(tryDirections())
 
-adam.location.creatures[0].desc()
-
-print(adam.get_location())
-adam.location.elements[0].canCatch = True
 t_game.clock.combat_handler()
 
-adam.location.creatures[0].desc()
+desc_all()
 
-adam.location.desc()
-adam.desc()
-# print(adam.desc())
 
-print(adam.location.desc())
+
 # gui = gui.Gui(t_game)
 # gui.keyboard.game = thisGame
 # gui.mainloop()

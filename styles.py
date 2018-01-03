@@ -31,6 +31,7 @@ class wall(pl.element):
 class floor(pl.element):
     name = "floor"
     count = (1,2)
+    canCatch = True
 
 #example
 class TortureChamber(pl.place):
