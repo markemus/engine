@@ -1,22 +1,33 @@
-# Engine
-A game engine for text-based roguelike games.
-
-This is a game engine, not a game. The idea is that the user can create basic creatures called "templates" which are then used to generate and populate a world. 
-
-All creatures are stored as trees of limbs, with lower level limbs (such as hands) stored in higher level limbs (arms). If a higher level limb becomes detached from the body, the lower level limbs are detached as well.
-
-Limbs have attributes called "tags" that can be searched for using the built-in function "limb_check". This returns an array containing all the limbs which have that tag, to be used for whatever purpose you like. For example, the "grasp" tag is checked before the creature picks anything up, and the "amble" tag is checked to ensure that the creature has enough legs (or leg-like appendages) to walk.
-
-Rooms are very basic, but follow the same principle of being composed of a tree of "elements". The elements can contain objects, either visible or hidden (and can be visible or hidden themselves), which determines whether the player can see them when the desc function is called. desc uses the same principle as limb_check to traverse the tree.
-
-When a level is generated it creates a sequence of rooms randomly from collections of elements of different types. Currently all generated rooms are composed of 4 walls and 1 floor. Doors are added to connect rooms together, which allow the player to traverse the level.
-
-A very basic GUI is included, but it was recently added and is very much a work in progress.
+# EverRogue
+Sick of playing the same rogue-like over and over? Now you can make your own! Inspired by Kyle's Quest and Dwarf Fortress, EverRogue generates endless rogue-like games for you and your friends to play.
 
 # TO INSTALL
-
-Install python 3.  
-Packages: tkinter (avoidable if you don't use the GUI with some minor modifications to index.py)
+Install python 3.
 
 # TO RUN
 python3 index.py
+
+# INSTRUCTIONS (ADVANCED)
+
+Game generation works as follows:
+
+**Games** are generated from GameStyles, which contain a sequence of LevelStyles. These levels are generated in order.
+
+**LevelStyles** contain the Room classes that are used to construct the individual rooms (called Places) in the level. Levels also add doors connecting rooms to one another.
+
+**Place** classes describe (as a range) how many of the room should be created per level, as well as the creature classes that they can contain. They also define options such as the colors that the room elements can be painted. 
+
+Room **elements** define behavior- floors can catch falling objects, doors connect rooms, etc.
+
+**Creature** classes form the root of a tree of Limb classes that the creature can contain. They also define behaviors for the creature, such as grasp() to pick up items or leave() to exit a room.
+
+**Limb** classes contain attributes called "tags" that determine which behaviors the limb can be used for. 
+
+**Tags**
+A limb with a "grasp" tag (a hand) can be used to pick up items- as long as its subelements contain values for "f\_grasp" that sum to at least 1 (fingers), and values for "t\_grasp" that also sum to at least 1.
+
+Creatures can also contain tags of their own- these are attributes that cannot be lost.
+
+The creature.limb_check() function is used to gather limbs containing the requested tag. 
+
+**Combat** is turn based. Each creature gets to attack with ALL of their limbs containing a "damage" or "grasp" tag. They can choose not to attack with a limb, in which case it will be available to block incoming attacks from their opponent. This means you have to be careful- if you attack with all your limbs, your enemy might well chop them off on their own turn. Of course they'll have trouble doing that if they have no arms left...
