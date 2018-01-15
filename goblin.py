@@ -9,7 +9,7 @@ kinsmen. They can be distinguished by their lack of horns.
 #head
 class head(cr.limb):
     name = "head"
-    subelement_classes = [orc.ear, orc.eye, orc.teeth, orc.teeth, orc.tongue, orc.nose]
+    subelement_classes = [orc.ear, orc.eye, orc.teeth, orc.tongue, orc.nose]
     isSurface = True
     appendageRange = (1,2)
     wears = "head"

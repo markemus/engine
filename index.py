@@ -15,10 +15,16 @@ t_game = game.Game("The Howling Manor", styles.Castle)
 thisLevel = t_game.level_list[0]
 
 adam = man.man("Adam", location=thisLevel.start)
+# thisLevel.start.addCreature(adam)
 t_game.set_char(adam)
 adam.team = "player"
 
-thisLevel.printMap()
+# cr = combat.CombatRound(adam)
+
+
+
+
+thisLevel.printMap(adam)
 print(adam.location.name)
 adam.location.desc()
 adam.speak("hello world", adam.location.creatures[0])
@@ -42,10 +48,10 @@ adam.leave(tryDirections())
 adam.speak("Stand and deliver!", adam.location.creatures[0])
 
 adam.leave(tryDirections())
-combat.round(adam)
+# combat.round(adam)
 adam.leave(tryDirections())
 
-t_game.clock.combat_handler()
+# t_game.clock.combat_handler()
 
 desc_all()
 

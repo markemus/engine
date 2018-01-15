@@ -1,11 +1,10 @@
 import combat
 
-
 class Controller():
 
     def __init__(self, game):
         self.game = game
-        self.combatFsm = combat.Fsm(game.char)
+        # self.combatFsm = combat.Fsm(game.char)
 
     def listtodict(self, l):
         d = {str(i): l[i] for i in range(len(l))}
@@ -13,12 +12,19 @@ class Controller():
         return d
 
     def dictprint(self, d):
-        try:
-            #for lists cast to dicts in listtodict
-            keys = sorted(d.keys(), key=int)
-        except ValueError:
-            #for builtin interfaces
-            keys = sorted(d.keys())
+        intkeys = []
+        strkeys = []
+
+        for key in d.keys():
+            if key.isdigit():
+                intkeys.append(key)
+            else:
+                strkeys.append(key)
+
+        intkeys.sort(key=int)
+        strkeys.sort()
+
+        keys = intkeys + strkeys
 
         for key in keys:
             #if function
@@ -55,29 +61,56 @@ class Controller():
         self.game.char.leave("e")
 
     #combat
-
     def attack(self):
-        targetlist = combat.get_target_creatures(self.game.char)
-        targets = self.listtodict(targetlist)
+        com = combat.Combat(self.game.char, self)
+        com.fullCombat()
+
+    def pick_target(self):
+        enemylist = combat.get_target_creatures(self.game.char)
+        targets = self.listtodict(enemylist)
+        targets["x"] = "Withhold your blow."
 
         self.dictprint(targets)
 
-        i = input("Who are you attacking?")
-        defender = targets[i]
+        i = input("\nWho are you attacking (x for none)? ")
 
+        if i != "x":
+            defender = targets[i]
+        else:
+            defender = False
+
+        return defender
+
+    def pick_limb(self, defender):
         limblist = combat.get_target_limbs(defender)
         limbs = self.listtodict(limblist)
+        limbs["x"] = "Withhold your blow."
 
         self.dictprint(limbs)
 
-        j = input("Which limb are you targeting?")
+        i = input("\nWhich limb are you targeting (x for none)? ")
         
-        limb = limbs[j]
+        if i != "x":
+            limb = limbs[i]
+        else:
+            limb = False
 
-        weapon = combat.pick_weapon(self.game.char)
-        print("interface.attack: ", weapon)
-        print("interface.attack: ", combat.check_damage(weapon))
+        return limb
 
-        combat.attack(defender, limb, weapon)
+    def pick_blocker(self, limb, blockers):
+        blockers = self.listtodict(blockers)
+        blockers["x"] = "Accept the blow."
 
-        self.combatFsm.to_ai()
+        self.dictprint(blockers)
+
+        i = input("\nWhich limb would you like to block with (x for none)?")
+
+        if i != "x":
+            blocker = blockers[i]
+        else:
+            blocker = False
+
+        return blocker
+
+    def defend(self, cr):
+        print("{} swings their {} at your {}.".format(cr.attacker.name, cr.weapon.name, cr.target.name))

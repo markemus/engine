@@ -70,7 +70,7 @@ class Interface():
 if __name__ == "__main__":
     x = game.Game("testGame", styles.Castle)
     adam = man.man("Adam", location=x.level_list[0].start)
-    x.level_list[0].start.addCreature(adam)
+    x.level_list[0].start.creatures = [adam] + x.level_list[0].start.creatures
     x.set_char(adam)
     adam.team = "player"
     i = Interface(x)
