@@ -83,27 +83,25 @@ class Combat():
 
         return weapons
 
-    def check_damage(self, limb):
-        #no limb
-        if not limb:
+    def check_damage(self, weapon, target):
+        #no weapon
+        if not weapon:
             return 0
 
-        #limb damage
+        #weapon damage
         try:
-            damage = limb.damage
+            damage = weapon.damage
         except AttributeError:
             damage = 0
 
-        #limb's weapons' damage
-        for item in limb.inventory:
-            if hasattr(item, "damage"):
-                if item.damage > damage:
-                    damage = item.damage
+        #adjust for armor
+        if hasattr(target, "armor"):
+            damage = (damage - target.armor) if damage > target.armor else 0 
 
         return damage
 
     def attack(self, defender, limb, weapon):
-        damage = self.check_damage(weapon)
+        damage = self.check_damage(weapon, limb)
         cutoff = False
         
         limb.hitpoints -= damage
@@ -194,28 +192,15 @@ def get_target_limbs(defender):
     return limbs
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    # pass
     # import item
-    # from orc import orc
-    # # orc.baseElem.subelement_classes[1].hitpoints = 5
+    from orc import orc 
 
-    # o = orc("o", location=None)
+    o = orc("o", location=None)
+    c = Combat(None, None)
+    hand = o.grasp_check()
+    print(hand.damage)
+    print(hand.armor)
 
-    # class sword(item.thing):
-    #     name = "sword"
-    #     damage = 50
-
-    # s = sword()
-    # print("sword damage: ", s.damage)
-    
-    # print("claw: ", o.subelements[0].subelements[0])
-    # o.subelements[0].subelements[0].damage = 5
-
-    # print("hand: ", o.subelements[0].subelements[1].subelements[0])
-    # o.subelements[0].subelements[1].subelements[0].damage = 5
-    # o.subelements[0].subelements[1].subelements[0].inventory.append(s)
-    # print("hand inventory: ", o.subelements[0].subelements[1].inventory)
-    
-    # # print("pick_weapon(): ", pick_weapon(o))
-    # # print("weapon damage: ", check_damage(pick_weapon(o)))
-    # print(get_weapons(o))
+    print(c.check_damage(hand, hand))

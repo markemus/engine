@@ -13,6 +13,7 @@ class limb():
     wears = "generic"
     # cantransfer = False
     hitpoints = 10
+    _armor = 0
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -77,7 +78,35 @@ class limb():
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
 
+    @property
+    def armor(self):
+        armor = self._armor
 
+        for item in self.inventory:
+            if hasattr(item, "armor"):
+                armor += item.armor
+
+        return armor
+
+
+class weapon(limb):
+    """A limb that can deal damage."""
+    name = "NO_NAME_WEAPON"
+    _damage = 0
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @property
+    def damage(self):
+        damage = self._damage
+
+        for item in self.inventory:
+            if hasattr(item, "damage"):
+                if item.damage > damage:
+                    damage = item.damage
+        
+        return damage
 
 
 class creature(object):

@@ -23,14 +23,14 @@ class head(cr.limb):
 leg = cl.leg
 leg.appendageRange = (4,5)
 
-class tail(cr.limb):
+class tail(cr.weapon):
     name = "tail"
     subelement_classes = []
     isSurface = True
     f_grasp = 1
     t_grasp = 1
     grasp = 1
-    damage = 7
+    _damage = 7
     appendageRange = (1,2)
     wears = "tail"
 

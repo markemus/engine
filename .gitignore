@@ -1,0 +1,11 @@
+#test gitignore file
+
+notes/
+*.pyc
+backups/
+*.sublime-project
+*.sublime-workspace
+__pycache__/
+.idea/
+.hg/
+.hgignore

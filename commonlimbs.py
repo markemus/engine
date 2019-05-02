@@ -22,18 +22,18 @@ class eye(cr.limb):
     appendageRange = (2,3)
     wears = "eye"
 
-class horn(cr.limb):
+class horn(cr.weapon):
     name = "horn"
     subelement_classes = []
-    damage = 3
+    _damage = 3
     isSurface = True
     appendageRange = (2,3)
     wears = "horn"
 
-class teeth(cr.limb):
+class teeth(cr.weapon):
     name = "teeth"
     subelement_classes = []
-    damage = 2
+    _damage = 2
     appendageRange = (1,2)
     wears = "teeth"
 
@@ -88,7 +88,7 @@ class thumb(cr.limb):
     appendageRange = (1,2)
     wears = "finger"
 
-class hand(cr.limb):
+class hand(cr.weapon):
     name = "hand"
     subelement_classes = [finger, thumb]
     grasp = 1
@@ -126,3 +126,10 @@ class torso(cr.limb):
     isSurface = True
     appendageRange = (1,2)
     wears = "body"
+
+
+if __name__ == '__main__':
+    wep = suits.sword()
+    test = hand()
+    test.inventory.append(wep)
+    print(test.damage)
