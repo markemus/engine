@@ -1,6 +1,6 @@
 import item as i
 
-#armor
+# Armor
 class helm(i.thing):
     name = "helm"
     canwear = i.thing.canwear.copy()
@@ -44,9 +44,7 @@ class boot(i.thing):
     armor = 2
     canwear["foot"] = True
 
-
-
-#weapons
+# Weapons
 class sword(i.thing):
     name = "sword"
     canwear = i.thing.canwear.copy()
@@ -64,8 +62,6 @@ class axe(i.thing):
     canwear = i.thing.canwear.copy()
     canwear["hand"] = True
     damage = 7
-
-
 
 testsuit = {
     "head": helm,

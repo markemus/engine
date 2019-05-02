@@ -1,7 +1,6 @@
 import combat
 
-class Controller():
-
+class Controller:
     def __init__(self, game):
         self.game = game
         # self.combatFsm = combat.Fsm(game.char)
@@ -12,6 +11,7 @@ class Controller():
         return d
 
     def dictprint(self, d):
+        """What is this tho."""
         intkeys = []
         strkeys = []
 
@@ -27,13 +27,13 @@ class Controller():
         keys = intkeys + strkeys
 
         for key in keys:
-            #if function
+            # if function
             if hasattr(d[key], "__name__"):
                 print(str(key) + ": " + d[key].__name__)
-            #elif object
+            # elif object
             elif hasattr(d[key], "name"):            
                 print(str(key) + ": " + d[key].name)
-            #we don't want to ever see this, but we'd rather have it than an exception, I think.
+            # we don't want to ever see this, but we'd rather have it than an exception, I think.
             else:
                 print(str(key) + ": " + str(d[key]))
 
@@ -60,7 +60,7 @@ class Controller():
     def east(self):
         self.game.char.leave("e")
 
-    #combat
+    # Combat
     def attack(self):
         com = combat.Combat(self.game.char, self)
         com.fullCombat()

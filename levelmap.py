@@ -1,29 +1,31 @@
 import imp, math
 
+# TODO Fix these imports.
 creature = imp.load_source("creature", "creature.py")
 place = imp.load_source("place", "place.py")
 item = imp.load_source("item", "item.py")
 
-#contains all levels in order
+# Contains all levels in order
+# TODO Does it? Why?? EDIT: Oh lord.
 levels = []
 
-#maps a single level
-class levelmap():
+# Maps a single level
+class levelmap:
     name = ''
     start = None
     end = None
 
     def __init__(self, newname, roomnum):
         self.name = newname
-        #take sqrt of roomnum, round up, cast as int. That gives us a map with enough room.
-        #Then scale the map up.
+        # Take sqrt of roomnum, round up, cast as int. That gives us a map with enough room.
+        # Then scale the map up.
         x = (2 * int(math.ceil(math.sqrt(roomnum)))) + 1
         self.layout = [["X" for i in range(x)] for j in range(x)]
         self.roomLocations = {}
 
     def addRoom(self, x, y, room):
         self.layout[x][y] = room
-        self.roomLocations[room] = (x,y)
+        self.roomLocations[room] = (x, y)
 
     def printMap(self, char):
         for row in self.layout:

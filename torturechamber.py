@@ -6,10 +6,10 @@ class Wall(place.element):
         super().__init__("wall")
 
 class TortureChamber(place.place):
-
     def __init__(self, level):
         super().__init__("torture chamber", [], "T", level)
 
-w = Wall()
+if __name__ == "__main__":
+    w = Wall()
 
-print(w.newcolor)
+    print(w.newcolor)

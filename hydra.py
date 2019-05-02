@@ -1,10 +1,9 @@
-import creature as cr 
+"""The Hydra is a dangerous and terrifying creature with a varying number of heads.
+Beware its flailing tail and sharp teeth!"""
+import creature as cr
 import commonlimbs as cl
 import suits
-"""
-The Hydra is a dangerous and terrifying creature with a varying number of heads.
-Beware its flailing tail and sharp teeth!
-"""
+
 
 class snout(cr.limb):
     name = "snout"
@@ -17,11 +16,11 @@ class head(cr.limb):
     name = "head"
     subelement_classes = [snout, cl.ear, cl.eye]
     isSurface = True
-    appendageRange = (3,6)
+    appendageRange = (3, 6)
     wears = "head"
 
 leg = cl.leg
-leg.appendageRange = (4,5)
+leg.appendageRange = (4, 5)
 
 class tail(cr.weapon):
     name = "tail"
@@ -31,14 +30,14 @@ class tail(cr.weapon):
     t_grasp = 1
     grasp = 1
     _damage = 7
-    appendageRange = (1,2)
+    appendageRange = (1, 2)
     wears = "tail"
 
 #torso
 class torso(cr.limb):
     name = "torso"
     subelement_classes = [head, leg, tail]
-    appendageRange = (1,2)
+    appendageRange = (1, 2)
     wears = "body"
 
 #hydra
@@ -50,7 +49,8 @@ class hydra(cr.creature):
     textures = ["scaled"]
     suits = [suits.testsuit]
 
+
 if __name__ == "__main__":
     howie = hydra("Howie", location=None)
-    howie.desc()
+    print(howie.desc())
     # print(howie.subelements[0].inventory)

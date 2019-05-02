@@ -2,7 +2,7 @@ import random
 
 from transitions import Machine
 
-
+#TODO replace with FSM, maybe?
 class Combat():
     def __init__(self, char, cont):
         self.char = char
@@ -11,9 +11,7 @@ class Combat():
         self.blockers = {}
 
     def fullCombat(self):
-        """
-        Full combat round for all creatures.
-        """
+        """Full combat round for all creatures."""
 
         creatures = self.char.location.get_creatures()
         print("fullCombat: creatures: ", creatures)
@@ -26,16 +24,14 @@ class Combat():
             print("fullCombat: blockers: ", self.blockers)
             for weapon in self.get_weapons(actor):
                 used = self.combatRound(actor, weapon)
-                #can't block with weapons used to attack
+                # Can't block with weapons used to attack
                 if used:
                     self.blockers[actor].remove(weapon)
 
         print("fullCombat: blockers: ", self.blockers)
 
     def combatRound(self, actor, weapon):
-        """
-        Single attack+defense+damage round.
-        """
+        """Single attack + defense + damage round."""
         used = False
 
         if actor is self.char:
@@ -53,10 +49,10 @@ class Combat():
             limb = False
 
         if limb:
-            #should print weapon name, not hand-holding-weapon's name
+            # Should print weapon name, not hand-holding-weapon's name
             print(actor.name, "attacks", target.name + "'s", limb.name, "with their", weapon.name + "!")
 
-            #blocking
+            # Blocking
             blockers = self.blockers[target].copy()
             if target is self.char:
                 blocker = self.cont.pick_blocker(limb, blockers)
@@ -84,17 +80,17 @@ class Combat():
         return weapons
 
     def check_damage(self, weapon, target):
-        #no weapon
+        # No weapon
         if not weapon:
             return 0
 
-        #weapon damage
+        # Weapon damage
         try:
             damage = weapon.damage
         except AttributeError:
             damage = 0
 
-        #adjust for armor
+        # Adjust for armor
         if hasattr(target, "armor"):
             damage = (damage - target.armor) if damage > target.armor else 0 
 
@@ -117,13 +113,13 @@ class Combat():
 
         return cutoff
 
-    #arms have to land somewhere
     def throw_limb(self, amputee, limb):
+        """Arms have to land somewhere."""
         room = amputee.get_location()
         landings = room.elem_check("canCatch")
         
         if len(landings) > 0:
-            lands_at = landings[random.randrange(len(landings))]
+            # lands_at = landings[random.randrange(len(landings))]
             lands_at = random.choice(landings)
             lands_at.add_vis_item(limb)
             print("The", limb.name, "lands on the", lands_at.name + ".")
@@ -131,22 +127,19 @@ class Combat():
             print("The limb flies off and disappears out of sight.")
 
 
-
-
-class CombatAI():
-
+class CombatAI:
     def __init__(self):
         pass
 
     def target_creature(self, actor):
         targets = []
 
-        #gather
+        # Gather
         for creature in get_target_creatures(actor):
             if creature.team != actor.team:
                 targets.append(creature)
 
-        #pick
+        # Pick
         if len(targets) > 0:
             target = random.choice(targets)
         else:
@@ -155,7 +148,6 @@ class CombatAI():
         return target
 
     def target_limb(self, target):
-        chosen = None
         limbs = target.subelements[0].limb_check("isSurface")
 
         if len(limbs) > 0:
@@ -169,6 +161,7 @@ class CombatAI():
         
         return chosen
 
+    #TODO limb not needed?
     def block(self, limb, blockers):
         if len(blockers) > 0:
             blocker = blockers[0]

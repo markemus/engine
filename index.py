@@ -14,7 +14,7 @@ t_game = game.Game("The Howling Manor", styles.Castle)
 
 thisLevel = t_game.level_list[0]
 
-adam = man.man("Adam", location=thisLevel.start)
+adam = man.Man("Adam", location=thisLevel.start)
 # thisLevel.start.addCreature(adam)
 t_game.set_char(adam)
 adam.team = "player"

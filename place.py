@@ -28,16 +28,14 @@ class place:
         self.get_borders()
 
     def desc(self, full=True, offset=0):
-        """
-        Basic describe function, always called desc.
-        """
+        """Basic describe function, always called desc."""
         text = (" "*offset) + "# " + self.name
         # if full:
         for creature in self.creatures:
-            text += "\n" + creature.desc(full=full, offset = offset+1)
+            text += "\n" + creature.desc(full=full, offset=offset + 1)
         for elem in self.elements:
             if elem.visible:
-                text += "\n" + elem.desc(full=full, offset = offset+1)
+                text += "\n" + elem.desc(full=full, offset=offset + 1)
 
         return text
 
@@ -51,26 +49,28 @@ class place:
 
     def _elementGen(self):
         for elemclass in self.subelement_classes:
-            #color
+            # Color
             color = random.choice(self.colors)
             texture = random.choice(self.textures)
-            #choose
-            if (type(elemclass) == tuple):
+            # Choose
+            #TODO isinstance
+            if type(elemclass) == tuple:
                 elemclass = random.choice(elemclass)
-            #count
+            # Count
             try:
                 potentialRange = elemclass.count
             except AttributeError:
                 raise AttributeError("'{0}' : {1} object has no attribute 'count'".format(elemclass.name, elemclass))
             countRange = random.randrange(potentialRange[0], potentialRange[1])
-            #create
+            # Create
             for count in range(countRange):
                 elem = elemclass(color, texture)
                 self.elements.append(elem)
 
     def _populate(self):
         for creature_class in self.creature_classes:
-            if (type(creature_class) == tuple):
+            #TODO isinstance
+            if type(creature_class) == tuple:
                 creature_class = random.choice(creature_class)
             name = creature_class.name + " of " + self.name
             creature = creature_class(name, location=self)
@@ -78,9 +78,7 @@ class place:
             self.creatures.append(creature)
 
     def get_borders(self):
-        """
-        Gives the Place its Elements' Borders.
-        """
+        """Gives the Place its Elements' Borders."""
         for subElement in self.elements:
             subBorders = subElement.borders
 
@@ -91,7 +89,7 @@ class place:
                         selfIndex = self.level.roomLocations[self]
                         relativeIndex = (roomIndex[0]-selfIndex[0], roomIndex[1]-selfIndex[1])
                         
-                        #we need to find where room is relative to self
+                        # We need to find where room is relative to self
                         if relativeIndex == (-2,0):
                             self.borders["n"] = room
                         if relativeIndex == (2,0):
@@ -100,7 +98,7 @@ class place:
                             self.borders["w"] = room
                         if relativeIndex == (0,2):
                             self.borders["e"] = room
-                    elif (room.level != self.level):
+                    elif room.level != self.level:
                         self.borders[">"] = room
 
     def addElement(self, element):
@@ -125,16 +123,12 @@ class place:
         return self.level
 
 
-
-class element():
+class element:
     name = "NO_NAME_PLACE"
-    visible = True                  #element is shown during place's desc()
+    visible = True                  # element is shown during place's desc()
     color = "NO_COLOR" 
     texture = "NO_TEXTURE"
-    # vis_inv = []                    #things on element
-    # invis_inv = []                  #things in element
-    elements = []                   #elements in element
-    # area = "You see a "
+    elements = []
 
     def __init__(self, color, texture):
         self.borders = []
@@ -142,7 +136,7 @@ class element():
         self.texture = texture
         self.vis_inv = []
         self.invis_inv = []
-        self.elements = []
+        self.elements = []      # subelements
 
     # def desc(self):
     #     count = 0
@@ -176,16 +170,14 @@ class element():
     #                 print("As far as you can tell the " + subElem.name + " contains no items.")
 
     def desc(self, full=True, offset=0):
-        """
-        Basic describe function is always called desc
-        """
+        """Basic describe function is always called desc."""
         text = (" "*offset) + "- {} {} {}".format(self.color, self.texture, self.name)
         if full:
             for item in self.vis_inv:
-                text += "\n" + item.desc(offset = offset+1)
+                text += "\n" + item.desc(offset=offset+1)
             for elem in self.elements:
                 if elem.visible:
-                    text += "\n" + elem.desc(offset = offset+1)
+                    text += "\n" + elem.desc(offset=offset+1)
 
         return text
 
@@ -207,5 +199,6 @@ class element():
     def add_vis_item(self, item):
         self.vis_inv.append(item)
 
+# TODO should be somewhere else. Organize this sort of stuff somewhere.
 class door(element):
     name = "door"

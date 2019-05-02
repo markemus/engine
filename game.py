@@ -3,7 +3,7 @@ import levelGenerator
 import styles
 
 class Game(object):
-
+    """See, it's really very simple."""
     def __init__(self, name, gamestyle):
         self.name = name
         self.char = None
@@ -13,7 +13,7 @@ class Game(object):
         
         self.levelGenerator = levelGenerator.levelGenerator()
         
-        #generate
+        # Generate
         self._generate(gamestyle)
         self.set_current_level(0)
 
@@ -39,6 +39,7 @@ class Game(object):
 
     def get_level(self):
         return self.current_level
+
 
 if __name__ == '__main__':
     x = Game("testGame", styles.Castle)

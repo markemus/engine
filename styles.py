@@ -10,6 +10,9 @@ Styles are used for game generation.
 
 Do not inherit styles directly or the attributes will be inherited as well. Instead,
 register() your classes as abstract subclasses of their parents.
+
+The hierarchy is built like a pyramid, from the ground up. At each level of the hierarchy you can define objects that 
+will be inherited by all the lower levels.
 """
 
 class LevelStyle(abc.ABC):
@@ -22,8 +25,6 @@ class GameStyle(abc.ABC):
     creature_classes = []
 
 
-
-
 class wall(pl.element):
     name = "wall"
     count = (4,5)
@@ -33,7 +34,9 @@ class floor(pl.element):
     count = (1,2)
     canCatch = True
 
-#example
+
+# An example style- from lowest to highest, build a hierarchy.
+# First, some room types.
 class TortureChamber(pl.place):
     count = (1,3)
     colors = ["black", "gray"]
@@ -50,14 +53,14 @@ class Cell(pl.place):
     creature_classes = [(orc, goblin)]
     subelement_classes = [wall, floor]
 
-class Dungeon():
+# Then a level type.
+class Dungeon:
     room_classes = [TortureChamber, Cell]
     creature_classes = []
+
 LevelStyle.register(Dungeon)
 
-
-
-
+# Another set of rooms
 class ThroneRoom(pl.place):
     count = (1, 2)
     colors = ["gold", "red"]
@@ -74,16 +77,18 @@ class Kitchen(pl.place):
     creature_classes = [orc, goblin]
     subelement_classes = [wall, floor]
 
-class MainFloor():
+# Another level
+class MainFloor:
     room_classes = [ThroneRoom, Kitchen]
     creature_classes = []
+
 LevelStyle.register(MainFloor)
 
 
-
-
+# And finally, the game itself.
 class Castle():
     levelorder = [Dungeon, MainFloor]
     links = [(0,1)]
     creature_classes = [hydra]
+
 GameStyle.register(Castle)

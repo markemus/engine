@@ -109,15 +109,14 @@ class weapon(limb):
         return damage
 
 
-class creature(object):
-    """
-    Creatures are procedurally generated from the class template; creatures of the same class may still be very different objects.
-    """
-    name        = "NO_NAME_CREATURE"
-    team        = None
-    # cantransfer = False      #can carry items
-    # subelements = []         #elements of creature
-    location    = "loader"   #name of Place where creature is- object
+class creature:
+    """Creatures are procedurally generated from the class template; creatures of the same class may still be very
+    different objects."""
+    name = "NO_NAME_CREATURE"
+    team = None
+    # cantransfer = False      # can carry items
+    # subelements = []         # elements of creature
+    location = "loader"   # name of Place where creature is- object
   
     def __init__(self, name, location):
         self.name = name
@@ -131,6 +130,7 @@ class creature(object):
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)
+        # TODO let's refactor self.subelements[0] out entirely. Low priority.
         self.subelements = [baseElem]
 
     def _clothe(self):
@@ -142,22 +142,23 @@ class creature(object):
             for limb in limbs:
                 if limb.wears in suit.keys():
 
-                    #choose and construct
+                    # Choose and construct
                     article = suit[limb.wears]
-                    if (type(article) == tuple):
+                    #TODO isinstance
+                    if type(article) == tuple:
                         article = random.choice(article)
                     article = article()
 
                     limb.inventory.append(article)
-        
-    #move to a new Place. Accepts a str input.
-    #can only move between bordered Places with this function. Should have a failure option
+
+    # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
+        """Move to a new Place. Accepts a str input."""
         left = False
         currentRoom = self.location
         nextRoom = self.location.borders[direction]
 
-        if nextRoom != None:
+        if nextRoom is not None:
             if len(self.subelements[0].limb_check("amble")) >= 1:
                 currentRoom.removeCreature(self)
                 self.location = currentRoom.borders[direction]
@@ -169,22 +170,21 @@ class creature(object):
 
         return left
 
-    #examine Creature inventory and held Item inventories. Recursive
     def viewInv(self):
+        """Examine Creature inventory and held Item inventories. Recursive."""
         for carriedItem in self.inventory:
             print(carriedItem.name)
             
-            if (len(carriedItem.vis_inv) >= 1):
+            if len(carriedItem.vis_inv) >= 1:
                 carriedItem.viewInv()
 
+    # TODO add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
     def desc(self, full=True, offset=0):
-        """
-        Basic describe function is always called desc
-        """
+        """Basic describe function is always called desc."""
         text = (" "*offset) + "> " + self.name
         if full:
             for elem in self.subelements:
-                text += "\n" + elem.desc(offset = offset+1)
+                text += "\n" + elem.desc(offset=offset + 1)
 
         return text
 
@@ -214,7 +214,7 @@ class creature(object):
         grasped = False
         graspHand = self.grasp_check()
                         
-        if graspHand != None:
+        if graspHand is not None:
             graspHand.inventory.append(item)
             print(self.name + " picks up the " + item.name + " with their " + graspHand.name + ".")
             grasped = True

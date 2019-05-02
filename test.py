@@ -9,6 +9,7 @@ man = imp.load_source("man", "man.py")
 kangaroo = imp.load_source("kangaroo", "kangaroo.py")
 lizard = imp.load_source("lizard", "lizard.py")
 
+# TODO we can probably save just with a single pickling. It's just plain old python code throughout.
 # thefile = open("all_creatures.py", "w")
 # print("hello world", file = thefile)			#overwrites. 	!!!!!!!THIS IS HOW TO WRITE TO FILES!!!!!! 
 # Probably the key to loading from them as well, and from there the key to procedural generation!

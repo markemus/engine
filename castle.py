@@ -1,5 +1,6 @@
 import styles as st
 
+# TODO is this the old version or the new version? Put the newest version in here. And organize this sort of stuff better.
 #example
 class TortureChamber():
     count = (1,3)
