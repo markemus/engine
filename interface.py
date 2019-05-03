@@ -5,7 +5,7 @@ import game
 import man
 import styles
 
-class Interface():
+class Interface:
     def __init__(self, game):
         # self.game = game
         self.cont = controller.Controller(game)
@@ -13,33 +13,34 @@ class Interface():
         self.machine = Machine(model=self, states=states, initial="move")
 
         move = {
-            "h" : self.help,
-            "l" : self.cont.desc,
-            "m" : self.cont.map,
-            "w" : self.cont.north,
-            "s" : self.cont.south,
-            "a" : self.cont.west,
-            "d" : self.cont.east,
-            "b" : self.cont.borders,
-            "f" : self.fight
+            "h": self.help,
+            "l": self.cont.desc,
+            "m": self.cont.map,
+            "w": self.cont.north,
+            "s": self.cont.south,
+            "a": self.cont.west,
+            "d": self.cont.east,
+            "b": self.cont.borders,
+            "f": self.fight
         }
 
         fight = {
-            "h" : self.help,
-            "l" : self.cont.desc,
-            "m" : self.cont.map,
-            "a" : self.cont.attack,
-            "w" : self.move
+            "h": self.help,
+            "l": self.cont.desc,
+            "m": self.cont.map,
+            "a": self.cont.attack,
+            "w": self.move
         }
 
         self.commands = {
-            "move" : move,
-            "fight" : fight
+            "move": move,
+            "fight": fight
         }
 
-    #transitions
+    # Transitions
 
-    #we need these for our interface- transition methods are partial functions and have no __name__ or clean str() cast.
+    # We need these for our interface- transition methods are partial functions and
+    # have no __name__ or clean str() cast.
     def fight(self):
         print("You ready yourself for a fight.")
         self.to_fight()
@@ -48,10 +49,10 @@ class Interface():
         print("You set out on your quest again.")
         self.to_move()
 
-    #standard
+    # Standard
 
     def command(self):
-        x = input("Choose a command: ")
+        x = input("Choose a command (h for help): ")
         if x in self.commands[self.state].keys():
             self.commands[self.state][x]()
         else:
@@ -61,10 +62,6 @@ class Interface():
         allcoms = self.commands[self.state]
 
         self.cont.dictprint(allcoms)
-
-
-
-
 
 
 if __name__ == "__main__":

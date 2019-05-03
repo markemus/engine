@@ -4,6 +4,7 @@ import random
 import place 
 import levelmap
 
+
 class levelGenerator:
     """Generates a single level from a Style."""
     def __init__(self):
@@ -46,6 +47,7 @@ class levelGenerator:
 
             # Create a room
             # gennedRoom = roomGenerators[roomType].random_room_generator(gennedLevel)
+            # TODO better room names
             gennedRoom = roomType(str(roomType), gennedLevel)
             gennedRoom.sprite = str(thisRoomNum)
 
@@ -66,13 +68,12 @@ class levelGenerator:
             # Prevents error if this is last room and roomNum is perfect square (so no available slots).
             if newRoom != roomNum - 1:
                 x, y = self.find_slot(gennedLevel, x, y, previousRoomList)
-                previousRoomList.append((x,y))
+                previousRoomList.append((x, y))
                 lastRoomNum = len(previousRoomList) - 1
 
         # Borders aren't updated until rooms are populated- they have doors now.
         for room in roomList:
             room.get_borders()
-        # print(previousRoomList)
         
         return gennedLevel
 
@@ -101,7 +102,7 @@ class levelGenerator:
             # Now ensure that the room slot is empty
             testx = x + our_delta[0]
             testy = y + our_delta[1]
-            testIndex = gennedLevel.checkIndex(testx,testy)
+            testIndex = gennedLevel.checkIndex(testx, testy)
 
             # Python allows negative indices to wrap around- we don't want that.
             # In this outcome, our room slot is available, so we assign it
@@ -140,7 +141,8 @@ class levelGenerator:
         door.addBorder(room1)
         room1.addElement(door)
 
-        # if first room generated (DOOR SHOULD CONNECT TO PREVIOUS LEVEL)
+        # if first room generated
+        # TODO DOOR SHOULD CONNECT TO PREVIOUS LEVEL
         if room2 is None:
             pass
         else:

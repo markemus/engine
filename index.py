@@ -1,62 +1,53 @@
-import combat
-import creature
-import place
-import item
-import levelGenerator
 import game
-import gui
-import levelmap
+import interface
 import man
 import styles
 
-# End of Loading Zone
+
+# Main
 t_game = game.Game("The Howling Manor", styles.Castle)
 
 thisLevel = t_game.level_list[0]
 
 adam = man.Man("Adam", location=thisLevel.start)
-# thisLevel.start.addCreature(adam)
 t_game.set_char(adam)
 adam.team = "player"
-
-# cr = combat.CombatRound(adam)
-
-
-
 
 thisLevel.printMap(adam)
 print(adam.location.name)
 adam.location.desc()
 adam.speak("hello world", adam.location.creatures[0])
 
-print("adam.location.borders.keys(): ", adam.location.borders.keys())
-
-def tryDirections():
-    for direction in adam.location.borders.keys():
-        if adam.location.borders[direction] != None:
-            print(direction)
-            return direction
-
-def desc_all():
-    print("\n\nadam.desc():")
-    print(adam.desc())
-
-    print("\n\nadam.location.desc()")
-    print(adam.location.desc())
-
-adam.leave(tryDirections())
-adam.speak("Stand and deliver!", adam.location.creatures[0])
-
-adam.leave(tryDirections())
-# combat.round(adam)
-adam.leave(tryDirections())
-
-# t_game.clock.combat_handler()
-
-desc_all()
+# print("adam.location.borders.keys(): ", adam.location.borders.keys())
+# def tryDirections():
+#     for direction in adam.location.borders.keys():
+#         if adam.location.borders[direction] is not None:
+#             print(direction)
+#             return direction
+#
+# def desc_all():
+#     print("\n\nadam.desc():")
+#     print(adam.desc())
+#
+#     print("\n\nadam.location.desc()")
+#     print(adam.location.desc())
+#
+# adam.leave(tryDirections())
+# adam.speak("Stand and deliver!", adam.location.creatures[0])
+#
+# adam.leave(tryDirections())
+# adam.leave(tryDirections())
+#
+# desc_all()
 
 
-
-# gui = gui.Gui(t_game)
-# gui.keyboard.game = thisGame
-# gui.mainloop()
+# x = game.Game("testGame", styles.Castle)
+# adam = man.Man("Adam", location=x.level_list[0].start)
+# x.level_list[0].start.creatures = [adam] + x.level_list[0].start.creatures
+# x.set_char(adam)
+# adam.team = "player"
+i = interface.Interface(t_game)
+print(i.state)
+print(adam.location.borders)
+while True:
+    i.command()
