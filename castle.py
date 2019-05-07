@@ -1,56 +1,68 @@
-import styles as st
+import place as pl
 
-# TODO is this the old version or the new version? Put the newest version in here. And organize this sort of stuff better.
-#example
-class TortureChamber():
-    count = (1,3)
+from goblin import goblin
+from hydra import hydra
+from orc import orc
+from styles import LevelStyle, GameStyle, wall, floor
+
+# TODO Put the newest version in here. And organize this sort of stuff better.
+# An example style- from lowest to highest, build a hierarchy.
+# First, some room types.
+class TortureChamber(pl.place):
+    count = (1, 3)
     colors = ["black", "gray"]
     textures = ["stone", "iron", "dirt", "timber"]
     furniture = []
-    creatures = []
-st.RoomStyle.register(TortureChamber)
+    creature_classes = [(orc, goblin)]
+    subelement_classes = [wall, floor]
 
-class Cell():
-    count = (5,10)
+class Cell(pl.place):
+    count = (5, 10)
     colors = ["unpainted", "grimy"]
     textures = ["stone", "concrete"]
     furniture = []
-    creatures = []
-st.RoomStyle.register(Cell)
+    creature_classes = [(orc, goblin)]
+    subelement_classes = [wall, floor]
 
-class Dungeon():
-    roomstyles = [TortureChamber, Cell]
-    creatures = []
-st.LevelStyle.register(Dungeon)
-
-
+# Then a level type.
+class Dungeon:
+    room_classes = [TortureChamber, Cell]
+    creature_classes = []
 
 
-class ThroneRoom():
+LevelStyle.register(Dungeon)
+
+# Another set of rooms
+class ThroneRoom(pl.place):
     count = (1, 2)
     colors = ["gold", "red"]
     textures = ["brick", "stone"]
     furniture = []
-    creatures = []
-st.RoomStyle.register(ThroneRoom)
+    creature_classes = [orc, goblin]
+    subelement_classes = [wall, floor]
 
-class Kitchen():
+class Kitchen(pl.place):
     count = (1, 2)
     colors = ["dirty", "smoke-stained", "unpainted"]
     textures = ["brick", "stone"]
     furniture = []
-    creatures = []
-st.RoomStyle.register(Kitchen)
+    creature_classes = [orc, goblin]
+    subelement_classes = [wall, floor]
 
-class MainFloor():
-    roomstyles = [ThroneRoom, Kitchen]
-    creatures = []
-st.LevelStyle.register(MainFloor)
-
-
+# Another level
+class MainFloor:
+    room_classes = [ThroneRoom, Kitchen]
+    creature_classes = []
 
 
-class Castle():
+LevelStyle.register(MainFloor)
+
+
+# And finally, the game itself.
+class Castle:
     levelorder = [Dungeon, MainFloor]
     links = [(0,1)]
-st.GameStyle.register(Castle)
+    creature_classes = [hydra]
+
+
+GameStyle.register(Castle)

@@ -3,7 +3,7 @@ import random
 
 # End of Loading Zone
 
-class limb():
+class limb:
     """
     Body parts for Creatures. Store in a list in Creature object.
 
@@ -25,25 +25,25 @@ class limb():
 
     def _elementGen(self):
         for elemclass in self.subelement_classes:
-            #choose
-            if (type(elemclass) == tuple):
+            # Choose
+            if type(elemclass) == tuple:
                 elemclass = random.choice(elemclass)
-            #count
+
+            # Count
             try:
                 potentialRange = elemclass.appendageRange
             except AttributeError:
                 raise AttributeError("'{0}' : {1} object has no attribute 'appendageRange'".format(elemclass.name, elemclass))
             
             countRange = random.randrange(potentialRange[0], potentialRange[1])
-            #create
+
+            # Create
             for count in range(countRange):
                 elem = elemclass(self.color, self.texture)
                 self.subelements.append(elem)
 
     def desc(self, full=True, offset=0):
-        """
-        Basic describe function is always called desc
-        """
+        """Basic describe function is always called desc."""
         text = (" "*offset) + "+ {} {} {}".format(self.color, self.texture, self.name)
         if full:
             for item in self.inventory:
@@ -54,11 +54,9 @@ class limb():
         return text
 
     def limb_check(self, tag):
-        """
-        Returns a list of all nodes where tag is present.
+        """Returns a list of all nodes where tag is present.
         tag=name returns all nodes.
-        Used for gathering limbs for a task, eg. tag=grasp to pick up an item.
-        """
+        Used for gathering limbs for a task, eg. tag=grasp to pick up an item."""
         limb_total = []
 
         if hasattr(self, tag):
@@ -70,8 +68,8 @@ class limb():
 
         return(limb_total)
 
-    #call on creature!
     def remove_limb(self, limb):
+        """Call on creature.subelements..."""
         if limb in self.subelements:
             self.subelements.remove(limb)
         else:
@@ -151,6 +149,16 @@ class creature:
 
                     limb.inventory.append(article)
 
+    # TODO add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
+    def desc(self, full=True, offset=0):
+        """Basic describe function is always called desc."""
+        text = (" " * offset) + "> " + self.name
+        if full:
+            for elem in self.subelements:
+                text += "\n" + elem.desc(offset=offset + 1)
+
+        return text
+
     # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
         """Move to a new Place. Accepts a str input."""
@@ -177,16 +185,6 @@ class creature:
             
             if len(carriedItem.vis_inv) >= 1:
                 carriedItem.viewInv()
-
-    # TODO add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
-    def desc(self, full=True, offset=0):
-        """Basic describe function is always called desc."""
-        text = (" "*offset) + "> " + self.name
-        if full:
-            for elem in self.subelements:
-                text += "\n" + elem.desc(offset=offset + 1)
-
-        return text
 
     def grasp_check(self):
         graspHand = None

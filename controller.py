@@ -38,7 +38,7 @@ class Controller:
                 print(str(key) + ": " + str(d[key]))
 
     def desc(self):
-        print(self.game.char.location.desc())
+        print(self.game.char.location.desc(full=False))
 
     def map(self):
         self.game.current_level.printMap(self.game.char)

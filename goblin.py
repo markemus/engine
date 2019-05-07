@@ -4,6 +4,7 @@ import creature as cr
 import orc as orc
 import suits
 
+
 # Head
 class Head(cr.limb):
     name = "head"
