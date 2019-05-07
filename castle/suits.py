@@ -1,3 +1,4 @@
+"""Suits are used to equip creatures during generation."""
 import engine.item as i
 
 # Armor

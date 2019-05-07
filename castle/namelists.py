@@ -1,3 +1,4 @@
+# TODO why aren't we using namelists?
 class Dark:
     verbs = ["crying", "killing", "fleeing", "poisoning", "sobbing"]
     adverbs = ["angry", "fearful", "fearsome", "ferocious", "agonizing"]

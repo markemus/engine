@@ -3,10 +3,11 @@ import random
 from transitions import Machine
 
 #TODO replace with FSM, maybe?
-class Combat():
+class Combat:
     def __init__(self, char, cont):
         self.char = char
         self.cont = cont
+        # TODO combatAI should be attached to each creature instead, and should be included in styles.
         self.ai = CombatAI()
         self.blockers = {}
 
@@ -185,15 +186,15 @@ def get_target_limbs(defender):
     return limbs
 
 
-if __name__ == "__main__":
-    # pass
-    # import item
-    from orc import orc 
-
-    o = orc("o", location=None)
-    c = Combat(None, None)
-    hand = o.grasp_check()
-    print(hand.damage)
-    print(hand.armor)
-
-    print(c.check_damage(hand, hand))
+# if __name__ == "__main__":
+#     # pass
+#     # import item
+#     from orc import orc
+#
+#     o = orc("o", location=None)
+#     c = Combat(None, None)
+#     hand = o.grasp_check()
+#     print(hand.damage)
+#     print(hand.armor)
+#
+#     print(c.check_damage(hand, hand))

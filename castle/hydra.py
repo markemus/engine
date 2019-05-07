@@ -1,15 +1,15 @@
 """The Hydra is a dangerous and terrifying creature with a varying number of heads.
 Beware its flailing tail and sharp teeth!"""
 import engine.creature as cr
-import commonlimbs as cl
-import suits
+import castle.commonlimbs as cl
+from castle import suits
 
 
 class snout(cr.limb):
     name = "snout"
     subelement_classes = [cl.tongue, cl.teeth]
     isSurface = True
-    appendageRange = (1,2)
+    appendageRange = (1, 2)
     wears = "nose"
 
 class head(cr.limb):
@@ -18,6 +18,7 @@ class head(cr.limb):
     isSurface = True
     appendageRange = (3, 6)
     wears = "head"
+
 
 leg = cl.leg
 leg.appendageRange = (4, 5)
@@ -33,14 +34,14 @@ class tail(cr.weapon):
     appendageRange = (1, 2)
     wears = "tail"
 
-#torso
+# Torso
 class torso(cr.limb):
     name = "torso"
     subelement_classes = [head, leg, tail]
     appendageRange = (1, 2)
     wears = "body"
 
-#hydra
+# Hydra
 class hydra(cr.creature):
     name = "hydra"
     isSurface = True

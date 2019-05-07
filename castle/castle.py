@@ -1,12 +1,15 @@
+"""An example style- from lowest to highest, build a hierarchy.
+
+This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?
+(No, there isn't.)"""
 import engine.place as pl
 
-from goblin import goblin
-from hydra import hydra
-from orc import orc
+from castle.goblin import goblin
+from castle.hydra import hydra
+from castle.orc import orc
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
 # TODO Put the newest version in here. And organize this sort of stuff better.
-# An example style- from lowest to highest, build a hierarchy.
 # First, some room types.
 class TortureChamber(pl.place):
     count = (1, 3)

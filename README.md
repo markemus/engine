@@ -5,7 +5,7 @@ Sick of playing the same rogue-like over and over? Now you can make your own! In
 Install python 3.
 
 # TO RUN
-python3 index.py
+python3 -m castle.index
 
 # INSTRUCTIONS (ADVANCED)
 

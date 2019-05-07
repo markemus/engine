@@ -1,6 +1,6 @@
 import engine.creature as cr
-import commonlimbs as cl
-import suits
+import castle.commonlimbs as cl
+from castle import suits
 
 class Head(cr.limb):
     name = "head"
