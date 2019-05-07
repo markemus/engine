@@ -1,6 +1,7 @@
-import fsm 
-import levelGenerator
-import styles
+from . import fsm
+from . import levelGenerator
+from . import styles
+
 
 class Game(object):
     """See, it's really very simple."""

@@ -1,8 +1,8 @@
 import math
 import random
 
-import place 
-import levelmap
+from . import place
+from . import levelmap
 
 
 class levelGenerator:

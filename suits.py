@@ -1,4 +1,4 @@
-import item as i
+import engine.item as i
 
 # Armor
 class helm(i.thing):

@@ -1,9 +1,10 @@
 from transitions import Machine
 
-import controller
-import game
-import man
-import styles
+from . import controller
+# from . import game
+# import man
+# from . import styles
+
 
 class Interface:
     def __init__(self, game):
@@ -64,14 +65,14 @@ class Interface:
         self.cont.dictprint(allcoms)
 
 
-if __name__ == "__main__":
-    x = game.Game("testGame", styles.Castle)
-    adam = man.Man("Adam", location=x.level_list[0].start)
-    x.level_list[0].start.creatures = [adam] + x.level_list[0].start.creatures
-    x.set_char(adam)
-    adam.team = "player"
-    i = Interface(x)
-    print(i.state)
-    print(adam.location.borders)
-    while True:
-        i.command()
+# if __name__ == "__main__":
+#     x = game.Game("testGame", styles.Castle)
+#     adam = man.Man("Adam", location=x.level_list[0].start)
+#     x.level_list[0].start.creatures = [adam] + x.level_list[0].start.creatures
+#     x.set_char(adam)
+#     adam.team = "player"
+#     i = Interface(x)
+#     print(i.state)
+#     print(adam.location.borders)
+#     while True:
+#         i.command()

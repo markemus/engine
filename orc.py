@@ -1,6 +1,6 @@
 """Orcs are vile and nasty creatures, born to wreak havoc and destroy. They deserve nothing more
 than a clean death."""
-import creature as cr
+import engine.creature as cr
 import suits
 
 

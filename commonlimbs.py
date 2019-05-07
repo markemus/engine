@@ -1,5 +1,5 @@
 """The Book of Common Limbs."""
-import creature as cr
+import engine.creature as cr
 import suits
 
 class hair(cr.limb):

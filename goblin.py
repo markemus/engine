@@ -1,6 +1,6 @@
 """Goblins are the Orc's smaller cousin. They are no more worthy of kindness than their equally foul
 kinsmen. They can be distinguished by their lack of horns."""
-import creature as cr
+import engine.creature as cr
 import orc as orc
 import suits
 

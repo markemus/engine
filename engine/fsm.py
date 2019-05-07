@@ -1,5 +1,5 @@
 from transitions import Machine
-import combat
+
 
 class clock(object):
     states = ["move", "combat"]

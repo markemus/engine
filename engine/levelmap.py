@@ -1,9 +1,11 @@
-import imp, math
-
+import math
+# from . import creature
+# from . import place
+# from . import item
 # TODO Fix these imports.
-creature = imp.load_source("creature", "creature.py")
-place = imp.load_source("place", "place.py")
-item = imp.load_source("item", "item.py")
+# creature = imp.load_source("creature", "creature.py")
+# place = imp.load_source("place", "place.py")
+# item = imp.load_source("item", "item.py")
 
 # Contains all levels in order
 # TODO Does it? Why?? EDIT: Oh lord.

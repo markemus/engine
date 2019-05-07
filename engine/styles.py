@@ -9,7 +9,7 @@ will be inherited by all the lower levels.
 Each element in a list will be generated, and a single element will be selected from each tuple. This should work
 recursively to let you select lists from tuples of lists etc."""
 import abc
-import place as pl
+from . import place as pl
 
 
 class LevelStyle(abc.ABC):

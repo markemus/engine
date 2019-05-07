@@ -1,4 +1,5 @@
-import combat
+from . import combat
+
 
 class Controller:
     def __init__(self, game):

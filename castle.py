@@ -1,9 +1,9 @@
-import place as pl
+import engine.place as pl
 
 from goblin import goblin
 from hydra import hydra
 from orc import orc
-from styles import LevelStyle, GameStyle, wall, floor
+from engine.styles import LevelStyle, GameStyle, wall, floor
 
 # TODO Put the newest version in here. And organize this sort of stuff better.
 # An example style- from lowest to highest, build a hierarchy.
