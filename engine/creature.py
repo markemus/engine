@@ -1,16 +1,16 @@
 import random
 
+from engine import ai
+
 # End of Loading Zone
 
 class limb:
-    """
-    Body parts for Creatures. Store in a list in Creature object.
+    """Body parts for Creatures. Store in a list in Creature object.
 
-    Limbs are procedurally generated from the class template; limbs of the same class may still be very different objects.
-    """
+    Limbs are procedurally generated from the class template; limbs of the same class may still be
+    very different objects."""
     name = "NO_NAME_LIMB"
     wears = "generic"
-    # cantransfer = False
     hitpoints = 10
     _armor = 0
 
@@ -123,7 +123,9 @@ class creature:
         self._elementGen()
         self._clothe()
 
+        # TODO needs to add creature to location.creatures
         self.location = location
+        self.ai = ai.CombatAI(self)
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)

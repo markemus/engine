@@ -8,7 +8,7 @@ final = []
 class place:
     name = "generic_place"
     elements = []
-    borders = {"n" : None, "s" : None, "w" : None, "e" : None, ">" : None}
+    borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
     cantransfer = False
     area = "You are standing in"
     sprite = "O"
@@ -17,7 +17,7 @@ class place:
     def __init__(self, name, level):
         self.name = name
         self.elements = []
-        self.borders = {"n" : None, "s" : None, "w" : None, "e" : None, ">" : None}
+        self.borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
         self.creatures = []
         # self.sprite = newsprite
         self.level = level

@@ -13,7 +13,9 @@ thisLevel = t_game.level_list[0]
 
 # TODO this should be a new_game method on Game?
 # Character creation
+# TODO this doesn't add adam to the location
 adam = man.Man("Adam", location=thisLevel.start)
+thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
 adam.team = "player"
 

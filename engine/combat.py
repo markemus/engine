@@ -8,20 +8,22 @@ class Combat:
         self.char = char
         self.cont = cont
         # TODO combatAI should be attached to each creature instead, and should be included in styles.
-        self.ai = CombatAI()
-        self.blockers = {}
+        # self.ai = CombatAI()
+        self.blockers = None
 
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
+        # Blockers must be reset each round.
+        # TODO fix bug where blockers can be used to attack if block happens before attack.
+        self.blockers = {}
         print("fullCombat: creatures: ", creatures)
 
         for actor in creatures:
             self.blockers[actor] = self.get_weapons(actor)
+            print("fullCombat: blockers: ", self.blockers)
 
         for actor in creatures:
-            self.blockers[actor] = self.get_weapons(actor)
-            print("fullCombat: blockers: ", self.blockers)
             for weapon in self.get_weapons(actor):
                 used = self.combatRound(actor, weapon)
                 # Can't block with weapons used to attack
@@ -30,6 +32,7 @@ class Combat:
 
         print("fullCombat: blockers: ", self.blockers)
 
+    # TODO self.char can be replaced with a custom combatAI that calls controller methods
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
         used = False
@@ -38,26 +41,26 @@ class Combat:
             print("\nYou prepare to strike with your " + weapon.name + ".")
             target = self.cont.pick_target()
         else:
-            target = self.ai.target_creature(actor)
+            target = actor.ai.target_creature()
 
         if target:
             if actor is self.char:
                 limb = self.cont.pick_limb(target)
             else:
-                limb = self.ai.target_limb(target)
+                limb = actor.ai.target_limb(target)
         else:
-            limb = False
+            limb = None
 
         if limb:
-            # Should print weapon name, not hand-holding-weapon's name
+            # TODO should print weapon name, not hand-holding-weapon's name
             print(actor.name, "attacks", target.name + "'s", limb.name, "with their", weapon.name + "!")
 
             # Blocking
             blockers = self.blockers[target].copy()
             if target is self.char:
-                blocker = self.cont.pick_blocker(limb, blockers)
+                blocker = self.cont.pick_blocker(blockers)
             else:
-                blocker = self.ai.block(limb, blockers)
+                blocker = actor.ai.block(blockers)
 
             if blocker:
                 limb = blocker
@@ -119,7 +122,6 @@ class Combat:
         landings = room.elem_check("canCatch")
         
         if len(landings) > 0:
-            # lands_at = landings[random.randrange(len(landings))]
             lands_at = random.choice(landings)
             lands_at.add_vis_item(limb)
             print("The", limb.name, "lands on the", lands_at.name + ".")
@@ -127,59 +129,58 @@ class Combat:
             print("The limb flies off and disappears out of sight.")
 
 
-class CombatAI:
-    def target_creature(self, actor):
-        targets = []
+# class CombatAI:
+#     def target_creature(self, actor):
+#         targets = []
+#
+#         # Gather
+#         for creature in get_target_creatures(actor):
+#             if creature.team != actor.team:
+#                 targets.append(creature)
+#
+#         # Pick
+#         if len(targets) > 0:
+#             target = random.choice(targets)
+#         else:
+#             target = False
+#
+#         return target
+#
+#     def target_limb(self, target):
+#         limbs = target.subelements[0].limb_check("isSurface")
+#
+#         if len(limbs) > 0:
+#             lowest = min(limbs, key=lambda x: x.hitpoints)
+#             allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
+#             chosen = random.choice(allLowest)
+#             # print("chosen: ", chosen)
+#         else:
+#             # print("No surface limbs.")
+#             chosen = False
+#
+#         return chosen
+#
+#     def block(self, limb, blockers):
+#         if len(blockers) > 0:
+#             blocker = blockers[0]
+#         else:
+#             blocker = False
+#
+#         return blocker
 
-        # Gather
-        for creature in get_target_creatures(actor):
-            if creature.team != actor.team:
-                targets.append(creature)
 
-        # Pick
-        if len(targets) > 0:
-            target = random.choice(targets)
-        else:
-            target = False
+# def get_target_creatures(actor):
+#     targets = actor.location.get_creatures()
+#
+#     if actor in targets:
+#         targets.remove(actor)
+#
+#     return targets
 
-        return target
-
-    def target_limb(self, target):
-        limbs = target.subelements[0].limb_check("isSurface")
-
-        if len(limbs) > 0:
-            lowest = min(limbs, key=lambda x: x.hitpoints)
-            allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
-            chosen = random.choice(allLowest)
-            # print("chosen: ", chosen)
-        else:
-            # print("No surface limbs.")
-            chosen = False
-        
-        return chosen
-
-    #TODO limb not needed?
-    def block(self, limb, blockers):
-        if len(blockers) > 0:
-            blocker = blockers[0]
-        else:
-            blocker = False
-
-        return blocker
-
-
-def get_target_creatures(actor):
-    targets = actor.location.get_creatures()
-
-    if actor in targets:
-        targets.remove(actor)
-
-    return targets
-
-def get_target_limbs(defender):
-    limbs = defender.subelements[0].limb_check("isSurface")
-
-    return limbs
+# def get_target_limbs(defender):
+#     limbs = defender.subelements[0].limb_check("isSurface")
+#
+#     return limbs
 
 
 # if __name__ == "__main__":

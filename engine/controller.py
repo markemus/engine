@@ -4,7 +4,7 @@ from . import combat
 class Controller:
     def __init__(self, game):
         self.game = game
-        # self.combatFsm = combat.Fsm(game.char)
+        self.combat = combat.Combat(self.game.char, self)
 
     def listtodict(self, l):
         d = {str(i): l[i] for i in range(len(l))}
@@ -12,7 +12,6 @@ class Controller:
         return d
 
     def dictprint(self, d):
-        """What is this tho."""
         intkeys = []
         strkeys = []
 
@@ -35,6 +34,7 @@ class Controller:
             elif hasattr(d[key], "name"):            
                 print(str(key) + ": " + d[key].name)
             # we don't want to ever see this, but we'd rather have it than an exception, I think.
+            # TODO everything should use this. __str__, __repr__
             else:
                 print(str(key) + ": " + str(d[key]))
 
@@ -63,11 +63,12 @@ class Controller:
 
     # Combat
     def attack(self):
-        com = combat.Combat(self.game.char, self)
-        com.fullCombat()
+        # com = combat.Combat(self.game.char, self)
+        # com.fullCombat()
+        self.combat.fullCombat()
 
     def pick_target(self):
-        enemylist = combat.get_target_creatures(self.game.char)
+        enemylist = self.game.char.ai.get_target_creatures()
         targets = self.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
 
@@ -83,7 +84,8 @@ class Controller:
         return defender
 
     def pick_limb(self, defender):
-        limblist = combat.get_target_limbs(defender)
+        # limblist = combat.get_target_limbs(defender)
+        limblist = defender.subelements[0].limb_check("isSurface")
         limbs = self.listtodict(limblist)
         limbs["x"] = "Withhold your blow."
 
@@ -98,7 +100,7 @@ class Controller:
 
         return limb
 
-    def pick_blocker(self, limb, blockers):
+    def pick_blocker(self, blockers):
         blockers = self.listtodict(blockers)
         blockers["x"] = "Accept the blow."
 
