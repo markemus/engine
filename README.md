@@ -3,9 +3,10 @@ Sick of playing the same rogue-like over and over? Now you can make your own! In
 
 # TO INSTALL
 Install python 3.
+pip3 install transitions
 
 # TO RUN
-python3 -m castle.index
+python3 index.py
 
 # INSTRUCTIONS (ADVANCED)
 
