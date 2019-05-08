@@ -13,7 +13,6 @@ class Combat:
 
     def fullCombat(self):
         """Full combat round for all creatures."""
-
         creatures = self.char.location.get_creatures()
         print("fullCombat: creatures: ", creatures)
 
@@ -129,9 +128,6 @@ class Combat:
 
 
 class CombatAI:
-    def __init__(self):
-        pass
-
     def target_creature(self, actor):
         targets = []
 

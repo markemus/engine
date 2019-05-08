@@ -1,81 +1,83 @@
 """Suits are used to equip creatures during generation."""
 import engine.item as i
 
+
 # Armor
-class helm(i.thing):
+class Helm(i.Item):
     name = "helm"
-    canwear = i.thing.canwear.copy()
-    armor = 1
+    canwear = i.Item.canwear.copy()
     canwear["head"] = True
+    armor = 1
 
-class chainmail(i.thing):
+class Chainmail(i.Item):
     name = "chainmail"
-    canwear = i.thing.canwear.copy()
-    armor = 2
+    canwear = i.Item.canwear.copy()
     canwear["body"] = True
+    armor = 2
 
-class shield(i.thing):
+class Shield(i.Item):
     name = "shield"
-    canwear = i.thing.canwear.copy()
-    armor = 3
+    canwear = i.Item.canwear.copy()
     canwear["back"] = True
     canwear["arm"] = True
+    armor = 3
 
-class bracer(i.thing):
+class Bracer(i.Item):
     name = "bracer"
-    canwear = i.thing.canwear.copy()
-    armor = 1
+    canwear = i.Item.canwear.copy()
     canwear["arm"] = True
+    armor = 1
 
-class gauntlet(i.thing):
+class Gauntlet(i.Item):
     name = "gauntlet"
-    canwear = i.thing.canwear.copy()
-    armor = 1
+    canwear = i.Item.canwear.copy()
     canwear["hand"] = True
-
-class greave(i.thing):
-    name = "greave"
-    canwear = i.thing.canwear.copy()
     armor = 1
-    canwear["leg"] = True
 
-class boot(i.thing):
+class Greave(i.Item):
+    name = "greave"
+    canwear = i.Item.canwear.copy()
+    canwear["leg"] = True
+    armor = 1
+
+class Boot(i.Item):
     name = "boot"
-    canwear = i.thing.canwear.copy()
-    armor = 2
+    canwear = i.Item.canwear.copy()
     canwear["foot"] = True
+    armor = 2
 
 # Weapons
-class sword(i.thing):
+class Sword(i.Item):
     name = "sword"
-    canwear = i.thing.canwear.copy()
+    canwear = i.Item.canwear.copy()
     canwear["hand"] = True
     damage = 9
 
-class spear(i.thing):
+class Spear(i.Item):
     name = "spear"
-    canwear = i.thing.canwear.copy()
+    canwear = i.Item.canwear.copy()
     canwear["hand"] = True
     damage = 8
 
-class axe(i.thing):
+class Axe(i.Item):
     name = "axe"
-    canwear = i.thing.canwear.copy()
+    canwear = i.Item.canwear.copy()
     canwear["hand"] = True
     damage = 7
 
+# Suits
 testsuit = {
-    "head": helm,
-    "body": chainmail,
-    "back": shield,
-    "arm": bracer,
-    "hand": gauntlet,
-    "leg": greave,
-    "foot": boot
+    "head": Helm,
+    "body": Chainmail,
+    "back": Shield,
+    "arm": Bracer,
+    "hand": Gauntlet,
+    "leg": Greave,
+    "foot": Boot
     }
 
 weapons = {
-    "hand": (sword, spear, axe)
+    "hand": (Sword, Spear, Axe)
 }
 
 testcolor = {

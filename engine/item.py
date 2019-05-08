@@ -1,66 +1,58 @@
-class thing:
-    name = "thing"
-    # cangrasp = False
+class Item:
+    name = "Item"
     canwear = {"head": False, "body": False, "back": False, "arm": False, "hand": False, "leg": False}
-    cantransfer = False             # Defines whether an item can hold other items
+    # Defines whether an item can hold other items
+    cantransfer = False
     location = "loader"
-    # contents = ""
-    # vis_inv = []
-    # invis_inv = []
-    # visible = True
+    visible = True
 
-    # TODO remove defaults? Put in init? initializing these values three times (or four!) is crazy.
-    # Copies over mutable objects for objects so they don't share them with other objects (dereference)
     def __init__(self):
-        # self.name = newname
+        """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""
         self.canwear = self.canwear.copy()
         self.vis_inv = []
         self.invis_inv = []
-        self.visible = True
 
     # This is the holy grail of transfer functions.
     # It's also a dumb way to do it, you young fool.
     # Agreed. I think. It's weird. But it ain't broke?
     def transfer(self, who, wherefrom, whereto):
         if wherefrom[wherefrom.index(self)] == self:
-
             # Determines that Who is able to grasp the item.
             if who.grasp(self):               
                 whereto.append(self)
-                del wherefrom[wherefrom.index(self)]
+                # del wherefrom[wherefrom.index(self)]
+                wherefrom.remove(self)
                 who.ungrasp(self)
-
             else:
                 print("The %s cannot pick up the %s." % (who.name, self.name))
         else:
             print("The %s is not there." % self.name)
 
+    # TODO viewInv still needed or just desc?
     def viewInv(self):  
         """Check a thing's visible inventory (vis_inv) and sub-inventories."""
         contents = "The {0} contains ".format(self.name)
 
         if self.cantransfer:
-            count = 0
+            if not self.vis_inv:
+                contents += "nothing."
+            else:
+                for i, carriedThing in enumerate(self.vis_inv):
+                    # Commas
+                    if i == 0:
+                        contents = contents + "a " + carriedThing.name
+                    else:
+                        contents = contents + ", a " + carriedThing.name
 
-            # TODO clean this up
-            for carriedThing in self.vis_inv:
-                # First thing in vis_inv
-                if count == 0:
-                    contents = contents + "a " + carriedThing.name
-                    count = count + 1
-
-                # Second and later thing in vis_inv
-                else:
-                    contents = contents + ", a " + carriedThing.name         
-
-            contents = contents + "."
+                contents = contents + "."
             print(contents)
 
             # Check sub-inventories
             for carriedThing in self.vis_inv:
                 if carriedThing.cantransfer:
                     carriedThing.viewInv()
-        # if thing can't hold stuff
+
+        # If thing can't hold stuff
         else:
             print(contents + "nothing at all, for it is a " + self.name + ".")    
 
@@ -69,43 +61,44 @@ class thing:
         text = (" "*offset) + "* " + self.name
         if full:
             for item in self.vis_inv:
-                text += "\n" + item.desc(offset = offset+1)
+                text += "\n" + item.desc(offset=offset+1)
 
         return text
 
 
 if __name__ == '__main__':
-    class example(thing):
+    class Example(Item):
         name = "example"
-        canwear = thing.canwear.copy()               # copies item.canwear to dereference.
+        canwear = Item.canwear.copy()               # copies item.canwear to dereference.
         canwear["head"] = True
         canwear["body"] = True
         canwear["back"] = True
         canwear["legs"] = True
         cantransfer = True                          # allows thing to hold stuff
 
-    class armor(thing):
+    class Armor(Item):
         name = "armor"
-        canwear = thing.canwear.copy()        
+        canwear = Item.canwear.copy()
         canwear["body"] = True
         cantransfer = False                      
 
-    class rucksack(thing):
+    class Rucksack(Item):
         name = "rucksack"
-        canwear = thing.canwear.copy()
+        canwear = Item.canwear.copy()
         canwear["back"] = True
         cantransfer = True
 
-    class coat(thing):
+    class Coat(Item):
         name = "coat"
-        canwear = thing.canwear.copy()
+        canwear = Item.canwear.copy()
         canwear["body"] = True
         cantransfer = True
 
     # test objects
-    muffalo_duster = coat()
-    armor1 = armor()
-    sack = rucksack()
+    muffalo_duster = Coat()
+    armor1 = Armor()
+    sack = Rucksack()
     sack.vis_inv.append(armor1)
     sack.vis_inv.append(muffalo_duster)
     print(sack.desc())
+    sack.viewInv()
