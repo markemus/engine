@@ -14,6 +14,7 @@ from . import place as pl
 
 class LevelStyle(abc.ABC):
     room_classes = []
+    # TODO we should add a probability that each creature will be generated- dict instead of list.
     creature_classes = []
 
 class GameStyle(abc.ABC):

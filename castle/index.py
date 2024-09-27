@@ -1,3 +1,4 @@
+"""An example game. Run from main directory as 'python3 -m castle.index.py'."""
 from engine import game
 from engine import interface
 

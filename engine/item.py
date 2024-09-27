@@ -16,7 +16,9 @@ class Item:
     # It's also a dumb way to do it, you young fool.
     # Agreed. I think. It's weird. But it ain't broke?
     def transfer(self, who, wherefrom, whereto):
-        if wherefrom[wherefrom.index(self)] == self:
+        # TODO this will raise an exception if item is not in wherefrom
+        # if wherefrom[wherefrom.index(self)] == self:
+        if self in wherefrom:
             # Determines that Who is able to grasp the item.
             if who.grasp(self):               
                 whereto.append(self)

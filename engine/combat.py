@@ -28,6 +28,7 @@ class Combat:
                 used = self.combatRound(actor, weapon)
                 # Can't block with weapons used to attack
                 if used:
+                    # TODO this raised an exception: ValueError: list.remove(x): x not in list
                     self.blockers[actor].remove(weapon)
 
         print("fullCombat: blockers: ", self.blockers)

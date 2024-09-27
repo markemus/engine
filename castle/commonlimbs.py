@@ -134,3 +134,4 @@ class torso(cr.limb):
 #     test = hand()
 #     test.inventory.append(wep)
 #     print(test.damage)
+# TODO we should be using these common limbs for our creatures
