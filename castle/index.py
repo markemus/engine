@@ -9,12 +9,10 @@ from castle import castle
 # Main
 # Generate a game using the Castle template.
 t_game = game.Game("The Howling Manor", castle.Castle)
-
 thisLevel = t_game.level_list[0]
 
-# TODO this should be a new_game method on Game?
 # Character creation
-# TODO why is adam starting with four legs?
+# TODO-DONE why is adam starting with four legs?
 adam = man.Man("Adam", location=thisLevel.start)
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)

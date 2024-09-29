@@ -1,8 +1,9 @@
 import math
 import random
 
-from . import place
 from . import levelmap
+from . import place
+from . import styles
 
 
 class levelGenerator:
@@ -58,11 +59,19 @@ class levelGenerator:
                 lastRoom = roomList[lastRoomNum]
 
             # roomGenerators[roomType].connectRooms(gennedRoom,lastRoom)
-            self.connectRooms(gennedRoom, lastRoom)
+            door = self.connectRooms(gennedRoom, lastRoom)
 
             # Add room to gennedLevel's levelMap and roomList
             gennedLevel.addRoom(x, y, gennedRoom)
             roomList.append(gennedRoom)
+
+            # Add door to map
+            if lastRoom is not None:
+                (x1, y1) = gennedLevel.roomLocations[gennedRoom]
+                (x2, y2) = gennedLevel.roomLocations[lastRoom]
+                doorx = int((x1 + x2) / 2)
+                doory = int((y1 + y2) / 2)
+                gennedLevel.addDoor(doorx, doory, door)
 
             # Do only if this isn't last room.
             # Prevents error if this is last room and roomNum is perfect square (so no available slots).
@@ -136,7 +145,7 @@ class levelGenerator:
         color = random.choice(room1.colors)
         texture = random.choice(room1.textures)
 
-        door = place.door(color, texture)
+        door = styles.door(color, texture)
         
         door.addBorder(room1)
         room1.addElement(door)
@@ -148,3 +157,5 @@ class levelGenerator:
         else:
             door.addBorder(room2)
             room2.addElement(door)
+
+        return door

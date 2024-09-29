@@ -3,15 +3,13 @@ import random
 
 # End of Loading Zone
 
-final = []
-
 class place:
     name = "generic_place"
     elements = []
     borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
     cantransfer = False
     area = "You are standing in"
-    sprite = "O"
+    sprite = "R"
     creatures = []
 
     def __init__(self, name, level):
@@ -126,7 +124,7 @@ class place:
 
 
 class element:
-    name = "NO_NAME_PLACE"
+    name = "NO_NAME_ELEM"
     visible = True                  # element is shown during place's desc()
     color = "NO_COLOR" 
     texture = "NO_TEXTURE"
@@ -201,6 +199,6 @@ class element:
     def add_vis_item(self, item):
         self.vis_inv.append(item)
 
-# TODO should be somewhere else. Organize this sort of stuff somewhere.
-class door(element):
-    name = "door"
+# TODO-DONE should be somewhere else. Organize this sort of stuff somewhere.
+# class door(element):
+#     name = "door"

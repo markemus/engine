@@ -30,3 +30,7 @@ class floor(pl.element):
     name = "floor"
     count = (1, 2)
     canCatch = True
+
+class door(pl.element):
+    name = "door"
+    sprite = "O"

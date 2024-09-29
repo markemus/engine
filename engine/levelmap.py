@@ -30,17 +30,19 @@ class levelmap:
         self.layout[x][y] = room
         self.roomLocations[room] = (x, y)
 
+    def addDoor(self, x, y, door):
+        self.layout[x][y] = door
+
     def printMap(self, char):
         for row in self.layout:
             row_sprite = ""
-            for index in row:
-                if hasattr(index, "creatures"):
-                    if char in index.creatures:
+            for x in row:
+                if hasattr(x, "creatures") and char in x.creatures:
                         row_sprite += "U"
-                    else:
-                        row_sprite += str(index.sprite)
+                elif hasattr(x, "sprite"):
+                    row_sprite += str(x.sprite)
                 else:
-                    row_sprite += str(index)
+                    row_sprite += str(x)
             print(row_sprite)
 
     def show_map(self):
