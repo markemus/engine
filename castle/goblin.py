@@ -8,7 +8,7 @@ from castle import suits
 # Head
 class Head(cr.limb):
     name = "head"
-    subelement_classes = [orc.ear, orc.eye, orc.teeth, orc.tongue, orc.nose]
+    subelement_classes = [orc.Ear, orc.Eye, orc.Teeth, orc.Tongue, orc.Nose]
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
@@ -16,13 +16,13 @@ class Head(cr.limb):
 # Torso
 class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [Head, orc.arm, orc.leg]
+    subelement_classes = [Head, orc.Arm, orc.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
 
 # Goblin
-class goblin(cr.creature):
+class Goblin(cr.creature):
     name = "goblin"
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
@@ -31,5 +31,5 @@ class goblin(cr.creature):
 
 
 if __name__ == '__main__':
-    greedo = goblin("Greedo", location=None)
+    greedo = Goblin("Greedo", location=None)
     print(greedo.desc())

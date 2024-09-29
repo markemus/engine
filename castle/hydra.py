@@ -5,24 +5,27 @@ import castle.commonlimbs as cl
 from castle import suits
 
 
-class snout(cr.limb):
+class Teeth(cl.Teeth):
+    _damage = 10
+
+class Snout(cr.limb):
     name = "snout"
-    subelement_classes = [cl.tongue, cl.teeth]
+    subelement_classes = [cl.Tongue, Teeth]
     isSurface = True
     appendageRange = (1, 2)
     wears = "nose"
 
-class head(cr.limb):
+class Head(cr.limb):
     name = "head"
-    subelement_classes = [snout, cl.ear, cl.eye]
+    subelement_classes = [Snout, cl.Ear, cl.Eye]
     isSurface = True
     appendageRange = (3, 6)
     wears = "head"
 
-class leg(cl.leg):
+class Leg(cl.Leg):
     appendageRange = (4, 5)
 
-class tail(cr.weapon):
+class Tail(cr.weapon):
     name = "tail"
     subelement_classes = []
     isSurface = True
@@ -34,23 +37,23 @@ class tail(cr.weapon):
     wears = "tail"
 
 # Torso
-class torso(cr.limb):
+class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [head, leg, tail]
+    subelement_classes = [Head, Leg, Tail]
     appendageRange = (1, 2)
     wears = "body"
 
 # Hydra
-class hydra(cr.creature):
+class Hydra(cr.creature):
     name = "hydra"
     isSurface = True
-    baseElem = torso
+    baseElem = Torso
     colors = ["black", "gray", "red"]
     textures = ["scaled"]
     suits = [suits.testsuit]
 
 
 if __name__ == "__main__":
-    howie = hydra("Howie", location=None)
+    howie = Hydra("Howie", location=None)
     print(howie.desc())
     # print(howie.subelements[0].inventory)

@@ -2,16 +2,16 @@ import engine.creature as cr
 import castle.commonlimbs as cl
 from castle import suits
 
-class Head(cr.limb):
-    name = "head"
-    subelement_classes = [cl.hair, cl.eye, cl.nose, cl.mouth]
-    isSurface = True
-    appendageRange = (1, 2)
-    wears = "head"
+# class Head(cr.limb):
+#     name = "head"
+#     subelement_classes = [cl.hair, cl.eye, cl.nose, cl.mouth]
+#     isSurface = True
+#     appendageRange = (1, 2)
+#     wears = "head"
 
 class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [Head, cl.arm, cl.leg]
+    subelement_classes = [cl.Head, cl.Arm, cl.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

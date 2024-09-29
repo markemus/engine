@@ -13,11 +13,13 @@ class TestCastle():
         assert isinstance(c.MainFloor(), s.LevelStyle)
 
     def test_game_setup(self):
+        """Tests that basic game setup results in predicted state."""
         from engine import game
         from engine import interface
         from castle import man
         from castle import castle
 
+        # Game generation
         t_game = game.Game("The Howling Manor", castle.Castle)
         thisLevel = t_game.level_list[0]
 

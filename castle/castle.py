@@ -4,9 +4,9 @@ This dark castle harbors many deadly creatures. But perhaps great treasure is hi
 (No, there isn't.)"""
 import engine.place as pl
 
-from castle.goblin import goblin
-from castle.hydra import hydra
-from castle.orc import orc
+from castle.goblin import Goblin
+from castle.hydra import Hydra
+from castle.orc import Orc
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
 
@@ -16,7 +16,7 @@ class TortureChamber(pl.place):
     colors = ["black", "gray"]
     textures = ["stone", "iron", "dirt", "timber"]
     furniture = []
-    creature_classes = [(orc, goblin)]
+    creature_classes = [(Orc, Goblin)]
     subelement_classes = [wall, floor]
 
 class Cell(pl.place):
@@ -24,7 +24,7 @@ class Cell(pl.place):
     colors = ["unpainted", "grimy"]
     textures = ["stone", "concrete"]
     furniture = []
-    creature_classes = [(orc, goblin)]
+    creature_classes = [(Orc, Goblin)]
     subelement_classes = [wall, floor]
 
 # Then a level type.
@@ -41,7 +41,7 @@ class ThroneRoom(pl.place):
     colors = ["gold", "red"]
     textures = ["brick", "stone"]
     furniture = []
-    creature_classes = [orc, goblin]
+    creature_classes = [Orc, Goblin]
     subelement_classes = [wall, floor]
 
 class Kitchen(pl.place):
@@ -49,7 +49,7 @@ class Kitchen(pl.place):
     colors = ["dirty", "smoke-stained", "unpainted"]
     textures = ["brick", "stone"]
     furniture = []
-    creature_classes = [orc, goblin]
+    creature_classes = [Orc, Goblin]
     subelement_classes = [wall, floor]
 
 # Another level
@@ -65,7 +65,7 @@ LevelStyle.register(MainFloor)
 class Castle:
     levelorder = [Dungeon, MainFloor]
     links = [(0,1)]
-    creature_classes = [hydra]
+    creature_classes = [Hydra]
 
 
 GameStyle.register(Castle)
