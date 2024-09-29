@@ -11,7 +11,7 @@ class limb:
     very different objects."""
     name = "NO_NAME_LIMB"
     wears = "generic"
-    hitpoints = 10
+    hitpoints = 1
     _armor = 0
 
     def __init__(self, color="d_color", texture="d_texture"):
@@ -37,6 +37,7 @@ class limb:
             countRange = random.randrange(potentialRange[0], potentialRange[1])
 
             # Create
+            # TODO-DECIDE should this use same color? Good for fingers, maybe not for horns.
             for count in range(countRange):
                 elem = elemclass(self.color, self.texture)
                 self.subelements.append(elem)
@@ -62,13 +63,11 @@ class limb:
             limb_total.append(self)
         
         for subLimb in self.subelements:
-
             limb_total += subLimb.limb_check(tag)
 
         return(limb_total)
 
     def remove_limb(self, limb):
-        """Call on creature.subelements..."""
         if limb in self.subelements:
             self.subelements.remove(limb)
         else:
@@ -100,6 +99,7 @@ class weapon(limb):
 
         for item in self.inventory:
             if hasattr(item, "damage"):
+                # TODO-DECIDE what about adding damage? eg spikes on tails. Or swords on strong arms.
                 if item.damage > damage:
                     damage = item.damage
         
@@ -129,13 +129,14 @@ class creature:
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)
-        # TODO let's refactor self.subelements[0] out entirely. Low priority.
+        # TODO-DECIDE let's refactor self.subelements[0] out entirely? (Low priority.)
         self.subelements = [baseElem]
 
     def _clothe(self):
         for suit in self.suits:
             if (type(suit) == tuple):
                 suit = random.choice(suit)
+            # brings back all limbs? I think so. Good trick.
             limbs = self.subelements[0].limb_check("name")
 
             for limb in limbs:
@@ -146,6 +147,7 @@ class creature:
                     #TODO isinstance
                     if type(article) == tuple:
                         article = random.choice(article)
+                    # TODO-DECIDE how is color etc params set for suits? They should be matching.
                     article = article()
 
                     limb.inventory.append(article)
@@ -168,6 +170,7 @@ class creature:
         nextRoom = self.location.borders[direction]
 
         if nextRoom is not None:
+            # TODO-DECIDE Currently each foot has 1/2 amble. Instead require two limbs for walking?
             if len(self.subelements[0].limb_check("amble")) >= 1:
                 currentRoom.removeCreature(self)
                 self.location = currentRoom.borders[direction]

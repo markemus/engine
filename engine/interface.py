@@ -59,6 +59,7 @@ class Interface:
         else:
             print(x, "is not a valid command.")
 
+    # TODO we should print a string of all concatenated commands available under the map: HLMS... for a visual cue.
     def help(self):
         allcoms = self.commands[self.state]
 

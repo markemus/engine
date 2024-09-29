@@ -9,7 +9,7 @@ from castle.hydra import hydra
 from castle.orc import orc
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
-# TODO Put the newest version in here. And organize this sort of stuff better.
+
 # First, some room types.
 class TortureChamber(pl.place):
     count = (1, 3)

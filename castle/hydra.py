@@ -19,9 +19,8 @@ class head(cr.limb):
     appendageRange = (3, 6)
     wears = "head"
 
-
-leg = cl.leg
-leg.appendageRange = (4, 5)
+class leg(cl.leg):
+    appendageRange = (4, 5)
 
 class tail(cr.weapon):
     name = "tail"

@@ -68,6 +68,7 @@ class place:
                 self.elements.append(elem)
 
     def _populate(self):
+        # TODO should use creatures from level and game lists as well- update self.creature_classes on initiation?
         for creature_class in self.creature_classes:
             #TODO isinstance
             if type(creature_class) == tuple:
@@ -98,6 +99,7 @@ class place:
                             self.borders["w"] = room
                         if relativeIndex == (0,2):
                             self.borders["e"] = room
+                    # TODO don't forget downwards rooms.
                     elif room.level != self.level:
                         self.borders[">"] = room
 

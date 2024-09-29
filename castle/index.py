@@ -1,4 +1,4 @@
-"""An example game. Run from main directory as 'python3 -m castle.index.py'."""
+"""An example game. Run from main directory as 'python3 -m castle.index'."""
 from engine import game
 from engine import interface
 
@@ -14,10 +14,11 @@ thisLevel = t_game.level_list[0]
 
 # TODO this should be a new_game method on Game?
 # Character creation
-# TODO this doesn't add adam to the location
+# TODO why is adam starting with four legs?
 adam = man.Man("Adam", location=thisLevel.start)
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
+# TODO make teams mean something
 adam.team = "player"
 
 thisLevel.printMap(adam)
