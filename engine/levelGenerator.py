@@ -50,7 +50,7 @@ class levelGenerator:
             # gennedRoom = roomGenerators[roomType].random_room_generator(gennedLevel)
             # TODO better room names
             gennedRoom = roomType(str(roomType), gennedLevel)
-            gennedRoom.sprite = str(thisRoomNum)
+            # gennedRoom.sprite = str(thisRoomNum)
 
             # First room needs to be start, doesn't need to connect to previous room
             if len(roomList) == 0:

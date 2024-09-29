@@ -50,4 +50,14 @@ class TestCastle():
         xy2 = thisLevel.roomLocations[r2]
         dxy = (int((xy1[0] + xy2[0]) / 2), int((xy1[1] + xy2[1]) / 2))
         assert isinstance(thisLevel.layout[dxy[0]][dxy[1]], styles.door)
-        
+
+    def test_furniture_creation(self):
+        """Tests that furniture is added to rooms properly."""
+        import castle.castle as cs
+        import castle.furniture as fur
+        parlor = cs.Parlor("test_parlor", None)
+        chairs = [x for x in parlor.elements if isinstance(x, fur.Chair)]
+        # Proper number of chairs
+        assert chairs[0].count[1] > len(chairs) >= chairs[0].count[0]
+        # Chairs get their own color schema
+        assert (chairs[0].color in fur.Chair.color) and (chairs[0].texture in fur.Chair.texture)

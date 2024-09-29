@@ -46,14 +46,19 @@ class place:
         return elem_total
 
     def _elementGen(self):
-        for elemclass in self.subelement_classes:
-            # Color
-            color = random.choice(self.colors)
-            texture = random.choice(self.textures)
+        for elemclass in self.subelement_classes + self.furniture_classes:
             # Choose
-            #TODO isinstance
             if type(elemclass) == tuple:
                 elemclass = random.choice(elemclass)
+
+            # Furniture should have their own colors, while room elements should match the room.
+            if issubclass(elemclass, furniture):
+                color = random.choice(elemclass.color)
+                texture = random.choice(elemclass.texture)
+            else:
+                color = random.choice(self.colors)
+                texture = random.choice(self.textures)
+
             # Count
             try:
                 potentialRange = elemclass.count
@@ -200,5 +205,9 @@ class element:
         self.vis_inv.append(item)
 
 # TODO-DONE should be somewhere else. Organize this sort of stuff somewhere.
-# class door(element):
-#     name = "door"
+class furniture(element):
+    name = "NO_NAME_FURN"
+    visible = True  # element is shown during place's desc()
+    color = "NO_COLOR"
+    texture = "NO_TEXTURE"
+    elements = []
