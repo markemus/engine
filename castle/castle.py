@@ -17,7 +17,7 @@ class Ballroom(pl.place):
     count = (0, 2)
     colors = ["gold", "white", "silver"]
     textures = ["marble", "granite", "limestone"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, floor]
 
@@ -26,7 +26,7 @@ class Bathroom(pl.place):
     count = (1, 3)
     colors = ["white", "blue", "black", "marble"]
     textures = ["tiled"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = [fur.Toilet, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
@@ -35,7 +35,7 @@ class Bedroom(pl.place):
     count = (2, 5)
     colors = ["blue", "brown", "egg white", "beige"]
     textures = ["painted", "wallpapered"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = [fur.Bed, fur.Dresser, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
@@ -44,7 +44,7 @@ class Cell(pl.place):
     count = (5, 10)
     colors = ["unpainted", "grimy", "grey"]
     textures = ["stone", "concrete"]
-    creature_classes = [(Orc, Goblin)]
+    creature_classes = []
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
@@ -53,7 +53,7 @@ class DiningRoom(pl.place):
     count = (1, 3)
     colors = ["purple", "red", "gold", "silver"]
     textures = ["draped", "marble", "painted", "lit"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = [fur.Carpet, fur.Table, fur.Chair, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
@@ -62,7 +62,7 @@ class Kitchen(pl.place):
     count = (1, 2)
     colors = ["dirty", "smoke-stained", "unpainted", "gray", "beige"]
     textures = ["brick", "stone"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = [fur.Stove, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
@@ -71,7 +71,7 @@ class Parlor(pl.place):
     count = (1, 3)
     colors = ["blue", "white", "salmon", "gold", "silver"]
     textures = ["painted", "draped", "sunlit"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = [fur.Carpet, fur.Chair]
     subelement_classes = [wall, floor]
 
@@ -80,7 +80,7 @@ class ThroneRoom(pl.place):
     count = (1, 2)
     colors = ["gold", "red", "silver", "purple"]
     textures = ["brick", "stone", "marble"]
-    creature_classes = [Orc, Goblin]
+    creature_classes = []
     furniture_classes = [fur.Throne]
     subelement_classes = [wall, floor]
 
@@ -89,7 +89,7 @@ class TortureChamber(pl.place):
     count = (1, 3)
     colors = ["black", "gray", "streaked", "dirty"]
     textures = ["stone", "dirt", "timber"]
-    creature_classes = [(Orc, Goblin)]
+    creature_classes = []
     furniture_classes = [fur.Manacles, fur.Table, fur.Rack, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
@@ -120,6 +120,9 @@ LevelStyle.register(MainFloor)
 class Castle:
     levelorder = [Dungeon, MainFloor, BedroomFloor]
     links = [(0, 1), (1, 2)]
-    creature_classes = [Hydra]
+    # TODO-DECIDE how do we want creature spawns to work? One per room? Sets? Rare creatures? We have three levels of
+    #  hierarchy to work with- game, level, room. We have () for allowing options. But I think we want more precise control-
+    #  spawn rates, and related sets of creatures.
+    creature_classes = [Hydra, Orc, Goblin]
 
 GameStyle.register(Castle)

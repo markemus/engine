@@ -1,8 +1,5 @@
 import math
 
-# Contains all levels in order
-# TODO-DONE Does it? Why?? EDIT: Oh lord.
-# levels = []
 
 # Maps a single level
 class levelmap:
@@ -15,7 +12,7 @@ class levelmap:
         # Take sqrt of roomnum, round up, cast as int. That gives us a map with enough room.
         # Then scale the map up.
         x = (2 * int(math.ceil(math.sqrt(roomnum)))) + 1
-        # TODO-DONE we should put O's representing doors between rooms.
+        # Dots are empty space
         self.layout = [["." for i in range(x)] for j in range(x)]
         self.roomLocations = {}
 

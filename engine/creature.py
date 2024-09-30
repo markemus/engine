@@ -144,7 +144,6 @@ class creature:
 
                     # Choose and construct
                     article = suit[limb.wears]
-                    #TODO isinstance
                     if type(article) == tuple:
                         article = random.choice(article)
                     # TODO-DECIDE how is color etc params set for suits? They should be matching.

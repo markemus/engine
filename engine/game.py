@@ -46,12 +46,3 @@ class Game(object):
 
     def get_level(self):
         return self.current_level
-
-
-if __name__ == '__main__':
-    # TODO castle has been moved to its own subpackage. Maybe we should put tests in one location.
-    x = Game("testGame", styles.Castle)
-
-    for level in x.level_list:
-        for room in level.roomLocations.keys():
-            print(room.desc(full=False))

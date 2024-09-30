@@ -51,7 +51,7 @@ class levelGenerator:
                 gennedLevel.start = gennedRoom
             else:
                 lastRoom = roomList[lastRoomNum]
-            # TODO-DONE lastRoom needs to be the proper room that self.find_slot() chose
+
             door = self.connectRooms(gennedRoom, lastRoom)
 
             # Add room to gennedLevel's levelMap and roomList
@@ -151,7 +151,7 @@ class levelGenerator:
         room1.addElement(door)
 
         # if first room generated
-        # TODO DOOR SHOULD CONNECT TO PREVIOUS LEVEL
+        # TODO-DONE DOOR SHOULD CONNECT TO PREVIOUS LEVEL
         if room2 is None:
             pass
         else:

@@ -73,7 +73,6 @@ class place:
     def _populate(self):
         # TODO should use creatures from level and game lists as well- update self.creature_classes on initiation?
         for creature_class in self.creature_classes:
-            #TODO isinstance
             if type(creature_class) == tuple:
                 creature_class = random.choice(creature_class)
             name = creature_class.name + " of " + self.name
@@ -102,7 +101,7 @@ class place:
                             self.borders["w"] = room
                         if relativeIndex == (0,2):
                             self.borders["e"] = room
-                    # TODO don't forget downwards rooms.
+                    # TODO-DONE don't forget downwards rooms.
                     elif room.level != self.level:
                         self.borders[">"] = room
 
@@ -148,7 +147,7 @@ class element:
 
     #     if self.visible == True:
     #         area = "You see a {} {} {}".format(self.color, self.texture, self.name)
-            
+
     #         for subElem in self.elements:
     #             if count == 0:
     #                 if subElem.visible == True:
@@ -157,7 +156,7 @@ class element:
     #             elif count > 0:
     #                 if subElem.visible == True:
     #                     area = area + ", a " + subElem.color + " " + subElem.name
-           
+
     #         for contents in self.vis_inv:
     #             if contents.visible == True:
     #                 area = area + " containing " + contents.color + " " + contents.name
@@ -170,7 +169,7 @@ class element:
     #                 for contents in subElem.vis_inv:
     #                     print(contents.name)
     #                 for contents in subElem.vis_inv:
-    #                     contents.desc()    
+    #                     contents.desc()
     #             else:
     #                 print("As far as you can tell the " + subElem.name + " contains no items.")
 
@@ -204,7 +203,7 @@ class element:
     def add_vis_item(self, item):
         self.vis_inv.append(item)
 
-# TODO-DONE should be somewhere else. Organize this sort of stuff somewhere.
+
 class furniture(element):
     name = "NO_NAME_FURN"
     visible = True  # element is shown during place's desc()
