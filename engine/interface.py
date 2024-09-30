@@ -1,6 +1,7 @@
 from transitions import Machine
 
 from . import controller
+from . import save
 
 
 class Interface:
@@ -20,7 +21,8 @@ class Interface:
             "d": self.cont.east,
             ">": self.cont.stairs,
             "b": self.cont.borders,
-            "f": self.fight
+            "f": self.fight,
+            "/": self.save,
         }
 
         fight = {
@@ -58,8 +60,16 @@ class Interface:
         else:
             print(x, "is not a valid command.")
 
-    # TODO-DONE we should print a string of all concatenated commands available under the map: HLMS... for a visual cue.
     def help(self):
         allcoms = self.commands[self.state]
 
         self.cont.dictprint(allcoms)
+
+    def save(self):
+        savepath = input("Please enter the filename for your save:")
+        save.save(self, savepath)
+
+    def load(self):
+        savepath = input("Load stored save:")
+        i = save.load(savepath)
+        return i
