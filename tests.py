@@ -1,6 +1,3 @@
-import copy
-import pytest
-
 class TestCastle():
     def test_style_inheritance(self):
         """Tests that Castle game is an abstract subclass of GameStyle."""
@@ -68,7 +65,6 @@ class TestCastle():
         import castle.castle as cs
         from castle import goblin
         from engine import game
-        from engine import styles
 
         visited = []
 
@@ -160,7 +156,7 @@ class TestCastle():
         #             # borders_left = [r for r in g.location.borders.values() if r in rooms_left]
         #             # if not len(borders_left):
         #             rooms_left.remove(room)
-        #             # TODO we still don't have coverage for forked paths- test currently hangs
+        #             # TODO-DONE we still don't have coverage for forked paths- test currently hangs
         #             #  https://en.wikipedia.org/wiki/Graph_traversal#Pseudocode
         #             rooms_done.append(room)
         #             # print(room)

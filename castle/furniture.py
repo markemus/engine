@@ -18,6 +18,12 @@ class Rack(pl.furniture):
     texture = ["leathery", "rusty", "metal", "wood"]
     count = (1, 2)
 
+class Toilet(pl.furniture):
+    name = "toilet"
+    color = ["white", "pink"]
+    texture = ["ceramic"]
+    count = (1, 2)
+
 class Carpet(pl.furniture):
     name = "carpet"
     color = ["blue and white", "black and silver", "gold and green", "orange", "blue", "black"]
@@ -48,3 +54,27 @@ class Table(pl.furniture):
     color = ["black", "red", "green"]
     texture = ["granite", "marble", "wood"]
     count = (1, 2)
+
+class Bed(pl.furniture):
+    name = "bed"
+    color = ["blue", "green", "gray"]
+    texture = ["sheeted", "quilted"]
+    count = (1, 3)
+
+class Dresser(pl.furniture):
+    name = "dresser"
+    color = ["brown", "black", "white"]
+    texture = ["wood"]
+    count = (1, 2)
+
+class CabinetElegant(pl.furniture):
+    name = "cabinet"
+    color = ["brown", "black", "white"]
+    texture = ["wood"]
+    count = (0, 3)
+
+class CabinetMetal(pl.furniture):
+    name = "cabinet"
+    color = ["gray", "black", "white"]
+    texture = ["metal", "steel"]
+    count = (0, 3)
