@@ -1,4 +1,3 @@
-from . import fsm
 from . import levelGenerator
 from . import styles
 
@@ -10,8 +9,7 @@ class Game(object):
         self.char = None
         self.level_list = []
         self.current_level = None
-        # self.clock = fsm.clock(self)
-        
+
         self.levelGenerator = levelGenerator.levelGenerator()
         
         # Generate

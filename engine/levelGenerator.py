@@ -2,7 +2,6 @@ import math
 import random
 
 from . import levelmap
-from . import place
 from . import styles
 
 

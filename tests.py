@@ -61,3 +61,20 @@ class TestCastle():
         assert chairs[0].count[1] > len(chairs) >= chairs[0].count[0]
         # Chairs get their own color schema
         assert (chairs[0].color in fur.Chair.color) and (chairs[0].texture in fur.Chair.texture)
+
+    def test_room_connections(self):
+        """Rooms in a level should have doors connecting them, with a path throughout the level."""
+        import castle.castle as cs
+        from engine import game
+        from engine import styles
+        t_game = game.Game("The Howling Manor", cs.Castle)
+        thisLevel = t_game.level_list[0]
+        roomList = thisLevel.get_rooms()
+
+        # There should only be a single door in common (we can update test later if that changes).
+        for r1, r2 in zip([None, ] + roomList, roomList):
+            # First room has no backwards connection.
+            if r1 is not None:
+                shared_elems = [elem for elem in r1.elements if elem in r2.elements]
+                assert len(shared_elems) == 1
+                assert isinstance(shared_elems[0], styles.door)
