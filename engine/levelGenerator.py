@@ -14,13 +14,10 @@ class levelGenerator:
     def levelGen(self, levelname, levelstyle):
         roomList = []
         lastRoom = None
-        # leadRoom is an index in roomList
-        # x, y = 0, 0
 
         # Get room counts
         roomcounts = self.count_rooms(levelstyle)
         roomNum = sum(roomcounts.values())
-        # roomGenerators = self.get_room_generators(levelstyle)
 
         # Create level
         gennedLevel = levelmap.levelmap(levelname, roomNum)
@@ -47,18 +44,15 @@ class levelGenerator:
                 del roomcounts[roomType]
 
             # Create a room
-            # gennedRoom = roomGenerators[roomType].random_room_generator(gennedLevel)
             # TODO better room names
             gennedRoom = roomType(str(roomType), gennedLevel)
-            # gennedRoom.sprite = str(thisRoomNum)
 
             # First room needs to be start, doesn't need to connect to previous room
             if len(roomList) == 0:
                 gennedLevel.start = gennedRoom
             else:
                 lastRoom = roomList[lastRoomNum]
-
-            # roomGenerators[roomType].connectRooms(gennedRoom,lastRoom)
+            # TODO-DONE lastRoom needs to be the proper room that self.find_slot() chose
             door = self.connectRooms(gennedRoom, lastRoom)
 
             # Add room to gennedLevel's levelMap and roomList
@@ -76,14 +70,19 @@ class levelGenerator:
             # Do only if this isn't last room.
             # Prevents error if this is last room and roomNum is perfect square (so no available slots).
             if newRoom != roomNum - 1:
-                x, y = self.find_slot(gennedLevel, x, y, previousRoomList)
+                x, y, lastRoomNum = self.find_slot(gennedLevel, x, y, previousRoomList)
                 previousRoomList.append((x, y))
-                lastRoomNum = len(previousRoomList) - 1
+                # lastRoomNum = len(previousRoomList) - 1
+                lastRoomNum = lastRoomNum + 2
+                # print(lastRoomNum, len(previousRoomList))
+
+            # Set end room
+            gennedLevel.end = roomList[-1]
 
         # Borders aren't updated until rooms are populated- they have doors now.
         for room in roomList:
             room.get_borders()
-        
+
         return gennedLevel
 
     def count_rooms(self, levelstyle):
@@ -102,7 +101,9 @@ class levelGenerator:
         delta = [(2, 0), (-2, 0), (0, 2), (0, -2)]
         # min and max stop us from checking the same shift twice
         deltaMin = 0
-        lastRoomNum = len(previousRoomList) - 1
+        # Our x,y are for current room- we are calculating next room,
+        # and we are saving last room in case we are at a dead end.
+        lastRoomNum = len(previousRoomList) - 2
 
         while True:
             deltaIndex = random.randrange(deltaMin, len(delta))
@@ -117,9 +118,9 @@ class levelGenerator:
             # In this outcome, our room slot is available, so we assign it
             # we save the last room's indices in case we need to backtrack
             # we reset lastRoomNum in case we backtracked
-            if testIndex == 'X' and testx >= 0 and testy >= 0:
+            if testIndex == '.' and testx >= 0 and testy >= 0:
                 (x, y) = (testx, testy)
-                deltaMin = 0
+                # print("done")
                 break
                 
             # In this outcome, our room slot is not available, so we try the next adjacency
@@ -138,7 +139,7 @@ class levelGenerator:
                 deltaMin = 0
                 lastRoomNum = lastRoomNum - 1
 
-        return x, y
+        return x, y, lastRoomNum
 
     def connectRooms(self, room1, room2):
         """Add a door connecting room_1 to previous room room_2 (or to nothing if there is no previous room)."""

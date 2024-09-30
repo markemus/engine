@@ -61,6 +61,13 @@ class Controller:
     def east(self):
         self.game.char.leave("e")
 
+    def stairs(self):
+        """Stairs cross over between levels."""
+        self.game.char.leave(">")
+        new_level = self.game.char.location.get_level()
+        new_level_idx = self.game.level_list.index(new_level)
+        self.game.set_current_level(new_level_idx)
+
     # Combat
     def attack(self):
         # com = combat.Combat(self.game.char, self)

@@ -1,6 +1,5 @@
 """The Book of Common Limbs."""
 import engine.creature as cr
-# import castle.suits
 
 class Hair(cr.limb):
     name = "hair"
@@ -120,18 +119,4 @@ class Leg(cr.limb):
     appendageRange = (2, 3)
     wears = "leg"
 
-# Torso
-# class Torso(cr.limb):
-#     name = "body"
-#     subelement_classes = [Head, Arm, Leg]
-#     isSurface = True
-#     appendageRange = (1, 2)
-#     wears = "body"
-
-
-# if __name__ == '__main__':
-#     wep = suits.sword()
-#     test = hand()
-#     test.inventory.append(wep)
-#     print(test.damage)
 # TODO we should be using these common limbs for our creatures

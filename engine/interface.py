@@ -1,9 +1,6 @@
 from transitions import Machine
 
 from . import controller
-# from . import game
-# import man
-# from . import styles
 
 
 class Interface:
@@ -21,6 +18,7 @@ class Interface:
             "s": self.cont.south,
             "a": self.cont.west,
             "d": self.cont.east,
+            ">": self.cont.stairs,
             "b": self.cont.borders,
             "f": self.fight
         }
@@ -53,27 +51,15 @@ class Interface:
     # Standard
 
     def command(self):
+        print("Available commands: "+"".join(self.commands[self.state].keys()))
         x = input("Choose a command (h for help): ")
         if x in self.commands[self.state].keys():
             self.commands[self.state][x]()
         else:
             print(x, "is not a valid command.")
 
-    # TODO we should print a string of all concatenated commands available under the map: HLMS... for a visual cue.
+    # TODO-DONE we should print a string of all concatenated commands available under the map: HLMS... for a visual cue.
     def help(self):
         allcoms = self.commands[self.state]
 
         self.cont.dictprint(allcoms)
-
-
-# if __name__ == "__main__":
-#     x = game.Game("testGame", styles.Castle)
-#     adam = man.Man("Adam", location=x.level_list[0].start)
-#     x.level_list[0].start.creatures = [adam] + x.level_list[0].start.creatures
-#     x.set_char(adam)
-#     adam.team = "player"
-#     i = Interface(x)
-#     print(i.state)
-#     print(adam.location.borders)
-#     while True:
-#         i.command()

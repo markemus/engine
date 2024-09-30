@@ -1,15 +1,8 @@
 import math
-# from . import creature
-# from . import place
-# from . import item
-# TODO Fix these imports.
-# creature = imp.load_source("creature", "creature.py")
-# place = imp.load_source("place", "place.py")
-# item = imp.load_source("item", "item.py")
 
 # Contains all levels in order
-# TODO Does it? Why?? EDIT: Oh lord.
-levels = []
+# TODO-DONE Does it? Why?? EDIT: Oh lord.
+# levels = []
 
 # Maps a single level
 class levelmap:
@@ -22,8 +15,8 @@ class levelmap:
         # Take sqrt of roomnum, round up, cast as int. That gives us a map with enough room.
         # Then scale the map up.
         x = (2 * int(math.ceil(math.sqrt(roomnum)))) + 1
-        # TODO we should put O's representing doors between rooms.
-        self.layout = [["X" for i in range(x)] for j in range(x)]
+        # TODO-DONE we should put O's representing doors between rooms.
+        self.layout = [["." for i in range(x)] for j in range(x)]
         self.roomLocations = {}
 
     def addRoom(self, x, y, room):
@@ -50,7 +43,7 @@ class levelmap:
         for row in self.layout:
             row_sprite = ""
             for index in row:
-                if hasattr(index,"sprite"):
+                if hasattr(index, "sprite"):
                     row_sprite += str(index.sprite)
                 else:
                     row_sprite += str(index)

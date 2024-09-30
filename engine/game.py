@@ -25,7 +25,15 @@ class Game(object):
             levelname = "level {}".format(str(levelstyle))
             gennedLevel = self.levelGenerator.levelGen(levelname, levelstyle)
             self.level_list.append(gennedLevel)
-        
+
+        # Connect levels to one another.
+        for (l1, l2) in zip([None, ] + self.level_list, self.level_list):
+            # Skip first level
+            if l1 is not None:
+                self.levelGenerator.connectRooms(l2.start, l1.end)
+                l2.start.get_borders()
+                l1.end.get_borders()
+
     def set_char(self, char):
         self.char = char
 
