@@ -1,3 +1,4 @@
+import copy
 import pytest
 
 class TestCastle():
@@ -65,16 +66,106 @@ class TestCastle():
     def test_room_connections(self):
         """Rooms in a level should have doors connecting them, with a path throughout the level."""
         import castle.castle as cs
+        from castle import goblin
         from engine import game
         from engine import styles
+
+        visited = []
+
+        def explore_depth(g, border):
+            """We will send our goblin down each path until the end,
+            at which point it will backtrack."""
+            # Explore border
+            orig_loc = g.location
+            g.leave(border)
+            new_loc = g.location
+            # Goal is to visit every location in level.
+            if new_loc not in visited:
+                visited.append(new_loc)
+            # Save return info
+            return_path = [a[0] for a in new_loc.borders.items() if a[1] == orig_loc][0]
+
+            # Explore each path from new location, except the one we came in on.
+            for test_border in new_loc.borders.keys():
+                test_loc = new_loc.borders[test_border]
+                if (test_loc is not None) and (test_loc is not orig_loc):
+                    # Go down each path until the end (recursion)
+                    explore_depth(g, test_border)
+            # Backtrack once paths are explored
+            g.leave(return_path)
+
+        # Run test
         t_game = game.Game("The Howling Manor", cs.Castle)
         thisLevel = t_game.level_list[0]
-        roomList = thisLevel.get_rooms()
+        g = goblin.Goblin("test", location=thisLevel.start)
+        test_borders = [b for b in g.location.borders.keys() if g.location.borders[b] is not None]
 
-        # There should only be a single door in common (we can update test later if that changes).
-        for r1, r2 in zip([None, ] + roomList, roomList):
-            # First room has no backwards connection.
-            if r1 is not None:
-                shared_elems = [elem for elem in r1.elements if elem in r2.elements]
-                assert len(shared_elems) == 1
-                assert isinstance(shared_elems[0], styles.door)
+        # Check each path leaving from the first room.
+        visited.append(g.location)
+        for border in test_borders:
+            explore_depth(g, border)
+
+        # Collect all rooms so we can ensure each was visited (pigeonhole principle).
+        all_rooms = []
+        for level in t_game.level_list:
+            # print(level.show_map())
+            all_rooms.extend(level.get_rooms())
+
+        assert len(all_rooms) == len(visited)
+
+
+
+
+
+        # # There should only be a single door in common (we can update test later if that changes).
+        # for r1, r2 in zip([None, ] + roomList, roomList):
+        #     # First room has no backwards connection.
+        #     if r1 is not None:
+        #         shared_elems = [elem for elem in r1.elements if elem in r2.elements]
+        #         assert len(shared_elems) == 1
+        #         assert isinstance(shared_elems[0], styles.door)
+
+        # We will have a goblin traverse the floor to test that all rooms are accessible.
+        # g = goblin.Goblin("test", location=thisLevel.start)
+        # location = g.location
+        # visited = {}
+        # visited[location] = True
+        # borders = [x for x in location.borders.keys() if location.borders[x] is not None]
+        # for border in borders:
+        #     if borders[border] not in visited.keys():
+        #         g.leave(border)
+        #         location = borders[border]
+        #         visited[location] = True
+
+
+
+        # # borders = g.location.borders
+        # test_order = ["n", "s", "w", "e"]
+        # rooms_left = copy.copy(thisLevel.get_rooms())
+        # rooms_done = []
+        #
+        # # Skipping first room
+        # rooms_left.remove(g.location)
+        # rooms_done.append(g.location)
+        #
+        # print(thisLevel.show_map())
+        #
+        # while rooms_left:
+        #     for key in test_order:
+        #         # print(key)
+        #         room = g.location.borders[key]
+        #         if (room is not None) and (room not in rooms_done):
+        #             g.leave(key)
+        #             # Don't remove room until all borders are explored.
+        #             # borders_left = [r for r in g.location.borders.values() if r in rooms_left]
+        #             # if not len(borders_left):
+        #             rooms_left.remove(room)
+        #             # TODO we still don't have coverage for forked paths- test currently hangs
+        #             #  https://en.wikipedia.org/wiki/Graph_traversal#Pseudocode
+        #             rooms_done.append(room)
+        #             # print(room)
+        #             # print(rooms_left)
+        #             break
+        #
+        # assert len(rooms_left) == 0
+        # assert len(rooms_done) == len(thisLevel.get_rooms())
