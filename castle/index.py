@@ -19,13 +19,9 @@ t_game.set_char(adam)
 adam.team = "player"
 
 thisLevel.printMap(adam)
-# print(adam.location.name)
-# adam.location.desc()
 adam.speak("hello world", adam.location.creatures[0])
 
 i = interface.Interface(t_game)
-# print(i.state)
-# print(adam.location.borders)
 
 # Game loop
 while True:

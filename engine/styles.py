@@ -13,14 +13,16 @@ from . import place as pl
 
 
 class LevelStyle(abc.ABC):
+    """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
     room_classes = []
-    # TODO we should add a probability that each creature will be generated. Note list-tuple rule in docstring.
+    # TODO-DONE we should add a probability that each creature will be generated. Note list-tuple rule in docstring.
     creature_classes = []
 
 class GameStyle(abc.ABC):
     levelorder = [LevelStyle, LevelStyle, LevelStyle]
     links = []
-    creature_classes = []
+    # TODO-DECIDE game level creature classes?
+    # creature_classes = []
 
 class wall(pl.element):
     name = "wall"
@@ -36,3 +38,17 @@ class floor(pl.element):
 class door(pl.element):
     name = "door"
     sprite = "O"
+
+def weight_list(clist, weight):
+    """Reweights elements in a creature list in preparation for joining with another creature list.
+    e.g. creature_list = weight_list(d_creature_lists["caves"], 3) + d_creature_lists["city"]"""
+    # Pivot table
+    ziplist = list(zip(*clist))
+    # Apply weights and pivot back
+    weighted_list = list(zip(*[ziplist[0], [x * weight for x in ziplist[1]]]))
+    return weighted_list
+
+# def populate_levels(gamestyle):
+#     """Causes level styles to inherit game parent characteristics."""
+#     for level in gamestyle.levelorder:
+#         level.creature_classes += gamestyle.creature_classes

@@ -1,29 +1,19 @@
-import imp
+import random
 
-creature = imp.load_source("creature", "creature.py")
-place = imp.load_source("place", "place.py")
-item = imp.load_source("item", "item.py")
-interface = imp.load_source("interface", "interface.py")
-house = imp.load_source("house", "house.py")
-man = imp.load_source("man", "man.py")
-kangaroo = imp.load_source("kangaroo", "kangaroo.py")
-lizard = imp.load_source("lizard", "lizard.py")
+d_creature_lists = {"caves": [("orc", 3), ("goblin", 5)],
+                    "dungeon": [("grue", 1), ("skeleton", 3), ("rat", 5)],
+                    "hills": [("troll", 2), ("sheep", 8)],
+                    "city": [("elf", 3), ("halfling", 4), ("dwarf", 6), ("human", 8)]}
+def weight_list(clist, weight):
+    """Reweights elements in a creature list in preparation for joining with another creature list."""
+    # Pivot table
+    ziplist = list(zip(*clist))
+    # Apply weights and pivot back
+    weighted_list = list(zip(*[ziplist[0], [x * weight for x in ziplist[1]]]))
+    return weighted_list
 
-# TODO we can probably save just with a single pickling. It's just plain old python code throughout.
-# thefile = open("all_creatures.py", "w")
-# print("hello world", file = thefile)			#overwrites. 	!!!!!!!THIS IS HOW TO WRITE TO FILES!!!!!! 
-# Probably the key to loading from them as well, and from there the key to procedural generation!
+creature_list = weight_list(d_creature_lists["caves"], 3) + d_creature_lists["city"]
 
-# place.py test zone			#########################
-
-# item.py test zone				##########################
-
-# creature.py test zone			#############################
-
-print(man.testChar.desc_status()) 
-man.testChar.location = house.foyer_1
-print(man.testChar.location.name)
-man.testChar.leave("h3")
-print(man.testChar.location.name)
-
-# house.py test zone		##############################
+# Pivot
+creatures, weights = zip(*creature_list)
+random.choices(creatures, weights, k=9)

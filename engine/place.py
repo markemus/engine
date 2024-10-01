@@ -4,15 +4,16 @@ import random
 # End of Loading Zone
 
 class place:
+    """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
     name = "generic_place"
     elements = []
     borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
     cantransfer = False
     area = "You are standing in"
     sprite = "R"
-    creatures = []
+    creature_classes = []
 
-    def __init__(self, name, level):
+    def __init__(self, name, level, extra_creatures=None):
         self.name = name
         self.elements = []
         self.borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
@@ -22,7 +23,7 @@ class place:
         # for anElem in newElements:
         #     self.elements.append(anElem)
         self._elementGen()
-        self._populate()
+        self._populate(extra_creatures)
         self.get_borders()
 
     def desc(self, full=True, offset=0):
@@ -70,15 +71,24 @@ class place:
                 elem = elemclass(color, texture)
                 self.elements.append(elem)
 
-    def _populate(self):
-        # TODO should use creatures from level and game lists as well- update self.creature_classes on initiation?
-        for creature_class in self.creature_classes:
-            if type(creature_class) == tuple:
-                creature_class = random.choice(creature_class)
-            name = creature_class.name + " of " + self.name
-            creature = creature_class(name, location=self)
-            # print(creature)
-            self.creatures.append(creature)
+    def _populate(self, extra_creatures=None):
+        """Creates one creature per creature_class. extra_creatures allows creatures that are
+        not included as part of the class definition.[[(c11, w11), (c12, w12)], [(c21, w21)]."""
+        if extra_creatures:
+            creature_classes = self.creature_classes + extra_creatures
+        else:
+            creature_classes = self.creature_classes
+
+        # Pick one creature per creature_class
+        for creature_class in creature_classes:
+            creatures, weights = zip(*creature_class)
+            creature_type = random.choices(creatures, weights, k=1)[0]
+
+            # Selecting None means no creature is spawned for that creature_class
+            if creature_type is not None:
+                name = creature_type.name + " of " + self.name
+                creature = creature_type(name, location=self)
+                self.creatures.append(creature)
 
     def get_borders(self):
         """Gives the Place its Elements' Borders."""

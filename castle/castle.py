@@ -3,13 +3,21 @@
 This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?
 (No, there isn't.)"""
 import engine.place as pl
+import engine.styles as st
 
 from castle.goblin import Goblin
-from castle.hydra import Hydra
 from castle.orc import Orc
 from castle import furniture as fur
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
+# TODO create creature_classes and populate castle
+d_creature_classes = {"goblinkin": [(Orc, 1), (Goblin, 3)],
+                      "fantasy_city": [("Dwarf", 2), ("Elf", 2), ("Hobbit", 1), ("Human", 5)],
+                      "castle": [("Skeleton", 2), ("AnimatedArmor", 2)],
+                      "kitchen": [("Cook", 1), ("Pot_boy", 3)],
+                      "animals_indoor": [("Cat", 2), ("Hound", 2)],
+                      "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1)]
+}
 
 # Rooms
 class Ballroom(pl.place):
@@ -97,21 +105,21 @@ class TortureChamber(pl.place):
 # Levels
 class BedroomFloor:
     room_classes = [Bedroom, Bathroom]
-    creature_classes = []
+    creature_classes = [[(Orc, 1), (Goblin, 1), (None, 3)]]
 
 LevelStyle.register(BedroomFloor)
 
 
 class Dungeon:
     room_classes = [TortureChamber, Cell]
-    creature_classes = []
+    creature_classes = [[(Goblin, 3), (None, 3)]]
 
 LevelStyle.register(Dungeon)
 
 
 class MainFloor:
     room_classes = [ThroneRoom, Kitchen, DiningRoom, Parlor, Ballroom, Bathroom]
-    creature_classes = []
+    creature_classes = [[(Orc, 3), (None, 3)]]
 
 LevelStyle.register(MainFloor)
 
@@ -120,9 +128,7 @@ LevelStyle.register(MainFloor)
 class Castle:
     levelorder = [Dungeon, MainFloor, BedroomFloor]
     links = [(0, 1), (1, 2)]
-    # TODO-DECIDE how do we want creature spawns to work? One per room? Sets? Rare creatures? We have three levels of
-    #  hierarchy to work with- game, level, room. We have () for allowing options. But I think we want more precise control-
-    #  spawn rates, and related sets of creatures.
-    creature_classes = [Hydra, Orc, Goblin]
+    # TODO-DECIDE do we want to allow game-wide creature classes? Currently can define per level and per room.
+    # creature_classes = [Orc, Goblin]
 
 GameStyle.register(Castle)
