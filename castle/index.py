@@ -12,7 +12,8 @@ t_game = game.Game("The Howling Manor", castle.Castle)
 thisLevel = t_game.level_list[0]
 
 # Character creation
-adam = man.Man("Adam", location=thisLevel.start)
+adam = man.Man(location=thisLevel.start)
+adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
 # TODO make teams mean something

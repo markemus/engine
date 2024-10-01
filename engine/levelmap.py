@@ -1,5 +1,7 @@
 import math
 
+from colorist import Color as C
+
 
 # Maps a single level
 class levelmap:
@@ -28,7 +30,7 @@ class levelmap:
             row_sprite = ""
             for x in row:
                 if hasattr(x, "creatures") and char in x.creatures:
-                        row_sprite += "U"
+                        row_sprite += f"{char.printcolor}U{C.OFF}"
                 elif hasattr(x, "sprite"):
                     row_sprite += str(x.sprite)
                 else:
@@ -36,6 +38,8 @@ class levelmap:
             print(row_sprite)
 
     def show_map(self):
+        """This is a duplicate of printMap with very similar features. Difference is that char is not shown and map
+        is returned instead of printed."""
         ourMap = ""
         for row in self.layout:
             row_sprite = ""

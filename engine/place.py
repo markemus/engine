@@ -1,6 +1,7 @@
 import copy
 import random
 
+from colorist import Color as C
 # End of Loading Zone
 
 class place:
@@ -86,8 +87,9 @@ class place:
 
             # Selecting None means no creature is spawned for that creature_class
             if creature_type is not None:
-                name = creature_type.name + " of " + self.name
-                creature = creature_type(name, location=self)
+                # name = creature_type.name + " of " + self.name
+                # creature = creature_type(name, location=self)
+                creature = creature_type(location=self)
                 self.creatures.append(creature)
 
     def get_borders(self):
@@ -140,7 +142,8 @@ class place:
 class element:
     name = "NO_NAME_ELEM"
     visible = True                  # element is shown during place's desc()
-    color = "NO_COLOR" 
+    color = "NO_COLOR"
+    printcolor = C.YELLOW
     texture = "NO_TEXTURE"
     elements = []
 
@@ -185,7 +188,7 @@ class element:
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" "*offset) + "- {} {} {}".format(self.color, self.texture, self.name)
+        text = (" "*offset) + f"- {self.printcolor}{self.color} {self.texture} {self.name}{C.OFF}"
         if full:
             for item in self.vis_inv:
                 text += "\n" + item.desc(offset=offset+1)
@@ -218,5 +221,6 @@ class furniture(element):
     name = "NO_NAME_FURN"
     visible = True  # element is shown during place's desc()
     color = "NO_COLOR"
+    printcolor = C.MAGENTA
     texture = "NO_TEXTURE"
     elements = []

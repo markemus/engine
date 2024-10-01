@@ -140,6 +140,7 @@ class levelGenerator:
 
         return x, y, lastRoomNum
 
+    # TODO figure out why first room on level has an extra door that doesn't connect to anywhere.
     def connectRooms(self, room1, room2):
         """Add a door connecting room_1 to previous room room_2 (or to nothing if there is no previous room)."""
         color = random.choice(room1.colors)

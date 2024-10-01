@@ -1,5 +1,6 @@
 import random
 
+from colorist import Color as C
 from engine import ai
 
 # End of Loading Zone
@@ -109,14 +110,15 @@ class weapon(limb):
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
-    name = "NO_NAME_CREATURE"
+    # name = "NO_NAME_CREATURE"
     team = None
+    printcolor = C.CYAN
     # cantransfer = False      # can carry items
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object
   
-    def __init__(self, name, location):
-        self.name = name
+    def __init__(self, location):
+        self.name = random.choice(self.namelist)
         self.color = random.choice(self.colors)
         self.texture = random.choice(self.textures)
         self.inventory = []
@@ -154,7 +156,7 @@ class creature:
     # TODO add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" " * offset) + "> " + self.name
+        text = (" " * offset) + f"> {self.printcolor}{self.name}{C.OFF}"
         if full:
             for elem in self.subelements:
                 text += "\n" + elem.desc(offset=offset + 1)
@@ -251,8 +253,8 @@ class creature:
             print("Who are you talking to?")
 
     def listen(self, words, speaker):
-        print(speaker.name + " says: " + '"' + words + '".')
-        print(self.name + " listens carefully.")
+        print(f"{speaker.printcolor}{speaker.name}{C.OFF} says: \"{words}\".")
+        print(f"{self.printcolor}{self.name}{C.OFF} listens carefully.")
 
     def get_location(self):
         return self.location

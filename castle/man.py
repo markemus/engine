@@ -1,5 +1,6 @@
 import engine.creature as cr
 import castle.commonlimbs as cl
+import castle.namelists as nm
 from castle import suits
 
 # class Head(cr.limb):
@@ -18,13 +19,14 @@ class Torso(cr.limb):
 
 
 class Man(cr.creature):
-    name = "man"
+    # name = "man"
+    namelist = nm.names["human"]
     baseElem = Torso
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
     suits = [suits.testsuit, suits.weapons]
 
 
-if __name__ == "__main__":
-    eve = Man("Eve", location=None)
-    print(eve.desc())
+# if __name__ == "__main__":
+    # eve = Man("Eve", location=None)
+    # print(eve.desc())

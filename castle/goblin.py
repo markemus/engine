@@ -3,6 +3,7 @@ kinsmen. They can be distinguished by their lack of horns."""
 import engine.creature as cr
 import castle.orc as orc
 from castle import suits
+import castle.namelists as nm
 
 
 # Head
@@ -24,6 +25,7 @@ class Torso(cr.limb):
 # Goblin
 class Goblin(cr.creature):
     name = "goblin"
+    namelist = nm.names["goblin"]
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
     textures = ["scaled", "haired", "skinned"]
