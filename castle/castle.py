@@ -53,7 +53,7 @@ class Bedroom(pl.place):
     colors = ["blue", "brown", "egg white", "beige"]
     textures = ["painted", "wallpapered"]
     creature_classes = [cc["fantasy_city"]]
-    furniture_classes = [fur.Bed, fur.Dresser, fur.CabinetElegant]
+    furniture_classes = [fur.Bed, fur.Dresser]
     subelement_classes = [wall, floor]
 
 class Cell(pl.place):

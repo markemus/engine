@@ -10,7 +10,7 @@ class place:
     name = "generic_place"
     elements = []
     borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
-    cantransfer = False
+    # cantransfer = False
     area = "You are standing in"
     sprite = "R"
     creature_classes = []
@@ -88,8 +88,6 @@ class place:
 
             # Selecting None means no creature is spawned for that creature_class
             if creature_type is not None:
-                # name = creature_type.name + " of " + self.name
-                # creature = creature_type(name, location=self)
                 creature = creature_type(location=self)
                 self.creatures.append(creature)
 
@@ -146,6 +144,7 @@ class element:
     color = "NO_COLOR"
     printcolor = C.YELLOW
     texture = "NO_TEXTURE"
+    cantransfer = False
     elements = []
 
     def __init__(self, color, texture):
@@ -159,6 +158,9 @@ class element:
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
         text = (" "*offset) + f"- {self.printcolor}{self.color} {self.texture} {self.name}{C.OFF}"
+        # Indicate contents
+        if self.vis_inv or self.elements:
+            text = text + " *"
         if full:
             for item in self.vis_inv:
                 text += "\n" + item.desc(offset=offset+1)
@@ -194,3 +196,36 @@ class furniture(element):
     printcolor = C.MAGENTA
     texture = "NO_TEXTURE"
     elements = []
+    vis_collections = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._fill()
+
+    def _fill(self):
+        """Put items in furniture upon creation."""
+        if self.vis_collections:
+            for item_collection in self.vis_collections:
+                if item_collection["color_scheme"] == "distinct":
+                    colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
+                else:
+                    # Single color for all items
+                    c = random.choice(item_collection["color"])
+                    colors = {key: c for key in item_collection["contains"]}
+
+                # Texture is same approach as color
+                if item_collection["texture_scheme"] == "distinct":
+                    textures = {key: random.choice(item_collection["texture"]) for key in item_collection["contains"]}
+                else:
+                    t = random.choice(item_collection["texture"])
+                    textures = {key: t for key in item_collection["contains"]}
+
+                # Create items
+                for item_class in item_collection["contains"]:
+                    c = colors[item_class]
+                    t = textures[item_class]
+                    if isinstance(item_class, tuple):
+                        item_class = random.choice(item_class)
+
+                    item = item_class(c, t)
+                    self.vis_inv.append(item)

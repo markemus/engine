@@ -126,7 +126,6 @@ class creature:
         self._elementGen()
         self._clothe()
 
-        # TODO needs to add creature to location.creatures
         self.location = location
         self.ai = ai.CombatAI(self)
 
@@ -167,7 +166,6 @@ class creature:
                     article = article(color=colors[limb.wears], texture=textures[limb.wears])
                     limb.inventory.append(article)
 
-    # TODO-DECIDE add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
         text = (" " * offset) + f"> {self.printcolor}{self.name} ({self.classname}){C.OFF}"
@@ -206,6 +204,7 @@ class creature:
                 carriedItem.viewInv()
 
     def grasp_check(self):
+        """Grasps an item with the first available appendage."""
         graspHand = None
         hands = self.subelements[0].limb_check("grasp")
         
@@ -220,6 +219,7 @@ class creature:
                     for thumb in hand.limb_check("t_grasp"):
                         t_grasp += thumb.t_grasp
 
+                    # TODO check that hand is empty. But can have a glove...
                     if f_grasp >= 1 and t_grasp >= 1:
                         graspHand = hand
                         break
@@ -227,16 +227,16 @@ class creature:
         return graspHand
 
     def grasp(self, item):
-
+        """Pick up an item with an appendage."""
         grasped = False
         graspHand = self.grasp_check()
                         
         if graspHand is not None:
             graspHand.inventory.append(item)
-            print(self.name + " picks up the " + item.name + " with their " + graspHand.name + ".")
+            print(f"{self.name} picks up the {item.name} with their {graspHand.name}.")
             grasped = True
         else:
-            print(self.name + " cannot pick up the " + item.name + ".")
+            print(f"{self.name} cannot pick up the {item.name}.")
 
         return grasped
 

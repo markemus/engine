@@ -22,7 +22,6 @@ class Item:
     # It's also a dumb way to do it, you young fool.
     # Agreed. I think. It's weird. But it ain't broke?
     def transfer(self, who, wherefrom, whereto):
-        # TODO this will raise an exception if item is not in wherefrom
         # if wherefrom[wherefrom.index(self)] == self:
         if self in wherefrom:
             # Determines that Who is able to grasp the item.
@@ -66,7 +65,7 @@ class Item:
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" "*offset) + f"* {C.MAGENTA}{self.color} {self.texture} {self.name}{C.OFF}"
+        text = (" "*offset) + f"* {C.BLUE}{self.color} {self.texture} {self.name}{C.OFF}"
         if full:
             for item in self.vis_inv:
                 text += "\n" + item.desc(offset=offset+1)

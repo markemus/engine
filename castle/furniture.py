@@ -1,4 +1,5 @@
 import castle.household_items as hi
+import castle.suits as st
 from engine import place as pl
 
 
@@ -63,6 +64,7 @@ class Bed(pl.furniture):
     color = ["blue", "green", "gray"]
     texture = ["sheeted", "quilted"]
     count = (1, 3)
+    vis_collections = [hi.linens]
 
 class Dresser(pl.furniture):
     name = "dresser"
@@ -70,13 +72,15 @@ class Dresser(pl.furniture):
     texture = ["wood"]
     count = (1, 2)
     cantransfer = True
-    # contentsets = [hi.place_setting]
+    # TODO this should be an invis_collections
+    vis_collections = [st.plainsuit_c]
 
 class CabinetElegant(pl.furniture):
     name = "cabinet"
     color = ["brown", "black", "white"]
     texture = ["wood"]
     count = (0, 3)
+    vis_collections = [hi.silver]
 
 class CabinetMetal(pl.furniture):
     name = "cabinet"
@@ -84,14 +88,15 @@ class CabinetMetal(pl.furniture):
     texture = ["metal", "steel"]
     count = (0, 3)
 
-class Theme:
-    name = "DiningRoom"
-    color_scheme = "antique"
-    n = 6
-    # - > table (settings x 6) teak, chair x 6 mahogany, walls x4 paneled
+# class Theme:
+#     name = "DiningRoom"
+#     color_scheme = "antique"
+#     n = 6
+#     # - > table (settings x 6) teak, chair x 6 mahogany, walls x4 paneled
 
 
 # TODO add contentsets from household_items.
+
 
 # TODO vis_inv and invis_inv. vis_inv should be displayed in place.desc(),
 #  and objects with invis_inv should be marked with * in desc().

@@ -13,7 +13,6 @@ from . import place as pl
 class LevelStyle(abc.ABC):
     """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
     room_classes = []
-    # TODO-DONE we should add a probability that each creature will be generated. Note list-tuple rule in docstring.
     creature_classes = []
 
 class GameStyle(abc.ABC):
@@ -29,7 +28,7 @@ class wall(pl.element):
 class floor(pl.element):
     name = "floor"
     count = (1, 2)
-    canCatch = True
+    cantransfer = True
 
 # TODO doors should have their own color and texture instead of borrowing from room.
 # TODO-DECIDE can we add windows for rooms on the edges of the level?
