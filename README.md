@@ -4,6 +4,7 @@ Sick of playing the same rogue-like over and over? Now you can make your own! In
 # TO INSTALL
 Install python 3.  
 pip3 install transitions
+pip3 install colorist
 
 # TO RUN
 python3 index.py
