@@ -8,6 +8,13 @@ class Hair(cr.limb):
     appendageRange = (1, 2)
     wears = "hair"
 
+class Beard(cr.limb):
+    name = "beard"
+    subelement_classes = []
+    isSurface = 1
+    appendageRange = (1, 2)
+    wears = "hair"
+
 class Ear(cr.limb):
     name = "ear"
     subelement_classes = []

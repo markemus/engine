@@ -24,7 +24,7 @@ class Torso(cr.limb):
 
 # Goblin
 class Goblin(cr.creature):
-    name = "goblin"
+    classname = "goblin"
     namelist = nm.names["goblin"]
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
@@ -32,6 +32,6 @@ class Goblin(cr.creature):
     suits = [suits.testsuit, suits.weapons]
 
 
-if __name__ == '__main__':
-    greedo = Goblin("Greedo", location=None)
-    print(greedo.desc())
+# if __name__ == '__main__':
+#     greedo = Goblin("Greedo", location=None)
+#     print(greedo.desc())

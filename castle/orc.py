@@ -113,7 +113,7 @@ class Torso(cr.limb):
 
 # Orc
 class Orc(cr.creature):
-    # name = "orc"
+    classname = "orc"
     namelist = nm.names["orc"]
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"]

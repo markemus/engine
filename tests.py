@@ -25,7 +25,7 @@ class TestCastle():
         thisLevel = t_game.level_list[0]
 
         # Character creation
-        adam = man.Man("Adam", location=thisLevel.start)
+        adam = man.Man(location=thisLevel.start)
         thisLevel.start.creatures.append(adam)
         t_game.set_char(adam)
         adam.team = "player"
@@ -94,7 +94,7 @@ class TestCastle():
         # Run test
         t_game = game.Game("The Howling Manor", cs.Castle)
         thisLevel = t_game.level_list[0]
-        g = goblin.Goblin("test", location=thisLevel.start)
+        g = goblin.Goblin(location=thisLevel.start)
         test_borders = [b for b in g.location.borders.keys() if g.location.borders[b] is not None]
 
         # Check each path leaving from the first room.
@@ -110,4 +110,8 @@ class TestCastle():
 
         assert len(all_rooms) == len(visited)
 
-    # def test_creature_spawning
+class TestGeneral:
+    def test_dependencies(self):
+        import colorist
+        import transitions
+        pass

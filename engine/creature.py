@@ -110,7 +110,7 @@ class weapon(limb):
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
-    # name = "NO_NAME_CREATURE"
+    classname = "NO_NAME_CREATURE"
     team = None
     printcolor = C.CYAN
     # cantransfer = False      # can carry items
@@ -153,10 +153,10 @@ class creature:
 
                     limb.inventory.append(article)
 
-    # TODO add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
+    # TODO-DECIDE add depth option for shortened view? Or a "main_piece" tag that's a boolean option?
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" " * offset) + f"> {self.printcolor}{self.name}{C.OFF}"
+        text = (" " * offset) + f"> {self.printcolor}{self.name} ({self.classname}){C.OFF}"
         if full:
             for elem in self.subelements:
                 text += "\n" + elem.desc(offset=offset + 1)

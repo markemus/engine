@@ -4,10 +4,7 @@ Do not inherit styles directly or the attributes will be inherited as well. Inst
 register() your classes as abstract subclasses of their parents.
 
 The hierarchy is built like a pyramid, from the ground up. At each level of the hierarchy you can define objects that
-will be inherited by all the lower levels.
-
-Each element in a list will be generated, and a single element will be selected from each tuple. This should work
-recursively to let you select lists from tuples of lists etc."""
+will be inherited by all the lower levels."""
 import abc
 from colorist import Color as C
 from . import place as pl

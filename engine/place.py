@@ -30,7 +30,7 @@ class place:
     def desc(self, full=True, offset=0):
         """Basic describe function, always called desc."""
         text = (" "*offset) + "# " + self.name
-        # if full:
+
         for creature in self.creatures:
             text += "\n" + creature.desc(full=full, offset=offset + 1)
         for elem in self.elements:
@@ -154,37 +154,6 @@ class element:
         self.vis_inv = []
         self.invis_inv = []
         self.elements = []      # subelements
-
-    # def desc(self):
-    #     count = 0
-
-    #     if self.visible == True:
-    #         area = "You see a {} {} {}".format(self.color, self.texture, self.name)
-
-    #         for subElem in self.elements:
-    #             if count == 0:
-    #                 if subElem.visible == True:
-    #                     area = area + subElem.color + " " + subElem.name
-    #                     count = count + 1
-    #             elif count > 0:
-    #                 if subElem.visible == True:
-    #                     area = area + ", a " + subElem.color + " " + subElem.name
-
-    #         for contents in self.vis_inv:
-    #             if contents.visible == True:
-    #                 area = area + " containing " + contents.color + " " + contents.name
-
-    #         print(area + ".")
-
-    #         for subElem in self.elements:
-    #             if len(subElem.vis_inv) > 0:
-    #                 print("The " + subElem.name + " contains the following items:")
-    #                 for contents in subElem.vis_inv:
-    #                     print(contents.name)
-    #                 for contents in subElem.vis_inv:
-    #                     contents.desc()
-    #             else:
-    #                 print("As far as you can tell the " + subElem.name + " contains no items.")
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
