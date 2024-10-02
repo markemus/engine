@@ -5,6 +5,7 @@ This dark castle harbors many deadly creatures. But perhaps great treasure is hi
 import engine.place as pl
 import engine.styles as st
 
+from castle.animated_armor import AnimatedArmor
 from castle.cat import Cat
 from castle.dwarf import Dwarf
 from castle.elf import Elf
@@ -20,7 +21,7 @@ from engine.styles import LevelStyle, GameStyle, wall, floor
 cc = {"goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
       "servants": [(ServantGoblin, 1)],
       "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Man, 5), (None, 3)],
-      "castle": [("Skeleton", 2), ("AnimatedArmor", 2), (None, 3)],
+      "castle": [(AnimatedArmor, 3), (None, 1)],
       "kitchen": [(ServantGoblin, 3), (None, 1)],
       "animals_indoor": [(Cat, 2), (None, 3)],
       "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
@@ -53,7 +54,7 @@ class Bedroom(pl.place):
     count = (2, 5)
     colors = ["blue", "brown", "egg white", "beige"]
     textures = ["painted", "wallpapered"]
-    creature_classes = [cc["fantasy_city"]]
+    creature_classes = [cc["fantasy_city"], cc["castle"]]
     furniture_classes = [fur.Bed, fur.Dresser]
     subelement_classes = [wall, floor]
 
@@ -103,7 +104,7 @@ class ThroneRoom(pl.place):
     count = (1, 2)
     colors = ["gold", "red", "silver", "purple"]
     textures = ["brick", "stone", "marble"]
-    creature_classes = [cc["fantasy_city"]]
+    creature_classes = [cc["castle"], cc["castle"]]
     furniture_classes = [fur.Throne]
     subelement_classes = [wall, floor]
 
