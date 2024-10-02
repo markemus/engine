@@ -33,6 +33,8 @@ class TestCastle():
         assert i.state == "move"
         # Check creatures
         assert adam in thisLevel.start.creatures
+        # Check that Adam has been clothed
+        assert adam.subelements[0].inventory
         # TODO test that creatures exist
         # assert len(thisLevel.start.creatures) > 1
         # Check organs

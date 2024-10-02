@@ -62,6 +62,12 @@ class Shoe(i.Item):
     canwear = i.Item.canwear.copy()
     canwear["foot"] = True
 
+class Slipper(i.Item):
+    name = "slipper"
+    canwear = i.Item.canwear.copy()
+    canwear["foot"] = True
+
+
 # Weapons
 class Axe(i.Item):
     name = "axe"
@@ -84,21 +90,36 @@ class Sword(i.Item):
 
 # Suits
 testsuit = {
-    "head": Helm,
-    "body": Chainmail,
-    "back": Shield,
-    "arm": Bracer,
-    "hand": Gauntlet,
-    "leg": Greave,
-    "foot": Boot
+    "wears": {
+        "head": Helm,
+        "body": Chainmail,
+        "back": Shield,
+        "arm": Bracer,
+        "hand": Gauntlet,
+        "leg": Greave,
+        "foot": Boot},
+    "color": ["shiny", "rusty", "matte"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
     }
 
 plainsuit = {
-    "body": Tunic,
-    "leg": Hose,
-    "foot": Shoe,
-}
+    "wears": {
+        "body": Tunic,
+        "leg": Hose,
+        "foot": (Shoe, Slipper)},
+    "color": ["red", "blue", "green", "yellow", "striped"],
+    "color_scheme": "distinct",
+    "texture": ["silk", "cotton", "wool"],
+    "texture_scheme": "same",
+    }
 
 weapons = {
-    "hand": (Sword, Spear, Axe)
+    "wears": {
+        "hand": (Sword, Spear, Axe)},
+    "color": ["gray"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
 }

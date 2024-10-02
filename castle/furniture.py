@@ -84,8 +84,12 @@ class CabinetMetal(pl.furniture):
     texture = ["metal", "steel"]
     count = (0, 3)
 
-# TODO theming. Furniture should come in sets, and each should be aware of the size of the set.
-#  Eg if two beds, two dressers. But only one mirror. Five chairs, five table settings. etc.
+class Theme:
+    name = "DiningRoom"
+    color_scheme = "antique"
+    n = 6
+    # - > table (settings x 6) teak, chair x 6 mahogany, walls x4 paneled
+
 
 # TODO add contentsets from household_items.
 

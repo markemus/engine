@@ -46,7 +46,7 @@ class limb:
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" "*offset) + "+ {} {} {}".format(self.color, self.texture, self.name)
+        text = (" "*offset) + f"+ {C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
         if full:
             for item in self.inventory:
                 text += "\n" + item.desc(offset = offset+1)
@@ -136,22 +136,35 @@ class creature:
         self.subelements = [baseElem]
 
     def _clothe(self):
+        """Equips a creature when it is first created. Multiple suits can be applied in sequence, so weapons
+        can be added after armor etc."""
         for suit in self.suits:
             if (type(suit) == tuple):
                 suit = random.choice(suit)
             # brings back all limbs? I think so. Good trick.
             limbs = self.subelements[0].limb_check("name")
 
-            for limb in limbs:
-                if limb.wears in suit.keys():
+            # Color and texture are either set once for the full suit, or uniquely per "wears" (so socks will always match)
+            if suit["color_scheme"] == "distinct":
+                colors = {key: random.choice(suit["color"]) for key in suit["wears"]}
+            else:
+                color = random.choice(suit["color"])
+                colors = {key: color for key in suit["wears"]}
+            if suit["texture_scheme"] == "distinct":
+                textures = {key: random.choice(suit["texture"]) for key in suit["wears"]}
+            else:
+                texture = random.choice(suit["texture"])
+                textures = {key: texture for key in suit["wears"]}
 
+            for limb in limbs:
+                if limb.wears in suit["wears"].keys():
                     # Choose and construct
-                    article = suit[limb.wears]
+                    article = suit["wears"][limb.wears]
                     if type(article) == tuple:
                         article = random.choice(article)
-                    # TODO-DECIDE how is color etc params set for suits? They should be matching.
-                    article = article()
 
+                    # Create article
+                    article = article(color=colors[limb.wears], texture=textures[limb.wears])
                     limb.inventory.append(article)
 
     # TODO-DECIDE add depth option for shortened view? Or a "main_piece" tag that's a boolean option?

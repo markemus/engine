@@ -1,3 +1,7 @@
+import random
+from colorist import Color as C
+
+
 class Item:
     name = "Item"
     canwear = {"head": False, "body": False, "back": False, "arm": False, "hand": False, "leg": False}
@@ -6,11 +10,13 @@ class Item:
     location = "loader"
     visible = True
 
-    def __init__(self):
+    def __init__(self, color, texture):
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""
         self.canwear = self.canwear.copy()
         self.vis_inv = []
         self.invis_inv = []
+        self.color = color
+        self.texture = texture
 
     # This is the holy grail of transfer functions.
     # It's also a dumb way to do it, you young fool.
@@ -60,7 +66,7 @@ class Item:
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" "*offset) + "* " + self.name
+        text = (" "*offset) + f"* {C.MAGENTA}{self.color} {self.texture} {self.name}{C.OFF}"
         if full:
             for item in self.vis_inv:
                 text += "\n" + item.desc(offset=offset+1)
