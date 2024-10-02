@@ -1,3 +1,4 @@
+from colorist import Color as C
 from . import combat
 from . import save
 
@@ -31,16 +32,40 @@ class Controller:
             # if function
             if hasattr(d[key], "__name__"):
                 print(str(key) + ": " + d[key].__name__)
-            # elif object
-            elif hasattr(d[key], "name"):            
+            # or object with printcolor
+            elif hasattr(d[key], "printcolor") and hasattr(d[key], "name"):
+                print(f"{str(key)}: {d[key].printcolor}{d[key].name}{C.OFF}")
+            # elif other objects
+            elif hasattr(d[key], "name"):
                 print(str(key) + ": " + d[key].name)
             # we don't want to ever see this, but we'd rather have it than an exception, I think.
-            # TODO everything should use this. __str__, __repr__
             else:
                 print(str(key) + ": " + str(d[key]))
 
     def desc(self):
-        print(self.game.char.location.desc(full=False))
+        self.display_long_text(self.game.char.location.desc(full=False))
+
+    def examine(self):
+        """Desc for a particular creature or element in the room."""
+        examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements)
+        examine_dict["x"] = "look away"
+        self.dictprint(examine_dict)
+        i = input("\nWho/what are you examining (x for none)? ")
+        if i != "x":
+            self.display_long_text(examine_dict[i].desc(full=True))
+        else:
+            print("You look away.")
+
+    def display_long_text(self, text, n=20):
+        """Used to display long text blobs, so that the player won't need to scroll the terminal upward to read.
+        https://stackoverflow.com/a/15369848/9095840"""
+        lines = text.splitlines()
+        # lines = text
+        while lines:
+            print("\n".join(lines[:n]))
+            lines = lines[n:]
+            if lines:
+                input("")
 
     def map(self):
         self.game.current_level.printMap(self.game.char)

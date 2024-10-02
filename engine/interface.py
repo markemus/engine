@@ -17,6 +17,7 @@ class Interface:
         move = {
             "h": self.help,
             "l": self.cont.desc,
+            "e": self.cont.examine,
             "m": self.cont.map,
             "w": self.cont.north,
             "s": self.cont.south,
@@ -31,6 +32,7 @@ class Interface:
         fight = {
             "h": self.help,
             "l": self.cont.desc,
+            "e": self.cont.examine,
             "m": self.cont.map,
             "a": self.cont.attack,
             "w": self.move

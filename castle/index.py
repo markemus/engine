@@ -16,6 +16,9 @@ adam = man.Man(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
+adam_limbs = adam.subelements[0].limb_check("name")
+for x in adam_limbs:
+    x.hitpoints = 1000
 # TODO make teams mean something
 adam.team = "player"
 
