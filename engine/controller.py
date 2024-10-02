@@ -73,7 +73,12 @@ class Controller:
     def borders(self):
         borders = self.game.char.location.borders
         for direction in borders.keys():
-            print(direction + ": " + str(borders[direction]))
+            # print(direction + ": " + str(borders[direction]))
+            if borders[direction] is not None:
+                border = f"{C.RED}{borders[direction].name}{C.OFF}"
+            else:
+                border = str(borders[direction])
+            print(direction + ": " + border)
 
     def north(self):
         self.game.char.leave("n")
