@@ -3,10 +3,16 @@ import engine.item as i
 
 
 # Armor
-class Helm(i.Item):
-    name = "helm"
+class Boot(i.Item):
+    name = "boot"
     canwear = i.Item.canwear.copy()
-    canwear["head"] = True
+    canwear["foot"] = True
+    armor = 2
+
+class Bracer(i.Item):
+    name = "bracer"
+    canwear = i.Item.canwear.copy()
+    canwear["arm"] = True
     armor = 1
 
 class Chainmail(i.Item):
@@ -14,19 +20,6 @@ class Chainmail(i.Item):
     canwear = i.Item.canwear.copy()
     canwear["body"] = True
     armor = 2
-
-class Shield(i.Item):
-    name = "shield"
-    canwear = i.Item.canwear.copy()
-    canwear["back"] = True
-    canwear["arm"] = True
-    armor = 3
-
-class Bracer(i.Item):
-    name = "bracer"
-    canwear = i.Item.canwear.copy()
-    canwear["arm"] = True
-    armor = 1
 
 class Gauntlet(i.Item):
     name = "gauntlet"
@@ -40,18 +33,41 @@ class Greave(i.Item):
     canwear["leg"] = True
     armor = 1
 
-class Boot(i.Item):
+class Helm(i.Item):
+    name = "helm"
+    canwear = i.Item.canwear.copy()
+    canwear["head"] = True
+    armor = 1
+
+class Shield(i.Item):
+    name = "shield"
+    canwear = i.Item.canwear.copy()
+    canwear["back"] = True
+    canwear["arm"] = True
+    armor = 3
+
+# Clothing
+class Tunic(i.Item):
+    name = "tunic"
+    canwear = i.Item.canwear.copy()
+    canwear["torso"] = True
+
+class Hose(i.Item):
+    name = "hose"
+    canwear = i.Item.canwear.copy()
+    canwear["leg"] = True
+
+class Shoe(i.Item):
     name = "boot"
     canwear = i.Item.canwear.copy()
     canwear["foot"] = True
-    armor = 2
 
 # Weapons
-class Sword(i.Item):
-    name = "sword"
+class Axe(i.Item):
+    name = "axe"
     canwear = i.Item.canwear.copy()
     canwear["hand"] = True
-    damage = 9
+    damage = 7
 
 class Spear(i.Item):
     name = "spear"
@@ -59,11 +75,12 @@ class Spear(i.Item):
     canwear["hand"] = True
     damage = 8
 
-class Axe(i.Item):
-    name = "axe"
+class Sword(i.Item):
+    name = "sword"
     canwear = i.Item.canwear.copy()
     canwear["hand"] = True
-    damage = 7
+    damage = 9
+
 
 # Suits
 testsuit = {
@@ -76,13 +93,12 @@ testsuit = {
     "foot": Boot
     }
 
-weapons = {
-    "hand": (Sword, Spear, Axe)
+plainsuit = {
+    "body": Tunic,
+    "leg": Hose,
+    "foot": Shoe,
 }
 
-testcolor = {
-    "hair": "red",
-    "skin": "white",
-    "eye": "green",
-    "teeth": "white"
+weapons = {
+    "hand": (Sword, Spear, Axe)
 }

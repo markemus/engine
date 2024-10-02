@@ -1,6 +1,7 @@
 import random
 
 from colorist import Color as C
+from colorist import BrightColor as BC
 from engine import ai
 
 # End of Loading Zone
@@ -112,7 +113,7 @@ class creature:
     different objects."""
     classname = "NO_NAME_CREATURE"
     team = None
-    printcolor = C.CYAN
+    printcolor = BC.CYAN
     # cantransfer = False      # can carry items
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object
@@ -177,7 +178,7 @@ class creature:
                 self.location = currentRoom.borders[direction]
                 nextRoom.addCreature(self)
                 left = True
-                print("You leave %s and enter %s." % (currentRoom.name, nextRoom.name))
+                print(f"You leave {C.RED}{currentRoom.name}{C.OFF} and enter {C.RED}{nextRoom.name}{C.OFF}.")
         else:
             print("There is no way out in that direction.")
 

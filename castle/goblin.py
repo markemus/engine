@@ -31,7 +31,6 @@ class Goblin(cr.creature):
     textures = ["scaled", "haired", "skinned"]
     suits = [suits.testsuit, suits.weapons]
 
-
-# if __name__ == '__main__':
-#     greedo = Goblin("Greedo", location=None)
-#     print(greedo.desc())
+class ServantGoblin(Goblin):
+    """A role for a goblin- a civilian servant."""
+    suits = [suits.plainsuit]

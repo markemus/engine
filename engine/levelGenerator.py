@@ -43,8 +43,9 @@ class levelGenerator:
                 del roomcounts[roomType]
 
             # Create a room
-            # TODO better room names
-            gennedRoom = roomType(str(roomType), gennedLevel, extra_creatures=levelstyle.creature_classes)
+            # TODO-DONE better room names
+            # gennedRoom = roomType(str(roomType), gennedLevel, extra_creatures=levelstyle.creature_classes)
+            gennedRoom = roomType(gennedLevel, extra_creatures=levelstyle.creature_classes)
 
             # First room needs to be start, doesn't need to connect to previous room
             if len(roomList) == 0:

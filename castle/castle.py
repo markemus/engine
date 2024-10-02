@@ -7,7 +7,7 @@ import engine.styles as st
 
 from castle.dwarf import Dwarf
 from castle.elf import Elf
-from castle.goblin import Goblin
+from castle.goblin import Goblin, ServantGoblin
 from castle.hobbit import Hobbit
 from castle.man import Man
 from castle.orc import Orc
@@ -17,15 +17,17 @@ from engine.styles import LevelStyle, GameStyle, wall, floor
 
 # TODO create creature_classes and populate castle
 cc = {"goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
+      "servants": [(ServantGoblin, 1)],
       "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Man, 5), (None, 3)],
       "castle": [("Skeleton", 2), ("AnimatedArmor", 2), (None, 3)],
-      "kitchen": [("Cook", 1), ("Pot_boy", 3), (None, 3)],
+      "kitchen": [(ServantGoblin, 1), ("Pot_boy", 3), (None, 3)],
       "animals_indoor": [("Cat", 2), ("Hound", 2), (None, 3)],
       "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
 }
 
 # Rooms
 class Ballroom(pl.place):
+    name = "ballroom"
     sprite = "D"
     count = (0, 2)
     colors = ["gold", "white", "silver"]
@@ -35,6 +37,7 @@ class Ballroom(pl.place):
     subelement_classes = [wall, floor]
 
 class Bathroom(pl.place):
+    name = "bathroom"
     sprite = "T"
     count = (1, 3)
     colors = ["white", "blue", "black", "marble"]
@@ -44,6 +47,7 @@ class Bathroom(pl.place):
     subelement_classes = [wall, floor]
 
 class Bedroom(pl.place):
+    name = "bedroom"
     sprite = "B"
     count = (2, 5)
     colors = ["blue", "brown", "egg white", "beige"]
@@ -53,6 +57,7 @@ class Bedroom(pl.place):
     subelement_classes = [wall, floor]
 
 class Cell(pl.place):
+    name = "cell"
     sprite = "C"
     count = (5, 10)
     colors = ["unpainted", "grimy", "grey"]
@@ -62,33 +67,37 @@ class Cell(pl.place):
     subelement_classes = [wall, floor]
 
 class DiningRoom(pl.place):
+    name = "dining room"
     sprite = "D"
     count = (1, 3)
     colors = ["purple", "red", "gold", "silver"]
     textures = ["draped", "marble", "painted", "lit"]
-    creature_classes = [cc["fantasy_city"], cc["fantasy_city"], cc["goblinkin"]]
+    creature_classes = [cc["fantasy_city"], cc["fantasy_city"], cc["servants"]]
     furniture_classes = [fur.Carpet, fur.Table, fur.Chair, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
 class Kitchen(pl.place):
+    name = "kitchen"
     sprite = "K"
     count = (1, 2)
     colors = ["dirty", "smoke-stained", "unpainted", "gray", "beige"]
     textures = ["brick", "stone"]
-    creature_classes = [cc["goblinkin"]]
+    creature_classes = [cc["servants"]]
     furniture_classes = [fur.Stove, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
 class Parlor(pl.place):
+    name = "parlor"
     sprite = "P"
     count = (1, 3)
     colors = ["blue", "white", "salmon", "gold", "silver"]
     textures = ["painted", "draped", "sunlit"]
-    creature_classes = [cc["fantasy_city"], cc["fantasy_city"], cc["fantasy_city"]]
+    creature_classes = [cc["fantasy_city"], cc["fantasy_city"], cc["fantasy_city"], cc["servants"]]
     furniture_classes = [fur.Carpet, fur.Chair]
     subelement_classes = [wall, floor]
 
 class ThroneRoom(pl.place):
+    name = "throne room"
     sprite = "T"
     count = (1, 2)
     colors = ["gold", "red", "silver", "purple"]
@@ -98,6 +107,7 @@ class ThroneRoom(pl.place):
     subelement_classes = [wall, floor]
 
 class TortureChamber(pl.place):
+    name = "torture chamber"
     sprite = "T"
     count = (1, 3)
     colors = ["black", "gray", "streaked", "dirty"]

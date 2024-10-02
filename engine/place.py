@@ -2,6 +2,7 @@ import copy
 import random
 
 from colorist import Color as C
+from colorist import BrightColor as BC
 # End of Loading Zone
 
 class place:
@@ -14,8 +15,8 @@ class place:
     sprite = "R"
     creature_classes = []
 
-    def __init__(self, name, level, extra_creatures=None):
-        self.name = name
+    def __init__(self, level, extra_creatures=None):
+        # self.name = name
         self.elements = []
         self.borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
         self.creatures = []
@@ -29,7 +30,7 @@ class place:
 
     def desc(self, full=True, offset=0):
         """Basic describe function, always called desc."""
-        text = (" "*offset) + "# " + self.name
+        text = (" "*offset) + "# " + f"{C.RED}{self.name}{C.OFF}"
 
         for creature in self.creatures:
             text += "\n" + creature.desc(full=full, offset=offset + 1)

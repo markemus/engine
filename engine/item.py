@@ -33,7 +33,7 @@ class Item:
     # TODO viewInv still needed or just desc?
     def viewInv(self):  
         """Check a thing's visible inventory (vis_inv) and sub-inventories."""
-        contents = "The {0} contains ".format(self.name)
+        contents = f"The {self.name} contains "
 
         if self.cantransfer:
             if not self.vis_inv:
@@ -56,7 +56,7 @@ class Item:
 
         # If thing can't hold stuff
         else:
-            print(contents + "nothing at all, for it is a " + self.name + ".")    
+            print(f"{contents} nothing at all, for it is a {self.name}.")
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""

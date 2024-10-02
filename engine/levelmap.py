@@ -1,6 +1,7 @@
 import math
 
 from colorist import Color as C
+from colorist import BrightColor as BC
 
 
 # Maps a single level
@@ -34,7 +35,8 @@ class levelmap:
                 elif hasattr(x, "sprite"):
                     row_sprite += str(x.sprite)
                 else:
-                    row_sprite += str(x)
+                    # row_sprite += str(x)
+                    row_sprite += f"{C.GREEN}{x}{C.OFF}"
             print(row_sprite)
 
     def show_map(self):

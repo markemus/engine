@@ -1,4 +1,5 @@
 from colorist import Color as C
+from colorist import BrightColor as BC
 from transitions import Machine
 
 from . import controller
@@ -12,6 +13,7 @@ class Interface:
         states = ["move", "fight"]
         self.machine = Machine(model=self, states=states, initial="move")
 
+        # TODO need commands for: examine inventory of Elements, examine creature desc()
         move = {
             "h": self.help,
             "l": self.cont.desc,
@@ -54,8 +56,8 @@ class Interface:
     # Standard
 
     def command(self):
-        print(f"Available commands: {C.BLUE}{''.join(self.commands[self.state].keys())}{C.OFF}")
-        x = input(f"{C.GREEN}Choose a command (h for help): {C.OFF}")
+        print(f"Available commands: {BC.BLUE}{''.join(self.commands[self.state].keys())}{C.OFF}")
+        x = input(f"{BC.GREEN}Choose a command (h for help): {C.OFF}")
         if x in self.commands[self.state].keys():
             self.commands[self.state][x]()
         else:

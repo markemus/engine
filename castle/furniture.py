@@ -1,4 +1,6 @@
+import castle.household_items as hi
 from engine import place as pl
+
 
 class Puddle(pl.furniture):
     name = "puddle"
@@ -54,6 +56,7 @@ class Table(pl.furniture):
     color = ["black", "red", "green"]
     texture = ["granite", "marble", "wood"]
     count = (1, 2)
+    cantransfer = True
 
 class Bed(pl.furniture):
     name = "bed"
@@ -66,6 +69,8 @@ class Dresser(pl.furniture):
     color = ["brown", "black", "white"]
     texture = ["wood"]
     count = (1, 2)
+    cantransfer = True
+    # contentsets = [hi.place_setting]
 
 class CabinetElegant(pl.furniture):
     name = "cabinet"
@@ -78,3 +83,13 @@ class CabinetMetal(pl.furniture):
     color = ["gray", "black", "white"]
     texture = ["metal", "steel"]
     count = (0, 3)
+
+# TODO theming. Furniture should come in sets, and each should be aware of the size of the set.
+#  Eg if two beds, two dressers. But only one mirror. Five chairs, five table settings. etc.
+
+# TODO add contentsets from household_items.
+
+# TODO vis_inv and invis_inv. vis_inv should be displayed in place.desc(),
+#  and objects with invis_inv should be marked with * in desc().
+
+# TODO interaction with objects with inventories (place and remove)
