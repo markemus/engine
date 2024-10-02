@@ -107,7 +107,7 @@ class weapon(limb):
         
         return damage
 
-
+# TODO check for eyes before seeing the room. Allow blindfolds!
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
