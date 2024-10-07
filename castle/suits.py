@@ -128,6 +128,12 @@ class Sword(i.Item):
     canwear["hand"] = True
     damage = 9
 
+# Special
+class Blindfold(i.Item):
+    name = "blindfold"
+    canwear = i.Item.canwear.copy()
+    canwear["head"] = True
+    see = -2
 
 # TODO-DONE make option for suits to not fill every slot- currently people get full jewelry sets covering their entire body
 # TODO add third _scheme option- more than distinct, give each element a unique scheme

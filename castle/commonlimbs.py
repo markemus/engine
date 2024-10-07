@@ -48,6 +48,7 @@ class Eye(cr.limb):
     isSurface = 1
     appendageRange = (2, 3)
     wears = "eye"
+    see = 1
 
 class Horn(cr.weapon):
     name = "horn"

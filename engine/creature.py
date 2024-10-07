@@ -56,12 +56,14 @@ class limb:
         return text
 
     def limb_check(self, tag):
-        """Returns a list of all nodes where tag is present.
-        tag=name returns all nodes.
+        """Returns a list of all limbs where tag is present (on the limb or on an inventory item).
+        tag=name returns all limbs.
         Used for gathering limbs for a task, eg. tag=grasp to pick up an item."""
         limb_total = []
 
-        if hasattr(self, tag):
+        # TODO don't allow this for items in eg backpack
+        # Allows for items with that tag to be used as if they were a limb themselves.
+        if hasattr(self, tag) or sum([hasattr(x, tag) for x in self.inventory]):
             limb_total.append(self)
         
         for subLimb in self.subelements:
@@ -108,6 +110,8 @@ class weapon(limb):
         return damage
 
 # TODO check for eyes before seeing the room. Allow blindfolds!
+# TODO eating and drinking
+# TODO taking items from containers and storing them in inventory
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
@@ -207,6 +211,20 @@ class creature:
             
             if len(carriedItem.vis_inv) >= 1:
                 carriedItem.viewInv()
+
+    def limb_count(self, tag):
+        """When you only need to know if a tag is present, it's easy."""
+        limbs = self.subelements[0].limb_check(tag)
+
+        limb_total = 0
+        for limb in limbs:
+            if hasattr(limb, tag):
+                limb_total += getattr(limb, tag)
+            for x in limb.inventory:
+                if hasattr(x, tag):
+                    limb_total += getattr(x, tag)
+
+        return limb_total
 
     def grasp_check(self):
         """Grasps an item with the first available appendage."""

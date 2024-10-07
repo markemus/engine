@@ -50,18 +50,26 @@ class Controller:
             print(exstr)
 
     def desc(self):
-        self.display_long_text(self.game.char.location.desc(full=False))
+        # Sight check
+        if self.game.char.limb_count("see") > 1:
+            self.display_long_text(self.game.char.location.desc(full=False))
+        else:
+            print("You cannot see well enough to see the room well.")
 
     def examine(self):
         """Desc for a particular creature or element in the room."""
-        examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements)
-        examine_dict["x"] = "look away"
-        self.dictprint(examine_dict)
-        i = input("\nWho/what are you examining (x for none)? ")
-        if i != "x":
-            self.display_long_text(examine_dict[i].desc(full=True))
+        # Sight check
+        if self.game.char.limb_count("see") > 1:
+            examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements)
+            examine_dict["x"] = "look away"
+            self.dictprint(examine_dict)
+            i = input("\nWho/what are you examining (x for none)? ")
+            if i != "x":
+                self.display_long_text(examine_dict[i].desc(full=True))
+            else:
+                print("You look away.")
         else:
-            print("You look away.")
+            print("You cannot see well enough to examine anything closely.")
 
     def display_long_text(self, text, n=20):
         """Used to display long text blobs, so that the player won't need to scroll the terminal upward to read.
@@ -75,7 +83,10 @@ class Controller:
                 input("")
 
     def map(self):
-        self.game.current_level.printMap(self.game.char)
+        if self.game.char.limb_count("see") > 1:
+            self.game.current_level.printMap(self.game.char)
+        else:
+            print("You cannot see well enough to read the map.")
 
     def borders(self):
         borders = self.game.char.location.borders
@@ -105,6 +116,9 @@ class Controller:
         new_level = self.game.char.location.get_level()
         new_level_idx = self.game.level_list.index(new_level)
         self.game.set_current_level(new_level_idx)
+
+    # def take(self):
+    #
 
     # Combat
     def attack(self):
