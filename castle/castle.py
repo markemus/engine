@@ -6,6 +6,7 @@ import engine.place as pl
 import engine.styles as st
 
 from castle.animated_armor import AnimatedArmor
+from castle.beholder import Beholder
 from castle.cat import Cat
 from castle.dwarf import Dwarf
 from castle.elf import Elf
@@ -18,13 +19,15 @@ from engine.styles import LevelStyle, GameStyle, wall, floor
 
 
 # TODO-DONE create creature_classes and populate castle
-cc = {"goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
-      "servants": [(ServantGoblin, 1)],
-      "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Man, 5), (None, 3)],
-      "castle": [(AnimatedArmor, 3), (None, 1)],
-      "kitchen": [(ServantGoblin, 3), (None, 1)],
-      "animals_indoor": [(Cat, 2), (None, 3)],
-      # "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
+cc = {
+    "goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
+    "servants": [(ServantGoblin, 1)],
+    "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Man, 5), (None, 3)],
+    "castle": [(AnimatedArmor, 3), (None, 1)],
+    "kitchen": [(ServantGoblin, 3), (None, 1)],
+    "animals_indoor": [(Cat, 2), (None, 3)],
+    "monsters": [(Beholder, 1), (None, 8)]
+    # "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
 }
 
 # Rooms
@@ -129,7 +132,7 @@ LevelStyle.register(BedroomFloor)
 
 class Dungeon:
     room_classes = [TortureChamber, Cell]
-    creature_classes = [[(Goblin, 3), (None, 3)]]
+    creature_classes = [[(Goblin, 3), (None, 3)], cc["monsters"]]
 
 LevelStyle.register(Dungeon)
 

@@ -1,4 +1,24 @@
-"""The Book of Common Limbs."""
+"""The Book of Common Limbs.
+
+# Example
+class Tentacle(cr.limb):
+    name = "tentacle"
+
+    # Subelements that will be generated. Only add once, use their appendageRange to determine how many will spawn.
+    subelement_classes = [Subtentacle]
+
+    # Whether the limb can be seen or not
+    isSurface = True
+
+    # How many of the limb will spawn (a range)
+    appendageRange = (3, 6)
+
+    # Tags. These determine behavior. A limb or its subelements can contain a tag to allow the behavior
+    # A tentacle is hand-like (and doesn't need fingers or thumbs)
+    grasp = 1
+    f_grasp = 1
+    t_grasp = 1
+"""
 import engine.creature as cr
 
 class Hair(cr.limb):
@@ -118,3 +138,13 @@ class Leg(cr.limb):
     isSurface = True
     appendageRange = (2, 3)
     wears = "leg"
+
+# Tentacles
+class Tentacle(cr.limb):
+    name = "tentacle"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (5, 6)
+    grasp = 1
+    f_grasp = 1
+    t_grasp = 1

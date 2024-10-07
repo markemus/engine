@@ -1,4 +1,28 @@
-"""Suits are used to equip creatures during generation."""
+"""Suits are used to equip creatures during generation.
+
+# A suit is a dictionary of parameters
+suit = {
+
+    # Which body part is equipped with which item.
+    "wears": {
+        "head": Helm,
+        "body": Chainmail,
+        "back": Shield,
+        "arm": Bracer,
+        "hand": Gauntlet,
+        "leg": Greave,
+        "foot": Boot},
+
+    # Color and texture are used to customize the items
+    "color": ["shiny", "rusty", "matte"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
+
+    # Whether the creature gets the full item set, or a random subset
+    "full": True,
+    }
+"""
 import engine.item as i
 import engine.suits_and_collections as sc
 
@@ -105,7 +129,9 @@ class Sword(i.Item):
     damage = 9
 
 
-# TODO make option for suits to not fill every slot- currently people get full jewelry sets covering their entire body
+# TODO-DONE make option for suits to not fill every slot- currently people get full jewelry sets covering their entire body
+# TODO add third _scheme option- more than distinct, give each element a unique scheme
+#  (distinct for matching gloves, unique for separate rings)
 # Suits
 jewelry = {
     "wears": {
@@ -117,7 +143,7 @@ jewelry = {
     "color_scheme": "distinct",
     "texture": ["in silver", "in gold", "in platinum"],
     "texture_scheme": "distinct",
-
+    "full": False,
 }
 
 plainsuit = {
@@ -129,6 +155,7 @@ plainsuit = {
     "color_scheme": "distinct",
     "texture": ["silk", "cotton", "wool"],
     "texture_scheme": "same",
+    "full": True,
     }
 
 testsuit = {
@@ -144,6 +171,7 @@ testsuit = {
     "color_scheme": "same",
     "texture": ["steel"],
     "texture_scheme": "same",
+    "full": True,
     }
 
 weapons = {
@@ -153,6 +181,7 @@ weapons = {
     "color_scheme": "same",
     "texture": ["steel"],
     "texture_scheme": "same",
+    "full": True,
 }
 
 # As Collections

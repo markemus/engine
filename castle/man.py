@@ -18,9 +18,4 @@ class Man(cr.creature):
     baseElem = Torso
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
-    suits = [suits.testsuit, suits.weapons, suits.jewelry]
-
-
-# if __name__ == "__main__":
-    # eve = Man("Eve", location=None)
-    # print(eve.desc())
+    suits = [suits.jewelry, suits.testsuit, suits.weapons]

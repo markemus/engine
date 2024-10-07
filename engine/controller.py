@@ -13,7 +13,6 @@ class Controller:
 
         return d
 
-    # TODO-DECIDE print shallow desc() info instead of this big if statement? No that's TMI.
     def dictprint(self, d):
         """Pretty print a dictionary. Useful for displaying command sets for user input."""
         intkeys = []

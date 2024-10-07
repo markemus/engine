@@ -155,6 +155,11 @@ class creature:
                 texture = random.choice(suit["texture"])
                 textures = {key: texture for key in suit["wears"]}
 
+            # If suit is not supposed to be full, drop a random subset of limbs
+            if not suit["full"]:
+                random.shuffle(limbs)
+                limbs = limbs[:random.randrange(0, len(limbs))]
+
             for limb in limbs:
                 if limb.wears in suit["wears"].keys():
                     # Choose and construct
