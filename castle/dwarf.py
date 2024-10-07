@@ -25,4 +25,4 @@ class Dwarf(cr.creature):
     baseElem = Torso
     colors = ["brown", "pale", "ruddy"]
     textures = ["skinned"]
-    suits = [suits.testsuit, suits.weapons]
+    suits = [suits.testsuit, suits.weapons, suits.jewelry]

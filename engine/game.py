@@ -24,6 +24,7 @@ class Game(object):
             gennedLevel = self.levelGenerator.levelGen(levelname, levelstyle)
             self.level_list.append(gennedLevel)
 
+        # TODO allow multiple exits from a level.
         # Connect levels to one another.
         for (l1, l2) in zip([None, ] + self.level_list, self.level_list):
             # Skip first level

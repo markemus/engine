@@ -68,6 +68,22 @@ class Slipper(i.Item):
     canwear = i.Item.canwear.copy()
     canwear["foot"] = True
 
+# Jewelry
+class Bracelet(i.Item):
+    name = "bracelet"
+    canwear = i.Item.canwear.copy()
+    canwear["hand"] = True
+    canwear["foot"] = True
+
+class Necklace(i.Item):
+    name = "necklace"
+    canwear = i.Item.canwear.copy()
+    canwear["body"] = True
+
+class Ring(i.Item):
+    name = "ring"
+    canwear = i.Item.canwear.copy()
+    canwear["finger"] = True
 
 # Weapons
 class Axe(i.Item):
@@ -89,7 +105,32 @@ class Sword(i.Item):
     damage = 9
 
 
+# TODO make option for suits to not fill every slot- currently people get full jewelry sets covering their entire body
 # Suits
+jewelry = {
+    "wears": {
+        "body": Necklace,
+        "hand": Bracelet,
+        "finger": Ring,
+        "foot": Bracelet},
+    "color": ["sapphire", "emerald", "turquoise"],
+    "color_scheme": "distinct",
+    "texture": ["in silver", "in gold", "in platinum"],
+    "texture_scheme": "distinct",
+
+}
+
+plainsuit = {
+    "wears": {
+        "body": Tunic,
+        "leg": Hose,
+        "foot": (Shoe, Slipper)},
+    "color": ["red", "blue", "green", "yellow", "striped"],
+    "color_scheme": "distinct",
+    "texture": ["silk", "cotton", "wool"],
+    "texture_scheme": "same",
+    }
+
 testsuit = {
     "wears": {
         "head": Helm,
@@ -102,17 +143,6 @@ testsuit = {
     "color": ["shiny", "rusty", "matte"],
     "color_scheme": "same",
     "texture": ["steel"],
-    "texture_scheme": "same",
-    }
-
-plainsuit = {
-    "wears": {
-        "body": Tunic,
-        "leg": Hose,
-        "foot": (Shoe, Slipper)},
-    "color": ["red", "blue", "green", "yellow", "striped"],
-    "color_scheme": "distinct",
-    "texture": ["silk", "cotton", "wool"],
     "texture_scheme": "same",
     }
 

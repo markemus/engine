@@ -18,7 +18,7 @@ class Man(cr.creature):
     baseElem = Torso
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
-    suits = [suits.testsuit, suits.weapons]
+    suits = [suits.testsuit, suits.weapons, suits.jewelry]
 
 
 # if __name__ == "__main__":

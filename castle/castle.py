@@ -17,14 +17,14 @@ from castle import furniture as fur
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
 
-# TODO create creature_classes and populate castle
+# TODO-DONE create creature_classes and populate castle
 cc = {"goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
       "servants": [(ServantGoblin, 1)],
       "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Man, 5), (None, 3)],
       "castle": [(AnimatedArmor, 3), (None, 1)],
       "kitchen": [(ServantGoblin, 3), (None, 1)],
       "animals_indoor": [(Cat, 2), (None, 3)],
-      "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
+      # "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
 }
 
 # Rooms
@@ -115,7 +115,7 @@ class TortureChamber(pl.place):
     colors = ["black", "gray", "streaked", "dirty"]
     textures = ["stone", "dirt", "timber"]
     creature_classes = [cc["goblinkin"], cc["fantasy_city"]]
-    furniture_classes = [fur.Manacles, fur.Table, fur.Rack, fur.CabinetMetal]
+    furniture_classes = [fur.Manacles, fur.TableWork, fur.Rack, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
 
@@ -144,7 +144,6 @@ LevelStyle.register(MainFloor)
 # And finally, the game itself.
 class Castle:
     levelorder = [Dungeon, MainFloor, BedroomFloor]
-    # levelorder = [BedroomFloor]
     links = [(0, 1), (1, 2)]
     # TODO-DECIDE do we want to allow game-wide creature classes? Currently can define per level and per room.
     # creature_classes = [Orc, Goblin]

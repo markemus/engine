@@ -64,13 +64,6 @@ class Nose(cr.limb):
     appendageRange = (1, 2)
     wears = "nose"
 
-# class hornedhead(cr.limb):
-#     name = "head"
-#     subelement_classes = [ear, eye, horn, mouth, nose]
-#     isSurface = True
-#     appendageRange = (1, 2)
-#     wears = "head"
-
 class Head(cr.limb):
     name = "head"
     subelement_classes = [Ear, Eye, Mouth, Nose]
@@ -125,5 +118,3 @@ class Leg(cr.limb):
     isSurface = True
     appendageRange = (2, 3)
     wears = "leg"
-
-# TODO we should be using these common limbs for our creatures

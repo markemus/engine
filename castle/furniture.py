@@ -19,7 +19,7 @@ class Rack(pl.furniture):
     name = "torture rack"
     color = ["black", "gray", "brown"]
     texture = ["leathery", "rusty", "metal", "wood"]
-    count = (1, 2)
+    count = (0, 2)
 
 class Toilet(pl.furniture):
     name = "toilet"
@@ -50,7 +50,6 @@ class Chair(pl.furniture):
     color = ["brown", "beige", "reddish", "black"]
     texture = ["wood"]
     count = (3, 10)
-    # TODO-DECIDE add "descriptor" tag? eg ["high-backed", "swivel"]
 
 class Table(pl.furniture):
     name = "table"
@@ -58,13 +57,22 @@ class Table(pl.furniture):
     texture = ["granite", "marble", "wood"]
     count = (1, 2)
     cantransfer = True
+    vis_collections = [(hi.silver, (0, 6))]
+
+class TableWork(pl.furniture):
+    name = "table"
+    color = ["brown", "gray", "dirty", "dusty"]
+    texture = ["wood"]
+    count = (1, 2)
+    cantransfer = True
+    vis_collections = [(hi.tools, (0, 2))]
 
 class Bed(pl.furniture):
     name = "bed"
     color = ["blue", "green", "gray"]
     texture = ["sheeted", "quilted"]
     count = (1, 3)
-    vis_collections = [hi.linens]
+    vis_collections = [(hi.linens, (1, 2))]
 
 class Dresser(pl.furniture):
     name = "dresser"
@@ -73,14 +81,14 @@ class Dresser(pl.furniture):
     count = (1, 2)
     cantransfer = True
     # TODO this should be an invis_collections
-    vis_collections = [st.plainsuit_c]
+    vis_collections = [(st.plainsuit_c, (1, 3))]
 
 class CabinetElegant(pl.furniture):
     name = "cabinet"
     color = ["brown", "black", "white"]
     texture = ["wood"]
     count = (0, 3)
-    vis_collections = [hi.silver]
+    vis_collections = [(hi.silver, (1, 6))]
 
 class CabinetMetal(pl.furniture):
     name = "cabinet"

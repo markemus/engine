@@ -205,27 +205,28 @@ class furniture(element):
     def _fill(self):
         """Put items in furniture upon creation."""
         if self.vis_collections:
-            for item_collection in self.vis_collections:
-                if item_collection["color_scheme"] == "distinct":
-                    colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
-                else:
-                    # Single color for all items
-                    c = random.choice(item_collection["color"])
-                    colors = {key: c for key in item_collection["contains"]}
+            for (item_collection, count) in self.vis_collections:
+                for n in range(*count):
+                    if item_collection["color_scheme"] == "distinct":
+                        colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
+                    else:
+                        # Single color for all items
+                        c = random.choice(item_collection["color"])
+                        colors = {key: c for key in item_collection["contains"]}
 
-                # Texture is same approach as color
-                if item_collection["texture_scheme"] == "distinct":
-                    textures = {key: random.choice(item_collection["texture"]) for key in item_collection["contains"]}
-                else:
-                    t = random.choice(item_collection["texture"])
-                    textures = {key: t for key in item_collection["contains"]}
+                    # Texture is same approach as color
+                    if item_collection["texture_scheme"] == "distinct":
+                        textures = {key: random.choice(item_collection["texture"]) for key in item_collection["contains"]}
+                    else:
+                        t = random.choice(item_collection["texture"])
+                        textures = {key: t for key in item_collection["contains"]}
 
-                # Create items
-                for item_class in item_collection["contains"]:
-                    c = colors[item_class]
-                    t = textures[item_class]
-                    if isinstance(item_class, tuple):
-                        item_class = random.choice(item_class)
+                    # Create items
+                    for item_class in item_collection["contains"]:
+                        c = colors[item_class]
+                        t = textures[item_class]
+                        if isinstance(item_class, tuple):
+                            item_class = random.choice(item_class)
 
-                    item = item_class(c, t)
-                    self.vis_inv.append(item)
+                        item = item_class(c, t)
+                        self.vis_inv.append(item)

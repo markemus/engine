@@ -13,7 +13,9 @@ class Controller:
 
         return d
 
+    # TODO-DECIDE print shallow desc() info instead of this big if statement? No that's TMI.
     def dictprint(self, d):
+        """Pretty print a dictionary. Useful for displaying command sets for user input."""
         intkeys = []
         strkeys = []
 
@@ -31,16 +33,22 @@ class Controller:
         for key in keys:
             # if function
             if hasattr(d[key], "__name__"):
-                print(str(key) + ": " + d[key].__name__)
+                exstr = str(key) + ": " + d[key].__name__
             # or object with printcolor
             elif hasattr(d[key], "printcolor") and hasattr(d[key], "name"):
-                print(f"{str(key)}: {d[key].printcolor}{d[key].name}{C.OFF}")
+                exstr = f"{str(key)}: {d[key].printcolor}{d[key].name}{C.OFF}"
             # elif other objects
             elif hasattr(d[key], "name"):
-                print(str(key) + ": " + d[key].name)
+                exstr = str(key) + ": " + d[key].name
             # we don't want to ever see this, but we'd rather have it than an exception, I think.
             else:
-                print(str(key) + ": " + str(d[key]))
+                exstr = str(key) + ": " + str(d[key])
+
+            # Add star if item has inv or subelements
+            if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "elements") and d[key].elements):
+                exstr = exstr + " *"
+
+            print(exstr)
 
     def desc(self):
         self.display_long_text(self.game.char.location.desc(full=False))
