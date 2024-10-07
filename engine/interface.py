@@ -18,6 +18,7 @@ class Interface:
             "h": self.help,
             "l": self.cont.desc,
             "e": self.cont.examine,
+            "i": self.cont.inventory,
             "m": self.cont.map,
             "w": self.cont.north,
             "s": self.cont.south,

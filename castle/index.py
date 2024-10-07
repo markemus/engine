@@ -4,6 +4,7 @@ from engine import interface
 
 from castle import man
 from castle import castle
+from castle import household_items
 from castle import suits
 
 
@@ -22,7 +23,7 @@ for x in adam_limbs:
     x.hitpoints = 1000
 # TODO make teams mean something
 adam.team = "player"
-
+adam.inventory.append(household_items.CandleStick("bright", "silver"))
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("", "linen"))
 
 thisLevel.printMap(adam)

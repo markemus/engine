@@ -9,6 +9,7 @@ class Item:
     cantransfer = False
     location = "loader"
     visible = True
+    printcolor = C.BLUE
 
     def __init__(self, color, texture):
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""

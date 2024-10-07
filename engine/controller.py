@@ -71,6 +71,42 @@ class Controller:
         else:
             print("You cannot see well enough to examine anything closely.")
 
+    # TODO consider input values other than those listed as "x"
+    # TODO-DONE take() function to pick up items in the room (or put items down). We already have transfer() in creature.
+    def inventory(self):
+        """Transfer items between the character's inventory and another object."""
+        # Sight check
+        if self.game.char.limb_count("see") > 1:
+            inventory_dict = self.listtodict(self.game.char.location.elements)
+            inventory_dict["x"] = "look away"
+            self.dictprint(inventory_dict)
+
+            i = input("\nWhich inventory would you like to exchange with (x for none)? ")
+            if i != "x":
+                other_inv = inventory_dict[i].vis_inv
+                # Show inventories
+                i = input("\nTransfer to or from your inventory (t/f)? ")
+                if i == "t":
+                    origin_inv = other_inv
+                    target_inv = self.game.char.inventory
+                elif i == "f":
+                    origin_inv = self.game.char.inventory
+                    target_inv = other_inv
+                else:
+                    print("You decide not to transfer at all.")
+                    return
+            else:
+                print("You decide not to transfer at all.")
+                return
+
+            # Transfer
+            self.dictprint(self.listtodict(origin_inv))
+            i = input("\nWhich item would you like to transfer (x for none)?")
+            if i != "x":
+                origin_inv[int(i)].transfer(self.game.char, origin_inv, target_inv)
+        else:
+            print("You cannot see well enough for that.")
+
     def display_long_text(self, text, n=20):
         """Used to display long text blobs, so that the player won't need to scroll the terminal upward to read.
         https://stackoverflow.com/a/15369848/9095840"""
@@ -116,9 +152,6 @@ class Controller:
         new_level = self.game.char.location.get_level()
         new_level_idx = self.game.level_list.index(new_level)
         self.game.set_current_level(new_level_idx)
-
-    # def take(self):
-    #
 
     # Combat
     def attack(self):
