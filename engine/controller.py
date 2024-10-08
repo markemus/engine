@@ -25,7 +25,7 @@ class Controller:
                 strkeys.append(key)
 
         intkeys.sort(key=int)
-        strkeys.sort()
+        # strkeys.sort()
 
         keys = intkeys + strkeys
 
