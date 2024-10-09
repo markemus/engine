@@ -3,14 +3,14 @@ from engine import game
 from engine import interface
 
 from castle import human
-from castle import castle
+from castle import castle_style
 from castle import household_items
 from castle import suits
 
 
 # Main
 # Generate a game using the Castle template.
-t_game = game.Game("The Howling Manor", castle.Castle)
+t_game = game.Game("The Howling Manor", castle_style.Castle)
 thisLevel = t_game.level_list[0]
 
 # Character creation

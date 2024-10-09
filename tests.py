@@ -1,7 +1,7 @@
 class TestCastle():
     def test_style_inheritance(self):
         """Tests that Castle game is an abstract subclass of GameStyle."""
-        import castle.castle as c
+        import castle.castle_style as c
         import engine.styles as s
 
         assert issubclass(c.Castle, s.GameStyle)
@@ -17,11 +17,11 @@ class TestCastle():
         from engine import place
         from engine import styles
 
-        from castle import castle
+        from castle import castle_style
         from castle import human
 
         # Game generation
-        t_game = game.Game("The Howling Manor", castle.Castle)
+        t_game = game.Game("The Howling Manor", castle_style.Castle)
         thisLevel = t_game.level_list[0]
 
         # Character creation
@@ -54,7 +54,7 @@ class TestCastle():
 
     def test_furniture_creation(self):
         """Tests that furniture is added to rooms properly."""
-        import castle.castle as cs
+        import castle.castle_style as cs
         import castle.furniture as fur
         parlor = cs.Parlor("test_parlor", None)
         chairs = [x for x in parlor.elements if isinstance(x, fur.Chair)]
@@ -65,7 +65,7 @@ class TestCastle():
 
     def test_room_connections(self):
         """Rooms in a level should have doors connecting them, with a path throughout the level."""
-        import castle.castle as cs
+        import castle.castle_style as cs
         from castle import goblin
         from engine import game
 

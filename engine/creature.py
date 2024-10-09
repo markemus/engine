@@ -1,4 +1,5 @@
 import random
+import time
 
 from colorist import Color as C
 from colorist import BrightColor as BC
@@ -141,6 +142,7 @@ class creature:
     def _clothe(self):
         """Equips a creature when it is first created. Multiple suits can be applied in sequence, so weapons
         can be added after armor etc."""
+        seed = int(time.time())
         for suit in self.suits:
             if (type(suit) == tuple):
                 suit = random.choice(suit)
@@ -166,14 +168,18 @@ class creature:
 
             for limb in limbs:
                 if limb.wears in suit["wears"].keys():
+                    random.seed(seed)
                     # Choose and construct
                     article = suit["wears"][limb.wears]
                     if type(article) == tuple:
                         article = random.choice(article)
+                        print(article)
 
                     # Create article
                     article = article(color=colors[limb.wears], texture=textures[limb.wears])
                     limb.inventory.append(article)
+        # Reset seed
+        random.seed()
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
