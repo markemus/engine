@@ -122,14 +122,10 @@ class place:
     def addCreature(self, creature):
         if not creature in self.creatures:
             self.creatures.append(creature)
-        else:
-            None
 
     def removeCreature(self, creature):
         if creature in self.creatures:
             self.creatures.remove(creature)
-        else:
-            None
 
     def get_creatures(self):
         return copy.copy(self.creatures)

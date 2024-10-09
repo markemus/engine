@@ -1,3 +1,4 @@
+"""A floating eye with tentacles."""
 from castle import commonlimbs as cl
 from castle import namelists as nm
 from engine import creature as cr

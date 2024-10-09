@@ -1,3 +1,4 @@
+"""A bearded creature known for its craftsmanship."""
 import engine.creature as cr
 import castle.commonlimbs as cl
 import castle.namelists as nm

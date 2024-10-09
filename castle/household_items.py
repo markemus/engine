@@ -1,3 +1,5 @@
+"""These collections are used to populate rooms. The texture and color options define the strategy for
+how the items are themed."""
 from engine import item as it
 
 

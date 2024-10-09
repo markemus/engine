@@ -1,3 +1,4 @@
+"""A small creature fond of relaxation."""
 import engine.creature as cr
 import castle.commonlimbs as cl
 import castle.namelists as nm

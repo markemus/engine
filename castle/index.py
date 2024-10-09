@@ -1,11 +1,13 @@
-"""An example game. Run from main directory as 'python3 -m castle.index'."""
+"""Castle is an example game built using the EverRogue engine.
+
+Run from toplevel engine/ directory as 'python3 -m castle.index' so that the package can properly inherit from
+the engine.engine subpackage."""
 from engine import game
 from engine import interface
 
 from castle import human
 from castle import castle_style
 from castle import household_items
-from castle import suits
 
 
 # Main

@@ -1,4 +1,5 @@
-"""The Book of Common Limbs.
+"""The Book of Common Limbs. These limbs are used for the creatures stored in separate modules.
+If a creature needs a specialized limb, I've generally just made a new class instead of subclassing.
 
 # Example
 class Tentacle(cr.limb):

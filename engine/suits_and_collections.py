@@ -3,14 +3,13 @@ when they are initialized with place._populate(). Collections are stored in furn
 with furniture._fill()."""
 import copy
 
-# TODO ensure that each instance of the collection uses the same values from matching tuples- eg shoe and shoe, not shoe and slipper.
+# TODO-DONE ensure that each instance of the collection uses the same values from matching tuples- eg shoe and shoe, not shoe and slipper.
 #  to do this, we should use a seed instead of random selection from a tuple. This same issue exists for _clothe().
 def suit_to_collection(suit, model):
     """Converts a Suit into a Collection."""
     collection = copy.copy(suit)
     collection["contains"] = []
-    # limb_counts = {key: 0 for key in collection["wears"].keys()}
-    # collection["contains"] = list(collection["wears"].values())
+
     limbs = model("loader").subelements[0].limb_check("name")
     for limb in limbs:
         if limb.wears in collection["wears"].keys():

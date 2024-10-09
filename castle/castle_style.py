@@ -2,22 +2,21 @@
 
 This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?"""
 import engine.place as pl
-import engine.styles as st
 
 from castle.animated_armor import AnimatedArmor
 from castle.beholder import Beholder
 from castle.cat import Cat
 from castle.dwarf import Dwarf
 from castle.elf import Elf
+from castle import furniture as fur
 from castle.goblin import Goblin, ServantGoblin
 from castle.hobbit import Hobbit
 from castle.human import Human
 from castle.orc import Orc
-from castle import furniture as fur
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
 
-# TODO-DONE create creature_classes and populate castle
+# Creature classes with probability of spawning.
 cc = {
     "goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
     "servants": [(ServantGoblin, 1)],

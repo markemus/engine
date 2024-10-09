@@ -1,3 +1,4 @@
+"""A cute little critter, mostly harmless."""
 import engine.creature as cr
 
 import castle.commonlimbs as cl

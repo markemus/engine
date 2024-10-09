@@ -1,3 +1,4 @@
+"""Collections are used to populate furniture."""
 from engine import suits_and_collections as sc
 from castle.human import Human
 from castle import suits as st

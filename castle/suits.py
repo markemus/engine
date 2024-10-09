@@ -135,7 +135,6 @@ class Blindfold(i.Item):
     canwear["head"] = True
     see = -2
 
-# TODO-DONE make option for suits to not fill every slot- currently people get full jewelry sets covering their entire body
 # TODO add third _scheme option- more than distinct, give each element a unique scheme
 #  (distinct for matching gloves, unique for separate rings)
 # Suits
@@ -189,9 +188,3 @@ weapons = {
     "texture_scheme": "same",
     "full": True,
 }
-
-# As Collections
-# TODO solve issue with only one slipper eg appearing in Collection
-# testsuit_c = sc.suit_to_collection(testsuit)
-# plainsuit_c = sc.suit_to_collection(plainsuit)
-# weapons_c = sc.suit_to_collection(weapons)

@@ -1,5 +1,6 @@
+"""Furniture is a type of item used in rooms. They can hold items, specified in collections.
+'count' is a range specifying how many will spawn per room."""
 import castle.household_items as hi
-import castle.suits as st
 import castle.castle_collections as cst
 from engine import place as pl
 
