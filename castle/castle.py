@@ -1,7 +1,6 @@
 """An example style- from lowest to highest, build a hierarchy.
 
-This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?
-(No, there isn't.)"""
+This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?"""
 import engine.place as pl
 import engine.styles as st
 
@@ -12,7 +11,7 @@ from castle.dwarf import Dwarf
 from castle.elf import Elf
 from castle.goblin import Goblin, ServantGoblin
 from castle.hobbit import Hobbit
-from castle.man import Man
+from castle.human import Human
 from castle.orc import Orc
 from castle import furniture as fur
 from engine.styles import LevelStyle, GameStyle, wall, floor
@@ -22,7 +21,7 @@ from engine.styles import LevelStyle, GameStyle, wall, floor
 cc = {
     "goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
     "servants": [(ServantGoblin, 1)],
-    "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Man, 5), (None, 3)],
+    "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Human, 5), (None, 3)],
     "castle": [(AnimatedArmor, 3), (None, 1)],
     "kitchen": [(ServantGoblin, 3), (None, 1)],
     "animals_indoor": [(Cat, 2), (None, 3)],

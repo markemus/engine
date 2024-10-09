@@ -12,7 +12,7 @@ class Torso(cr.limb):
     wears = "body"
 
 
-class Man(cr.creature):
+class Human(cr.creature):
     classname = "man"
     namelist = nm.names["human"]
     baseElem = Torso

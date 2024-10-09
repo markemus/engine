@@ -18,14 +18,14 @@ class TestCastle():
         from engine import styles
 
         from castle import castle
-        from castle import man
+        from castle import human
 
         # Game generation
         t_game = game.Game("The Howling Manor", castle.Castle)
         thisLevel = t_game.level_list[0]
 
         # Character creation
-        adam = man.Man(location=thisLevel.start)
+        adam = human.Human(location=thisLevel.start)
         thisLevel.start.creatures.append(adam)
         t_game.set_char(adam)
         adam.team = "player"

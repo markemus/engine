@@ -192,6 +192,6 @@ weapons = {
 
 # As Collections
 # TODO solve issue with only one slipper eg appearing in Collection
-testsuit_c = sc.suit_to_collection(testsuit)
-plainsuit_c = sc.suit_to_collection(plainsuit)
-weapons_c = sc.suit_to_collection(weapons)
+# testsuit_c = sc.suit_to_collection(testsuit)
+# plainsuit_c = sc.suit_to_collection(plainsuit)
+# weapons_c = sc.suit_to_collection(weapons)

@@ -1,5 +1,6 @@
 import castle.household_items as hi
 import castle.suits as st
+import castle.castle_collections as cst
 from engine import place as pl
 
 
@@ -81,14 +82,14 @@ class Dresser(pl.furniture):
     count = (1, 2)
     cantransfer = True
     # TODO this should be an invis_collections
-    vis_collections = [(st.plainsuit_c, (1, 3))]
+    vis_collections = [(cst.plainsuit_c, (1, 3))]
 
 class CabinetElegant(pl.furniture):
     name = "cabinet"
     color = ["brown", "black", "white"]
     texture = ["wood"]
     count = (0, 3)
-    vis_collections = [(hi.silver, (1, 6))]
+    vis_collections = [(hi.silver, (0, 6))]
 
 class CabinetMetal(pl.furniture):
     name = "cabinet"

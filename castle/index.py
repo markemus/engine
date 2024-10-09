@@ -2,7 +2,7 @@
 from engine import game
 from engine import interface
 
-from castle import man
+from castle import human
 from castle import castle
 from castle import household_items
 from castle import suits
@@ -14,7 +14,7 @@ t_game = game.Game("The Howling Manor", castle.Castle)
 thisLevel = t_game.level_list[0]
 
 # Character creation
-adam = man.Man(location=thisLevel.start)
+adam = human.Human(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)

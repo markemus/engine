@@ -208,6 +208,7 @@ class furniture(element):
             for (item_collection, count) in self.vis_collections:
                 for n in range(*count):
                     if item_collection["color_scheme"] == "distinct":
+                        # print("\n", item_collection["contains"])
                         colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
                     else:
                         # Single color for all items
