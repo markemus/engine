@@ -4,8 +4,6 @@ from colorist import Color as C
 print(f"This is a {C.GREEN}green{C.OFF} tag")
 
 
-
-
 d_creature_lists = {"caves": [("orc", 3), ("goblin", 5)],
                     "dungeon": [("grue", 1), ("skeleton", 3), ("rat", 5)],
                     "hills": [("troll", 2), ("sheep", 8)],

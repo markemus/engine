@@ -17,6 +17,7 @@ from engine.styles import LevelStyle, GameStyle, wall, floor
 
 
 # Creature classes with probability of spawning.
+# Don't forget engine.styles.weight_list() to rebalance creature classes when merging sets.
 cc = {
     "goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
     "servants": [(ServantGoblin, 1)],
@@ -24,7 +25,7 @@ cc = {
     "castle": [(AnimatedArmor, 3), (None, 1)],
     "kitchen": [(ServantGoblin, 3), (None, 1)],
     "animals_indoor": [(Cat, 2), (None, 3)],
-    "monsters": [(Beholder, 1), (None, 8)]
+    # "monsters": [(Beholder, 1), (None, 8)]
     # "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
 }
 
@@ -130,7 +131,8 @@ LevelStyle.register(BedroomFloor)
 
 class Dungeon:
     room_classes = [TortureChamber, Cell]
-    creature_classes = [[(Goblin, 3), (None, 3)], cc["monsters"]]
+    # creature_classes = [[(Goblin, 3), (None, 3)], cc["monsters"]]
+    creature_classes = [[(Goblin, 3), (None, 3)]]
 
 LevelStyle.register(Dungeon)
 
