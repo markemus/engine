@@ -1,3 +1,5 @@
+"""An Interface is used to issue commands to the game's controller. Through it the player controls
+all aspects of playing the game, such as entering or exiting combat, as well as movement, exploration, and saves."""
 from colorist import Color as C
 from colorist import BrightColor as BC
 from transitions import Machine
@@ -8,12 +10,11 @@ from . import save
 
 class Interface:
     def __init__(self, game):
-        # self.game = game
         self.cont = controller.Controller(game)
         states = ["move", "fight"]
         self.machine = Machine(model=self, states=states, initial="move")
 
-        # TODO need commands for: examine inventory of Elements, examine creature desc()
+        # TODO-DONE need commands for: examine inventory of Elements, examine creature desc()
         move = {
             "h": self.help,
             "l": self.cont.desc,

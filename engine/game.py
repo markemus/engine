@@ -1,3 +1,4 @@
+"""Game is used to build a game from a GameStyle. See the Castle index.py file to see how it's all put together."""
 from . import levelGenerator
 from . import styles
 
@@ -5,6 +6,8 @@ from . import styles
 class Game(object):
     """See, it's really very simple."""
     def __init__(self, name, gamestyle):
+        """Levels are created using the levelGenerator object, which generates rooms and creatures according to the
+        specifications in the gamestyle."""
         self.name = name
         self.char = None
         self.level_list = []
@@ -34,6 +37,7 @@ class Game(object):
                 l1.end.get_borders()
 
     def set_char(self, char):
+        """Sets the player character for the game."""
         self.char = char
 
     def add_level(self, level):

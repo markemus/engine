@@ -4,8 +4,9 @@ from colorist import Color as C
 from colorist import BrightColor as BC
 
 
-# Maps a single level
 class levelmap:
+    """Maps a single level. Used for level generation to decide on the placement of rooms, and used
+    as a map during the actual gameplay."""
     name = ''
     start = None
     end = None
@@ -24,9 +25,11 @@ class levelmap:
         self.roomLocations[room] = (x, y)
 
     def addDoor(self, x, y, door):
+        """Connects two rooms."""
         self.layout[x][y] = door
 
     def printMap(self, char):
+        """Display the map with the game character on it. Rooms types are displayed as distinct sprites."""
         for row in self.layout:
             row_sprite = ""
             for x in row:

@@ -1,3 +1,6 @@
+"""Levels are generated from Styles- see styles.py for more info. The levelGenerator object is attached to
+a Game object, and uses the game's GameStyle as a configuration file. A GameStyle contains LevelStyles, which
+in turn contain room information."""
 import math
 import random
 
@@ -11,17 +14,18 @@ class levelGenerator:
         pass
 
     def levelGen(self, levelname, levelstyle):
+        """Generates a level. """
         roomList = []
         lastRoom = None
 
-        # Get room counts
+        # Get room counts for level
         roomcounts = self.count_rooms(levelstyle)
         roomNum = sum(roomcounts.values())
 
-        # Create level
+        # Create level (map will hold the room locations and is displayable by the player).
         gennedLevel = levelmap.levelmap(levelname, roomNum)
 
-        # Choose starting room index
+        # Choose starting room index on the map
         # First calculate the number of potential room locations
         upperLimit = int(math.ceil(math.sqrt(roomNum)))
         x = (random.randrange(upperLimit) * 2) + 1
@@ -34,9 +38,9 @@ class levelGenerator:
         for newRoom in range(roomNum):
             thisRoomNum += 1
 
-            # Choose a room
+            # Choose a room type
             roomType = random.choice(list(roomcounts.keys()))
-            
+            # Keep track of how many of each room type we need
             if roomcounts[roomType] > 1:
                 roomcounts[roomType] -= 1
             else:
@@ -44,19 +48,17 @@ class levelGenerator:
 
             # Create a room
             gennedRoom = roomType(gennedLevel, extra_creatures=levelstyle.creature_classes)
-
-            # First room needs to be start, doesn't need to connect to previous room
+            # First room needs to be start, doesn't need to connect to a previous room
             if len(roomList) == 0:
                 gennedLevel.start = gennedRoom
             else:
                 lastRoom = roomList[lastRoomNum]
 
+            # Link the room to the previous room
             door = self.connectRooms(gennedRoom, lastRoom)
-
             # Add room to gennedLevel's levelMap and roomList
             gennedLevel.addRoom(x, y, gennedRoom)
             roomList.append(gennedRoom)
-
             # Add door to map
             if lastRoom is not None:
                 (x1, y1) = gennedLevel.roomLocations[gennedRoom]
@@ -68,22 +70,22 @@ class levelGenerator:
             # Do only if this isn't last room.
             # Prevents error if this is last room and roomNum is perfect square (so no available slots).
             if newRoom != roomNum - 1:
+                # Find a spot on the map for the room.
                 x, y, lastRoomNum = self.find_slot(gennedLevel, x, y, previousRoomList)
                 previousRoomList.append((x, y))
-                # lastRoomNum = len(previousRoomList) - 1
                 lastRoomNum = lastRoomNum + 2
-                # print(lastRoomNum, len(previousRoomList))
 
             # Set end room
             gennedLevel.end = roomList[-1]
 
-        # Borders aren't updated until rooms are populated- they have doors now.
+        # Borders aren't updated until rooms are doored.
         for room in roomList:
             room.get_borders()
 
         return gennedLevel
 
     def count_rooms(self, levelstyle):
+        """Number of rooms of each type required for the level."""
         roomcounts = {}
 
         for room_class in levelstyle.room_classes:

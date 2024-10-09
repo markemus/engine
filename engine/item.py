@@ -1,7 +1,10 @@
-import random
+"""Items are used by creatures as clothing, weapons, jewelry etc. Furniture is a special type of
+item that is used to fill rooms. Items have an inventory that can hold other items."""
 from colorist import Color as C
 
 
+# TODO not all items need inventories.
+# TODO interior and exterior inventories.
 class Item:
     name = "Item"
     canwear = {"head": False, "body": False, "back": False, "arm": False, "hand": False, "leg": False}
@@ -19,24 +22,20 @@ class Item:
         self.color = color
         self.texture = texture
 
-    # This is the holy grail of transfer functions.
-    # It's also a dumb way to do it, you young fool.
-    # Agreed. I think. It's weird. But it ain't broke?
     def transfer(self, who, wherefrom, whereto):
-        # if wherefrom[wherefrom.index(self)] == self:
+        """A creature moves an item from one inventory to another."""
         if self in wherefrom:
-            # Determines that Who is able to grasp the item.
+            # Determines that 'who' is able to grasp the item.
             if who.grasp(self):               
                 whereto.append(self)
-                # del wherefrom[wherefrom.index(self)]
                 wherefrom.remove(self)
                 who.ungrasp(self)
             else:
-                print("The %s cannot pick up the %s." % (who.name, self.name))
+                print(f"The {who.name} cannot pick up the {self.name}.")
         else:
-            print("The %s is not there." % self.name)
+            print(f"The {self.name} is not there.")
 
-    # TODO viewInv still needed or just desc?
+    # TODO-DECIDE viewInv still needed or just desc?
     def viewInv(self):  
         """Check a thing's visible inventory (vis_inv) and sub-inventories."""
         contents = f"The {self.name} contains "

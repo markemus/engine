@@ -26,7 +26,7 @@ class place:
         #     self.elements.append(anElem)
         self._elementGen()
         self._populate(extra_creatures)
-        self.get_borders()
+        # self.get_borders()
 
     def desc(self, full=True, offset=0):
         """Basic describe function, always called desc."""

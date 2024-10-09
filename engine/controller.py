@@ -1,6 +1,6 @@
+"""Commands from interfaces are """
 from colorist import Color as C
 from . import combat
-from . import save
 
 
 class Controller:
@@ -72,7 +72,6 @@ class Controller:
             print("You cannot see well enough to examine anything closely.")
 
     # TODO consider input values other than those listed as "x"
-    # TODO-DONE take() function to pick up items in the room (or put items down). We already have transfer() in creature.
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
