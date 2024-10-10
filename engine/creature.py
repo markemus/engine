@@ -173,7 +173,7 @@ class creature:
                     article = suit["wears"][limb.wears]
                     if type(article) == tuple:
                         article = random.choice(article)
-                        print(article)
+                        # print(article)
 
                     # Create article
                     article = article(color=colors[limb.wears], texture=textures[limb.wears])

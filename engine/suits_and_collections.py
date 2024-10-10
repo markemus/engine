@@ -16,5 +16,5 @@ def suit_to_collection(suit, model):
             collection["contains"].append(collection["wears"][limb.wears])
 
     del collection["wears"]
-    print("\n\n", collection["contains"])
+    # print("\n\n", collection["contains"])
     return collection
