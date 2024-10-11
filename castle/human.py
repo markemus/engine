@@ -16,6 +16,8 @@ class Human(cr.creature):
     classname = "man"
     namelist = nm.names["human"]
     baseElem = Torso
+    no_headaches = True
+    no_nausea = True
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
     suits = [suits.jewelry, suits.testsuit, suits.weapons]
