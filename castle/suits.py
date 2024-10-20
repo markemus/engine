@@ -68,7 +68,7 @@ class Shield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()
     canwear["back"] = True
-    canwear["arm"] = True
+    canwear["left hand"] = True
     armor = 3
 
 # Clothing
@@ -113,19 +113,19 @@ class Ring(i.Item):
 class Axe(i.Item):
     name = "axe"
     canwear = i.Item.canwear.copy()
-    canwear["hand"] = True
+    canwear["right hand"] = True
     damage = 7
 
 class Spear(i.Item):
     name = "spear"
     canwear = i.Item.canwear.copy()
-    canwear["hand"] = True
+    canwear["right hand"] = True
     damage = 8
 
 class Sword(i.Item):
     name = "sword"
     canwear = i.Item.canwear.copy()
-    canwear["hand"] = True
+    canwear["right hand"] = True
     damage = 9
 
 # Special
@@ -141,7 +141,8 @@ class Blindfold(i.Item):
 jewelry = {
     "wears": {
         "body": Necklace,
-        "hand": Bracelet,
+        "right hand": Bracelet,
+        "left hand": Bracelet,
         "finger": Ring,
         "foot": Bracelet},
     "color": ["sapphire", "emerald", "turquoise"],
@@ -167,9 +168,9 @@ testsuit = {
     "wears": {
         "head": Helm,
         "body": Chainmail,
-        "back": Shield,
         "arm": Bracer,
-        "hand": Gauntlet,
+        "left hand": Gauntlet,
+        "right hand": Gauntlet,
         "leg": Greave,
         "foot": Boot},
     "color": ["shiny", "rusty", "matte"],
@@ -181,7 +182,8 @@ testsuit = {
 
 weapons = {
     "wears": {
-        "hand": (Sword, Spear, Axe)},
+        "right hand": (Sword, Spear, Axe),
+        "left hand": Shield},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],

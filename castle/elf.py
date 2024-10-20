@@ -15,7 +15,7 @@ class Head(cr.limb):
 
 class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [Head, cl.Arm, cl.Leg]
+    subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

@@ -7,7 +7,7 @@ from castle import suits
 
 class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [cl.Head, cl.Arm, cl.Leg]
+    subelement_classes = [cl.Head, cl.LArm, cl.RArm, cl.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

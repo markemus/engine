@@ -1,6 +1,7 @@
 """Orcs are vile and nasty creatures, born to wreak havoc and destroy. They deserve nothing more
 than a clean death."""
 import engine.creature as cr
+import castle.commonlimbs as cl
 import castle.namelists as nm
 from castle import suits
 
@@ -72,20 +73,20 @@ class Thumb(cr.limb):
     appendageRange = (1, 2)
     wears = "finger"
 
-class Hand(cr.weapon):
-    name = "hand"
-    subelement_classes = [Finger, Thumb]
-    grasp = 1
-    isSurface = True
-    appendageRange = (1, 2)
-    wears = "hand"
-
-class Arm(cr.limb):
-    name = "arm"
-    subelement_classes = [Hand]
-    isSurface = True
-    appendageRange = (2, 3)
-    wears = "arm"
+# class Hand(cr.weapon):
+#     name = "hand"
+#     subelement_classes = [Finger, Thumb]
+#     grasp = 1
+#     isSurface = True
+#     appendageRange = (1, 2)
+#     wears = "hand"
+#
+# class Arm(cr.limb):
+#     name = "arm"
+#     subelement_classes = [Hand]
+#     isSurface = True
+#     appendageRange = (2, 3)
+#     wears = "arm"
 
 # Legs
 class Foot(cr.limb):
@@ -106,7 +107,7 @@ class Leg(cr.limb):
 # Torso
 class Torso(cr.limb):
     name = "body"
-    subelement_classes = [Head, Arm, Leg]
+    subelement_classes = [Head, cl.LArm, cl.RArm, Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

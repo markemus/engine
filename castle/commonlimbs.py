@@ -111,19 +111,36 @@ class Thumb(cr.limb):
     appendageRange = (1, 2)
     wears = "finger"
 
-class Hand(cr.weapon):
-    name = "hand"
+class RHand(cr.weapon):
+    name = "right hand"
     subelement_classes = [Finger, Thumb]
     grasp = 1
     isSurface = True
     appendageRange = (1, 2)
-    wears = "hand"
+    wears = "right hand"
 
-class Arm(cr.limb):
-    name = "arm"
-    subelement_classes = [Hand]
+class LHand(cr.weapon):
+    name = "left hand"
+    subelement_classes = [Finger, Thumb]
+    grasp = 1
+    blocker = True
     isSurface = True
-    appendageRange = (2, 3)
+    appendageRange = (1, 2)
+    wears = "left hand"
+
+class RArm(cr.limb):
+    name = "arm"
+    subelement_classes = [RHand]
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "arm"
+    blocker = True
+
+class LArm(cr.limb):
+    name = "arm"
+    subelement_classes = [LHand]
+    isSurface = True
+    appendageRange = (1, 2)
     wears = "arm"
     blocker = True
 
