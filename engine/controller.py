@@ -64,6 +64,21 @@ class Controller:
         else:
             print("You cannot see well enough to see the room well.")
 
+    def character_sheet(self):
+        gc = self.game.char
+        weapons = [f"{x.name}: {BC.YELLOW}{x.damage[1].name}{BC.OFF} {BC.RED}({x.damage[0]}){BC.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
+        inventory = [f"{BC.CYAN}{x.name}{BC.OFF}" for x in gc.inventory]
+
+        if gc.limb_count("see") > 1:
+            cs = f"\nCharacter Sheet\n" \
+                 f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
+                 f"\nWeapons\n" \
+                 f"{''.join(weapons)}" \
+                 f"\nInventory\n" \
+                 f"{''.join(inventory)}\n\n"
+            self.display_long_text(cs)
+
+
     def examine(self):
         """Desc for a particular creature or element in the room."""
         # Sight check

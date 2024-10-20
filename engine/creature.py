@@ -7,6 +7,8 @@ from engine import ai
 
 # End of Loading Zone
 
+# TODO currently severed limbs cannot be transferred since they have no transfer function. Turn them into items? Inheritance?
+#  needs a severed tag. Can inherit from item, why not? Just don't let people move it if it's not severed.
 class limb:
     """Body parts for Creatures. Store in a list in Creature object.
 

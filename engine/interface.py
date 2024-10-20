@@ -17,6 +17,7 @@ class Interface:
         # TODO-DONE need commands for: examine inventory of Elements, examine creature desc()
         move = {
             "h": self.help,
+            "c": self.cont.character_sheet,
             "l": self.cont.desc,
             "e": self.cont.examine,
             "i": self.cont.inventory,
