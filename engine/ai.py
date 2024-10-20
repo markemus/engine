@@ -9,12 +9,14 @@ class CombatAI:
         targets = []
 
         # Gather
+        # TODO should only target opposing teams
         for creature in self.get_target_creatures():
             if creature.team != self.creature.team:
                 targets.append(creature)
 
         # Pick
         if len(targets) > 0:
+            # TODO choice should be semi persistent
             target = random.choice(targets)
         else:
             target = False
@@ -25,6 +27,7 @@ class CombatAI:
         limbs = target.subelements[0].limb_check("isSurface")
 
         if len(limbs) > 0:
+            # Chooses the easiest target
             lowest = min(limbs, key=lambda x: x.hitpoints)
             allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
             chosen = random.choice(allLowest)

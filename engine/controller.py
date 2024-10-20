@@ -13,8 +13,9 @@ class Controller:
 
         return d
 
-    def dictprint(self, d):
-        """Pretty print a dictionary. Useful for displaying command sets for user input."""
+    def dictprint(self, d, pfunc=None):
+        """Pretty print a dictionary. Useful for displaying command sets for user input.
+        pfunc amends the final string before printing."""
         intkeys = []
         strkeys = []
 
@@ -25,7 +26,6 @@ class Controller:
                 strkeys.append(key)
 
         intkeys.sort(key=int)
-        # strkeys.sort()
 
         keys = intkeys + strkeys
 
@@ -40,8 +40,13 @@ class Controller:
             elif hasattr(d[key], "name"):
                 exstr = str(key) + ": " + d[key].name
             # we don't want to ever see this, but we'd rather have it than an exception, I think.
+            # This seems to be what happens when key is an int.
             else:
                 exstr = str(key) + ": " + str(d[key])
+
+            # pfunc processes d[key] and returns a string for printing. USE SPARINGLY.
+            if pfunc:
+                exstr = pfunc(exstr, d[key])
 
             # Add star if item has inv or subelements
             if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "elements") and d[key].elements):
@@ -195,7 +200,14 @@ class Controller:
         blockers = self.listtodict(blockers)
         blockers["x"] = "Accept the blow."
 
-        self.dictprint(blockers)
+        # pfunc = lambda str, obj: f"{str} {C.RED}({obj.armor}){C.OFF}"
+        def a_pfunc(str, obj):
+            if hasattr(obj, "armor"):
+                return f"{str} {C.BLUE}({obj.armor}){C.OFF}"
+            else:
+                return str
+        # TODO pfunc-DONE that displays limb (armor) instead of just limb. Needs color too.
+        self.dictprint(blockers, pfunc=a_pfunc)
 
         i = input("\nWhich limb would you like to block with (x for none)?")
 

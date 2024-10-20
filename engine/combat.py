@@ -1,5 +1,6 @@
 import random
 
+from colorist import BrightColor as BC, Color as C
 from transitions import Machine
 
 #TODO replace with FSM, maybe?
@@ -17,19 +18,25 @@ class Combat:
         # Blockers must be reset each round.
         # TODO fix bug where blockers can be used to attack if block happens before attack.
         self.blockers = {}
-        print("fullCombat: creatures: ", creatures)
+        # print("fullCombat: creatures: ", creatures)
 
         for actor in creatures:
-            self.blockers[actor] = self.get_weapons(actor)
-            print("fullCombat: blockers: ", self.blockers)
+            # self.blockers[actor] = self.get_weapons(actor)
+            self.blockers[actor] = self.get_blockers(actor)
+            # print("fullCombat: blockers: ", self.blockers)
 
+        # TODO only one weapon per combat round, blockers should be a separate list.
         for actor in creatures:
-            for weapon in self.get_weapons(actor):
-                used = self.combatRound(actor, weapon)
-                # Can't block with weapons used to attack
-                if used:
-                    # TODO this raised an exception: ValueError: list.remove(x): x not in list
-                    self.blockers[actor].remove(weapon)
+            # select best weapon
+            weapons = self.get_weapons(actor)
+            weapon = max(weapons, key=lambda x: x.damage)
+
+            # for weapon in self.get_weapons(actor):
+            used = self.combatRound(actor, weapon)
+            # Can't block with weapons used to attack
+            if used:
+                # TODO this raised an exception: ValueError: list.remove(x): x not in list
+                self.blockers[actor].remove(weapon)
 
         print("fullCombat: blockers: ", self.blockers)
 
@@ -42,6 +49,7 @@ class Combat:
             print("\nYou prepare to strike with your " + weapon.name + ".")
             target = self.cont.pick_target()
         else:
+            # Selects a nearby enemy at random
             target = actor.ai.target_creature()
 
         if target:
@@ -53,8 +61,12 @@ class Combat:
             limb = None
 
         if limb:
-            # TODO should print weapon name, not hand-holding-weapon's name
-            print(actor.name, "attacks", target.name + "'s", limb.name, "with their", weapon.name + "!")
+            # TODO should print weapon name, not hand-holding-weapon's name. Get max damage?
+            # TODO target color should change based on relationship to player. Aggressor too.
+            print(f"{C.RED}{actor.name}{C.OFF} attacks "
+                  f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
+                  f"with their {BC.RED}{weapon.name}{BC.OFF}!")
+            print(f"It will deal {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked.")
 
             # Blocking
             blockers = self.blockers[target].copy()
@@ -74,12 +86,14 @@ class Combat:
 
         return used
 
+    # TODO blockers should not be the same list as weapons! Blockers should be isSurface instead.
     def get_weapons(self, actor):
+        """Any limb that can cause damage directly or wield a weapon."""
         claws = actor.subelements[0].limb_check("damage")
         hands = actor.subelements[0].limb_check("grasp")
 
         weapons = list(set(claws + hands))
-        print("get_weapons: weapons: ", weapons)
+        # print("get_weapons: weapons: ", weapons)
 
         return weapons
 
@@ -116,6 +130,11 @@ class Combat:
             cutoff = True
 
         return cutoff
+
+    def get_blockers(self, actor):
+        """Any limb that can block damage directly."""
+        blockers = actor.subelements[0].limb_check("isSurface")
+        return blockers
 
     def throw_limb(self, amputee, limb):
         """Arms have to land somewhere."""
