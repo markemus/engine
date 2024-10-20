@@ -100,7 +100,12 @@ class weapon(limb):
 
     @property
     def damage(self):
+        """This will return the amount of damage and the item that is causing it.
+        This is important for the UI and possibly for other calculations.
+
+        When checking damage, just use limb.damage[0] to reference damage alone."""
         damage = self._damage
+        item = self
 
         for item in self.inventory:
             if hasattr(item, "damage"):
@@ -108,7 +113,7 @@ class weapon(limb):
                 if item.damage > damage:
                     damage = item.damage
         
-        return damage
+        return damage, item
 
 # TODO check for eyes before seeing the room. Allow blindfolds!
 # TODO eating and drinking

@@ -50,7 +50,7 @@ class Interface:
     # We need these for our interface- transition methods are partial functions and
     # have no __name__ or clean str() cast.
     def fight(self):
-        print("You ready yourself for a fight.")
+        print(f"{C.RED}You ready yourself for a fight.{C.OFF}")
         self.to_fight()
 
     def move(self):

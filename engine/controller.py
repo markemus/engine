@@ -1,5 +1,5 @@
 """Commands from interfaces are """
-from colorist import Color as C
+from colorist import BrightColor as BC, Color as C
 from . import combat
 
 
@@ -30,19 +30,22 @@ class Controller:
         keys = intkeys + strkeys
 
         for key in keys:
+            # TODO-DECIDE consider replacing str(key) with a colored string
+            # Keys should always have the same (brown) color.
+            kval = f"{C.YELLOW}{str(key)}{C.OFF}: "
             # if function
             if hasattr(d[key], "__name__"):
-                exstr = str(key) + ": " + d[key].__name__
+                exstr = kval + d[key].__name__
             # or object with printcolor
             elif hasattr(d[key], "printcolor") and hasattr(d[key], "name"):
-                exstr = f"{str(key)}: {d[key].printcolor}{d[key].name}{C.OFF}"
+                exstr = kval + f"{d[key].printcolor}{d[key].name}{C.OFF}"
             # elif other objects
             elif hasattr(d[key], "name"):
-                exstr = str(key) + ": " + d[key].name
+                exstr = kval + f"{d[key].name}"
             # we don't want to ever see this, but we'd rather have it than an exception, I think.
             # This seems to be what happens when key is an int.
             else:
-                exstr = str(key) + ": " + str(d[key])
+                exstr = kval + str(d[key])
 
             # pfunc processes d[key] and returns a string for printing. USE SPARINGLY.
             if pfunc:
@@ -158,6 +161,10 @@ class Controller:
         self.game.set_current_level(new_level_idx)
 
     # Combat
+    # TODO see weapons, see armor command.
+    # def view_self(self):
+    #     self.game.char.desc()
+
     def attack(self):
         # com = combat.Combat(self.game.char, self)
         # com.fullCombat()
@@ -170,7 +177,7 @@ class Controller:
 
         self.dictprint(targets)
 
-        i = input("\nWho are you attacking (x for none)? ")
+        i = input(f"{C.GREEN}\nWho are you attacking (x for none)?{C.OFF}")
 
         if i != "x":
             defender = targets[i]
@@ -187,7 +194,7 @@ class Controller:
 
         self.dictprint(limbs)
 
-        i = input("\nWhich limb are you targeting (x for none)? ")
+        i = input(f"\n{C.GREEN}Which limb are you targeting (x for none)? {C.OFF}")
         
         if i != "x":
             limb = limbs[i]
@@ -206,10 +213,11 @@ class Controller:
                 return f"{str} {C.BLUE}({obj.armor}){C.OFF}"
             else:
                 return str
-        # TODO pfunc-DONE that displays limb (armor) instead of just limb. Needs color too.
+
         self.dictprint(blockers, pfunc=a_pfunc)
 
-        i = input("\nWhich limb would you like to block with (x for none)?")
+        # TODO x for none color.
+        i = input(f"\n{BC.GREEN}Which {C.CYAN}limb{BC.GREEN} would you like to block with (x for none)?{C.OFF}")
 
         if i != "x":
             blocker = blockers[i]
