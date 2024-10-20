@@ -16,6 +16,7 @@ class limb:
     wears = "generic"
     hitpoints = 1
     _armor = 0
+    blocker = False
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -107,11 +108,12 @@ class weapon(limb):
         damage = self._damage
         item = self
 
-        for item in self.inventory:
-            if hasattr(item, "damage"):
+        for _item in self.inventory:
+            if hasattr(_item, "damage"):
                 # TODO-DECIDE what about adding damage? eg spikes on tails. Or swords on strong arms.
-                if item.damage > damage:
-                    damage = item.damage
+                if _item.damage > damage:
+                    damage = _item.damage
+                    item = _item
         
         return damage, item
 

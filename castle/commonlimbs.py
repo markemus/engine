@@ -58,6 +58,7 @@ class Horn(cr.weapon):
     isSurface = True
     appendageRange = (2, 3)
     wears = "horn"
+    blocker = True
 
 class Teeth(cr.weapon):
     name = "teeth"
@@ -124,6 +125,7 @@ class Arm(cr.limb):
     isSurface = True
     appendageRange = (2, 3)
     wears = "arm"
+    blocker = True
 
 # Legs
 class Foot(cr.limb):

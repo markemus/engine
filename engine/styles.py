@@ -29,6 +29,7 @@ class floor(pl.element):
     name = "floor"
     count = (1, 2)
     cantransfer = True
+    canCatch = True
 
 # TODO doors should have their own color and texture instead of borrowing from room.
 # TODO-DECIDE can we add windows for rooms on the edges of the level?

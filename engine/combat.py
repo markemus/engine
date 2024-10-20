@@ -23,9 +23,10 @@ class Combat:
         for actor in creatures:
             self.blockers[actor] = self.get_blockers(actor)
 
-        # TODO only one weapon per combat round, blockers should be a separate list.
+        # TODO-DONE only one weapon per combat round, blockers should be a separate list.
         for actor in creatures:
             # select best weapon
+            # TODO allow player to select their own weapon
             weapons = self.get_weapons(actor)
             weapon = max(weapons, key=lambda x: x.damage[0])
 
@@ -33,8 +34,10 @@ class Combat:
             used = self.combatRound(actor, weapon)
             # Can't block with weapons used to attack
             if used:
-                # TODO this raised an exception: ValueError: list.remove(x): x not in list
-                self.blockers[actor].remove(weapon)
+                # TODO is this working? Should it remove an arm if the hand is used? Rethink.
+                try:
+                    self.blockers[actor].remove(weapon)
+                except: pass
 
         print("fullCombat: blockers: ", self.blockers)
 
@@ -131,7 +134,7 @@ class Combat:
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
         # TODO separate block and armor into separate tags
-        blockers = [x for x in actor.subelements[0].limb_check("armor") if x.armor > 0]
+        blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker]
         return blockers
 
     def throw_limb(self, amputee, limb):
@@ -142,7 +145,7 @@ class Combat:
         if len(landings) > 0:
             lands_at = random.choice(landings)
             lands_at.add_vis_item(limb)
-            print("The", limb.name, "lands on the", lands_at.name + ".")
+            print(f"{BC.CYAN}The {limb.name} lands on the {lands_at.name}.{BC.OFF}")
         else:
             print("The limb flies off and disappears out of sight.")
 

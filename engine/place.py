@@ -166,6 +166,9 @@ class element:
 
         return text
 
+    # TODO-DECIDE doesn't check items. Just subelements. We should extend this search so that it can find
+    #  the real characteristics of the element- eg table canCatch. Think about future variations in how this
+    #  (sort of) function can work.
     def elem_check(self, tag):
         elem_total = []
 

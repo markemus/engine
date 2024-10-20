@@ -177,7 +177,7 @@ class Controller:
 
         self.dictprint(targets)
 
-        i = input(f"{C.GREEN}\nWho are you attacking (x for none)?{C.OFF}")
+        i = input(f"{BC.GREEN}\nWho are you attacking (x for none)?{BC.OFF}")
 
         if i != "x":
             defender = targets[i]
