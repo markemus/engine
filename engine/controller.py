@@ -1,4 +1,3 @@
-"""Commands from interfaces are """
 from colorist import BrightColor as BC, Color as C
 from . import combat
 
@@ -77,7 +76,6 @@ class Controller:
                  f"\nInventory\n" \
                  f"{''.join(inventory)}\n\n"
             self.display_long_text(cs)
-
 
     def examine(self):
         """Desc for a particular creature or element in the room."""
@@ -176,10 +174,6 @@ class Controller:
         self.game.set_current_level(new_level_idx)
 
     # Combat
-    # TODO see weapons, see armor command.
-    # def view_self(self):
-    #     self.game.char.desc()
-
     def attack(self):
         # com = combat.Combat(self.game.char, self)
         # com.fullCombat()
@@ -192,7 +186,7 @@ class Controller:
 
         self.dictprint(targets)
 
-        i = input(f"{BC.GREEN}\nWho are you attacking (x for none)?{BC.OFF}")
+        i = input(f"{BC.GREEN}\nWho are you attacking {C.YELLOW}(x for none){C.GREEN}?{BC.OFF}")
 
         if i != "x":
             defender = targets[i]
@@ -209,7 +203,7 @@ class Controller:
 
         self.dictprint(limbs)
 
-        i = input(f"\n{C.GREEN}Which limb are you targeting (x for none)? {C.OFF}")
+        i = input(f"\n{C.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.GREEN}? {C.OFF}")
         
         if i != "x":
             limb = limbs[i]
@@ -222,7 +216,6 @@ class Controller:
         blockers = self.listtodict(blockers)
         blockers["x"] = "Accept the blow."
 
-        # pfunc = lambda str, obj: f"{str} {C.RED}({obj.armor}){C.OFF}"
         def a_pfunc(str, obj):
             if hasattr(obj, "armor"):
                 return f"{str} {C.BLUE}({obj.armor}){C.OFF}"
@@ -231,8 +224,8 @@ class Controller:
 
         self.dictprint(blockers, pfunc=a_pfunc)
 
-        # TODO x for none color.
-        i = input(f"\n{BC.GREEN}Which {C.CYAN}limb{BC.GREEN} would you like to block with (x for none)?{C.OFF}")
+        # TODO-DONE x for none color.
+        i = input(f"\n{BC.GREEN}Which {C.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF}")
 
         if i != "x":
             blocker = blockers[i]
@@ -242,4 +235,4 @@ class Controller:
         return blocker
 
     def defend(self, cr):
-        print("{} swings their {} at your {}.".format(cr.attacker.name, cr.weapon.name, cr.target.name))
+        print(f"{cr.attacker.name} swings their {cr.weapon.name} at your {cr.target.name}.")

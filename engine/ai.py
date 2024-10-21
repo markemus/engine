@@ -1,6 +1,7 @@
 import random
 
 
+# TODO-DECIDE multiple ai types? Styles?
 class CombatAI:
     def __init__(self, creature):
         self.creature = creature
@@ -28,7 +29,8 @@ class CombatAI:
 
         if len(limbs) > 0:
             # Chooses the easiest target
-            lowest = min(limbs, key=lambda x: x.hitpoints)
+            # TODO need a better function for choosing armored vs unarmored targets.
+            lowest = min(limbs, key=lambda x: x.hitpoints + x.armor)
             allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
             chosen = random.choice(allLowest)
             # print("chosen: ", chosen)
@@ -42,7 +44,8 @@ class CombatAI:
     # TODO select_blockers(self)
     def block(self, blockers):
         if len(blockers) > 0:
-            blocker = blockers[0]
+            # blocker = blockers[0]
+            blocker = max(blockers, key=lambda x: x.armor)
         else:
             blocker = False
 

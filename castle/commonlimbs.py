@@ -95,6 +95,7 @@ class Head(cr.limb):
     wear = "head"
 
 # Arms
+# TODO-DECIDE how many fingers are really required to grasp?
 class Finger(cr.limb):
     name = "finger"
     subelement_classes = []

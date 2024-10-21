@@ -3,23 +3,21 @@ import random
 from colorist import BrightColor as BC, Color as C
 from transitions import Machine
 
-#TODO replace with FSM, maybe?
+
 class Combat:
     def __init__(self, char, cont):
         self.char = char
         self.cont = cont
-        # TODO combatAI should be attached to each creature instead, and should be included in styles.
+        # TODO-DONE combatAI should be attached to each creature instead.
         # self.ai = CombatAI()
         self.blockers = None
 
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
-        # Blockers must be reset each round.
-        # TODO fix bug where blockers can be used to attack if block happens before attack.
-        self.blockers = {}
-        # print("fullCombat: creatures: ", creatures)
 
+        # Blockers must be reset each round.
+        self.blockers = {}
         for actor in creatures:
             self.blockers[actor] = self.get_blockers(actor)
 
@@ -30,16 +28,13 @@ class Combat:
             weapons = self.get_weapons(actor)
             weapon = max(weapons, key=lambda x: x.damage[0])
 
-            # for weapon in self.get_weapons(actor):
+            # Attack
             used = self.combatRound(actor, weapon)
             # Can't block with weapons used to attack
             if used:
-                # TODO is this working? Should it remove an arm if the hand is used? Rethink.
                 try:
                     self.blockers[actor].remove(weapon)
                 except: pass
-
-        print("fullCombat: blockers: ", self.blockers)
 
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
@@ -86,14 +81,13 @@ class Combat:
 
         return used
 
-    # TODO blockers should not be the same list as weapons! Blockers should be isSurface instead.
+    # TODO-DONE blockers should not be the same list as weapons! Blockers should be isSurface instead.
     def get_weapons(self, actor):
         """Any limb that can cause damage directly or wield a weapon."""
         claws = actor.subelements[0].limb_check("damage")
         hands = actor.subelements[0].limb_check("grasp")
 
         weapons = list(set(claws + hands))
-        # print("get_weapons: weapons: ", weapons)
 
         return weapons
 
@@ -109,6 +103,7 @@ class Combat:
             damage = 0
 
         # Adjust for armor
+        # TODO-DONE there is something wrong with the damage calculation- seems to deal too much damage when blocked? Look into
         if hasattr(target, "armor"):
             damage = (damage - target.armor) if damage > target.armor else 0 
 
@@ -133,7 +128,7 @@ class Combat:
 
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
-        # TODO separate block and armor into separate tags
+        # TODO-DONE separate block and armor into separate tags
         blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker]
         return blockers
 
@@ -147,72 +142,4 @@ class Combat:
             lands_at.add_vis_item(limb)
             print(f"{BC.CYAN}The {limb.name} lands on the {lands_at.name}.{BC.OFF}")
         else:
-            print("The limb flies off and disappears out of sight.")
-
-
-# class CombatAI:
-#     def target_creature(self, actor):
-#         targets = []
-#
-#         # Gather
-#         for creature in get_target_creatures(actor):
-#             if creature.team != actor.team:
-#                 targets.append(creature)
-#
-#         # Pick
-#         if len(targets) > 0:
-#             target = random.choice(targets)
-#         else:
-#             target = False
-#
-#         return target
-#
-#     def target_limb(self, target):
-#         limbs = target.subelements[0].limb_check("isSurface")
-#
-#         if len(limbs) > 0:
-#             lowest = min(limbs, key=lambda x: x.hitpoints)
-#             allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
-#             chosen = random.choice(allLowest)
-#             # print("chosen: ", chosen)
-#         else:
-#             # print("No surface limbs.")
-#             chosen = False
-#
-#         return chosen
-#
-#     def block(self, limb, blockers):
-#         if len(blockers) > 0:
-#             blocker = blockers[0]
-#         else:
-#             blocker = False
-#
-#         return blocker
-
-
-# def get_target_creatures(actor):
-#     targets = actor.location.get_creatures()
-#
-#     if actor in targets:
-#         targets.remove(actor)
-#
-#     return targets
-
-# def get_target_limbs(defender):
-#     limbs = defender.subelements[0].limb_check("isSurface")
-#
-#     return limbs
-
-
-# if __name__ == "__main__":
-#     # pass
-#     # import item
-#     from orc import orc
-#
-#     o = orc("o", location=None)
-#     c = Combat(None, None)
-#     hand = o.grasp_check()
-#     print(hand.damage)
-#     print(hand.armor)
-#
-#     print(c.check_damage(hand, hand))
+            print(f"{BC.CYAN}The limb flies off and disappears out of sight.{BC.OFF}")
