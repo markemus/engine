@@ -34,7 +34,7 @@ Creatures can also contain tags of their own- these are attributes that cannot b
 
 The creature.limb_check() function is used to recursively gather limbs containing the requested tag. These limbs can then be used for a given action- walking, grasping, attacking, blocking etc.
 
-**Combat** is turn based. Each creature gets to attack with ALL of their limbs containing a "damage" or "grasp" tag. They can choose not to attack with a limb, in which case it will be available to block incoming attacks from their opponent. This means you have to be careful- if you attack with all your limbs, your enemy might well chop them off on their own turn. Of course they'll have trouble doing that if they have no arms left...
+**Combat** is turn based. Each creature gets to attack with one of their limbs containing a "damage" or "grasp" tag. They can choose not to attack with a limb, in which case it will be available to block incoming attacks from their opponent. This means you have to be careful- if you attack with all your limbs, your enemy might well chop them off on their own turn. Of course they'll have trouble doing that if they have no arms left...
 
 # Tags
 name: the name of the object.
