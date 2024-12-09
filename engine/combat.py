@@ -107,11 +107,11 @@ class Combat:
             damage = 0
 
         # Adjust for armor
-        # TODO-DONE there is something wrong with the damage calculation- seems to deal too much damage when blocked? Look into
         if hasattr(target, "armor"):
-            damage = (damage - target.armor) if damage > target.armor else 0 
+            # damage = (damage - target.armor) if damage > target.armor else 0
+            damage = (damage / target.armor)
 
-        return damage
+        return round(damage, 2)
 
     def attack(self, defender, limb, weapon):
         damage = self.check_damage(weapon, limb)

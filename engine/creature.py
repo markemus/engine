@@ -17,7 +17,7 @@ class limb:
     name = "NO_NAME_LIMB"
     wears = "generic"
     base_hp = 10
-    _armor = 0
+    _armor = 1
     blocker = False
 
     def __init__(self, color="d_color", texture="d_texture"):

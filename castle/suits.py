@@ -44,32 +44,32 @@ class Chainmail(i.Item):
     name = "chainmail"
     canwear = i.Item.canwear.copy()
     canwear["body"] = True
-    armor = 2
+    armor = 6
 
 class Gauntlet(i.Item):
     name = "gauntlet"
     canwear = i.Item.canwear.copy()
     canwear["hand"] = True
-    armor = 1
+    armor = 2
 
 class Greave(i.Item):
     name = "greave"
     canwear = i.Item.canwear.copy()
     canwear["leg"] = True
-    armor = 1
+    armor = 2
 
 class Helm(i.Item):
     name = "helm"
     canwear = i.Item.canwear.copy()
     canwear["head"] = True
-    armor = 1
+    armor = 4
 
 class Shield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()
     canwear["back"] = True
     canwear["left hand"] = True
-    armor = 3
+    armor = 10
 
 # Clothing
 class Tunic(i.Item):

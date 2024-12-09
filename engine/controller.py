@@ -207,10 +207,19 @@ class Controller:
         limbs = self.listtodict(limblist)
         limbs["x"] = "Withhold your blow."
 
-        self.dictprint(limbs)
+        # TODO-DONE should show armor and hp (pfunc)
+        def a_pfunc(str, obj):
+            if hasattr(obj, "armor"):
+                str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
+            if hasattr(obj, "hp"):
+                str = f"{str} {C.RED}({obj.hp}){C.OFF}"
+            return str
+        self.dictprint(limbs, pfunc=a_pfunc)
 
         i = input(f"\n{C.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.GREEN}? {C.OFF}")
-        
+
+        # TODO exception handling for this and other similar controller functions when non-indexed key is pressed.
+        #  Easiest way is to just treat all unknown as x.
         if i != "x":
             limb = limbs[i]
         else:
@@ -224,13 +233,13 @@ class Controller:
 
         def a_pfunc(str, obj):
             if hasattr(obj, "armor"):
-                return f"{str} {C.BLUE}({obj.armor}){C.OFF}"
-            else:
-                return str
+                str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
+            if hasattr(obj, "hp"):
+                str = f"{str} {C.RED}({obj.hp}){C.OFF}"
+            return str
 
         self.dictprint(blockers, pfunc=a_pfunc)
 
-        # TODO-DONE x for none color.
         i = input(f"\n{BC.GREEN}Which {C.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF}")
 
         if i != "x":
@@ -247,5 +256,6 @@ class Controller:
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):
             if limb.hp < limb.base_hp:
-                limb.hp += 1
+                hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)
+                limb.hp += hp_diff
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
