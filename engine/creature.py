@@ -16,7 +16,7 @@ class limb:
     very different objects."""
     name = "NO_NAME_LIMB"
     wears = "generic"
-    hitpoints = 1
+    base_hp = 10
     _armor = 0
     blocker = False
 
@@ -27,6 +27,7 @@ class limb:
         self._elementGen()
         self.inventory = []
         # self.invis_inv = []
+        self.hp = self.base_hp
 
     def _elementGen(self):
         for elemclass in self.subelement_classes:

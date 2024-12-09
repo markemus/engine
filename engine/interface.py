@@ -14,7 +14,6 @@ class Interface:
         states = ["move", "fight"]
         self.machine = Machine(model=self, states=states, initial="move")
 
-        # TODO-DONE need commands for: examine inventory of Elements, examine creature desc()
         move = {
             "h": self.help,
             "c": self.cont.character_sheet,
@@ -29,6 +28,7 @@ class Interface:
             "a": self.cont.west,
             ">": self.cont.stairs,
             "f": self.fight,
+            "r": self.cont.rest,
             "/": self.save,
         }
 

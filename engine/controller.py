@@ -195,6 +195,12 @@ class Controller:
 
         return defender
 
+    def pick_weapon(self, weapons):
+        weapons = self.listtodict(weapons)
+        self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}")
+        weapon = weapons[input("Pick a weapon:")]
+        return weapon
+
     def pick_limb(self, defender):
         # limblist = combat.get_target_limbs(defender)
         limblist = defender.subelements[0].limb_check("isSurface")
@@ -236,3 +242,10 @@ class Controller:
 
     def defend(self, cr):
         print(f"{cr.attacker.name} swings their {cr.weapon.name} at your {cr.target.name}.")
+
+    def rest(self):
+        print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
+        for limb in self.game.char.subelements[0].limb_check(tag="hp"):
+            if limb.hp < limb.base_hp:
+                limb.hp += 1
+                print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")

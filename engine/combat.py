@@ -21,20 +21,24 @@ class Combat:
         for actor in creatures:
             self.blockers[actor] = self.get_blockers(actor)
 
-        # TODO-DONE only one weapon per combat round, blockers should be a separate list.
+        # only one weapon per combat round
         for actor in creatures:
             # select best weapon
             # TODO allow player to select their own weapon
             weapons = self.get_weapons(actor)
-            weapon = max(weapons, key=lambda x: x.damage[0])
+            if weapons:
+                if actor is self.char:
+                    weapon = self.cont.pick_weapon(weapons)
+                else:
+                    weapon = max(weapons, key=lambda x: x.damage[0])
 
-            # Attack
-            used = self.combatRound(actor, weapon)
-            # Can't block with weapons used to attack
-            if used:
-                try:
+                # Attack
+                used = self.combatRound(actor, weapon)
+                # Can't block with weapons used to attack
+                if used and (weapon in self.blockers[actor]):
                     self.blockers[actor].remove(weapon)
-                except: pass
+            else:
+                print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
 
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
@@ -56,11 +60,10 @@ class Combat:
             limb = None
 
         if limb:
-            # TODO-DONE should print weapon name, not hand-holding-weapon's name. Get max damage?
             # TODO target color should change based on relationship to player. Aggressor too.
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
-                  f"with their {BC.RED}{weapon.name} ({weapon.damage[1].name}){BC.OFF}!")
+                  f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
             print(f"It will deal {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked.")
 
             # Blocking
@@ -76,8 +79,9 @@ class Combat:
                 print(f"{C.YELLOW}{target.name}{C.OFF} blocks the blow with their {BC.RED}{blocker.name}{BC.OFF}!")
             
             self.attack(target, limb, weapon)
-            
             used = True
+        else:
+            print(f"\n{C.RED}{actor.name}{C.OFF} withholds their blow.")
 
         return used
 
@@ -113,10 +117,10 @@ class Combat:
         damage = self.check_damage(weapon, limb)
         cutoff = False
         
-        limb.hitpoints -= damage
+        limb.hp -= damage
         print(f"It deals {C.RED}{damage}{C.OFF} damage!")
 
-        if limb.hitpoints <= 0:
+        if limb.hp <= 0:
             defender.remove_limb(limb)
             print(limb.name, "is severed from", defender.name + "'s body!")
             
