@@ -55,6 +55,7 @@ class Head(cr.limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
+    vital = True
 
 # Arms
 class Finger(cr.limb):

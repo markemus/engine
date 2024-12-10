@@ -198,7 +198,7 @@ class Controller:
     def pick_weapon(self, weapons):
         weapons = self.listtodict(weapons)
         self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}")
-        weapon = weapons[input("Pick a weapon:")]
+        weapon = weapons[input(f"{BC.GREEN}Pick a weapon:{BC.OFF}")]
         return weapon
 
     def pick_limb(self, defender):

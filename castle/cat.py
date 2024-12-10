@@ -18,6 +18,7 @@ class Head(cr.limb):
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"
+    vital = True
 
 class Claw(cr.limb):
     name = "claw"

@@ -296,6 +296,10 @@ class creature:
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
+        # Losing a vital limb kills the creature
+        if hasattr(limb, "vital"):
+            if limb.vital:
+                self.die()
 
     def speak(self, words, listener):
         room = self.location.get_creatures()
@@ -308,6 +312,20 @@ class creature:
     def listen(self, words, speaker):
         print(f"{speaker.printcolor}{speaker.name}{C.OFF} says: \"{words}\".")
         print(f"{self.printcolor}{self.name}{C.OFF} listens carefully.")
+
+    def die(self):
+        print(f"{self.name} dies.")
+        room = self.location
+        room.removeCreature(self)
+        landings = room.elem_check("canCatch")
+        if len(landings) > 0:
+            lands_at = random.choice(landings)
+            lands_at.add_vis_item(self.subelements[0])
+            print(f"{BC.CYAN}{self.name}'s corpse falls onto the {lands_at.name}.{BC.OFF}")
+        else:
+            print(f"{BC.CYAN}{self.name} falls and disappears out of sight.{BC.OFF}")
+
+
 
     def get_location(self):
         return self.location

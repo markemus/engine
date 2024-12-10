@@ -93,6 +93,7 @@ class Head(cr.limb):
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"
+    vital = True
 
 # Arms
 # TODO-DECIDE how many fingers are really required to grasp?

@@ -14,6 +14,7 @@ class Head(cr.limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
+    vital = True
 
 # Torso
 class Torso(cr.limb):
