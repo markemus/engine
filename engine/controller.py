@@ -207,7 +207,6 @@ class Controller:
         limbs = self.listtodict(limblist)
         limbs["x"] = "Withhold your blow."
 
-        # TODO-DONE should show armor and hp (pfunc)
         def a_pfunc(str, obj):
             if hasattr(obj, "armor"):
                 str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
@@ -248,9 +247,6 @@ class Controller:
             blocker = False
 
         return blocker
-
-    def defend(self, cr):
-        print(f"{cr.attacker.name} swings their {cr.weapon.name} at your {cr.target.name}.")
 
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")

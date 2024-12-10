@@ -83,6 +83,19 @@ class limb:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
 
+    def transfer(self, who, wherefrom, whereto):
+        """A creature moves a removed limb from one inventory to another."""
+        if self in wherefrom:
+            # Determines that 'who' is able to grasp the item.
+            if who.grasp(self):
+                whereto.append(self)
+                wherefrom.remove(self)
+                who.ungrasp(self)
+            else:
+                print(f"The {who.name} cannot pick up the {self.name}.")
+        else:
+            print(f"The {self.name} is not there.")
+
     @property
     def armor(self):
         armor = self._armor
@@ -120,9 +133,8 @@ class weapon(limb):
         
         return damage, item
 
-# TODO check for eyes before seeing the room. Allow blindfolds!
-# TODO eating and drinking
-# TODO taking items from containers and storing them in inventory
+# TODO-DONE check for eyes before seeing the room. Allow blindfolds!
+# TODO-DONE taking items from containers and storing them in inventory
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
@@ -146,7 +158,6 @@ class creature:
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)
-        # TODO-DECIDE let's refactor self.subelements[0] out entirely? (Low priority.)
         self.subelements = [baseElem]
 
     def _clothe(self):
@@ -313,6 +324,7 @@ class creature:
         print(f"{speaker.printcolor}{speaker.name}{C.OFF} says: \"{words}\".")
         print(f"{self.printcolor}{self.name}{C.OFF} listens carefully.")
 
+    # TODO add looting for severed limbs (inventory management in general needs work)
     def die(self):
         print(f"{self.name} dies.")
         room = self.location

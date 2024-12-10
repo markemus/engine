@@ -25,17 +25,24 @@ class CombatAI:
         return target
 
     def target_limb(self, target):
+        best_weapon = None
+        easiest_vital = None
         limbs = target.subelements[0].limb_check("isSurface")
+        weapons = [x for x in limbs if hasattr(x, "damage")]
+        vitals = [x for x in limbs if (hasattr(x, "vital"))]
+        if weapons:
+            best_weapon = max(weapons, key=lambda x: x.damage[0])
+        if vitals:
+            easiest_vital = min(vitals, key=lambda x: x.armor * x.hp)
 
-        if len(limbs) > 0:
-            # Chooses the easiest target
-            # TODO need a better function for choosing armored vs unarmored targets.
-            lowest = min(limbs, key=lambda x: x.hitpoints + x.armor)
-            allLowest = [limb for limb in limbs if limb.hitpoints == lowest.hitpoints]
-            chosen = random.choice(allLowest)
-            # print("chosen: ", chosen)
+        if best_weapon and not easiest_vital:
+            chosen = best_weapon
+        elif easiest_vital and not best_weapon:
+            chosen = easiest_vital
+        elif best_weapon and easiest_vital:
+            # This way enemies will switch targets instead of relentlessly hammering down the best target
+            chosen = random.choice([best_weapon, easiest_vital])
         else:
-            # print("No surface limbs.")
             chosen = False
 
         return chosen

@@ -69,7 +69,7 @@ class Shield(i.Item):
     canwear = i.Item.canwear.copy()
     canwear["back"] = True
     canwear["left hand"] = True
-    armor = 10
+    armor = 4
 
 # Clothing
 class Tunic(i.Item):
@@ -114,19 +114,19 @@ class Axe(i.Item):
     name = "axe"
     canwear = i.Item.canwear.copy()
     canwear["right hand"] = True
-    damage = 7
+    damage = 20
 
 class Spear(i.Item):
     name = "spear"
     canwear = i.Item.canwear.copy()
     canwear["right hand"] = True
-    damage = 8
+    damage = 20
 
 class Sword(i.Item):
     name = "sword"
     canwear = i.Item.canwear.copy()
     canwear["right hand"] = True
-    damage = 9
+    damage = 20
 
 # Special
 class Blindfold(i.Item):
