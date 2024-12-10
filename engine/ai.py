@@ -30,6 +30,7 @@ class CombatAI:
         limbs = target.subelements[0].limb_check("isSurface")
         weapons = [x for x in limbs if hasattr(x, "damage")]
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
+
         if weapons:
             best_weapon = max(weapons, key=lambda x: x.damage[0])
         if vitals:
@@ -42,6 +43,9 @@ class CombatAI:
         elif best_weapon and easiest_vital:
             # This way enemies will switch targets instead of relentlessly hammering down the best target
             chosen = random.choice([best_weapon, easiest_vital])
+        elif limbs:
+            # No weapons, no vitals, so attack a random limb
+            chosen = random.choice(limbs)
         else:
             chosen = False
 
