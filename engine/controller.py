@@ -63,7 +63,7 @@ class Controller:
         if self.game.char.limb_count("see") > 1:
             self.display_long_text(self.game.char.location.desc(full=False))
         else:
-            print("You cannot see well enough to see the room well.")
+            print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
 
     def character_sheet(self):
         gc = self.game.char
@@ -86,13 +86,13 @@ class Controller:
             examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements)
             examine_dict["x"] = "look away"
             self.dictprint(examine_dict)
-            i = input("\nWho/what are you examining (x for none)? ")
+            i = input(f"{BC.GREEN}\nWho/what are you examining (x for none)?{BC.OFF}")
             if i != "x":
                 self.display_long_text(examine_dict[i].desc(full=True))
             else:
-                print("You look away.")
+                print(f"{BC.CYAN}You look away.{BC.OFF}")
         else:
-            print("You cannot see well enough to examine anything closely.")
+            print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
     # TODO consider input values other than those listed as "x"
     def inventory(self):
@@ -107,16 +107,15 @@ class Controller:
             inventory_dict["x"] = "look away"
             self.dictprint(inventory_dict)
 
-            i = input("\nFirst, which inventory would you like to take from (x to cancel)? ")
+            i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF}")
             if i != "x":
                 origin_inv = inventory_dict[i].vis_inv
                 del inventory_dict[i]
-                # Show inventories again
-                j = input("\nSecond, which inventory would like to transfer to (x to cancel)? ")
+                j = input(f"\n{BC.GREEN}Second, which inventory would like to transfer to (x to cancel)?{BC.OFF}")
                 if j != "x":
                     target_inv = inventory_dict[j].vis_inv
                     self.dictprint(self.listtodict(origin_inv))
-                    k = input("\nWhich item would you like to transfer (x to cancel)?")
+                    k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF}")
                     origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
         else:
             print("You cannot see well enough for that.")
@@ -268,13 +267,13 @@ class Controller:
         invs = self.listtodict(self.game.char.subelements[0].find_invs())
         invs["x"] = "Cancel"
         self.dictprint(invs)
-        i = input("Which inventory would you like to eat from?")
+        i = input(f"\n{BC.GREEN}Which inventory would you like to eat from?{BC.OFF}")
 
         if i != "x":
             edibles = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "edible") and item.edible])
             edibles["x"] = "Don't eat anything."
             self.dictprint(edibles)
-            j = input("Select an item to eat/drink:")
+            j = input(f"\n{BC.GREEN}Select an item to eat/drink:{BC.OFF}")
 
             if j in edibles.keys() and j != "x":
                 food = edibles[j]
