@@ -190,3 +190,5 @@ weapons = {
     "texture_scheme": "same",
     "full": True,
 }
+
+# TODO no shields

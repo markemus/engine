@@ -8,6 +8,7 @@ from engine import interface
 from castle import human
 from castle import castle_style
 from castle import household_items
+from castle import potions
 
 
 # Main
@@ -26,6 +27,8 @@ for x in adam_limbs:
 # TODO make teams mean something
 adam.team = "player"
 adam.inventory.append(household_items.CandleStick("bright", "silver"))
+adam.inventory.append(potions.PotionOfStoneskin())
+adam.inventory.append(potions.ArmGrowthPotion())
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("", "linen"))
 
 thisLevel.printMap(adam)

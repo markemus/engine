@@ -255,3 +255,14 @@ class Controller:
                 hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)
                 limb.hp += hp_diff
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
+
+    def eat(self):
+        edibles = self.listtodict([item for item in self.game.char.inventory if hasattr(item, "edible") and item.edible])
+        edibles["x"] = "Don't eat anything."
+        self.dictprint(edibles)
+        i = input("Select an item to eat/drink:")
+
+        if i in edibles.keys() and i != "x":
+            food = edibles[i]
+            food.eat(self.game.char)
+            self.game.char.inventory.remove(food)

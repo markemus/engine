@@ -152,3 +152,6 @@ class Castle:
     # creature_classes = [Orc, Goblin]
 
 GameStyle.register(Castle)
+
+# TODO start level message
+# TODO start and end rooms (spawning player and bosses)

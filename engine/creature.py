@@ -337,8 +337,6 @@ class creature:
         else:
             print(f"{BC.CYAN}{self.name} falls and disappears out of sight.{BC.OFF}")
 
-
-
     def get_location(self):
         return self.location
 

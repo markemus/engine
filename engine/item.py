@@ -73,39 +73,10 @@ class Item:
         return text
 
 
-if __name__ == '__main__':
-    class Example(Item):
-        name = "example"
-        canwear = Item.canwear.copy()               # copies item.canwear to dereference.
-        canwear["head"] = True
-        canwear["body"] = True
-        canwear["back"] = True
-        canwear["legs"] = True
-        cantransfer = True                          # allows thing to hold stuff
-
-    class Armor(Item):
-        name = "armor"
-        canwear = Item.canwear.copy()
-        canwear["body"] = True
-        cantransfer = False                      
-
-    class Rucksack(Item):
-        name = "rucksack"
-        canwear = Item.canwear.copy()
-        canwear["back"] = True
-        cantransfer = True
-
-    class Coat(Item):
-        name = "coat"
-        canwear = Item.canwear.copy()
-        canwear["body"] = True
-        cantransfer = True
-
-    # test objects
-    muffalo_duster = Coat()
-    armor1 = Armor()
-    sack = Rucksack()
-    sack.vis_inv.append(armor1)
-    sack.vis_inv.append(muffalo_duster)
-    print(sack.desc())
-    sack.viewInv()
+class Potion(Item):
+    edible = True
+    def __init__(self):
+        super().__init__(color="gray", texture="murky")
+    def eat(self, creature):
+        """Subclasses should define an effect on creature when creature drinks the potion."""
+        pass

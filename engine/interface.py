@@ -29,6 +29,7 @@ class Interface:
             ">": self.cont.stairs,
             "f": self.fight,
             "r": self.cont.rest,
+            "q": self.cont.eat,
             "/": self.save,
         }
 

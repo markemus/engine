@@ -60,7 +60,8 @@ class Combat:
             limb = None
 
         if limb:
-            # TODO target color should change based on relationship to player. Aggressor too.
+            # TODO allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
+            # TODO target color should change based on relationship to player (or team). Aggressor too.
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
