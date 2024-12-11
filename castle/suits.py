@@ -72,10 +72,15 @@ class Shield(i.Item):
     armor = 4
 
 # Clothing
-class Tunic(i.Item):
-    name = "tunic"
+class Apron(i.Item):
+    name = "apron"
     canwear = i.Item.canwear.copy()
     canwear["torso"] = True
+
+class ChefHat(i.Item):
+    name = "chef hat"
+    canwear = i.Item.canwear.copy()
+    canwear["head"] = True
 
 class Hose(i.Item):
     name = "hose"
@@ -91,6 +96,12 @@ class Slipper(i.Item):
     name = "slipper"
     canwear = i.Item.canwear.copy()
     canwear["foot"] = True
+
+class Tunic(i.Item):
+    name = "tunic"
+    canwear = i.Item.canwear.copy()
+    canwear["torso"] = True
+
 
 # Jewelry
 class Bracelet(i.Item):
@@ -115,6 +126,13 @@ class Axe(i.Item):
     canwear = i.Item.canwear.copy()
     canwear["right hand"] = True
     damage = 20
+
+class Cleaver(i.Item):
+    name = "cleaver"
+    canwear = i.Item.canwear.copy()
+    canwear["right hand"] = True
+    damage = 10
+
 
 class Spear(i.Item):
     name = "spear"
@@ -152,6 +170,19 @@ jewelry = {
     "full": False,
 }
 
+chefsuit = {
+    "wears": {
+        "head": ChefHat,
+        "body": Apron,
+        "leg": Hose,
+        "foot": (Shoe, Slipper)},
+    "color": ["white", "stained", "greasy"],
+    "color_scheme": "distinct",
+    "texture": ["linen"],
+    "texture_scheme": "same",
+    "full": True,
+    }
+
 plainsuit = {
     "wears": {
         "body": Tunic,
@@ -187,6 +218,17 @@ weapons = {
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+cookery = {
+    "wears": {
+        "right hand": Cleaver,
+        "left hand": Cleaver},
+    "color": ["grimy", "bloody", "rusty"],
+    "color_scheme": "same",
+    "texture": ["iron"],
     "texture_scheme": "same",
     "full": True,
 }

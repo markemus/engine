@@ -2,6 +2,8 @@
 
 Run from toplevel engine/ directory as 'python3 -m castle.index' so that the package can properly inherit from
 the engine.engine subpackage."""
+import textwrap
+
 from engine import game
 from engine import interface
 
@@ -24,15 +26,15 @@ t_game.set_char(adam)
 adam_limbs = adam.subelements[0].limb_check("name")
 for x in adam_limbs:
     x.hp = 1000
-# TODO make teams mean something
-adam.team = "player"
+# TODO aggressive and neutral creatures- combat should happen automatically on entering room with hostiles
+# adam.team = "player"
 adam.inventory.append(household_items.CandleStick("bright", "silver"))
 adam.inventory.append(potions.PotionOfStoneskin())
 adam.inventory.append(potions.ArmGrowthPotion())
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("", "linen"))
 
-thisLevel.printMap(adam)
-adam.speak("hello world", adam.location.creatures[0])
+# thisLevel.printMap(adam)
+# adam.speak("hello world", adam.location.creatures[0])
 
 i = interface.Interface(t_game)
 

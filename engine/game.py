@@ -18,6 +18,7 @@ class Game(object):
         # Generate
         self._generate(gamestyle)
         self.set_current_level(0)
+        print(self.level_list[0].level_text)
 
     def _generate(self, gamestyle):
         assert issubclass(gamestyle, styles.GameStyle)
@@ -25,6 +26,7 @@ class Game(object):
         for levelstyle in gamestyle.levelorder:
             levelname = "level {}".format(str(levelstyle))
             gennedLevel = self.levelGenerator.levelGen(levelname, levelstyle)
+            gennedLevel.level_text = levelstyle.level_text
             self.level_list.append(gennedLevel)
 
         # TODO allow multiple exits from a level.

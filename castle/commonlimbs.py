@@ -100,7 +100,7 @@ class Head(cr.limb):
 class Finger(cr.limb):
     name = "finger"
     subelement_classes = []
-    f_grasp = 1/4
+    f_grasp = 1/2
     isSurface = True
     appendageRange = (4, 5)
     wears = "finger"

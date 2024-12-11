@@ -1,3 +1,5 @@
+import textwrap
+
 from colorist import BrightColor as BC, Color as C
 from . import combat
 
@@ -168,10 +170,13 @@ class Controller:
 
     def stairs(self):
         """Stairs cross over between levels."""
-        self.game.char.leave(">")
-        new_level = self.game.char.location.get_level()
-        new_level_idx = self.game.level_list.index(new_level)
-        self.game.set_current_level(new_level_idx)
+        left = self.game.char.leave(">")
+        if left:
+            new_level = self.game.char.location.get_level()
+            new_level_idx = self.game.level_list.index(new_level)
+            self.game.set_current_level(new_level_idx)
+            # TODO only print level_text if this is first time entering level (and entering first_room)
+            print(self.game.current_level.level_text)
 
     # Combat
     def attack(self):

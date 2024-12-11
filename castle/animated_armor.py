@@ -2,9 +2,16 @@
 import engine.creature as cr
 from castle import suits
 
+class Gem(cr.limb):
+    name = "gem"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (1, 2)
+    vital = True
+
 class Head(cr.limb):
     name = "head"
-    subelement_classes = []
+    subelement_classes = [Gem]
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"

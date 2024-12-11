@@ -21,6 +21,9 @@ class levelGenerator:
         # Get room counts for level
         roomcounts = self.count_rooms(levelstyle)
         roomNum = sum(roomcounts.values())
+        # TODO styles should inherit instead of implementing ABCs so we can get rid of this hasattr nonsense!!
+        if hasattr(levelstyle, "start_room"): roomNum += 1
+        if hasattr(levelstyle, "end_room"): roomNum += 1
 
         # Create level (map will hold the room locations and is displayable by the player).
         gennedLevel = levelmap.levelmap(levelname, roomNum)
@@ -39,15 +42,24 @@ class levelGenerator:
             thisRoomNum += 1
 
             # Choose a room type
-            roomType = random.choice(list(roomcounts.keys()))
-            # Keep track of how many of each room type we need
-            if roomcounts[roomType] > 1:
-                roomcounts[roomType] -= 1
+            # Start and end rooms
+            if hasattr(levelstyle, "start_room") and thisRoomNum == 1:
+                roomType = levelstyle.start_room
+            elif hasattr(levelstyle, "end_room") and thisRoomNum == roomNum:
+                roomType = levelstyle.end_room
             else:
-                del roomcounts[roomType]
+                roomType = random.choice(list(roomcounts.keys()))
+                # Keep track of how many of each room type we need
+                if roomcounts[roomType] > 1:
+                    roomcounts[roomType] -= 1
+                else:
+                    del roomcounts[roomType]
 
-            # Create a room
-            gennedRoom = roomType(gennedLevel, extra_creatures=levelstyle.creature_classes)
+            # Create a room- populate with level creatures if not a special room
+            if (hasattr(levelstyle, "start_room") and thisRoomNum == 1) or (hasattr(levelstyle, "end_room") and thisRoomNum == roomNum):
+                gennedRoom = roomType(gennedLevel)
+            else:
+                gennedRoom = roomType(gennedLevel, extra_creatures=levelstyle.creature_classes)
             # First room needs to be start, doesn't need to connect to a previous room
             if len(roomList) == 0:
                 gennedLevel.start = gennedRoom

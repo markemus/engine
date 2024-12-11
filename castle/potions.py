@@ -1,12 +1,13 @@
+"""Potions have a one time use permanent effect. The effect needs to be scripted."""
 from castle import commonlimbs as cl
 
 from engine import item as I
 
 
 class PotionOfStoneskin(I.Potion):
+    """Creature's skin turns to stone, granting extra HP."""
     name = "Potion of Stoneskin"
     def eat(self, creature):
-        """Creature's skin turns to stone, granting extra HP."""
         print(f"{creature.name}'s skin turns to stone.")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
@@ -16,10 +17,10 @@ class PotionOfStoneskin(I.Potion):
             limb.texture = "stony"
 
 class ArmGrowthPotion(I.Potion):
+    """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""
     name = "Potion of Arm Growth"
 
     def eat(self, creature):
-        """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""
         # First we find a torso to sprout from.
         wears = creature.subelements[0].limb_check("wears")
         torso = None

@@ -25,6 +25,11 @@ class wall(pl.element):
     name = "wall"
     count = (4, 5)
 
+class pillar(pl.element):
+    name = "pillar"
+    count = (8, 9)
+
+
 class floor(pl.element):
     name = "floor"
     count = (1, 2)

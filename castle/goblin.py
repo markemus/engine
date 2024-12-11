@@ -36,3 +36,7 @@ class Goblin(cr.creature):
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""
     suits = [suits.plainsuit]
+
+class GoblinCook(Goblin):
+    classname = "goblin chef"
+    suits = [suits.chefsuit, suits.cookery]

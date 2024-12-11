@@ -3,17 +3,20 @@
 This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?"""
 import engine.place as pl
 
+from colorist import BrightColor as BC
+
 from castle.animated_armor import AnimatedArmor
 from castle.beholder import Beholder
 from castle.cat import Cat
+from castle.dog import Dog, Cerberus
 from castle.dwarf import Dwarf
 from castle.elf import Elf
 from castle import furniture as fur
-from castle.goblin import Goblin, ServantGoblin
+from castle.goblin import Goblin, ServantGoblin, GoblinCook
 from castle.hobbit import Hobbit
 from castle.human import Human
 from castle.orc import Orc
-from engine.styles import LevelStyle, GameStyle, wall, floor
+from engine.styles import LevelStyle, GameStyle, wall, floor, pillar
 
 
 # Creature classes with probability of spawning.
@@ -24,7 +27,7 @@ cc = {
     "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Human, 5), (None, 3)],
     "castle": [(AnimatedArmor, 3), (None, 1)],
     "kitchen": [(ServantGoblin, 3), (None, 1)],
-    "animals_indoor": [(Cat, 2), (None, 3)],
+    "animals_indoor": [(Cat, 2), (Dog, 2), (None, 3)],
     # "monsters": [(Beholder, 1), (None, 8)]
     # "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
 }
@@ -70,6 +73,10 @@ class Cell(pl.place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
+class PlayerCell(Cell):
+    """Spawning room for player."""
+    creature_classes = [[(Goblin, 1)]]
+
 class DiningRoom(pl.place):
     name = "dining room"
     sprite = "D"
@@ -80,14 +87,34 @@ class DiningRoom(pl.place):
     furniture_classes = [fur.Carpet, fur.Table, fur.Chair, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
+class Guardroom(pl.place):
+    """Boss fight for Dungeon."""
+    name = "guardroom"
+    sprite = "G"
+    count = (1, 2)
+    colors = ["gray", "eggwhite"]
+    textures = ["painted", "peeling"]
+    creature_classes = [[(Cerberus, 1)]]
+    furniture_classes = [fur.Table, fur.Chair]
+    subelement_classes = [wall, floor]
+
 class Kitchen(pl.place):
     name = "kitchen"
     sprite = "K"
     count = (1, 2)
     colors = ["dirty", "smoke-stained", "unpainted", "gray", "beige"]
     textures = ["brick", "stone"]
-    creature_classes = [cc["servants"], cc["animals_indoor"]]
+    creature_classes = [[(GoblinCook, 1)], [(Cat, 1)]]
     furniture_classes = [fur.Stove, fur.CabinetElegant]
+    subelement_classes = [wall, floor]
+
+class Office(pl.place):
+    name = "office"
+    sprite = "O"
+    colors = ["oak", "teak", "mahogany"]
+    textures = ["paneled"]
+    creature_classes = [[(Human, 1)], [(Dog, 1)]]
+    furniture_classes = [fur.Table, fur.Chair, fur.Carpet, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
 class Parlor(pl.place):
@@ -100,15 +127,25 @@ class Parlor(pl.place):
     furniture_classes = [fur.Carpet, fur.Chair]
     subelement_classes = [wall, floor]
 
+class Roof(pl.place):
+    name = "rooftop"
+    sprite = "R"
+    count = (1, 2)
+    colors = ["dark"]
+    textures = ["slate"]
+    creature_classes = []
+    furniture_classes = [fur.Chair]
+    subelement_classes = [floor]
+
 class ThroneRoom(pl.place):
+    """Boss fight for main floor."""
     name = "throne room"
     sprite = "T"
-    count = (1, 2)
     colors = ["gold", "red", "silver", "purple"]
     textures = ["brick", "stone", "marble"]
-    creature_classes = [cc["castle"], cc["castle"]]
+    creature_classes = [[(AnimatedArmor, 1)], [(AnimatedArmor, 1)]]
     furniture_classes = [fur.Throne]
-    subelement_classes = [wall, floor]
+    subelement_classes = [wall, floor, pillar]
 
 class TortureChamber(pl.place):
     name = "torture chamber"
@@ -116,42 +153,53 @@ class TortureChamber(pl.place):
     count = (1, 3)
     colors = ["black", "gray", "streaked", "dirty"]
     textures = ["stone", "dirt", "timber"]
-    creature_classes = [cc["goblinkin"], cc["fantasy_city"]]
+    creature_classes = [cc["fantasy_city"]]
     furniture_classes = [fur.Manacles, fur.TableWork, fur.Rack, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
 
 # Levels
 class BedroomFloor:
+    level_text = f"""{BC.BLUE}You've made it to the top floor of the castle. Time to finally confront your captor and put an end to this evil once and for all!{BC.OFF}"""
     room_classes = [Bedroom, Bathroom]
+    end_room = Office
     creature_classes = [[(Orc, 1), (Goblin, 1), (None, 3)]]
 
 LevelStyle.register(BedroomFloor)
 
 
 class Dungeon:
+    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.\n\n"h" is help. The rest is up to you.{BC.OFF}"""
     room_classes = [TortureChamber, Cell]
-    # creature_classes = [[(Goblin, 3), (None, 3)], cc["monsters"]]
+    start_room = PlayerCell
+    end_room = Guardroom
     creature_classes = [[(Goblin, 3), (None, 3)]]
 
 LevelStyle.register(Dungeon)
 
 
 class MainFloor:
-    room_classes = [ThroneRoom, Kitchen, DiningRoom, Parlor, Ballroom, Bathroom]
+    level_text = f"""{BC.BLUE}You escape up the stairs and out of the dungeon. But it looks like you might have gone out of the frying pan... and into the fire.{BC.OFF}"""
+    room_classes = [DiningRoom, Parlor, Ballroom, Bathroom]
+    start_room = Kitchen
+    end_room = ThroneRoom
     creature_classes = [[(Orc, 3), (None, 3)]]
 
 LevelStyle.register(MainFloor)
 
+class RoofTop:
+    level_text = f"""{BC.BLUE}Exhausted from battle, you escape onto the rooftop. Above you, the stars are shining in a beautiful night sky. The evil king lies dead, and you will rule now... but will you rule benevolently, or recreate the evil you have seen here? Only time will tell.\n\nTHE END{BC.OFF}"""
+    room_classes = []
+    start_room = Roof
 
 # And finally, the game itself.
 class Castle:
-    levelorder = [Dungeon, MainFloor, BedroomFloor]
-    links = [(0, 1), (1, 2)]
-    # TODO-DECIDE do we want to allow game-wide creature classes? Currently can define per level and per room.
-    # creature_classes = [Orc, Goblin]
+    levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]
+    links = [(0, 1), (1, 2), (2, 3)]
 
+# TODO-DECIDE why is registration necessary? Couldn't we just get rid of it?
 GameStyle.register(Castle)
 
-# TODO start level message
+# TODO-DONE start level message
 # TODO start and end rooms (spawning player and bosses)
+# TODO prisoners should be injured and "abominized" (extra limbs)
