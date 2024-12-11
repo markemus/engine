@@ -9,7 +9,7 @@ from engine import ai
 
 # TODO currently severed limbs cannot be transferred since they have no transfer function. Turn them into items? Inheritance?
 #  needs a severed tag. Can inherit from item, why not? Just don't let people move it if it's not severed.
-class limb:
+class Limb:
     """Body parts for Creatures. Store in a list in Creature object.
 
     Limbs are procedurally generated from the class template; limbs of the same class may still be
@@ -19,14 +19,16 @@ class limb:
     base_hp = 10
     _armor = 1
     blocker = False
+    printcolor = C.CYAN
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
         self.texture = texture
         self.subelements = []
         self._elementGen()
-        self.inventory = []
-        # self.invis_inv = []
+        # TODO-DECIDE One item of equipment only? Or separate armor and weapons?
+        self.equipment = []
+        # self.vis_inv = []
         self.hp = self.base_hp
 
     def _elementGen(self):
@@ -53,7 +55,7 @@ class limb:
         """Basic describe function is always called desc."""
         text = (" "*offset) + f"+ {C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
         if full:
-            for item in self.inventory:
+            for item in self.equipment:
                 text += "\n" + item.desc(offset = offset+1)
             for elem in self.subelements:
                 text += "\n" + elem.desc(offset = offset+1)
@@ -68,13 +70,26 @@ class limb:
 
         # TODO don't allow this for items in eg backpack
         # Allows for items with that tag to be used as if they were a limb themselves.
-        if hasattr(self, tag) or sum([hasattr(x, tag) for x in self.inventory]):
+        if hasattr(self, tag) or sum([hasattr(x, tag) for x in self.equipment]):
             limb_total.append(self)
         
         for subLimb in self.subelements:
             limb_total += subLimb.limb_check(tag)
 
         return(limb_total)
+
+    def find_invs(self):
+        """Find all inventories lower in the body hierarchy."""
+        invs = []
+
+        for item in self.equipment:
+            if hasattr(item, "vis_inv"):
+                invs.append(item)
+
+        for subLimb in self.subelements:
+            invs += subLimb.find_invs()
+
+        return invs
 
     def remove_limb(self, limb):
         if limb in self.subelements:
@@ -91,23 +106,24 @@ class limb:
                 whereto.append(self)
                 wherefrom.remove(self)
                 who.ungrasp(self)
+                print(f"{BC.CYAN}{who.name} puts away the {self.name}.{BC.OFF}")
             else:
-                print(f"The {who.name} cannot pick up the {self.name}.")
+                print(f"{C.RED}The {who.name} cannot pick up the {self.name}.{C.OFF}")
         else:
-            print(f"The {self.name} is not there.")
+            print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
     @property
     def armor(self):
         armor = self._armor
 
-        for item in self.inventory:
+        for item in self.equipment:
             if hasattr(item, "armor"):
                 armor += item.armor
 
         return armor
 
 
-class weapon(limb):
+class Weapon(Limb):
     """A limb that can deal damage."""
     name = "NO_NAME_WEAPON"
     _damage = 0
@@ -124,7 +140,7 @@ class weapon(limb):
         damage = self._damage
         item = self
 
-        for _item in self.inventory:
+        for _item in self.equipment:
             if hasattr(_item, "damage"):
                 # TODO-DECIDE what about adding damage? eg spikes on tails. Or swords on strong arms.
                 if _item.damage > damage:
@@ -150,7 +166,6 @@ class creature:
         self.name = random.choice(self.namelist)
         self.color = random.choice(self.colors)
         self.texture = random.choice(self.textures)
-        self.inventory = []
         self._elementGen()
         self._clothe()
 
@@ -164,6 +179,7 @@ class creature:
     def _clothe(self):
         """Equips a creature when it is first created. Multiple suits can be applied in sequence, so weapons
         can be added after armor etc."""
+        # Seed is to coordinate item selection across limbs of the same type, we don't get eg shoe+slipper
         seed = int(time.time())
         for suit in self.suits:
             if (type(suit) == tuple):
@@ -199,7 +215,8 @@ class creature:
 
                     # Create article
                     article = article(color=colors[limb.wears], texture=textures[limb.wears])
-                    limb.inventory.append(article)
+                    # TODO add 'if item.requires = "tag", limb_check("tag")' (optional) so we can use grasp_check
+                    limb.equipment.append(article)
         # Reset seed
         random.seed()
 
@@ -232,23 +249,14 @@ class creature:
 
         return left
 
-    def viewInv(self):
-        """Examine Creature inventory and held Item inventories. Recursive."""
-        for carriedItem in self.inventory:
-            print(carriedItem.name)
-            
-            if len(carriedItem.vis_inv) >= 1:
-                carriedItem.viewInv()
-
     def limb_count(self, tag):
-        """When you only need to know if a tag is present, it's easy."""
         limbs = self.subelements[0].limb_check(tag)
 
         limb_total = 0
         for limb in limbs:
             if hasattr(limb, tag):
                 limb_total += getattr(limb, tag)
-            for x in limb.inventory:
+            for x in limb.equipment:
                 if hasattr(x, tag):
                     limb_total += getattr(x, tag)
 
@@ -283,11 +291,11 @@ class creature:
         graspHand = self.grasp_check()
                         
         if graspHand is not None:
-            graspHand.inventory.append(item)
-            print(f"{self.name} picks up the {item.name} with their {graspHand.name}.")
+            graspHand.equipment.append(item)
+            print(f"{BC.CYAN}{self.name} picks up the {item.name} with their {graspHand.name}.{BC.OFF}")
             grasped = True
         else:
-            print(f"{self.name} cannot pick up the {item.name}.")
+            print(f"{C.RED}{self.name} cannot pick up the {item.name}.{C.OFF}")
 
         return grasped
 
@@ -296,8 +304,8 @@ class creature:
         hands = self.subelements[0].limb_check("grasp")
 
         for hand in hands:
-            if item in hand.inventory:
-                del hand.inventory[hand.inventory.index(item)]
+            if item in hand.equipment:
+                hand.equipment.remove(item)
                 ungrasped = True
 
         return ungrasped
@@ -334,7 +342,7 @@ class creature:
         landings = room.elem_check("canCatch")
         if len(landings) > 0:
             lands_at = random.choice(landings)
-            lands_at.add_vis_item(self.subelements[0])
+            lands_at.vis_inv.append(self.subelements[0])
             print(f"{BC.CYAN}{self.name}'s corpse falls onto the {lands_at.name}.{BC.OFF}")
         else:
             print(f"{BC.CYAN}{self.name} falls and disappears out of sight.{BC.OFF}")

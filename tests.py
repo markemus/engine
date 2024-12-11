@@ -34,15 +34,15 @@ class TestCastle():
         # Check creatures
         assert adam in thisLevel.start.creatures
         # Check that Adam has been clothed
-        assert adam.subelements[0].inventory
-        # TODO test that creatures exist
+        assert adam.subelements[0].equipment
+        # TODO-DONE test that creatures exist
         assert len(thisLevel.start.creatures) > 1
         # Check organs
         assert len(adam.subelements[0].limb_check("grasp")) == 2
         assert len(adam.subelements[0].limb_check("amble")) == 2
         # Check room
-        assert isinstance(adam.location, place.place)
-        borders = [x for x in adam.location.borders.values() if isinstance(x, place.place)]
+        assert isinstance(adam.location, place.Place)
+        borders = [x for x in adam.location.borders.values() if isinstance(x, place.Place)]
         assert len(borders) >= 1
         # Check border between first two rooms exists and is on map
         r1 = adam.location

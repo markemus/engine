@@ -21,24 +21,25 @@ class GameStyle(abc.ABC):
     # TODO-DECIDE game level creature classes?
     # creature_classes = []
 
-class wall(pl.element):
+class wall(pl.Element):
     name = "wall"
     count = (4, 5)
 
-class pillar(pl.element):
+class pillar(pl.Element):
     name = "pillar"
     count = (8, 9)
 
 
-class floor(pl.element):
+class floor(pl.Platform):
     name = "floor"
     count = (1, 2)
-    cantransfer = True
+    # cantransfer = True
+    # TODO replace canCatch with hasattr("vis_inv")
     canCatch = True
 
 # TODO doors should have their own color and texture instead of borrowing from room.
 # TODO-DECIDE can we add windows for rooms on the edges of the level?
-class door(pl.element):
+class door(pl.Element):
     name = "door"
     sprite = "O"
     printcolor = C.RED

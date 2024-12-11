@@ -7,6 +7,7 @@ import textwrap
 from engine import game
 from engine import interface
 
+from castle import household_items as hi
 from castle import human
 from castle import castle_style
 from castle import potions
@@ -30,11 +31,14 @@ for x in adam_limbs:
 # TODO-DONE aggressive and neutral creatures- combat should happen automatically on entering room with hostiles
 # TODO fix grasp_check- will items in hands drop if grasp_check fails? Don't think so...
 # Give adam starting equipment
-adam.subelements[0].limb_check("grasp")[0].inventory.append(suits.Shank(color="rusty", texture="iron"))
-adam.inventory.append(potions.PotionOfStoneskin())
+adams_knife = suits.Shank(color="rusty", texture="iron")
+adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
+adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
+adam.subelements[0].limb_check("grasp")[0].equipment.append(adams_knife)
+adam.subelements[0].limb_check("grasp")[1].equipment.append(adams_pillowcase)
 # TODO rework inventories so this potion can be looted by player.
-# Give first creature (not Adam) a Potion of Arm Growth
-c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].inventory.append(potions.ArmGrowthPotion())
+# Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
+c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].equipment.append(potions.ArmGrowthPotion())
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("dirty", "linen"))
 
 i = interface.Interface(t_game)

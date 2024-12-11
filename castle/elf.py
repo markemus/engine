@@ -6,7 +6,7 @@ from castle import suits
 
 class PointyEar(cl.Ear):
     name = "pointy ear"
-class Head(cr.limb):
+class Head(cr.Limb):
     name = "head"
     subelement_classes = [PointyEar, cl.Eye, cl.Mouth, cl.Nose]
     isSurface = True
@@ -14,7 +14,7 @@ class Head(cr.limb):
     wear = "head"
     vital = True
 
-class Torso(cr.limb):
+class Torso(cr.Limb):
     name = "torso"
     subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
     isSurface = True

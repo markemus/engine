@@ -2,14 +2,14 @@
 import engine.creature as cr
 from castle import suits
 
-class Gem(cr.limb):
+class Gem(cr.Limb):
     name = "gem"
     subelement_classes = []
     isSurface = True
     appendageRange = (1, 2)
     vital = True
 
-class Head(cr.limb):
+class Head(cr.Limb):
     name = "head"
     subelement_classes = [Gem]
     isSurface = True
@@ -17,7 +17,7 @@ class Head(cr.limb):
     wear = "head"
 
 # Arms
-class Finger(cr.limb):
+class Finger(cr.Limb):
     name = "finger"
     subelement_classes = []
     f_grasp = 1/4
@@ -25,7 +25,7 @@ class Finger(cr.limb):
     appendageRange = (4, 5)
     wears = "finger"
 
-class Thumb(cr.limb):
+class Thumb(cr.Limb):
     name = "thumb"
     subelement_classes = []
     t_grasp = 1
@@ -33,7 +33,7 @@ class Thumb(cr.limb):
     appendageRange = (1, 2)
     wears = "finger"
 
-class Hand(cr.weapon):
+class Hand(cr.Weapon):
     name = "hand"
     subelement_classes = [Finger, Thumb]
     grasp = 1
@@ -41,7 +41,7 @@ class Hand(cr.weapon):
     appendageRange = (1, 2)
     wears = "hand"
 
-class Arm(cr.limb):
+class Arm(cr.Limb):
     name = "arm"
     subelement_classes = [Hand]
     isSurface = True
@@ -49,7 +49,7 @@ class Arm(cr.limb):
     wears = "arm"
 
 # Legs
-class Foot(cr.limb):
+class Foot(cr.Limb):
     name = "foot"
     subelement_classes = []
     amble = 1/2
@@ -57,14 +57,14 @@ class Foot(cr.limb):
     appendageRange = (1, 2)
     wears = "foot"
 
-class Leg(cr.limb):
+class Leg(cr.Limb):
     name = "leg"
     subelement_classes = [Foot]
     isSurface = True
     appendageRange = (2, 3)
     wears = "leg"
 
-class Torso(cr.limb):
+class Torso(cr.Limb):
     name = "torso"
     subelement_classes = [Head, Arm, Leg]
     isSurface = True

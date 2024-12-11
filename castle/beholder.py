@@ -4,7 +4,7 @@ from castle import namelists as nm
 from engine import creature as cr
 
 
-class Eye(cr.limb):
+class Eye(cr.Limb):
     """Beholders only have one eye."""
     name = "eye"
     subelement_classes = []
@@ -12,7 +12,7 @@ class Eye(cr.limb):
     appendageRange = (1, 2)
     wears = "eye"
 
-class Head(cr.limb):
+class Head(cr.Limb):
     name = "head"
     subelement_classes = [cl.Ear, Eye, cl.Mouth, cl.Tentacle]
     isSurface = True

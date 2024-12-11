@@ -8,7 +8,7 @@ import castle.namelists as nm
 
 
 # Head
-class Head(cr.limb):
+class Head(cr.Limb):
     name = "head"
     subelement_classes = [orc.Ear, orc.Eye, orc.Teeth, orc.Tongue, orc.Nose]
     isSurface = True
@@ -17,7 +17,7 @@ class Head(cr.limb):
     vital = True
 
 # Torso
-class Torso(cr.limb):
+class Torso(cr.Limb):
     name = "torso"
     subelement_classes = [Head, cl.RArm, cl.LArm, orc.Leg]
     isSurface = True

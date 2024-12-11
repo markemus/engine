@@ -33,6 +33,9 @@ class Sheet(it.Item):
 class Utensils(it.Item):
     name = "utensils"
 
+class Pillowcase(it.Holder):
+    name = "pillowcase"
+
 # Collections
 candles = {
     "contains": [CandleStick],

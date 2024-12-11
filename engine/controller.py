@@ -53,7 +53,7 @@ class Controller:
                 exstr = pfunc(exstr, d[key])
 
             # Add star if item has inv or subelements
-            if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "elements") and d[key].elements):
+            if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "subelements") and d[key].subelements) or (hasattr(d[key], "equipment") and d[key].equipment):
                 exstr = exstr + " *"
 
             print(exstr)
@@ -68,7 +68,7 @@ class Controller:
     def character_sheet(self):
         gc = self.game.char
         weapons = [f"{x.name}: {BC.YELLOW}{x.damage[1].name}{BC.OFF} {BC.RED}({x.damage[0]}){BC.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
-        inventory = [f"{BC.CYAN}{x.name}{BC.OFF}" for x in gc.inventory]
+        inventory = [f"{BC.CYAN}{x.name}{BC.OFF}" for x in gc.vis_inv]
 
         if gc.limb_count("see") > 1:
             cs = f"\nCharacter Sheet\n" \
@@ -99,33 +99,25 @@ class Controller:
         """Transfer items between the character's inventory and another object."""
         # Sight check
         if self.game.char.limb_count("see") > 1:
-            inventory_dict = self.listtodict(self.game.char.location.elements)
+            # TODO gather vis_invs in room (not all elements)
+            room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
+            your_inventories = self.game.char.subelements[0].find_invs()
+            all_inventories = your_inventories + room_inventories
+            inventory_dict = self.listtodict(all_inventories)
             inventory_dict["x"] = "look away"
             self.dictprint(inventory_dict)
 
-            i = input("\nWhich inventory would you like to exchange with (x for none)? ")
+            i = input("\nFirst, which inventory would you like to take from (x to cancel)? ")
             if i != "x":
-                other_inv = inventory_dict[i].vis_inv
-                # Show inventories
-                i = input("\nTransfer to or from your inventory (t/f)? ")
-                if i == "t":
-                    origin_inv = other_inv
-                    target_inv = self.game.char.inventory
-                elif i == "f":
-                    origin_inv = self.game.char.inventory
-                    target_inv = other_inv
-                else:
-                    print("You decide not to transfer at all.")
-                    return
-            else:
-                print("You decide not to transfer at all.")
-                return
-
-            # Transfer
-            self.dictprint(self.listtodict(origin_inv))
-            i = input("\nWhich item would you like to transfer (x for none)?")
-            if i != "x":
-                origin_inv[int(i)].transfer(self.game.char, origin_inv, target_inv)
+                origin_inv = inventory_dict[i].vis_inv
+                del inventory_dict[i]
+                # Show inventories again
+                j = input("\nSecond, which inventory would like to transfer to (x to cancel)? ")
+                if j != "x":
+                    target_inv = inventory_dict[j].vis_inv
+                    self.dictprint(self.listtodict(origin_inv))
+                    k = input("\nWhich item would you like to transfer (x to cancel)?")
+                    origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
         else:
             print("You cannot see well enough for that.")
 
@@ -272,12 +264,19 @@ class Controller:
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
     def eat(self):
-        edibles = self.listtodict([item for item in self.game.char.inventory if hasattr(item, "edible") and item.edible])
-        edibles["x"] = "Don't eat anything."
-        self.dictprint(edibles)
-        i = input("Select an item to eat/drink:")
+        # edibles = self.listtodict([item for item in self.game.char.vis_inv if hasattr(item, "edible") and item.edible])
+        invs = self.listtodict(self.game.char.subelements[0].find_invs())
+        invs["x"] = "Cancel"
+        self.dictprint(invs)
+        i = input("Which inventory would you like to eat from?")
 
-        if i in edibles.keys() and i != "x":
-            food = edibles[i]
-            food.eat(self.game.char)
-            self.game.char.inventory.remove(food)
+        if i != "x":
+            edibles = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "edible") and item.edible])
+            edibles["x"] = "Don't eat anything."
+            self.dictprint(edibles)
+            j = input("Select an item to eat/drink:")
+
+            if j in edibles.keys() and j != "x":
+                food = edibles[j]
+                food.eat(self.game.char)
+                invs[i].vis_inv.remove(food)

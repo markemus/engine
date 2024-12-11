@@ -3,9 +3,9 @@ import random
 
 from colorist import Color as C
 from colorist import BrightColor as BC
-# End of Loading Zone
 
-class place:
+
+class Place:
     """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
     name = "generic_place"
     elements = []
@@ -55,7 +55,7 @@ class place:
                 elemclass = random.choice(elemclass)
 
             # Furniture should have their own colors, while room elements should match the room.
-            if issubclass(elemclass, furniture):
+            if issubclass(elemclass, Furniture):
                 color = random.choice(elemclass.color)
                 texture = random.choice(elemclass.texture)
             else:
@@ -134,33 +134,28 @@ class place:
         return self.level
 
 
-class element:
+class Element:
     name = "NO_NAME_ELEM"
     visible = True                  # element is shown during place's desc()
     color = "NO_COLOR"
-    printcolor = C.YELLOW
     texture = "NO_TEXTURE"
-    cantransfer = False
-    elements = []
+    printcolor = C.YELLOW
+    # elements = []
 
     def __init__(self, color, texture):
         self.borders = []
         self.color = color
         self.texture = texture
-        self.vis_inv = []
-        self.invis_inv = []
-        self.elements = []      # subelements
+        self.subelements = []      # subelements
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
         text = (" "*offset) + f"- {self.printcolor}{self.color} {self.texture} {self.name}{C.OFF}"
         # Indicate contents
-        if self.vis_inv or self.elements:
+        if self.subelements and not full:
             text = text + " *"
         if full:
-            for item in self.vis_inv:
-                text += "\n" + item.desc(offset=offset+1)
-            for elem in self.elements:
+            for elem in self.subelements:
                 if elem.visible:
                     text += "\n" + elem.desc(offset=offset+1)
 
@@ -175,21 +170,45 @@ class element:
         if hasattr(self, tag):
             elem_total.append(self)
 
-        for subElem in self.elements:
-            elem_total += subElem.elem_check(tag)
+        for subelem in self.subelements:
+            elem_total += subelem.elem_check(tag)
 
         return elem_total
 
     def addBorder(self, place):
-        if not place in self.borders:
+        if place not in self.borders:
             self.borders.append(place)
 
-    def add_vis_item(self, item):
-        self.vis_inv.append(item)
 
+class Platform(Element):
+    """Platforms have a visible inventory."""
+    name = "platform"
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.vis_inv = []
 
-class furniture(element):
-    name = "NO_NAME_FURN"
+    def desc(self, full=True, offset=0):
+        """Basic describe function is always called desc."""
+        text = (" "*offset) + f"- {self.printcolor}{self.color} {self.texture} {self.name}{C.OFF}"
+        # Indicate contents
+        if (self.vis_inv or self.subelements) and not full:
+            text = text + " *"
+        if full:
+            for item in self.vis_inv:
+                text += "\n" + item.desc(offset=offset+1)
+            for elem in self.subelements:
+                if elem.visible:
+                    text += "\n" + elem.desc(offset=offset+1)
+
+        return text
+
+# TODO invis_inv class once invis_inv is implemented.
+
+class Furniture(Element):
+    visible = True
+    printcolor = C.MAGENTA
+
+class DisplayFurniture(Platform):
     visible = True  # element is shown during place's desc()
     color = "NO_COLOR"
     printcolor = C.MAGENTA
@@ -203,6 +222,7 @@ class furniture(element):
 
     def _fill(self):
         """Put items in furniture upon creation."""
+        # TODO for (collection, inv) in zip((vis_collections, invis_collections), (vis_inv, invis_inv)) once invis_inv is implemented.
         if self.vis_collections:
             for (item_collection, count) in self.vis_collections:
                 for n in range(*count):

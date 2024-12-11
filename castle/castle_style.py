@@ -33,7 +33,7 @@ cc = {
 }
 
 # Rooms
-class Ballroom(pl.place):
+class Ballroom(pl.Place):
     name = "ballroom"
     sprite = "D"
     count = (0, 2)
@@ -43,7 +43,7 @@ class Ballroom(pl.place):
     furniture_classes = []
     subelement_classes = [wall, floor]
 
-class Bathroom(pl.place):
+class Bathroom(pl.Place):
     name = "bathroom"
     sprite = "T"
     count = (1, 3)
@@ -53,7 +53,7 @@ class Bathroom(pl.place):
     furniture_classes = [fur.Toilet, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
-class Bedroom(pl.place):
+class Bedroom(pl.Place):
     name = "bedroom"
     sprite = "B"
     count = (2, 5)
@@ -63,7 +63,7 @@ class Bedroom(pl.place):
     furniture_classes = [fur.Bed, fur.Dresser]
     subelement_classes = [wall, floor]
 
-class Cell(pl.place):
+class Cell(pl.Place):
     name = "cell"
     sprite = "C"
     count = (5, 10)
@@ -80,7 +80,7 @@ class PlayerCell(Cell):
     # creature_classes = [[(Goblin, 1)]]
     creature_classes = []
 
-class DiningRoom(pl.place):
+class DiningRoom(pl.Place):
     name = "dining room"
     sprite = "D"
     count = (1, 3)
@@ -90,7 +90,7 @@ class DiningRoom(pl.place):
     furniture_classes = [fur.Carpet, fur.Table, fur.Chair, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
-class Guardroom(pl.place):
+class Guardroom(pl.Place):
     """Boss fight for Dungeon."""
     name = "guardroom"
     sprite = "G"
@@ -101,7 +101,7 @@ class Guardroom(pl.place):
     furniture_classes = [fur.Table, fur.Chair]
     subelement_classes = [wall, floor]
 
-class Kitchen(pl.place):
+class Kitchen(pl.Place):
     name = "kitchen"
     sprite = "K"
     count = (1, 2)
@@ -111,7 +111,7 @@ class Kitchen(pl.place):
     furniture_classes = [fur.Stove, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
-class Den(pl.place):
+class Den(pl.Place):
     name = "office"
     sprite = "D"
     colors = ["oak", "teak", "mahogany"]
@@ -120,7 +120,7 @@ class Den(pl.place):
     furniture_classes = [fur.Table, fur.Chair, fur.Carpet, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
-class Parlor(pl.place):
+class Parlor(pl.Place):
     name = "parlor"
     sprite = "P"
     count = (1, 3)
@@ -130,7 +130,7 @@ class Parlor(pl.place):
     furniture_classes = [fur.Carpet, fur.Chair]
     subelement_classes = [wall, floor]
 
-class Roof(pl.place):
+class Roof(pl.Place):
     name = "rooftop"
     sprite = "R"
     count = (1, 2)
@@ -140,7 +140,7 @@ class Roof(pl.place):
     furniture_classes = [fur.Chair]
     subelement_classes = [floor]
 
-class ThroneRoom(pl.place):
+class ThroneRoom(pl.Place):
     """Boss fight for main floor."""
     name = "throne room"
     sprite = "T"
@@ -150,7 +150,7 @@ class ThroneRoom(pl.place):
     furniture_classes = [fur.Throne]
     subelement_classes = [wall, floor, pillar]
 
-class TortureChamber(pl.place):
+class TortureChamber(pl.Place):
     name = "torture chamber"
     sprite = "T"
     count = (1, 3)

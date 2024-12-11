@@ -5,7 +5,7 @@ import castle.namelists as nm
 from castle import suits
 
 
-class Head(cr.limb):
+class Head(cr.Limb):
     name = "head"
     subelement_classes = [cl.Ear, cl.Eye, cl.Mouth, cl.Nose, cl.Beard]
     isSurface = True
@@ -14,7 +14,7 @@ class Head(cr.limb):
     vital = True
 
 
-class Torso(cr.limb):
+class Torso(cr.Limb):
     name = "torso"
     subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
     isSurface = True

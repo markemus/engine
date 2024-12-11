@@ -144,7 +144,7 @@ class Combat:
         
         if len(landings) > 0:
             lands_at = random.choice(landings)
-            lands_at.add_vis_item(limb)
+            lands_at.vis_inv.append(limb)
             print(f"{BC.CYAN}The {limb.name} lands on the {lands_at.name}.{BC.OFF}")
         else:
             print(f"{BC.CYAN}The limb flies off and disappears out of sight.{BC.OFF}")

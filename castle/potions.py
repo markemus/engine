@@ -1,4 +1,5 @@
 """Potions have a one time use permanent effect. The effect needs to be scripted."""
+from colorist import BrightColor as BC, Color as C
 from castle import commonlimbs as cl
 
 from engine import item as I
@@ -8,7 +9,7 @@ class PotionOfStoneskin(I.Potion):
     """Creature's skin turns to stone, granting extra HP."""
     name = "Potion of Stoneskin"
     def eat(self, creature):
-        print(f"{creature.name}'s skin turns to stone.")
+        print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
             limb.base_hp *= 3
@@ -30,7 +31,7 @@ class ArmGrowthPotion(I.Potion):
                 break
 
         if torso:
-            print(f"An extra arm sprouts from {creature.name}'s {torso.name}!")
+            print(f"{BC.CYAN}An extra arm sprouts from {creature.name}'s {torso.name}!{BC.OFF}")
             torso.subelements.append(cl.RArm(color="pale", texture="skinned"))
         else:
-            print(f"The potion has no effect.")
+            print(f"{C.RED}The potion has no effect.{C.OFF}")

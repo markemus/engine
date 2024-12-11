@@ -7,21 +7,21 @@ from castle import suits
 
 
 # Head
-class Ear(cr.limb):
+class Ear(cr.Limb):
     name = "ear"
     subelement_classes = []
     isSurface = 1
     appendageRange = (2, 3)
     wears = "ear"
 
-class Eye(cr.limb):
+class Eye(cr.Limb):
     name = "eye"
     subelement_classes = []
     isSurface = 1
     appendageRange = (2, 3)
     wears = "eye"
 
-class Horn(cr.weapon):
+class Horn(cr.Weapon):
     name = "horn"
     subelement_classes = []
     _damage = 3
@@ -29,27 +29,27 @@ class Horn(cr.weapon):
     appendageRange = (2, 3)
     wears = "horn"
 
-class Teeth(cr.weapon):
+class Teeth(cr.Weapon):
     name = "teeth"
     subelement_classes = []
     _damage = 2
     appendageRange = (1, 2)
     wears = "teeth"
 
-class Tongue(cr.limb):
+class Tongue(cr.Limb):
     name = "tongue"
     subelement_classes = []
     appendageRange = (1, 2)
     wears = "tongue"
 
-class Nose(cr.limb):
+class Nose(cr.Limb):
     name = "nose"
     subelement_classes = []
     isSurface = True
     appendageRange = (1, 2)
     wears = "nose"
 
-class Head(cr.limb):
+class Head(cr.Limb):
     name = "head"
     subelement_classes = [Ear, Eye, Horn, Teeth, Tongue, Nose]
     isSurface = True
@@ -58,7 +58,7 @@ class Head(cr.limb):
     vital = True
 
 # Arms
-class Finger(cr.limb):
+class Finger(cr.Limb):
     name = "finger"
     subelement_classes = []
     f_grasp = 1/2
@@ -66,7 +66,7 @@ class Finger(cr.limb):
     appendageRange = (4, 5)
     wears = "finger"
 
-class Thumb(cr.limb):
+class Thumb(cr.Limb):
     name = "thumb"
     subelement_classes = []
     t_grasp = 1
@@ -90,7 +90,7 @@ class Thumb(cr.limb):
 #     wears = "arm"
 
 # Legs
-class Foot(cr.limb):
+class Foot(cr.Limb):
     name = "foot"
     subelement_classes = []
     amble = 1/2
@@ -98,7 +98,7 @@ class Foot(cr.limb):
     appendageRange = (1, 2)
     wears = "foot"
 
-class Leg(cr.limb):
+class Leg(cr.Limb):
     name = "leg"
     subelement_classes = [Foot]
     isSurface = True
@@ -106,7 +106,7 @@ class Leg(cr.limb):
     wears = "leg"
 
 # Torso
-class Torso(cr.limb):
+class Torso(cr.Limb):
     name = "body"
     subelement_classes = [Head, cl.RArm, cl.LArm, Leg]
     isSurface = True

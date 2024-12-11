@@ -1,27 +1,23 @@
 """Items are used by creatures as clothing, weapons, jewelry etc. Furniture is a special type of
 item that is used to fill rooms. Items have an inventory that can hold other items."""
-from colorist import Color as C
+from colorist import Color as C, BrightColor as BC
 
 
 # TODO not all items need inventories.
 # TODO interior and exterior inventories.
 class Item:
-    name = "Item"
+    name = "item"
     canwear = {"head": False, "body": False, "back": False, "arm": False, "hand": False, "leg": False}
-    # Defines whether an item can hold other items
-    cantransfer = False
-    location = "loader"
-    visible = True
     printcolor = C.BLUE
 
     def __init__(self, color, texture):
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""
+        # Subclasses should copy Item.canwear and then modify in class definition (before instantiation).
         self.canwear = self.canwear.copy()
-        self.vis_inv = []
-        self.invis_inv = []
         self.color = color
         self.texture = texture
 
+    # TODO it would be nice to replace this function with one that gives more info on wherefrom and whereto to the player.
     def transfer(self, who, wherefrom, whereto):
         """A creature moves an item from one inventory to another."""
         if self in wherefrom:
@@ -30,50 +26,45 @@ class Item:
                 whereto.append(self)
                 wherefrom.remove(self)
                 who.ungrasp(self)
+                print(f"{BC.CYAN}{who.name} puts away the {self.name}.{BC.OFF}")
             else:
-                print(f"The {who.name} cannot pick up the {self.name}.")
+                print(f"{C.RED}The {who.name} cannot pick up the {self.name}.{C.OFF}")
         else:
-            print(f"The {self.name} is not there.")
+            print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
-    # TODO-DECIDE viewInv still needed or just desc?
-    def viewInv(self):  
-        """Check a thing's visible inventory (vis_inv) and sub-inventories."""
-        contents = f"The {self.name} contains "
+    def desc(self, offset=0):
+        """Basic describe function is always called desc."""
+        text = (" "*offset) + f"* {C.BLUE}{self.color} {self.texture} {self.name}{C.OFF}"
 
-        if self.cantransfer:
-            if not self.vis_inv:
-                contents += "nothing."
-            else:
-                for i, carriedThing in enumerate(self.vis_inv):
-                    # Commas
-                    if i == 0:
-                        contents = contents + "a " + carriedThing.name
-                    else:
-                        contents = contents + ", a " + carriedThing.name
+        return text
 
-                contents = contents + "."
-            print(contents)
 
-            # Check sub-inventories
-            for carriedThing in self.vis_inv:
-                if carriedThing.cantransfer:
-                    carriedThing.viewInv()
+# TODO function to allow char to check invis_inv. For now just use vis_inv.
+class Container(Item):
+    """Containers contain hidden inventories."""
+    def __init__(self, color, texture):
+        super().__init__(color=color, texture=texture)
+        self.invis_inv = []
 
-        # If thing can't hold stuff
-        else:
-            print(f"{contents} nothing at all, for it is a {self.name}.")
+
+class Holder(Item):
+    """Holders have a visible inventory."""
+    def __init__(self, color, texture):
+        super().__init__(color=color, texture=texture)
+        self.vis_inv = []
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
-        text = (" "*offset) + f"* {C.BLUE}{self.color} {self.texture} {self.name}{C.OFF}"
+        text = (" " * offset) + f"* {C.BLUE}{self.color} {self.texture} {self.name}{C.OFF}"
         if full:
             for item in self.vis_inv:
-                text += "\n" + item.desc(offset=offset+1)
+                text += "\n" + item.desc(offset=offset + 1)
 
         return text
 
 
 class Potion(Item):
+    name = "potion"
     edible = True
     def __init__(self):
         super().__init__(color="gray", texture="murky")
