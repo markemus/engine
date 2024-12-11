@@ -144,6 +144,7 @@ class creature:
     # cantransfer = False      # can carry items
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object
+    aggressive = True
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)
@@ -307,6 +308,7 @@ class creature:
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
+        # TODO vital should be returned by remove_limb. We should also check if other copies of the vital organ remain (if so, do not die)
         # Losing a vital limb kills the creature
         if hasattr(limb, "vital"):
             if limb.vital:

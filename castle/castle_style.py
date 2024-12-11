@@ -14,7 +14,7 @@ from castle.elf import Elf
 from castle import furniture as fur
 from castle.goblin import Goblin, ServantGoblin, GoblinCook
 from castle.hobbit import Hobbit
-from castle.human import Human
+from castle.human import Human, HumanKing
 from castle.orc import Orc
 from engine.styles import LevelStyle, GameStyle, wall, floor, pillar
 
@@ -73,9 +73,11 @@ class Cell(pl.place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
+# TODO inventory redo- add pillowcase to PlayerCell and remove inventory from player. (can carry in left hand or third hand)
 class PlayerCell(Cell):
     """Spawning room for player."""
-    creature_classes = [[(Goblin, 1)]]
+    # creature_classes = [[(Goblin, 1)]]
+    creature_classes = []
 
 class DiningRoom(pl.place):
     name = "dining room"
@@ -108,12 +110,12 @@ class Kitchen(pl.place):
     furniture_classes = [fur.Stove, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
-class Office(pl.place):
+class Den(pl.place):
     name = "office"
-    sprite = "O"
+    sprite = "D"
     colors = ["oak", "teak", "mahogany"]
     textures = ["paneled"]
-    creature_classes = [[(Human, 1)], [(Dog, 1)]]
+    creature_classes = [[(HumanKing, 1)], [(Dog, 1)]]
     furniture_classes = [fur.Table, fur.Chair, fur.Carpet, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 
@@ -162,14 +164,14 @@ class TortureChamber(pl.place):
 class BedroomFloor:
     level_text = f"""{BC.BLUE}You've made it to the top floor of the castle. Time to finally confront your captor and put an end to this evil once and for all!{BC.OFF}"""
     room_classes = [Bedroom, Bathroom]
-    end_room = Office
+    end_room = Den
     creature_classes = [[(Orc, 1), (Goblin, 1), (None, 3)]]
 
 LevelStyle.register(BedroomFloor)
 
 
 class Dungeon:
-    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.\n\n"h" is help. The rest is up to you.{BC.OFF}"""
+    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.{BC.OFF}"""
     room_classes = [TortureChamber, Cell]
     start_room = PlayerCell
     end_room = Guardroom

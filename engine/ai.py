@@ -10,14 +10,14 @@ class CombatAI:
         targets = []
 
         # Gather
-        # TODO should only target opposing teams
+        # TODO-DONE should only target opposing teams
         for creature in self.get_target_creatures():
-            if creature.team != self.creature.team:
+            if creature.team and (creature.team != self.creature.team):
                 targets.append(creature)
 
         # Pick
         if len(targets) > 0:
-            # TODO choice should be semi persistent
+            # TODO choice should be (semi?) persistent
             target = random.choice(targets)
         else:
             target = False

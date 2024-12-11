@@ -158,15 +158,19 @@ class Controller:
 
     def north(self):
         self.game.char.leave("n")
+        return self.check_safety()
 
     def south(self):
         self.game.char.leave("s")
+        return self.check_safety()
 
     def west(self):
         self.game.char.leave("w")
+        return self.check_safety()
 
     def east(self):
         self.game.char.leave("e")
+        return self.check_safety()
 
     def stairs(self):
         """Stairs cross over between levels."""
@@ -177,12 +181,18 @@ class Controller:
             self.game.set_current_level(new_level_idx)
             # TODO only print level_text if this is first time entering level (and entering first_room)
             print(self.game.current_level.level_text)
+        return self.check_safety()
 
     # Combat
     def attack(self):
-        # com = combat.Combat(self.game.char, self)
-        # com.fullCombat()
         self.combat.fullCombat()
+
+    def check_safety(self):
+        """Checks whether the current room is safe."""
+        for creature in self.game.char.location.creatures:
+            if creature.aggressive and (creature.team != self.game.char.team):
+                return False
+        return True
 
     def pick_target(self):
         enemylist = self.game.char.ai.get_target_creatures()

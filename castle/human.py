@@ -14,10 +14,13 @@ class Torso(cr.limb):
 
 class Human(cr.creature):
     classname = "man"
+    team = "prisoner"
     namelist = nm.names["human"]
     baseElem = Torso
-    no_headaches = True
-    no_nausea = True
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
     suits = [suits.jewelry, suits.testsuit, suits.weapons]
+
+class HumanKing(Human):
+    classname = "king"
+    team = "monster"

@@ -23,6 +23,7 @@ class Torso(cr.limb):
 
 class Elf(cr.creature):
     classname = "elf"
+    team = "prisoner"
     namelist = nm.names["elf"]
     baseElem = Torso
     colors = ["pale", "white", "black"]

@@ -23,21 +23,18 @@ adam = human.Human(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
+adam.team = "prisoner"
 adam_limbs = adam.subelements[0].limb_check("name")
 for x in adam_limbs:
     x.hp = 1000
 # TODO aggressive and neutral creatures- combat should happen automatically on entering room with hostiles
-# adam.team = "player"
-adam.inventory.append(household_items.CandleStick("bright", "silver"))
 adam.inventory.append(potions.PotionOfStoneskin())
-adam.inventory.append(potions.ArmGrowthPotion())
+# TODO rework inventories so this potion can be found by player- currently it will not drop.
+adam.location.creatures[0].inventory.append(potions.ArmGrowthPotion())
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("", "linen"))
 
-# thisLevel.printMap(adam)
-# adam.speak("hello world", adam.location.creatures[0])
-
 i = interface.Interface(t_game)
-
+i.state = "fight"
 # Game loop
 while True:
     i.command()

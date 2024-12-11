@@ -22,6 +22,7 @@ class Head(cr.limb):
 
 class Beholder(cr.creature):
     classname = "beholder"
+    team = "monster"
     namelist = nm.names["beholder"]
     baseElem = Head
     colors = ["gray", "off-white"]

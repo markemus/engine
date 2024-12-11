@@ -14,6 +14,7 @@ class Torso(cr.limb):
 
 class Hobbit(cr.creature):
     classname = "hobbit"
+    team = "prisoner"
     namelist = nm.names["hobbit"]
     baseElem = Torso
     colors = ["white", "tan", "ruddy"]

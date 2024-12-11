@@ -2,7 +2,6 @@
 all aspects of playing the game, such as entering or exiting combat, as well as movement, exploration, and saves."""
 from colorist import Color as C
 from colorist import BrightColor as BC
-from transitions import Machine
 
 from . import controller
 from . import save
@@ -11,8 +10,8 @@ from . import save
 class Interface:
     def __init__(self, game):
         self.cont = controller.Controller(game)
-        states = ["move", "fight"]
-        self.machine = Machine(model=self, states=states, initial="move")
+        self.states = ["move", "fight"]
+        self.state = "move"
 
         move = {
             "h": self.help,
@@ -48,24 +47,27 @@ class Interface:
         }
 
     # Transitions
-
-    # We need these for our interface- transition methods are partial functions and
-    # have no __name__ or clean str() cast.
     def fight(self):
         print(f"{C.RED}You ready yourself for a fight.{C.OFF}")
-        self.to_fight()
+        self.state = self.states[1]
 
     def move(self):
-        print("You set out on your quest again.")
-        self.to_move()
+        safe = self.cont.check_safety()
+        if safe:
+            print(f"{BC.CYAN}You set out on your quest again.{BC.OFF}")
+            self.state = self.states[0]
+        else:
+            print(f"{BC.CYAN}There are still enemies around.{BC.OFF}")
 
-    # Standard
-
+    # Commands
     def command(self):
         print(f"Available commands: {BC.BLUE}{''.join(self.commands[self.state].keys())}{C.OFF}")
         x = input(f"{BC.GREEN}Choose a command (h for help): {C.OFF}")
         if x in self.commands[self.state].keys():
-            self.commands[self.state][x]()
+            safety_val = self.commands[self.state][x]()
+            # This should check after every action unless char is already fighting. None should be safe.
+            if safety_val == False and self.state != "fight":
+                self.fight()
         else:
             print(x, "is not a valid command.")
 

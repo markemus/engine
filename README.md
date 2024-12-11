@@ -2,8 +2,7 @@
 Sick of playing the same rogue-like over and over? Now you can make your own! Inspired by Kyle's Quest and Dwarf Fortress, EverRogue generates endless rogue-like games for you and your friends to play.
 
 # TO INSTALL
-Install python 3.		
-`pip3 install transitions`	 
+Install python 3.		 
 `pip3 install colorist`
 
 # TO RUN

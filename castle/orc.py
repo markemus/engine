@@ -116,13 +116,9 @@ class Torso(cr.limb):
 # Orc
 class Orc(cr.creature):
     classname = "orc"
+    team = "monster"
     namelist = nm.names["orc"]
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"]
     textures = ["scaled", "haired", "skinned"]
     suits = [suits.testsuit, suits.weapons]
-
-
-if __name__ == '__main__':
-    oscar = Orc("Oscar", location=None)
-    print(oscar.desc())

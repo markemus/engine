@@ -27,6 +27,7 @@ class Torso(cr.limb):
 # Goblin
 class Goblin(cr.creature):
     classname = "goblin"
+    team = "monster"
     namelist = nm.names["goblin"]
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
@@ -35,8 +36,11 @@ class Goblin(cr.creature):
 
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""
+    aggressive = False
+    team = "monster"
     suits = [suits.plainsuit]
 
 class GoblinCook(Goblin):
     classname = "goblin chef"
+    team = "monster"
     suits = [suits.chefsuit, suits.cookery]

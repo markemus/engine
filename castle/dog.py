@@ -55,7 +55,8 @@ class CTorso(Torso):
 
 
 class Dog(cr.creature):
-    classname = "cerberus"
+    classname = "dog"
+    team = "monster"
     namelist = nm.names["dog"]
     baseElem = Torso
     colors = ["black", "brindled", "spotted", "brown", "rust"]
@@ -64,4 +65,6 @@ class Dog(cr.creature):
 
 class Cerberus(Dog):
     """A dog with three heads."""
+    classname = "cerberus"
+    team = "monster"
     baseElem = CTorso

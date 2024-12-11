@@ -73,6 +73,7 @@ class Torso(cr.limb):
 
 class AnimatedArmor(cr.creature):
     classname = "armor"
+    team = "monster"
     namelist = ["Animated Armor"]
     baseElem = Torso
     colors = ["ethereal"]
