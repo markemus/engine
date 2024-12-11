@@ -102,6 +102,11 @@ class Tunic(i.Item):
     canwear = i.Item.canwear.copy()
     canwear["torso"] = True
 
+class Clout(i.Item):
+    name = "clout"
+    canwear = i.Item.canwear.copy()
+    canwear["torso"] = True
+
 
 # Jewelry
 class Bracelet(i.Item):
@@ -133,6 +138,11 @@ class Cleaver(i.Item):
     canwear["right hand"] = True
     damage = 10
 
+class Shank(i.Item):
+    name = "prison shank"
+    canwear = i.Item.canwear.copy()
+    canwear["right hand"] = True
+    damage = 5
 
 class Spear(i.Item):
     name = "spear"
@@ -195,6 +205,16 @@ plainsuit = {
     "full": True,
     }
 
+prisonersuit = {
+    "wears": {
+        "body": Clout},
+    "color": ["gray", "dirty", "brown"],
+    "color_scheme": "distinct",
+    "texture": ["linen"],
+    "texture_scheme": "distinct",
+    "full": True,
+}
+
 testsuit = {
     "wears": {
         "head": Helm,
@@ -213,8 +233,7 @@ testsuit = {
 
 weapons = {
     "wears": {
-        "right hand": (Sword, Spear, Axe),
-        "left hand": Shield},
+        "right hand": (Sword, Spear, Axe)},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],

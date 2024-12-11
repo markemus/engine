@@ -7,7 +7,7 @@ from castle import suits
 
 class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [cl.Head, cl.LArm, cl.RArm, cl.Leg]
+    subelement_classes = [cl.Head, cl.RArm, cl.LArm, cl.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
@@ -19,4 +19,4 @@ class Hobbit(cr.creature):
     baseElem = Torso
     colors = ["white", "tan", "ruddy"]
     textures = ["skinned"]
-    suits = [suits.testsuit, suits.weapons]
+    suits = [suits.prisonersuit]

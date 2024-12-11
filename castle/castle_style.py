@@ -74,6 +74,7 @@ class Cell(pl.place):
     subelement_classes = [wall, floor]
 
 # TODO inventory redo- add pillowcase to PlayerCell and remove inventory from player. (can carry in left hand or third hand)
+# TODO re-enable first combat
 class PlayerCell(Cell):
     """Spawning room for player."""
     # creature_classes = [[(Goblin, 1)]]

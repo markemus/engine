@@ -28,4 +28,4 @@ class Elf(cr.creature):
     baseElem = Torso
     colors = ["pale", "white", "black"]
     textures = ["skinned"]
-    suits = [suits.testsuit, suits.weapons, suits.jewelry]
+    suits = [suits.prisonersuit]

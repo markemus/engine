@@ -9,8 +9,8 @@ from engine import interface
 
 from castle import human
 from castle import castle_style
-from castle import household_items
 from castle import potions
+from castle import suits
 
 
 # Main
@@ -27,11 +27,15 @@ adam.team = "prisoner"
 adam_limbs = adam.subelements[0].limb_check("name")
 for x in adam_limbs:
     x.hp = 1000
-# TODO aggressive and neutral creatures- combat should happen automatically on entering room with hostiles
+# TODO-DONE aggressive and neutral creatures- combat should happen automatically on entering room with hostiles
+# TODO fix grasp_check- will items in hands drop if grasp_check fails? Don't think so...
+# Give adam starting equipment
+adam.subelements[0].limb_check("grasp")[0].inventory.append(suits.Shank(color="rusty", texture="iron"))
 adam.inventory.append(potions.PotionOfStoneskin())
-# TODO rework inventories so this potion can be found by player- currently it will not drop.
-adam.location.creatures[0].inventory.append(potions.ArmGrowthPotion())
-# adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("", "linen"))
+# TODO rework inventories so this potion can be looted by player.
+# Give first creature (not Adam) a Potion of Arm Growth
+c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].inventory.append(potions.ArmGrowthPotion())
+# adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("dirty", "linen"))
 
 i = interface.Interface(t_game)
 i.state = "fight"

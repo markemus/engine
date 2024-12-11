@@ -19,8 +19,10 @@ class Human(cr.creature):
     baseElem = Torso
     colors = ["black", "white", "red", "yellow", "brown"]
     textures = ["skinned"]
-    suits = [suits.jewelry, suits.testsuit, suits.weapons]
+    suits = [suits.prisonersuit]
 
 class HumanKing(Human):
     classname = "king"
     team = "monster"
+    suits = [suits.weapons, suits.testsuit]
+# TODO special equipment for king

@@ -108,7 +108,7 @@ class Leg(cr.limb):
 # Torso
 class Torso(cr.limb):
     name = "body"
-    subelement_classes = [Head, cl.LArm, cl.RArm, Leg]
+    subelement_classes = [Head, cl.RArm, cl.LArm, Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
@@ -121,4 +121,4 @@ class Orc(cr.creature):
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"]
     textures = ["scaled", "haired", "skinned"]
-    suits = [suits.testsuit, suits.weapons]
+    suits = [suits.plainsuit, suits.weapons]

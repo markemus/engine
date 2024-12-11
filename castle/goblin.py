@@ -19,7 +19,7 @@ class Head(cr.limb):
 # Torso
 class Torso(cr.limb):
     name = "torso"
-    subelement_classes = [Head, cl.LArm, cl.RArm, orc.Leg]
+    subelement_classes = [Head, cl.RArm, cl.LArm, orc.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
@@ -32,7 +32,7 @@ class Goblin(cr.creature):
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
     textures = ["scaled", "haired", "skinned"]
-    suits = [suits.testsuit, suits.weapons]
+    suits = [suits.plainsuit, suits.weapons]
 
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""

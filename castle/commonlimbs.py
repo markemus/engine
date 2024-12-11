@@ -120,6 +120,7 @@ class RHand(cr.weapon):
     isSurface = True
     appendageRange = (1, 2)
     wears = "right hand"
+    _damage = 3
 
 class LHand(cr.weapon):
     name = "left hand"
@@ -129,6 +130,7 @@ class LHand(cr.weapon):
     isSurface = True
     appendageRange = (1, 2)
     wears = "left hand"
+    _damage = 2
 
 class RArm(cr.limb):
     name = "arm"
