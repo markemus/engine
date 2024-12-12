@@ -102,7 +102,7 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO consider input values other than those listed as "x"
+    # TODO-DONE consider input values other than those listed as "x"
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
@@ -116,15 +116,16 @@ class Controller:
             self.dictprint(inventory_dict)
 
             i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF}")
-            if i != "x":
+            if i != "x" and i in inventory_dict.keys():
                 origin_inv = inventory_dict[i].vis_inv
                 del inventory_dict[i]
                 j = input(f"\n{BC.GREEN}Second, which inventory would like to transfer to (x to cancel)?{BC.OFF}")
-                if j != "x":
+                if j != "x" and j in inventory_dict.keys():
                     target_inv = inventory_dict[j].vis_inv
                     self.dictprint(self.listtodict(origin_inv))
                     k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF}")
-                    origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
+                    if k != "x" and 0 <= int(k) < len(origin_inv):
+                        origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
         else:
             print("You cannot see well enough for that.")
 
