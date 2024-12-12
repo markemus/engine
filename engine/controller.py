@@ -48,10 +48,11 @@ class Controller:
             else:
                 exstr = kval + str(d[key])
 
-            # pfunc processes d[key] and returns a string for printing. USE SPARINGLY.
+            # pfunc processes d[key] and returns a string for printing.
             if pfunc:
                 exstr = pfunc(exstr, d[key])
 
+            # TODO this is showing up in combat and it is a bug. Maybe dictprint needs some work.
             # Add star if item has inv or subelements
             if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "subelements") and d[key].subelements) or (hasattr(d[key], "equipment") and d[key].equipment):
                 exstr = exstr + " *"
@@ -68,15 +69,22 @@ class Controller:
     def character_sheet(self):
         gc = self.game.char
         weapons = [f"{x.name}: {BC.YELLOW}{x.damage[1].name}{BC.OFF} {BC.RED}({x.damage[0]}){BC.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
-        inventory = [f"{BC.CYAN}{x.name}{BC.OFF}" for x in gc.vis_inv]
+
+        inventory = ""
+        for subelement in gc.subelements[0].limb_check('equipment'):
+            for equipment in subelement.equipment:
+                if hasattr(equipment, "vis_inv") and equipment.vis_inv:
+                    inventory = inventory + f"{equipment.name}:\n  {BC.CYAN}{''.join([x.name for x in equipment.vis_inv])}{BC.OFF}\n"
+        # inventory = [f"{x.name}\n" for x in  if hasattr(x.equipment, "vis_inv")]
+        # inventory = [f"{BC.CYAN}{x.name}{BC.OFF}" for x in gc.vis_inv]
 
         if gc.limb_count("see") > 1:
-            cs = f"\nCharacter Sheet\n" \
+            cs = f"\n{C.RED}Character Sheet{C.OFF}\n" \
                  f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
-                 f"\nWeapons\n" \
+                 f"\n{C.RED}Weapons{C.OFF}\n" \
                  f"{''.join(weapons)}" \
-                 f"\nInventory\n" \
-                 f"{''.join(inventory)}\n\n"
+                 f"\n{C.RED}Inventories{C.OFF}\n" \
+                 f"{inventory}\n"
             self.display_long_text(cs)
 
     def examine(self):

@@ -163,6 +163,11 @@ class Blindfold(i.Item):
     canwear["head"] = True
     see = -2
 
+class SkinMask(i.Item):
+    name = "human face"
+    canwear = i.Item.canwear.copy()
+    canwear["head"] = True
+
 # TODO add third _scheme option- more than distinct, give each element a unique scheme
 #  (distinct for matching gloves, unique for separate rings)
 # Suits
@@ -243,6 +248,7 @@ weapons = {
 
 cookery = {
     "wears": {
+        "head": SkinMask,
         "right hand": Cleaver,
         "left hand": Cleaver},
     "color": ["grimy", "bloody", "rusty"],
@@ -252,4 +258,6 @@ cookery = {
     "full": True,
 }
 
-# TODO no shields
+# TODO-DONE no shields
+# TODO layers 1=shirt 2=armor
+# TODO multi-limb clothing- covers=[wears1, wears2]- if layer item already exists for lower level limb, does not cover.
