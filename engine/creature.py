@@ -212,26 +212,28 @@ class creature:
 
     def _clothe(self):
         """Equips a creature when it is first created. Multiple suits can be applied in sequence, so weapons
-        can be added after armor etc."""
+        can be added after armor etc. Note that color schemes will be shared across weapons and armor, so it
+        might make sense to split them into separate suits."""
         # Seed is to coordinate item selection across limbs of the same type, we don't get eg shoe+slipper
         seed = int(time.time())
         for suit in self.suits:
+            # print(suit)
             if (type(suit) == tuple):
                 suit = random.choice(suit)
-            # brings back all limbs? I think so. Good trick.
+            # Returns all limbs
             limbs = self.subelements[0].limb_check("name")
 
             # Color and texture are either set once for the full suit, or uniquely per "wears" (so socks will always match)
             if suit["color_scheme"] == "distinct":
-                colors = {key: random.choice(suit["color"]) for key in suit["wears"]}
+                colors = {key: random.choice(suit["color"]) for key in {**suit["wears"], **suit["grasps"]}}
             else:
                 color = random.choice(suit["color"])
-                colors = {key: color for key in suit["wears"]}
+                colors = {key: color for key in {**suit["wears"], **suit["grasps"]}}
             if suit["texture_scheme"] == "distinct":
-                textures = {key: random.choice(suit["texture"]) for key in suit["wears"]}
+                textures = {key: random.choice(suit["texture"]) for key in {**suit["wears"], **suit["grasps"]}}
             else:
                 texture = random.choice(suit["texture"])
-                textures = {key: texture for key in suit["wears"]}
+                textures = {key: texture for key in {**suit["wears"], **suit["grasps"]}}
 
             # If suit is not supposed to be full, drop a random subset of limbs
             if not suit["full"]:
@@ -239,7 +241,7 @@ class creature:
                 limbs = limbs[:random.randrange(0, len(limbs))]
 
             for limb in limbs:
-                if limb.wears in suit["wears"].keys():
+                if "wears" in suit.keys() and limb.wears in suit["wears"].keys():
                     random.seed(seed)
                     # Choose and construct articles
                     article = suit["wears"][limb.wears]
@@ -251,9 +253,28 @@ class creature:
                         articles = [article]
 
                     for article in articles:
-                        # Create article
+                        # Create article and equip
                         article = article(color=colors[limb.wears], texture=textures[limb.wears])
                         limb.equip(article)
+
+                if "grasps" in suit.keys() and limb.wears in suit["grasps"].keys():
+                    # We don't need to coordinate weapon selections
+                    random.seed()
+                    # Choose and construct articles
+                    weapon = suit["grasps"][limb.wears]
+                    if type(weapon) == tuple:
+                        weapons = [random.choice(weapon)]
+                    elif type(weapon) == list:
+                        weapons = weapon.copy()
+                    else:
+                        weapons = [weapon]
+
+                    for weapon in weapons:
+                        if not limb.grasped:
+                            # Create weapon and grasp
+                            weapon = weapon(color=colors[limb.wears], texture=textures[limb.wears])
+                            limb.grasped = weapon
+
         # Reset seed
         random.seed()
 

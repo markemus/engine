@@ -12,9 +12,14 @@ def suit_to_collection(suit, model):
 
     limbs = model("loader").subelements[0].limb_check("name")
     for limb in limbs:
-        if limb.wears in collection["wears"].keys():
+        if "wears" in collection.keys() and limb.wears in collection["wears"].keys():
             collection["contains"].append(collection["wears"][limb.wears])
+        if "grasps" in collection.keys() and limb.wears in collection["grasps"].keys():
+            collection["contains"].append(collection["grasps"][limb.wears])
 
-    del collection["wears"]
-    # print("\n\n", collection["contains"])
+    # if "wears" in collection.keys():
+    #     del collection["wears"]
+    # if "grasps" in collection.keys():
+    #     del collection["grasps"]
+    # print("\n\n", collection)
     return collection

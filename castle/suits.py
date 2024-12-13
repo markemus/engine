@@ -148,44 +148,44 @@ class Ring(i.Item):
 # Weapons
 class Axe(i.Item):
     name = "axe"
-    canwear = i.Item.canwear.copy()
-    canwear["right hand"] = True
+    # canwear = i.Item.canwear.copy()
+    # canwear["right hand"] = True
     damage = 20
-    requires = ("grasp", 1)
-    level = 3
+    # requires = ("grasp", 1)
+    # level = 3
 
 class Cleaver(i.Item):
     name = "cleaver"
-    canwear = i.Item.canwear.copy()
-    canwear["right hand"] = True
-    canwear["left hand"] = True
+    # canwear = i.Item.canwear.copy()
+    # canwear["right hand"] = True
+    # canwear["left hand"] = True
     damage = 10
-    requires = ("grasp", 1)
-    level = 3
+    # requires = ("grasp", 1)
+    # level = 3
 
 class Shank(i.Item):
     name = "prison shank"
-    canwear = i.Item.canwear.copy()
-    canwear["right hand"] = True
+    # canwear = i.Item.canwear.copy()
+    # canwear["right hand"] = True
     damage = 5
-    requires = ("grasp", 1)
-    level = 3
+    # requires = ("grasp", 1)
+    # level = 3
 
 class Spear(i.Item):
     name = "spear"
-    canwear = i.Item.canwear.copy()
-    canwear["right hand"] = True
+    # canwear = i.Item.canwear.copy()
+    # canwear["right hand"] = True
     damage = 20
-    requires = ("grasp", 1)
-    level = 3
+    # requires = ("grasp", 1)
+    # level = 3
 
 class Sword(i.Item):
     name = "sword"
-    canwear = i.Item.canwear.copy()
-    canwear["right hand"] = True
+    # canwear = i.Item.canwear.copy()
+    # canwear["right hand"] = True
     damage = 20
-    requires = ("grasp", 1)
-    level = 3
+    # requires = ("grasp", 1)
+    # level = 3
 
 # Special
 class Blindfold(i.Item):
@@ -211,11 +211,25 @@ jewelry = {
         "left hand": Bracelet,
         "finger": Ring,
         "foot": Bracelet},
+    "grasps": {},
     "color": ["sapphire", "emerald", "turquoise"],
     "color_scheme": "distinct",
     "texture": ["in silver", "in gold", "in platinum"],
     "texture_scheme": "distinct",
     "full": False,
+}
+
+cookery = {
+    "wears": {
+        "head": SkinMask},
+    "grasps": {
+        "right hand": Cleaver,
+        "left hand": Cleaver},
+    "color": ["grimy", "bloody", "rusty"],
+    "color_scheme": "same",
+    "texture": ["iron"],
+    "texture_scheme": "same",
+    "full": True,
 }
 
 chefsuit = {
@@ -224,6 +238,7 @@ chefsuit = {
         "body": Apron,
         "leg": Hose,
         "foot": (Shoe, Slipper)},
+    "grasps": {},
     "color": ["white", "stained", "greasy"],
     "color_scheme": "distinct",
     "texture": ["linen"],
@@ -236,6 +251,7 @@ plainsuit = {
         "body": Tunic,
         "leg": Hose,
         "foot": (Shoe, Slipper)},
+    "grasps": {},
     "color": ["red", "blue", "green", "yellow", "striped"],
     "color_scheme": "distinct",
     "texture": ["silk", "cotton", "wool"],
@@ -246,6 +262,7 @@ plainsuit = {
 prisonersuit = {
     "wears": {
         "body": Clout},
+    "grasps": {},
     "color": ["gray", "dirty", "brown"],
     "color_scheme": "distinct",
     "texture": ["linen"],
@@ -262,6 +279,7 @@ testsuit = {
         "right hand": Gauntlet,
         "leg": Greave,
         "foot": Boot},
+    "grasps": {},
     "color": ["shiny", "rusty", "matte"],
     "color_scheme": "same",
     "texture": ["steel"],
@@ -270,7 +288,8 @@ testsuit = {
     }
 
 weapons = {
-    "wears": {
+    "wears":{},
+    "grasps": {
         "right hand": (Sword, Spear, Axe)},
     "color": ["gray"],
     "color_scheme": "same",
@@ -279,18 +298,6 @@ weapons = {
     "full": True,
 }
 
-cookery = {
-    "wears": {
-        "head": SkinMask,
-        "right hand": Cleaver,
-        "left hand": Cleaver},
-    "color": ["grimy", "bloody", "rusty"],
-    "color_scheme": "same",
-    "texture": ["iron"],
-    "texture_scheme": "same",
-    "full": True,
-}
-
 # TODO-DONE no shields
-# TODO layers 1=shirt 2=armor
+# TODO-DONE layers 1=shirt 2=armor
 # TODO multi-limb clothing- wears + covers=[wears1, wears2]- if layer item already exists for lower level limb, does not cover.
