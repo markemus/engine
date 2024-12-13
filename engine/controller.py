@@ -1,3 +1,4 @@
+import random
 import textwrap
 
 from colorist import BrightColor as BC, Color as C
@@ -69,6 +70,7 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
 
+    # TODO test with multiple inventories to ensure tabbed list of inventories works correctly.
     def character_sheet(self):
         gc = self.game.char
         weapons = [f"{x.name}: {BC.YELLOW}{x.damage[1].name}{BC.OFF} {BC.RED}({x.damage[0]}){BC.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
@@ -77,9 +79,12 @@ class Controller:
         for subelement in gc.subelements[0].limb_check('equipment'):
             for equipment in subelement.equipment:
                 if hasattr(equipment, "vis_inv") and equipment.vis_inv:
-                    inventory = inventory + f"{equipment.name}:\n  {BC.CYAN}{''.join([x.name for x in equipment.vis_inv])}{BC.OFF}\n"
-        # inventory = [f"{x.name}\n" for x in  if hasattr(x.equipment, "vis_inv")]
-        # inventory = [f"{BC.CYAN}{x.name}{BC.OFF}" for x in gc.vis_inv]
+                    inv_elements = '\n  '.join([x.name for x in equipment.vis_inv])
+                    inventory = inventory + f"{equipment.name}:\n  {BC.CYAN}{inv_elements}{BC.OFF}\n"
+        for subelement in gc.subelements[0].limb_check("grasp"):
+            if hasattr(subelement.grasped, "vis_inv"):
+                inv_elements = '\n  '.join([x.name for x in subelement.grasped.vis_inv])
+                inventory = inventory + f"{subelement.grasped.name}:\n  {BC.CYAN}{inv_elements}{BC.OFF}\n"
 
         if gc.limb_count("see") > 1:
             cs = f"\n{C.RED}Character Sheet{C.OFF}\n" \
@@ -90,12 +95,12 @@ class Controller:
                  f"{inventory}\n"
             self.display_long_text(cs)
 
+    # TODO should show weapons (grasped) which means desc() should.
     def examine(self):
         """Desc for a particular creature or element in the room."""
         # Sight check
         if self.game.char.limb_count("see") > 1:
             examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements, add_x=True)
-            # examine_dict["x"] = "look away"
             self.dictprint(examine_dict)
             i = input(f"{BC.GREEN}\nWho/what are you examining?{BC.OFF}")
             if i in examine_dict.keys() and i != "x":
@@ -310,6 +315,7 @@ class Controller:
                 if k in limbs.keys() and k != "x":
                     limb = limbs[k]
                     equipped = limb.equip(gear)
+                    invs[i].vis_inv.remove(gear)
                     if equipped:
                         print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on their {limb.name}.{BC.OFF}")
 
@@ -336,6 +342,74 @@ class Controller:
                     limb.equipment.remove(gear)
                     target_inv.vis_inv.append(gear)
                     print(f"{BC.CYAN}{self.game.char.name} removes the {gear.name} and places it in their {target_inv.name}.{BC.OFF}")
+
+    def grasp(self):
+        """Pick something up in your hand."""
+        room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
+        your_inventories = self.game.char.subelements[0].find_invs()
+        all_inventories = your_inventories + room_inventories
+        inventory_dict = self.listtodict(all_inventories, add_x=True)
+        self.dictprint(inventory_dict)
+        i = input(f"\n{BC.GREEN}Select an inventory to take something from:{BC.OFF} ")
+
+        if i in inventory_dict.keys() and i != "x":
+            target_inv = inventory_dict[i]
+            inventory = self.listtodict(target_inv.vis_inv, add_x=True)
+            self.dictprint(inventory)
+            j = input(f"\n{BC.GREEN}Select an item to pick up:{BC.OFF} ")
+
+            if j in inventory.keys() and j != "x":
+                wielded = target_inv.vis_inv[int(j)]
+                hands = self.listtodict(self.game.char.subelements[0].limb_check("grasp"), add_x=True)
+                self.dictprint(hands)
+                k = input(f"\n{BC.GREEN}Choose a hand to grasp the {wielded.name} with:{BC.OFF} ")
+
+                if k in hands.keys() and k != "x":
+                    hand = hands[k]
+                    if hand.grasped:
+                        print(f"{C.RED}{self.game.char.name}'s {hand.name} is already holding a {hand.grasped.name}!{C.OFF}")
+
+                    # grasp check fails if no thumb or not enough fingers (or tentacly equivalent, whatever)
+                    elif (sum([x.f_grasp for x in hand.limb_check("f_grasp")]) >= 1) and (sum([x.t_grasp for x in hand.limb_check("t_grasp")]) >= 1):
+                        print(f"{BC.CYAN}{self.game.char.name} grasps the {wielded.name} in their {hand.name}.{BC.OFF}")
+                        target_inv.vis_inv.remove(wielded)
+                        hand.grasped = wielded
+                    else:
+                        print(f"{C.RED}The {wielded.name} slips out of {self.game.char.name}'s maimed {hand.name}!{C.OFF} ")
+                        target_inv.vis_inv.remove(wielded)
+                        room = self.game.char.get_location()
+                        landings = room.elem_check("canCatch")
+                        if len(landings) > 0:
+                            lands_at = random.choice(landings)
+                            lands_at.vis_inv.append(wielded)
+                            print(f"{BC.CYAN}The {wielded.name} lands on the {lands_at.name}.{BC.OFF}")
+                        else:
+                            print(f"{BC.CYAN}The limb falls and disappears out of sight.{BC.OFF}")
+
+    def ungrasp(self):
+        graspers = self.game.char.subelements[0].limb_check("grasp")
+        graspers_desc = self.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped])
+        self.dictprint(graspers_desc)
+        i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF}")
+
+        if i in graspers_desc.keys() and i != "x":
+            hand = graspers[int(i)]
+            room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
+            your_inventories = self.game.char.subelements[0].find_invs()
+            all_inventories = your_inventories + room_inventories
+            inventory_dict = self.listtodict(all_inventories, add_x=True)
+            self.dictprint(inventory_dict)
+            j = input(f"\n{BC.GREEN}Which inventory would you like to place the {hand.grasped.name} into?{BC.OFF} ")
+
+            if j in inventory_dict.keys() and j != "x":
+                # Transfer the item to target_inv.
+                # We won't use the item.transfer() function because "who" is already grasping the item.
+                target_inv = inventory_dict[j]
+                print(f"{BC.CYAN}{self.game.char.name} places the {hand.grasped.name} into the {target_inv.name}.{BC.OFF} ")
+                target_inv.vis_inv.append(hand.grasped)
+                hand.grasped = None
+
+
 
 
 

@@ -31,6 +31,7 @@ class Item:
         self.texture = texture
 
     # TODO it would be nice to replace this function with one that gives more info on wherefrom and whereto to the player.
+    #  or just get rid of it entirely and just simply move the item
     def transfer(self, who, wherefrom, whereto):
         """A creature moves an item from one inventory to another."""
         if self in wherefrom:

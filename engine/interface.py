@@ -24,6 +24,8 @@ class Interface:
             "i": self.cont.inventory,
             "p": self.cont.put_on,
             "t": self.cont.take_off,
+            "g": self.cont.grasp,
+            "u": self.cont.ungrasp,
             "m": self.cont.map,
             "b": self.cont.borders,
             "w": self.cont.north,
