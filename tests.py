@@ -112,6 +112,21 @@ class TestCastle():
 
         assert len(all_rooms) == len(visited)
 
+    def test_grasp(self):
+        """NPC grasps and ungrasps an item."""
+        import castle.castle_style as cs
+        import castle.suits as su
+
+        from castle.goblin import Goblin
+        room = cs.PlayerCell(level=None)
+        g = Goblin(location=room)
+        s = su.Shank(color="gray", texture="iron")
+        g.grasp(s)
+        assert g.grasp_check().grasped == s
+        g.ungrasp(s)
+        assert g.grasp_check().grasped is None
+
+
 class TestGeneral:
     def test_dependencies(self):
         import colorist

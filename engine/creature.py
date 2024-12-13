@@ -7,7 +7,7 @@ from engine import ai
 
 # End of Loading Zone
 
-# TODO currently severed limbs cannot be transferred since they have no transfer function. Turn them into items? Inheritance?
+# TODO-DONE currently severed limbs cannot be transferred since they have no transfer function. Turn them into items? Inheritance?
 #  needs a severed tag. Can inherit from item, why not? Just don't let people move it if it's not severed.
 class Limb:
     """Body parts for Creatures. Store in a list in Creature object.
@@ -20,6 +20,7 @@ class Limb:
     _armor = 1
     blocker = False
     printcolor = C.CYAN
+    grasped = None
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -111,7 +112,7 @@ class Limb:
         else:
             print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
-    # TODO grasping should be different than equipping? Everything should be carryable but should not give effects.
+    # TODO-DONE grasping should be different than equipping? Everything should be carryable but should not give effects.
     def equip(self, article):
         """Put an Item (article) onto the Limb.
         article.requires can specify a required tag as ("tag", amount).
@@ -167,13 +168,19 @@ class Weapon(Limb):
         damage = self._damage
         item = self
 
+        # EG gauntlets, spiked gloves, fake fangs
         for _item in self.equipment:
             if hasattr(_item, "damage"):
                 # TODO-DECIDE what about adding damage? eg spikes on tails. Or swords on strong arms.
                 if _item.damage > damage:
                     damage = _item.damage
                     item = _item
-        
+
+        # eg swords
+        if self.grasped and self.grasped.damage > damage:
+            damage = self.grasped.damage
+            item = self.grasped
+
         return damage, item
 
 # TODO-DONE check for eyes before seeing the room. Allow blindfolds!
@@ -322,8 +329,8 @@ class creature:
         grasped = False
         graspHand = self.grasp_check()
                         
-        if graspHand is not None:
-            graspHand.equipment.append(item)
+        if graspHand is not None and not graspHand.grasped:
+            graspHand.grasped = item
             print(f"{BC.CYAN}{self.name} picks up the {item.name} with their {graspHand.name}.{BC.OFF}")
             grasped = True
         else:
@@ -331,14 +338,20 @@ class creature:
 
         return grasped
 
+    # TODO-DECIDE refactor ungrasp and transfer? None of this feels necessary. How would we even know to call ungrasp without knowing what hand is holding the item?
+    #  on the other hand it does play well with transfer()?
     def ungrasp(self, item):
+        """Ungrasp an item from an appendage. The calling function will need to determine where to put it next."""
         ungrasped = False
         hands = self.subelements[0].limb_check("grasp")
 
         for hand in hands:
-            if item in hand.equipment:
-                hand.equipment.remove(item)
+            # if item in hand.equipment:
+            #     hand.equipment.remove(item)
+            if hand.grasped == item:
+                hand.grasped = None
                 ungrasped = True
+                break
 
         return ungrasped
 
