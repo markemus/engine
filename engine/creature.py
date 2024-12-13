@@ -83,9 +83,15 @@ class Limb:
         """Find all inventories lower in the body hierarchy."""
         invs = []
 
+        # Equipped items
         for item in self.equipment:
             if hasattr(item, "vis_inv"):
                 invs.append(item)
+
+        # Held item
+        if hasattr(self, "grasped"):
+            if hasattr(self.grasped, "vis_inv"):
+                invs.append(self.grasped)
 
         for subLimb in self.subelements:
             invs += subLimb.find_invs()
@@ -362,8 +368,9 @@ class creature:
 
                     # TODO check that hand is empty. But can have a glove...
                     if f_grasp >= 1 and t_grasp >= 1:
-                        graspHand = hand
-                        break
+                        if not hand.grasped:
+                            graspHand = hand
+                            break
 
         return graspHand
 

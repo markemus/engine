@@ -9,8 +9,10 @@ class Controller:
         self.game = game
         self.combat = combat.Combat(self.game.char, self)
 
-    def listtodict(self, l):
+    def listtodict(self, l, add_x=False):
         d = {str(i): l[i] for i in range(len(l))}
+        if add_x:
+            d["x"] = "Cancel"
 
         return d
 
@@ -92,11 +94,11 @@ class Controller:
         """Desc for a particular creature or element in the room."""
         # Sight check
         if self.game.char.limb_count("see") > 1:
-            examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements)
-            examine_dict["x"] = "look away"
+            examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements, add_x=True)
+            # examine_dict["x"] = "look away"
             self.dictprint(examine_dict)
-            i = input(f"{BC.GREEN}\nWho/what are you examining (x for none)?{BC.OFF}")
-            if i != "x":
+            i = input(f"{BC.GREEN}\nWho/what are you examining?{BC.OFF}")
+            if i in examine_dict.keys() and i != "x":
                 self.display_long_text(examine_dict[i].desc(full=True))
             else:
                 print(f"{BC.CYAN}You look away.{BC.OFF}")
@@ -108,7 +110,7 @@ class Controller:
         """Transfer items between the character's inventory and another object."""
         # Sight check
         if self.game.char.limb_count("see") > 1:
-            # TODO gather vis_invs in room (not all elements)
+            # TODO-DONE gather vis_invs in room (not all elements)
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
             your_inventories = self.game.char.subelements[0].find_invs()
             all_inventories = your_inventories + room_inventories
@@ -274,21 +276,72 @@ class Controller:
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
     def eat(self):
-        # edibles = self.listtodict([item for item in self.game.char.vis_inv if hasattr(item, "edible") and item.edible])
-        invs = self.listtodict(self.game.char.subelements[0].find_invs())
-        invs["x"] = "Cancel"
+        invs = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
         self.dictprint(invs)
-        i = input(f"\n{BC.GREEN}Which inventory would you like to eat from?{BC.OFF}")
+        i = input(f"\n{BC.GREEN}Which inventory would you like to eat from?{BC.OFF} ")
 
-        if i != "x":
-            edibles = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "edible") and item.edible])
-            edibles["x"] = "Don't eat anything."
+        if i in invs.keys() and i != "x":
+            edibles = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "edible") and item.edible], add_x=True)
             self.dictprint(edibles)
-            j = input(f"\n{BC.GREEN}Select an item to eat/drink:{BC.OFF}")
+            j = input(f"\n{BC.GREEN}Select an item to eat/drink:{BC.OFF} ")
 
             if j in edibles.keys() and j != "x":
                 food = edibles[j]
+                print(f"{BC.CYAN}{self.game.char.name} consumes the {food.name}{BC.OFF}.")
                 food.eat(self.game.char)
                 invs[i].vis_inv.remove(food)
 
-# TODO equip and unequip from and to inventories (including detached limbs)
+    def put_on(self):
+        invs = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+        self.dictprint(invs)
+        i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
+
+        if i in invs.keys() and i != "x":
+            inventory = self.listtodict(invs[i].vis_inv, add_x=True)
+            self.dictprint(inventory)
+            j = input(f"\n{BC.GREEN}Select an item to equip:{BC.OFF} ")
+
+            if j in inventory.keys() and j != "x":
+                gear = inventory[j]
+                limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
+                self.dictprint(limbs)
+                k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
+
+                if k in limbs.keys() and k != "x":
+                    limb = limbs[k]
+                    equipped = limb.equip(gear)
+                    if equipped:
+                        print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on their {limb.name}.{BC.OFF}")
+
+    def take_off(self):
+        """Remove equipment from a limb."""
+        limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
+        self.dictprint(limbs)
+        i = input(f"\n{BC.GREEN}Which limb would you like to unequip from?{BC.OFF} ")
+
+        if i in limbs.keys() and i != "x":
+            limb = limbs[i]
+            equipment = self.listtodict(limb.equipment, add_x=True)
+            self.dictprint(equipment)
+            j = input(f"\n{BC.GREEN}Select the gear you would like to remove:{BC.OFF} ")
+
+            if j in equipment.keys() and j != "x":
+                gear = equipment[j]
+                invs = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+                self.dictprint(invs)
+                k = input(f"\n{BC.GREEN}Select an inventory to put the gear into:{BC.OFF} ")
+
+                if k in invs.keys() and k != "x":
+                    target_inv = invs[k]
+                    limb.equipment.remove(gear)
+                    target_inv.vis_inv.append(gear)
+                    print(f"{BC.CYAN}{self.game.char.name} removes the {gear.name} and places it in their {target_inv.name}.{BC.OFF}")
+
+
+
+
+
+
+
+# TODO equip and unequip from and to inventories
+# TODO (including detached limbs)

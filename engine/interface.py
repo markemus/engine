@@ -7,6 +7,9 @@ from . import controller
 from . import save
 
 
+# TODO equipping and unequipping armor and weapons
+# TODO game over and load game
+# TODO game stats sheet (kills, limbs lost?)
 class Interface:
     def __init__(self, game):
         self.cont = controller.Controller(game)
@@ -19,6 +22,8 @@ class Interface:
             "l": self.cont.desc,
             "e": self.cont.examine,
             "i": self.cont.inventory,
+            "p": self.cont.put_on,
+            "t": self.cont.take_off,
             "m": self.cont.map,
             "b": self.cont.borders,
             "w": self.cont.north,

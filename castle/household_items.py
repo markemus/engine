@@ -5,6 +5,13 @@ from engine import item as it
 
 class Blanket(it.Item):
     name = "blanket"
+    canwear = it.Item.canwear.copy()
+    covers = it.Item.covers.copy()
+    canwear["body"] = True
+    covers["body"] = True
+    armor = 1
+    descends = 0
+    level = 2
 
 class CandleStick(it.Item):
     name = "candlestick"
@@ -50,6 +57,14 @@ linens = {
     "color": ["blue", "green", "silver", "brown"],
     "color_scheme": "distinct",
     "texture": ["quilted", "patterned", "wool", "linen"],
+    "texture_scheme": "same",
+}
+
+prison_linens = {
+    "contains": [Pillow, Blanket],
+    "color": ["gray", "dingy", "brown"],
+    "color_scheme": "same",
+    "texture": ["wool", "linen"],
     "texture_scheme": "same",
 }
 

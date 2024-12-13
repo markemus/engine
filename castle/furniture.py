@@ -74,6 +74,13 @@ class Bed(pl.DisplayFurniture):
     count = (1, 3)
     vis_collections = [(hi.linens, (1, 2))]
 
+class BedPrison(pl.DisplayFurniture):
+    name = "bed"
+    color = ["gray", "brown", "dirty"]
+    texture = ["mattress"]
+    count = (1, 2)
+    vis_collections = [(hi.prison_linens, (1, 2))]
+
 class Dresser(pl.DisplayFurniture):
     name = "dresser"
     color = ["brown", "black", "white"]
@@ -102,10 +109,9 @@ class CabinetMetal(pl.DisplayFurniture):
 #     # - > table (settings x 6) teak, chair x 6 mahogany, walls x4 paneled
 
 
-# TODO-DONE add contentsets from household_items.
 
 
 # TODO vis_inv and invis_inv. vis_inv should be displayed in place.desc(),
 #  and objects with invis_inv should be marked with * in desc().
 
-# TODO-DONE interaction with objects with inventories (place and remove)
+# TODO furniture is getting the color and texture of the room? That doesn't seem right.

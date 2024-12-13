@@ -1,4 +1,4 @@
-"""A simple creature made of ethereal mist."""
+"""A simple creature made of ethereal mist and armor plate."""
 import engine.creature as cr
 from castle import suits
 
