@@ -54,7 +54,8 @@ class Controller:
 
             # TODO this is showing up in combat and it is a bug. Maybe dictprint needs some work.
             # Add star if item has inv or subelements
-            if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "subelements") and d[key].subelements) or (hasattr(d[key], "equipment") and d[key].equipment):
+            # if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "subelements") and d[key].subelements) or (hasattr(d[key], "equipment") and d[key].equipment):
+            if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
                 exstr = exstr + " *"
 
             print(exstr)
@@ -213,6 +214,7 @@ class Controller:
     def pick_weapon(self, weapons):
         weapons = self.listtodict(weapons)
         self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}")
+        # TODO crashes if not in keys(). Needs to be fixed across all functions
         weapon = weapons[input(f"{BC.GREEN}Pick a weapon:{BC.OFF}")]
         return weapon
 
@@ -288,3 +290,5 @@ class Controller:
                 food = edibles[j]
                 food.eat(self.game.char)
                 invs[i].vis_inv.remove(food)
+
+# TODO equip and unequip from and to inventories (including detached limbs)

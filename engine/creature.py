@@ -15,7 +15,7 @@ class Limb:
     Limbs are procedurally generated from the class template; limbs of the same class may still be
     very different objects."""
     name = "NO_NAME_LIMB"
-    wears = "generic"
+    wears = None
     base_hp = 10
     _armor = 1
     blocker = False
@@ -26,7 +26,6 @@ class Limb:
         self.texture = texture
         self.subelements = []
         self._elementGen()
-        # TODO-DECIDE One item of equipment only? Or separate armor and weapons?
         self.equipment = []
         # self.vis_inv = []
         self.hp = self.base_hp
@@ -111,6 +110,34 @@ class Limb:
                 print(f"{C.RED}The {who.name} cannot pick up the {self.name}.{C.OFF}")
         else:
             print(f"{C.RED}The {self.name} is not there.{C.OFF}")
+
+    # TODO grasping should be different than equipping? Everything should be carryable but should not give effects.
+    def equip(self, article):
+        """Put an Item (article) onto the Limb.
+        article.requires can specify a required tag as ("tag", amount).
+        article.level specifies the level it will be equipped at. Each Limb can only equip one Item at each level."""
+        equipped = False
+        if article.canwear[self.wears]:
+            if not article.requires or (hasattr(self, article.requires[0]) and (getattr(self, article.requires[0]) >= article.requires[1])):
+                # Check level if empty
+                already_equipped = [x for x in self.equipment if x.level == article.level]
+                if not already_equipped:
+                    # Insert equipment at proper level
+                    i = 0
+                    levels = [x.level for x in self.equipment]
+                    for i, level in enumerate(levels):
+                        if level > article.level:
+                            break
+                    self.equipment.insert(i, article)
+                    equipped = True
+                else:
+                    print(f"{C.RED}{self.name} already has a {already_equipped[0].name} equipped!{C.OFF}")
+            else:
+                print(f"{C.RED}{self.name} lacks the {article.requires[0]} ability!{C.OFF}")
+        else:
+            print(f"{C.RED}{self.name} cannot wear a {article.name}!{C.OFF}")
+
+        return equipped
 
     @property
     def armor(self):
@@ -207,16 +234,19 @@ class creature:
             for limb in limbs:
                 if limb.wears in suit["wears"].keys():
                     random.seed(seed)
-                    # Choose and construct
+                    # Choose and construct articles
                     article = suit["wears"][limb.wears]
                     if type(article) == tuple:
-                        article = random.choice(article)
-                        # print(article)
+                        articles = [random.choice(article)]
+                    elif type(article) == list:
+                        articles = article.copy()
+                    else:
+                        articles = [article]
 
-                    # Create article
-                    article = article(color=colors[limb.wears], texture=textures[limb.wears])
-                    # TODO add 'if item.requires = "tag", limb_check("tag")' (optional) so we can use grasp_check
-                    limb.equipment.append(article)
+                    for article in articles:
+                        # Create article
+                        article = article(color=colors[limb.wears], texture=textures[limb.wears])
+                        limb.equip(article)
         # Reset seed
         random.seed()
 
@@ -262,6 +292,8 @@ class creature:
 
         return limb_total
 
+    # TODO this is the way tag checks should work in general, and we should have a general function to check them.
+    #  use properties to set tag = 0 if subtags aren't there? We need hasattr to be supported... it's a bit messy.
     def grasp_check(self):
         """Grasps an item with the first available appendage."""
         graspHand = None

@@ -34,11 +34,11 @@ for x in adam_limbs:
 adams_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
-adam.subelements[0].limb_check("grasp")[0].equipment.append(adams_knife)
-adam.subelements[0].limb_check("grasp")[1].equipment.append(adams_pillowcase)
+adam.subelements[0].limb_check("grasp")[0].equip(adams_knife)
+adam.subelements[0].limb_check("grasp")[1].equip(adams_pillowcase)
 # TODO rework inventories so this potion can be looted by player.
 # Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
-c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].equipment.append(potions.ArmGrowthPotion())
+c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].equip(potions.ArmGrowthPotion())
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("dirty", "linen"))
 
 i = interface.Interface(t_game)

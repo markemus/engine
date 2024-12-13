@@ -1,14 +1,24 @@
 """Items are used by creatures as clothing, weapons, jewelry etc. Furniture is a special type of
 item that is used to fill rooms. Items have an inventory that can hold other items."""
+from collections import defaultdict
+
 from colorist import Color as C, BrightColor as BC
 
 
 # TODO not all items need inventories.
 # TODO interior and exterior inventories.
 class Item:
+    """name: Item's displayed name.
+    canwear: Item can be worn on Limbs with this 'wears' tag.
+    printcolor: display color.
+    requires: (tag, amount)- if Item requires a tag on a Limb to be equipped.
+    level: each Limb can only wear one Item per level (eg undershirt=1 and shirt=2)."""
     name = "item"
-    canwear = {"head": False, "body": False, "back": False, "arm": False, "hand": False, "leg": False}
+    canwear = defaultdict(lambda: False)
     printcolor = C.BLUE
+    # requires = (tag, amount) if needed- eg (grasp, 1)
+    requires = None
+    level = 1
 
     def __init__(self, color, texture):
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""
@@ -70,4 +80,4 @@ class Potion(Item):
         super().__init__(color="gray", texture="murky")
     def eat(self, creature):
         """Subclasses should define an effect on creature when creature drinks the potion."""
-        pass
+        print(f"{BC.CYAN}The {self.name} has no effect.{BC.OFF}")

@@ -204,5 +204,5 @@ class Castle:
 GameStyle.register(Castle)
 
 # TODO-DONE start level message
-# TODO start and end rooms (spawning player and bosses)
+# TODO-DONE start and end rooms (spawning player and bosses)
 # TODO prisoners should be injured and "abominized" (extra limbs)
