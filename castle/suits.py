@@ -31,96 +31,150 @@ import engine.suits_and_collections as sc
 class Boot(i.Item):
     name = "boot"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["foot"] = True
+    covers["foot"] = True
     armor = 2
     level = 2
+    descends = 0
 
 class Bracer(i.Item):
     name = "bracer"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["arm"] = True
+    covers["arm"] = True
     armor = 1
     level = 2
+    descends = 0
 
 class Chainmail(i.Item):
     name = "chainmail"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["body"] = True
+    covers["body"] = True
     armor = 6
     level = 2
+    descends = 0
 
 class Gauntlet(i.Item):
     name = "gauntlet"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["right hand"] = True
     canwear["left hand"] = True
+    covers["right hand"] = True
+    covers["left hand"] = True
+    covers["finger"] = True
+    covers["thumb"] = True
     armor = 2
     level = 2
+    descends = 1
 
 class Greave(i.Item):
     name = "greave"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["leg"] = True
+    covers["leg"] = True
     armor = 2
     level = 2
+    descends = 0
 
 class Helm(i.Item):
     name = "helm"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["head"] = True
+    covers["head"] = True
+    covers["eye"] = True
+    covers["ear"] = True
+    covers["nose"] = True
+    covers["mouth"] = True
+    covers["teeth"] = True
     armor = 4
     level = 2
+    descends = 2
 
 class Shield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["back"] = True
     canwear["left hand"] = True
+    covers["back"] = True
+    covers["left hand"] = True
+    covers["finger"] = True
+    covers["thumb"] = True
     armor = 4
     level = 3
+    descends = 1
 
 # Clothing
 class Apron(i.Item):
     name = "apron"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["body"] = True
+    covers["body"] = True
+    covers["leg"] = True
     level = 2
+    descends = 1
 
 class ChefHat(i.Item):
     name = "chef hat"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["head"] = True
+    covers["head"] = True
     level = 2
+    descends = 0
 
 class Hose(i.Item):
     name = "hose"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["leg"] = True
+    covers["leg"] = True
     level = 1
+    descends = 0
 
 class Shoe(i.Item):
     name = "boot"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["foot"] = True
+    covers["foot"] = True
     level = 2
+    descends = 0
 
 class Slipper(i.Item):
     name = "slipper"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["foot"] = True
+    covers["foot"] = True
     level = 2
+    descends = 0
 
 class Tunic(i.Item):
     name = "tunic"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["body"] = True
+    covers["body"] = True
     level = 1
+    descends = 0
 
 class Clout(i.Item):
     name = "clout"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["body"] = True
+    covers["body"] = True
     level = 1
+    descends = 0
 
 
 # Jewelry
@@ -191,15 +245,27 @@ class Sword(i.Item):
 class Blindfold(i.Item):
     name = "blindfold"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["head"] = True
+    covers["head"] = True
+    covers["eye"] = True
     see = -2
     level = 1
+    descends = 1
 
 class SkinMask(i.Item):
     name = "human face"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["head"] = True
+    covers["head"] = True
+    covers["ear"] = True
+    covers["eye"] = True
+    covers["nose"] = True
+    covers["mouth"] = True
+    covers["teeth"] = True
     level = 1
+    descends = 3
 
 # TODO add third _scheme option- more than distinct, give each element a unique scheme
 #  (distinct for matching gloves, unique for separate rings)

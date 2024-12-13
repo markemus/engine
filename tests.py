@@ -117,14 +117,35 @@ class TestCastle():
         import castle.castle_style as cs
         import castle.suits as su
 
-        from castle.goblin import Goblin
+        from castle.goblin import ServantGoblin
         room = cs.PlayerCell(level=None)
-        g = Goblin(location=room)
+        g = ServantGoblin(location=room)
         s = su.Shank(color="gray", texture="iron")
         g.grasp(s)
         assert g.grasp_check().grasped == s
         g.ungrasp(s)
         assert g.grasp_check().grasped is None
+
+    def test_return_from_depth(self):
+        from castle.goblin import Goblin
+        g = Goblin(None)
+        subelem_names = [x.name for x in g.subelements[0].return_from_depth(2)]
+        assert "right hand" in subelem_names
+        assert "finger" not in subelem_names
+
+    def test_covers(self):
+        """Tests that items cover lower limbs as they're supposed to."""
+        import castle.castle_style as cs
+        import castle.suits as su
+
+        from castle.goblin import Goblin
+        Goblin.suits = [su.testsuit]
+        room = cs.PlayerCell(level=None)
+        g = Goblin(location=room)
+        head = g.subelements[0].subelements[0]
+        assert head.equipment[0].descends == 2
+        # Helm should cover teeth as well
+        assert head.subelements[4].covers[0] == head.covers[0]
 
 
 class TestGeneral:

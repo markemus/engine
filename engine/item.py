@@ -10,11 +10,13 @@ from colorist import Color as C, BrightColor as BC
 class Item:
     """name: Item's displayed name.
     canwear: Item can be worn on Limbs with this 'wears' tag.
+    covers: Item will cover lower Limbs with this 'wears' tag (eg glove is worn on hand and covers hand+fingers).
     printcolor: display color.
     requires: (tag, amount)- if Item requires a tag on a Limb to be equipped.
     level: each Limb can only wear one Item per level (eg undershirt=1 and shirt=2)."""
     name = "item"
     canwear = defaultdict(lambda: False)
+    covers = defaultdict(lambda: False)
     printcolor = C.BLUE
     # requires = (tag, amount) if needed- eg (grasp, 1)
     requires = None
@@ -24,6 +26,7 @@ class Item:
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""
         # Subclasses should copy Item.canwear and then modify in class definition (before instantiation).
         self.canwear = self.canwear.copy()
+        self.covers = self.covers.copy()
         self.color = color
         self.texture = texture
 

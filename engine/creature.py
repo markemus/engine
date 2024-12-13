@@ -28,6 +28,7 @@ class Limb:
         self.subelements = []
         self._elementGen()
         self.equipment = []
+        self.covers = []
         # self.vis_inv = []
         self.hp = self.base_hp
 
@@ -130,6 +131,19 @@ class Limb:
                         if level > article.level:
                             break
                     self.equipment.insert(i, article)
+                    # Equipment should cover limb (and lower limbs if applicable).
+                    # Items that cover should always have a 'descend' tag.
+                    if hasattr(article, "descends"):
+                        potentially_cover = self.return_from_depth(article.descends)
+                        for subelement in potentially_cover:
+                            if article.covers[subelement.wears]:
+                                # Insert equipment at proper level
+                                i = 0
+                                levels = [x.level for x in subelement.covers]
+                                for i, level in enumerate(levels):
+                                    if level > article.level:
+                                        break
+                                subelement.covers.insert(i, article)
                     equipped = True
                 else:
                     print(f"{C.RED}{self.name} already has a {already_equipped[0].name} equipped!{C.OFF}")
@@ -139,6 +153,14 @@ class Limb:
             print(f"{C.RED}{self.name} cannot wear a {article.name}!{C.OFF}")
 
         return equipped
+
+    def return_from_depth(self, depth):
+        """Returns a list of all subelements down to 'depth' in the subelement tree."""
+        depth_elements = [self]
+        if depth:
+            for subelement in self.subelements:
+                depth_elements += subelement.return_from_depth(depth-1)
+        return depth_elements
 
     @property
     def armor(self):
