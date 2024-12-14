@@ -34,7 +34,6 @@ class Controller:
         keys = intkeys + strkeys
 
         for key in keys:
-            # TODO-DECIDE consider replacing str(key) with a colored string
             # Keys should always have the same (brown) color.
             kval = f"{C.YELLOW}{str(key)}{C.OFF}: "
             # if function
@@ -110,12 +109,12 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO-DONE consider input values other than those listed as "x"
+    # TODO consider input values other than those listed as "x" for all functions
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
         if self.game.char.limb_count("see") > 1:
-            # TODO-DONE gather vis_invs in room (not all elements)
+            # gather vis_invs in room (not all elements)
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
             your_inventories = self.game.char.subelements[0].find_invs()
             all_inventories = your_inventories + room_inventories
@@ -417,5 +416,5 @@ class Controller:
 
 
 
-# TODO equip and unequip from and to inventories
+# TODO-DONE equip and unequip from and to inventories
 # TODO (including detached limbs)

@@ -6,9 +6,6 @@ from colorist import BrightColor as BC
 from engine import ai
 
 # End of Loading Zone
-
-# TODO-DONE currently severed limbs cannot be transferred since they have no transfer function. Turn them into items? Inheritance?
-#  needs a severed tag. Can inherit from item, why not? Just don't let people move it if it's not severed.
 class Limb:
     """Body parts for Creatures. Store in a list in Creature object.
 
@@ -47,7 +44,7 @@ class Limb:
             countRange = random.randrange(potentialRange[0], potentialRange[1])
 
             # Create
-            # TODO-DECIDE should this use same color? Good for fingers, maybe not for horns.
+            # TODO-DECIDE should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
             for count in range(countRange):
                 elem = elemclass(self.color, self.texture)
                 self.subelements.append(elem)
@@ -69,7 +66,7 @@ class Limb:
         Used for gathering limbs for a task, eg. tag=grasp to pick up an item."""
         limb_total = []
 
-        # TODO don't allow this for items in eg backpack
+        # TODO-DONE don't allow this for items in eg backpack
         # Allows for items with that tag to be used as if they were a limb themselves.
         if hasattr(self, tag) or sum([hasattr(x, tag) for x in self.equipment]):
             limb_total.append(self)
@@ -119,7 +116,6 @@ class Limb:
         else:
             print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
-    # TODO-DONE grasping should be different than equipping? Everything should be carryable but should not give effects.
     def equip(self, article):
         """Put an Item (article) onto the Limb.
         article.requires can specify a required tag as ("tag", amount).
@@ -211,8 +207,6 @@ class Weapon(Limb):
 
         return damage, item
 
-# TODO-DONE check for eyes before seeing the room. Allow blindfolds!
-# TODO-DONE taking items from containers and storing them in inventory
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
@@ -323,7 +317,6 @@ class creature:
         nextRoom = self.location.borders[direction]
 
         if nextRoom is not None:
-            # TODO-DECIDE Currently each foot has 1/2 amble. Instead require two limbs for walking?
             if len(self.subelements[0].limb_check("amble")) >= 1:
                 currentRoom.removeCreature(self)
                 self.location = currentRoom.borders[direction]
@@ -366,7 +359,7 @@ class creature:
                     for thumb in hand.limb_check("t_grasp"):
                         t_grasp += thumb.t_grasp
 
-                    # TODO check that hand is empty. But can have a glove...
+                    # check that hand is empty.
                     if f_grasp >= 1 and t_grasp >= 1:
                         if not hand.grasped:
                             graspHand = hand

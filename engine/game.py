@@ -29,7 +29,7 @@ class Game(object):
             gennedLevel.level_text = levelstyle.level_text
             self.level_list.append(gennedLevel)
 
-        # TODO allow multiple exits from a level.
+        # TODO-DECIDE allow multiple exits from a level and other algorithm options (hallways?)
         # Connect levels to one another.
         for (l1, l2) in zip([None, ] + self.level_list, self.level_list):
             # Skip first level

@@ -8,8 +8,6 @@ class Combat:
     def __init__(self, char, cont):
         self.char = char
         self.cont = cont
-        # TODO-DONE combatAI should be attached to each creature instead.
-        # self.ai = CombatAI()
         self.blockers = None
 
     def fullCombat(self):
@@ -24,7 +22,7 @@ class Combat:
         # only one weapon per combat round
         for actor in creatures:
             # select best weapon
-            # TODO allow player to select their own weapon
+            # TODO-DONE allow player to select their own weapon
             weapons = self.get_weapons(actor)
             if weapons:
                 if actor is self.char:
@@ -62,6 +60,7 @@ class Combat:
         if limb:
             # TODO allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
             # TODO target color should change based on relationship to player (or team). Aggressor too.
+            # TODO don't allow player to target allies
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
@@ -86,7 +85,6 @@ class Combat:
 
         return used
 
-    # TODO-DONE blockers should not be the same list as weapons! Blockers should be isSurface instead.
     def get_weapons(self, actor):
         """Any limb that can cause damage directly or wield a weapon."""
         claws = actor.subelements[0].limb_check("damage")
@@ -133,7 +131,6 @@ class Combat:
 
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
-        # TODO-DONE separate block and armor into separate tags
         blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker]
         return blockers
 

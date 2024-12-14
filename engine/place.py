@@ -112,7 +112,6 @@ class Place:
                             self.borders["w"] = room
                         if relativeIndex == (0,2):
                             self.borders["e"] = room
-                    # TODO-DONE don't forget downwards rooms.
                     elif room.level != self.level:
                         self.borders[">"] = room
 
@@ -161,7 +160,7 @@ class Element:
 
         return text
 
-    # TODO-DECIDE doesn't check items. Just subelements. We should extend this search so that it can find
+    # TODO doesn't check items. Just subelements. We should extend this search so that it can find
     #  the real characteristics of the element- eg table canCatch. Think about future variations in how this
     #  (sort of) function can work.
     def elem_check(self, tag):

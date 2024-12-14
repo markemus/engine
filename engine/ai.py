@@ -9,8 +9,7 @@ class CombatAI:
     def target_creature(self):
         targets = []
 
-        # Gather
-        # TODO-DONE should only target opposing teams
+        # Gather targets
         for creature in self.get_target_creatures():
             if creature.team and (creature.team != self.creature.team):
                 targets.append(creature)
@@ -24,6 +23,7 @@ class CombatAI:
 
         return target
 
+    # TODO add minor chance a random limb will be targeted.
     def target_limb(self, target):
         best_weapon = None
         easiest_vital = None
@@ -51,8 +51,8 @@ class CombatAI:
 
         return chosen
 
-    # TODO limb not needed?
-    # TODO select_blockers(self)
+    # TODO the ai should decide if blocking is worthwhile, not block every attack.
+    # TODO-DONE select_blockers(self)
     def block(self, blockers):
         if len(blockers) > 0:
             # blocker = blockers[0]

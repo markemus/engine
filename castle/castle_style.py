@@ -77,8 +77,8 @@ class Cell(pl.Place):
 # TODO re-enable first combat
 class PlayerCell(Cell):
     """Spawning room for player."""
-    # creature_classes = [[(Goblin, 1)]]
-    creature_classes = []
+    creature_classes = [[(Goblin, 1)]]
+    # creature_classes = []
     furniture_classes = [fur.BedPrison]
 
 class DiningRoom(pl.Place):
@@ -204,6 +204,4 @@ class Castle:
 # TODO-DECIDE why is registration necessary? Couldn't we just get rid of it?
 GameStyle.register(Castle)
 
-# TODO-DONE start level message
-# TODO-DONE start and end rooms (spawning player and bosses)
 # TODO prisoners should be injured and "abominized" (extra limbs)

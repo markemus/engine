@@ -5,7 +5,6 @@ from collections import defaultdict
 from colorist import Color as C, BrightColor as BC
 
 
-# TODO-DONE not all items need inventories.
 # TODO interior and exterior inventories.
 class Item:
     """name: Item's displayed name.

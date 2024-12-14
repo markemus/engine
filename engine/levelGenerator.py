@@ -165,7 +165,6 @@ class levelGenerator:
         room1.addElement(door)
 
         # if first room generated
-        # TODO-DONE DOOR SHOULD CONNECT TO PREVIOUS LEVEL
         if room2 is None:
             pass
         else:

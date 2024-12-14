@@ -96,7 +96,6 @@ class Head(cr.Limb):
     vital = True
 
 # Arms
-# TODO-DECIDE how many fingers are really required to grasp?
 class Finger(cr.Limb):
     name = "finger"
     subelement_classes = []

@@ -7,7 +7,7 @@ from . import controller
 from . import save
 
 
-# TODO equipping and unequipping armor and weapons
+# TODO-DONE equipping and unequipping armor and weapons
 # TODO game over and load game
 # TODO game stats sheet (kills, limbs lost?)
 class Interface:
