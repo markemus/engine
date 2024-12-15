@@ -44,7 +44,7 @@ class Torso(cr.Limb):
 class Cat(cr.creature):
     classname = "cat"
     aggressive = False
-    team = None
+    team = "neutral"
     namelist = nm.names["cat"]
     baseElem = Torso
     colors = ["white", "tabby", "tortoiseshell", "gray"]

@@ -9,12 +9,12 @@ from castle.animated_armor import AnimatedArmor
 from castle.beholder import Beholder
 from castle.cat import Cat
 from castle.dog import Dog, Cerberus
-from castle.dwarf import Dwarf
-from castle.elf import Elf
+from castle.dwarf import Dwarf, PrisonerDwarf
+from castle.elf import Elf, PrisonerElf
 from castle import furniture as fur
 from castle.goblin import Goblin, ServantGoblin, GoblinCook
-from castle.hobbit import Hobbit
-from castle.human import Human, HumanKing
+from castle.hobbit import Hobbit, PrisonerHobbit
+from castle.human import Human, PrisonerHuman, HumanKing
 from castle.orc import Orc
 from engine.styles import LevelStyle, GameStyle, wall, floor, pillar
 
@@ -24,7 +24,8 @@ from engine.styles import LevelStyle, GameStyle, wall, floor, pillar
 cc = {
     "goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
     "servants": [(ServantGoblin, 1)],
-    "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 1), (Human, 5), (None, 3)],
+    "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 2), (Human, 2), (None, 3)],
+    "fantasy_prisoners": [(PrisonerDwarf, 2), (PrisonerElf, 2), (PrisonerHuman, 2), (PrisonerHobbit, 2), (None, 3)],
     "castle": [(AnimatedArmor, 3), (None, 1)],
     "kitchen": [(ServantGoblin, 3), (None, 1)],
     "animals_indoor": [(Cat, 2), (Dog, 2), (None, 3)],
@@ -69,7 +70,7 @@ class Cell(pl.Place):
     count = (5, 10)
     colors = ["unpainted", "grimy", "grey"]
     textures = ["stone", "concrete"]
-    creature_classes = [cc["fantasy_city"]]
+    creature_classes = [cc["fantasy_prisoners"]]
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
@@ -158,7 +159,7 @@ class TortureChamber(pl.Place):
     count = (1, 3)
     colors = ["black", "gray", "streaked", "dirty"]
     textures = ["stone", "dirt", "timber"]
-    creature_classes = [cc["fantasy_city"]]
+    creature_classes = [cc["fantasy_prisoners"], [(Goblin, 1)]]
     furniture_classes = [fur.Manacles, fur.TableWork, fur.Rack, fur.CabinetMetal]
     subelement_classes = [wall, floor]
 

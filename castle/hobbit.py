@@ -12,11 +12,20 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
 
+class PTorso(Torso):
+    subelement_classes = [cl.PHead, cl.PRArm, cl.PLArm, cl.PLeg]
+
+
 class Hobbit(cr.creature):
     classname = "hobbit"
-    team = "prisoner"
+    team = "neutral"
     namelist = nm.names["hobbit"]
     baseElem = Torso
     colors = ["white", "tan", "ruddy"]
     textures = ["skinned"]
+    suits = [suits.plainsuit]
+
+class PrisonerHobbit(Hobbit):
+    team = "prisoner"
+    baseElem = PTorso
     suits = [suits.prisonersuit]

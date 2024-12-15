@@ -11,7 +11,7 @@ class CombatAI:
 
         # Gather targets
         for creature in self.get_target_creatures():
-            if creature.team and (creature.team != self.creature.team):
+            if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):
                 targets.append(creature)
 
         # Pick

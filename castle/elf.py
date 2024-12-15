@@ -14,6 +14,10 @@ class Head(cr.Limb):
     wear = "head"
     vital = True
 
+class PHead(Head):
+    # Prisoners may have tentacles, but rarely.
+    subelement_classes = Head.subelement_classes.copy() + [(cl.PTentacle, None, None)]
+
 class Torso(cr.Limb):
     name = "torso"
     subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
@@ -21,11 +25,19 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
 
+class PTorso(Torso):
+    subelement_classes = [PHead, cl.PRArm, cl.PLArm, cl.PLeg]
+
 class Elf(cr.creature):
     classname = "elf"
-    team = "prisoner"
+    team = "neutral"
     namelist = nm.names["elf"]
     baseElem = Torso
     colors = ["pale", "white", "black"]
     textures = ["skinned"]
+    suits = [suits.plainsuit]
+
+class PrisonerElf(Elf):
+    team = "prisoner"
+    baseElem = PTorso
     suits = [suits.prisonersuit]

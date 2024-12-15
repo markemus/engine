@@ -56,7 +56,6 @@ class Controller:
             if pfunc:
                 exstr = pfunc(exstr, d[key])
 
-            # TODO-DONE this is showing up in combat and it is a bug. Maybe dictprint needs some work.
             if show_invs:
                 # Add star if item has inv or subelements
                 if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
@@ -67,7 +66,7 @@ class Controller:
 
     def desc(self):
         # Sight check
-        if self.game.char.limb_count("see") > 1:
+        if self.game.char.limb_count("see") >= 1:
             self.display_long_text(self.game.char.location.desc(full=False))
         else:
             print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
@@ -88,7 +87,7 @@ class Controller:
                 inv_elements = '\n  '.join([x.name for x in subelement.grasped.vis_inv])
                 inventory = inventory + f"{subelement.grasped.name}:\n  {BC.CYAN}{inv_elements}{BC.OFF}\n"
 
-        if gc.limb_count("see") > 1:
+        if gc.limb_count("see") >= 1:
             cs = f"\n{C.RED}Character Sheet{C.OFF}\n" \
                  f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
                  f"\n{C.RED}Weapons{C.OFF}\n" \
@@ -101,7 +100,7 @@ class Controller:
     def examine(self):
         """Desc for a particular creature or element in the room."""
         # Sight check
-        if self.game.char.limb_count("see") > 1:
+        if self.game.char.limb_count("see") >= 1:
             examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements, add_x=True)
             self.dictprint(examine_dict)
             i = input(f"{BC.GREEN}\nWho/what are you examining?{BC.OFF}")
@@ -116,7 +115,7 @@ class Controller:
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
-        if self.game.char.limb_count("see") > 1:
+        if self.game.char.limb_count("see") >= 1:
             # gather vis_invs in room (not all elements)
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
             your_inventories = self.game.char.subelements[0].find_invs()
@@ -151,7 +150,7 @@ class Controller:
                 input("")
 
     def map(self):
-        if self.game.char.limb_count("see") > 1:
+        if self.game.char.limb_count("see") >= 1:
             self.game.current_level.printMap(self.game.char)
         else:
             print("You cannot see well enough to read the map.")
@@ -201,7 +200,7 @@ class Controller:
     def check_safety(self):
         """Checks whether the current room is safe."""
         for creature in self.game.char.location.creatures:
-            if creature.aggressive and (creature.team != self.game.char.team):
+            if creature.aggressive and (creature.team != self.game.char.team) and (self.game.char.team != "neutral") and (creature.team != "neutral"):
                 return False
         return True
 

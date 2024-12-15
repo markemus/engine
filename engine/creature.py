@@ -35,19 +35,21 @@ class Limb:
             if type(elemclass) == tuple:
                 elemclass = random.choice(elemclass)
 
-            # Count
-            try:
-                potentialRange = elemclass.appendageRange
-            except AttributeError:
-                raise AttributeError("'{0}' : {1} object has no attribute 'appendageRange'".format(elemclass.name, elemclass))
-            
-            countRange = random.randrange(potentialRange[0], potentialRange[1])
+            # Allows for optional limbs with (elemclass1, elemclass2, None)
+            if elemclass is not None:
+                # Count
+                try:
+                    potentialRange = elemclass.appendageRange
+                except AttributeError:
+                    raise AttributeError("'{0}' : {1} object has no attribute 'appendageRange'".format(elemclass.name, elemclass))
 
-            # Create
-            # TODO-DECIDE should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
-            for count in range(countRange):
-                elem = elemclass(self.color, self.texture)
-                self.subelements.append(elem)
+                countRange = random.randrange(potentialRange[0], potentialRange[1])
+
+                # Create
+                # TODO-DECIDE should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
+                for count in range(countRange):
+                    elem = elemclass(self.color, self.texture)
+                    self.subelements.append(elem)
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""

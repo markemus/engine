@@ -12,7 +12,7 @@ class Snout(cr.Limb):
     appendageRange = (1, 2)
     wears = "snout"
 
-# TODO-cerberus's head should be semi_vital- only vital if ALL copies are removed. Or just make vital work that way?
+# TODO-DONE-cerberus's head should be semi_vital- only vital if ALL copies are removed. Or just make vital work that way?
 class Head(cr.Limb):
     name = "head"
     subelement_classes = [cl.Ear, cl.Eye, Snout]

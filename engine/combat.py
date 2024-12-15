@@ -13,6 +13,8 @@ class Combat:
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
+        # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player)
+        creatures = [creature for creature in creatures if creature.team != "neutral"]
 
         # Blockers must be reset each round.
         self.blockers = {}

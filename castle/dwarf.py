@@ -21,11 +21,23 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
 
+class PHead(Head):
+    # Prisoners may have tentacles, but rarely.
+    subelement_classes = Head.subelement_classes.copy() + [(cl.PTentacle, None, None)]
+class PTorso(Torso):
+    subelement_classes = [PHead, cl.PRArm, cl.PLArm, cl.PLeg]
+
+# TODO add neutrals to combat (untargeted and don't fight)
 class Dwarf(cr.creature):
     classname = "dwarf"
-    team = "prisoner"
+    team = "neutral"
     namelist = nm.names["dwarf"]
     baseElem = Torso
     colors = ["brown", "pale", "ruddy"]
     textures = ["skinned"]
+    suits = [suits.plainsuit]
+
+class PrisonerDwarf(Dwarf):
+    team = "prisoner"
+    baseElem = PTorso
     suits = [suits.prisonersuit]

@@ -139,6 +139,10 @@ class RArm(cr.Limb):
     wears = "arm"
     blocker = True
 
+class PRArm(RArm):
+    """Prisoner's right arm- transmogrified."""
+    appendageRange = (0, 4)
+
 class LArm(cr.Limb):
     name = "arm"
     subelement_classes = [LHand]
@@ -146,6 +150,10 @@ class LArm(cr.Limb):
     appendageRange = (1, 2)
     wears = "arm"
     blocker = True
+
+class PLArm(LArm):
+    """Prisoner's left arm- transmogrified"""
+    appendageRange = (0, 4)
 
 # Legs
 class Foot(cr.Limb):
@@ -163,6 +171,10 @@ class Leg(cr.Limb):
     appendageRange = (2, 3)
     wears = "leg"
 
+class PLeg(Leg):
+    """Prisoner's leg- transmogrified."""
+    appendageRange = (0, 9)
+
 # Tentacles
 class Tentacle(cr.Limb):
     name = "tentacle"
@@ -172,3 +184,12 @@ class Tentacle(cr.Limb):
     grasp = 1
     f_grasp = 1
     t_grasp = 1
+
+# TODO potion of tentacle growth
+class PTentacle(Tentacle):
+    """Prisoners only have a small number of tentacles- no big deal."""
+    appendageRange = (1, 3)
+
+class PHead(Head):
+    # Prisoners may have tentacles, but rarely.
+    subelement_classes = Head.subelement_classes.copy() + [(PTentacle, None, None)]
