@@ -403,10 +403,12 @@ class creature:
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
-        # TODO vital should be returned by remove_limb. We should also check if other copies of the vital organ remain (if so, do not die)
+        # TODO-DONE vital should be returned by remove_limb. We should also check if other copies of the vital organ remain (if so, do not die)
         # Losing a vital limb kills the creature
-        if hasattr(limb, "vital"):
-            if limb.vital:
+        if hasattr(limb, "vital") and limb.vital:
+            vitals = self.subelements[0].limb_check("vital")
+            # We check if other vital limbs share this exact class (eg two heads, two hearts).
+            if not sum([vital.__class__ == limb.__class__ for vital in vitals]):
                 self.die()
 
     def speak(self, words, listener):
