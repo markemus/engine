@@ -54,6 +54,7 @@ class CombatAI:
         return chosen
 
     # TODO the ai should decide if blocking is worthwhile, not block every attack.
+    # TODO ai should pick a smart blocking limb (most hp*armor? least damage?)
     # TODO-DONE select_blockers(self)
     def block(self, blockers):
         if len(blockers) > 0:
@@ -67,7 +68,10 @@ class CombatAI:
     def get_target_creatures(self):
         targets = self.creature.location.get_creatures()
 
+        # Remove self
         if self.creature in targets:
             targets.remove(self.creature)
+        # Remove friendly creatures
+        targets = [c for c in targets if c.team != self.creature.team and c.team != "neutral"]
 
         return targets

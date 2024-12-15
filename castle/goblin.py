@@ -43,4 +43,4 @@ class ServantGoblin(Goblin):
 class GoblinCook(Goblin):
     classname = "goblin chef"
     team = "monster"
-    suits = [suits.chefsuit, suits.cookery]
+    suits = [suits.chefsuit, suits.chefface, suits.cookery]

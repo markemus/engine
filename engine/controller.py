@@ -117,7 +117,8 @@ class Controller:
         # Sight check
         if self.game.char.limb_count("see") >= 1:
             # gather vis_invs in room (not all elements)
-            room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
+            # room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
+            room_inventories = self.game.char.location.find_invs()
             your_inventories = self.game.char.subelements[0].find_invs()
             all_inventories = your_inventories + room_inventories
             inventory_dict = self.listtodict(all_inventories)
@@ -126,11 +127,20 @@ class Controller:
 
             i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF}")
             if i != "x" and i in inventory_dict.keys():
-                origin_inv = inventory_dict[i].vis_inv
+                origin_inv = inventory_dict[i]
+                if hasattr(origin_inv, "vis_inv"):
+                    origin_inv = origin_inv.vis_inv
+                elif hasattr(origin_inv, "equipment"):
+                    origin_inv = origin_inv.equipment
                 del inventory_dict[i]
+
                 j = input(f"\n{BC.GREEN}Second, which inventory would like to transfer to (x to cancel)?{BC.OFF}")
                 if j != "x" and j in inventory_dict.keys():
-                    target_inv = inventory_dict[j].vis_inv
+                    target_inv = inventory_dict[j]
+                    if hasattr(target_inv, "vis_inv"):
+                        target_inv = target_inv.vis_inv
+                    elif hasattr(target_inv, "equipment"):
+                        target_inv = target_inv.equipment
                     self.dictprint(self.listtodict(origin_inv))
                     k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF}")
                     if k != "x" and 0 <= int(k) < len(origin_inv):
@@ -225,7 +235,7 @@ class Controller:
     def pick_weapon(self, weapons):
         weapons = self.listtodict(weapons)
         # self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}" if y != "Cancel" else x)
-        self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}")
+        self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name}) {C.RED}({y.damage[0]}){C.OFF}")
         # TODO-DONE crashes if not in keys(). Needs to be fixed across all functions
         i = None
         while i not in weapons.keys():

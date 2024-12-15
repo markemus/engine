@@ -12,6 +12,7 @@ class Limb:
     Limbs are procedurally generated from the class template; limbs of the same class may still be
     very different objects."""
     name = "NO_NAME_LIMB"
+    subelement_classes = None
     wears = None
     base_hp = 10
     _armor = 1
@@ -30,6 +31,7 @@ class Limb:
         self.hp = self.base_hp
 
     def _elementGen(self):
+        """Creates subelements from the subelement classes specified in the class definition."""
         for elemclass in self.subelement_classes:
             # Choose
             if type(elemclass) == tuple:
@@ -81,6 +83,9 @@ class Limb:
     def find_invs(self):
         """Find all inventories lower in the body hierarchy."""
         invs = []
+
+        if self.equipment:
+            invs.append(self)
 
         # Equipped items
         for item in self.equipment:

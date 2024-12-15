@@ -286,14 +286,24 @@ jewelry = {
 }
 
 cookery = {
-    "wears": {
-        "head": SkinMask},
     "grasps": {
         "right hand": Cleaver,
         "left hand": Cleaver},
+    "wears": {},
     "color": ["grimy", "bloody", "rusty"],
     "color_scheme": "same",
     "texture": ["iron"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+chefface = {
+    "wears": {
+        "head": SkinMask},
+    "grasps": {},
+    "color": ["bloody", "stretched", "stitched", "pale"],
+    "color_scheme": "same",
+    "texture": ["skin"],
     "texture_scheme": "same",
     "full": True,
 }

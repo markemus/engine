@@ -34,9 +34,15 @@ class Leg(cr.Limb):
     appendageRange = (4, 5)
     wears = "leg"
 
+class Tail(cr.Limb):
+    name = "tail"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (1, 2)
+
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, Leg]
+    subelement_classes = [Head, Leg, Tail]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

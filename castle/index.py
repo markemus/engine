@@ -4,6 +4,8 @@ Run from toplevel engine/ directory as 'python3 -m castle.index' so that the pac
 the engine.engine subpackage."""
 import textwrap
 
+from colorist import BrightColor as BC, Color as C
+
 from engine import game
 from engine import interface
 
@@ -15,6 +17,17 @@ from castle import suits
 
 
 # Main
+splash = f"""
+------------------------
+|     {C.RED}Escape From{C.OFF}      |
+|    {C.RED}Castle  Black{C.OFF}     |
+|                      |
+|  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
+|     by Markemus      |
+------------------------
+"""
+print(splash)
+
 # Generate a game using the Castle template.
 t_game = game.Game("The Howling Manor", castle_style.Castle)
 thisLevel = t_game.level_list[0]

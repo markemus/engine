@@ -132,6 +132,16 @@ class Place:
     def get_level(self):
         return self.level
 
+    def find_invs(self):
+        """Find all inventories in the room (except creature inventories)."""
+        invs = []
+
+        for element in self.elements:
+            invs += element.find_invs()
+
+        return invs
+
+
 
 class Element:
     name = "NO_NAME_ELEM"
@@ -174,6 +184,15 @@ class Element:
 
         return elem_total
 
+    def find_invs(self):
+        """Find all inventories in the room (except creature inventories)."""
+        invs = []
+
+        for element in self.subelements:
+            invs += element.find_invs()
+
+        return invs
+
     def addBorder(self, place):
         if place not in self.borders:
             self.borders.append(place)
@@ -200,6 +219,20 @@ class Platform(Element):
                     text += "\n" + elem.desc(offset=offset+1)
 
         return text
+
+    def find_invs(self):
+        """Find all inventories in the room (except creature inventories)."""
+        invs = []
+        # Since Platforms have a vis_inv
+        invs += [self]
+
+        for element in self.subelements:
+            invs += element.find_invs()
+
+        for item in self.vis_inv:
+            invs += item.find_invs()
+
+        return invs
 
 class Furniture(Element):
     visible = True

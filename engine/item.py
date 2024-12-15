@@ -52,6 +52,19 @@ class Item:
 
         return text
 
+    def find_invs(self):
+        """Find all inventories lower than this item in the hierarchy."""
+        invs = []
+
+        # This will only occur if Item has a vis_inv, but we need it to not crash for all Items. Hacky.
+        if hasattr(self, "vis_inv"):
+            if self.vis_inv:
+                invs.append(self)
+            for item in self.vis_inv:
+                invs += item.find_invs()
+
+        return invs
+
 
 # TODO function to allow char to check invis_inv. For now just use vis_inv.
 class Container(Item):
