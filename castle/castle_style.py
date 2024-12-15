@@ -74,7 +74,7 @@ class Cell(pl.Place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
-# TODO inventory redo- add pillowcase to PlayerCell and remove inventory from player. (can carry in left hand or third hand)
+# TODO-DONE inventory redo- add pillowcase to PlayerCell and remove inventory from player. (can carry in left hand or third hand)
 # TODO re-enable first combat
 class PlayerCell(Cell):
     """Spawning room for player."""
@@ -113,7 +113,7 @@ class Kitchen(pl.Place):
     colors = ["dirty", "smoke-stained", "unpainted", "gray", "beige"]
     textures = ["brick", "stone"]
     creature_classes = [[(GoblinCook, 1)], [(Cat, 1)]]
-    furniture_classes = [fur.Stove, fur.CabinetElegant]
+    furniture_classes = [fur.Stove, fur.CabinetElegant, fur.KitchenCounter]
     subelement_classes = [wall, floor]
 
 class Den(pl.Place):
@@ -179,7 +179,8 @@ LevelStyle.register(BedroomFloor)
 class Dungeon:
     level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.{BC.OFF}"""
     room_classes = [TortureChamber, Cell]
-    start_room = PlayerCell
+    # start_room = PlayerCell
+    start_room = Kitchen
     end_room = Guardroom
     creature_classes = [[(Goblin, 3), (None, 3)]]
 
@@ -205,7 +206,6 @@ class Castle:
     levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]
     links = [(0, 1), (1, 2), (2, 3)]
 
-# TODO-DECIDE why is registration necessary? Couldn't we just get rid of it?
 GameStyle.register(Castle)
 
-# TODO prisoners should be injured and "abominized" (extra limbs)
+# TODO-DONE prisoners should be injured and "abominized" (extra limbs)

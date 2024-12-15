@@ -22,3 +22,18 @@ def suit_to_collection(suit, model):
         del collection["grasps"]
 
     return collection
+
+def limbs_to_collection(limbs, model, color_scheme="distinct", texture_scheme="distinct", full=True):
+    """Converts a list of Limbs into a Collection of Limbs (for display in an Item or Furniture).
+    Limbs will have colors and textures taken from the model, so you probably want Limbs from
+    that same Creature class."""
+    collection = {
+        "contains": limbs,
+        "color": model.colors.copy(),
+        "color_scheme": color_scheme,
+        "texture": model.textures.copy(),
+        "texture_scheme": texture_scheme,
+        "full": full,
+    }
+
+    return collection

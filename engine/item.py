@@ -1,6 +1,7 @@
 """Items are used by creatures as clothing, weapons, jewelry etc. Furniture is a special type of
 item that is used to fill rooms. Items have an inventory that can hold other items."""
 from collections import defaultdict
+import random
 
 from colorist import Color as C, BrightColor as BC
 
@@ -54,17 +55,59 @@ class Item:
 
 # TODO function to allow char to check invis_inv. For now just use vis_inv.
 class Container(Item):
+    invis_collections = []
     """Containers contain hidden inventories."""
     def __init__(self, color, texture):
         super().__init__(color=color, texture=texture)
         self.invis_inv = []
+        self._fill_invis()
+
+    # TODO the _fill function should be a function, not a method, and should be generic for vis and invis_inv.
+    #  Then we can use the same implementation for Items and Elements
+    def _fill_invis(self):
+        """Put items in furniture upon creation."""
+        if self.invis_collections:
+            for (item_collection, count) in self.invis_collections:
+                for n in range(*count):
+                    if item_collection["color_scheme"] == "distinct":
+                        # print("\n", item_collection["contains"])
+                        colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
+                    else:
+                        # Single color for all items
+                        c = random.choice(item_collection["color"])
+                        colors = {key: c for key in item_collection["contains"]}
+
+                    # Texture is same approach as color
+                    if item_collection["texture_scheme"] == "distinct":
+                        textures = {key: random.choice(item_collection["texture"]) for key in item_collection["contains"]}
+                    else:
+                        t = random.choice(item_collection["texture"])
+                        textures = {key: t for key in item_collection["contains"]}
+
+                    # Create items
+                    item_classes = item_collection["contains"].copy()
+                    if not item_collection["full"]:
+                        random.shuffle(item_classes)
+                        item_classes = item_classes[:random.randrange(0, len(item_classes))]
+
+                    for item_class in item_classes:
+                        c = colors[item_class]
+                        t = textures[item_class]
+                        if isinstance(item_class, tuple):
+                            item_class = random.choice(item_class)
+
+                        item = item_class(c, t)
+                        self.invis_inv.append(item)
+
 
 
 class Holder(Item):
     """Holders have a visible inventory."""
+    vis_collections = []
     def __init__(self, color, texture):
         super().__init__(color=color, texture=texture)
         self.vis_inv = []
+        self._fill_vis()
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
@@ -75,12 +118,45 @@ class Holder(Item):
 
         return text
 
+    def _fill_vis(self):
+        """Put items in furniture upon creation."""
+        if self.vis_collections:
+            for (item_collection, count) in self.vis_collections:
+                for n in range(*count):
+                    if item_collection["color_scheme"] == "distinct":
+                        # print("\n", item_collection["contains"])
+                        colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
+                    else:
+                        # Single color for all items
+                        c = random.choice(item_collection["color"])
+                        colors = {key: c for key in item_collection["contains"]}
+
+                    # Texture is same approach as color
+                    if item_collection["texture_scheme"] == "distinct":
+                        textures = {key: random.choice(item_collection["texture"]) for key in item_collection["contains"]}
+                    else:
+                        t = random.choice(item_collection["texture"])
+                        textures = {key: t for key in item_collection["contains"]}
+
+                    # Create items
+                    for item_class in item_collection["contains"]:
+                        c = colors[item_class]
+                        t = textures[item_class]
+                        if isinstance(item_class, tuple):
+                            item_class = random.choice(item_class)
+
+                        item = item_class(c, t)
+                        self.vis_inv.append(item)
+
+
 
 class Potion(Item):
     name = "potion"
     edible = True
-    def __init__(self):
-        super().__init__(color="gray", texture="murky")
+    def __init__(self, color="gray", texture="murky"):
+        """Color and texture are accepted but ignored."""
+        super().__init__(color=color, texture=texture)
+
     def eat(self, creature):
         """Subclasses should define an effect on creature when creature drinks the potion."""
         print(f"{BC.CYAN}The {self.name} has no effect.{BC.OFF}")

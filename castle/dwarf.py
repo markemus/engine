@@ -27,7 +27,7 @@ class PHead(Head):
 class PTorso(Torso):
     subelement_classes = [PHead, cl.PRArm, cl.PLArm, cl.PLeg]
 
-# TODO add neutrals to combat (untargeted and don't fight)
+# TODO-DONE add neutrals to combat (untargeted and don't fight)
 class Dwarf(cr.creature):
     classname = "dwarf"
     team = "neutral"

@@ -241,7 +241,12 @@ class DisplayFurniture(Platform):
                         textures = {key: t for key in item_collection["contains"]}
 
                     # Create items
-                    for item_class in item_collection["contains"]:
+                    item_classes = item_collection["contains"].copy()
+                    if not item_collection["full"]:
+                        random.shuffle(item_classes)
+                        item_classes = item_classes[:random.randrange(0, len(item_classes))]
+
+                    for item_class in item_classes:
                         c = colors[item_class]
                         t = textures[item_class]
                         if isinstance(item_class, tuple):

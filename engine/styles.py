@@ -12,6 +12,9 @@ from . import place as pl
 
 class LevelStyle(abc.ABC):
     """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
+    level_text = None
+    start_room = None
+    end_room = None
     room_classes = []
     creature_classes = []
 

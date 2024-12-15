@@ -40,6 +40,14 @@ class Stove(pl.DisplayFurniture):
     color = ["black", "gray", "white"]
     texture = ["steel", "brick"]
     count = (1, 2)
+    vis_collections = [(hi.cookery, (1, 5))]
+
+class KitchenCounter(pl.DisplayFurniture):
+    name = "counter"
+    color = ["black", "gray", "granite", "marble"]
+    texture = ["stone"]
+    count = (1, 4)
+    vis_collections = [(hi.cooking_tools, (1, 2)), (hi.cooking_utensils, (0, 2)), (hi.serving_utensils, (0, 2))]
 
 class Throne(pl.Furniture):
     name = "throne"
@@ -58,7 +66,7 @@ class Table(pl.DisplayFurniture):
     color = ["black", "red", "green"]
     texture = ["granite", "marble", "wood"]
     count = (1, 2)
-    vis_collections = [(hi.silver, (0, 6))]
+    vis_collections = [(hi.silver, (0, 6)), (hi.serving_utensils, (1, 3))]
 
 class TableWork(pl.DisplayFurniture):
     name = "table"

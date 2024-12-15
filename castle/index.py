@@ -20,6 +20,7 @@ t_game = game.Game("The Howling Manor", castle_style.Castle)
 thisLevel = t_game.level_list[0]
 
 # Character creation
+# TODO adam should be custom class with custom starting equipment (clout and pillowcase, but not transmogrified).
 adam = human.Human(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
@@ -42,7 +43,7 @@ adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 
-adam.team = "neutral"
+# adam.team = "neutral"
 
 i = interface.Interface(t_game)
 i.state = "fight"
