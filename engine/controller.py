@@ -17,9 +17,10 @@ class Controller:
 
         return d
 
-    def dictprint(self, d, pfunc=None):
+    def dictprint(self, d, pfunc=None, show_invs=False):
         """Pretty print a dictionary. Useful for displaying command sets for user input.
-        pfunc amends the final string before printing."""
+        pfunc amends the final string before printing.
+        show_invs puts a star next to items with inventories."""
         intkeys = []
         strkeys = []
 
@@ -54,11 +55,11 @@ class Controller:
             if pfunc:
                 exstr = pfunc(exstr, d[key])
 
-            # TODO this is showing up in combat and it is a bug. Maybe dictprint needs some work.
-            # Add star if item has inv or subelements
-            # if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "subelements") and d[key].subelements) or (hasattr(d[key], "equipment") and d[key].equipment):
-            if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
-                exstr = exstr + " *"
+            # TODO-DONE this is showing up in combat and it is a bug. Maybe dictprint needs some work.
+            if show_invs:
+                # Add star if item has inv or subelements
+                if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
+                    exstr = exstr + " *"
 
             print(exstr)
 
@@ -109,7 +110,7 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO consider input values other than those listed as "x" for all functions
+    # TODO-DONE consider input values other than those listed as "x" for all functions
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
@@ -153,6 +154,7 @@ class Controller:
         else:
             print("You cannot see well enough to read the map.")
 
+    # TODO get rid of this function
     def borders(self):
         borders = self.game.char.location.borders
         for direction in borders.keys():
@@ -208,20 +210,29 @@ class Controller:
 
         self.dictprint(targets)
 
-        i = input(f"{BC.GREEN}\nWho are you attacking {C.YELLOW}(x for none){C.GREEN}?{BC.OFF}")
+        i = input(f"{BC.GREEN}\nWho are you attacking {C.YELLOW}(x for none){BC.GREEN}?{BC.OFF} ")
 
-        if i != "x":
+        if i != "x" and i in targets.keys():
             defender = targets[i]
+            print(f"{C.RED}{self.game.char.name}{C.OFF} aims at {C.YELLOW}{defender.name}{C.OFF}!")
         else:
             defender = False
+            # print(f"{C.RED}{self.game.char.name}{C.OFF} withholds their blow.")
 
         return defender
 
     def pick_weapon(self, weapons):
         weapons = self.listtodict(weapons)
+        # self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}" if y != "Cancel" else x)
         self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}")
-        # TODO crashes if not in keys(). Needs to be fixed across all functions
-        weapon = weapons[input(f"{BC.GREEN}Pick a weapon:{BC.OFF}")]
+        # TODO-DONE crashes if not in keys(). Needs to be fixed across all functions
+        i = None
+        while i not in weapons.keys():
+            i = input(f"{BC.GREEN}Pick a weapon:{BC.OFF}")
+            if i in weapons.keys():
+                weapon = weapons[i]
+            else:
+                print(f"{C.RED}{i} is not a recognized weapon! You must pick a weapon.{C.OFF}")
         return weapon
 
     def pick_limb(self, defender):
@@ -240,9 +251,9 @@ class Controller:
 
         i = input(f"\n{C.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.GREEN}? {C.OFF}")
 
-        # TODO exception handling for this and other similar controller functions when non-indexed key is pressed.
+        # TODO-DONE exception handling for this and other similar controller functions when non-indexed key is pressed.
         #  Easiest way is to just treat all unknown as x.
-        if i != "x":
+        if i != "x" and i in limbs.keys():
             limb = limbs[i]
         else:
             limb = False
@@ -264,7 +275,7 @@ class Controller:
 
         i = input(f"\n{BC.GREEN}Which {C.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF}")
 
-        if i != "x":
+        if i != "x" and i in blockers.keys():
             blocker = blockers[i]
         else:
             blocker = False

@@ -77,6 +77,8 @@ class Combat:
                 limb = blocker
                 self.blockers[target].remove(blocker)
                 print(f"{C.YELLOW}{target.name}{C.OFF} blocks the blow with their {BC.RED}{blocker.name}{BC.OFF}!")
+            else:
+                print(f"{C.YELLOW}{target.name}{C.OFF} accepts the blow.")
             
             self.attack(target, limb, weapon)
             used = True

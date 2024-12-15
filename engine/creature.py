@@ -188,22 +188,21 @@ class Weapon(Limb):
         """This will return the amount of damage and the item that is causing it.
         This is important for the UI and possibly for other calculations.
 
-        When checking damage, just use limb.damage[0] to reference damage alone."""
+        When checking damage, use limb.damage[0] to reference damage alone."""
         damage = self._damage
         item = self
 
-        # EG gauntlets, spiked gloves, fake fangs
-        for _item in self.equipment:
+        # EG gauntlets, spiked gloves, fake fangs. self.grasped is eg swords
+        for _item in self.equipment + [self.grasped]:
             if hasattr(_item, "damage"):
-                # TODO-DECIDE what about adding damage? eg spikes on tails. Or swords on strong arms.
                 if _item.damage > damage:
                     damage = _item.damage
                     item = _item
 
         # eg swords
-        if self.grasped and self.grasped.damage > damage:
-            damage = self.grasped.damage
-            item = self.grasped
+        # if self.grasped self.grasped.damage > damage:
+        #     damage = self.grasped.damage
+        #     item = self.grasped
 
         return damage, item
 
