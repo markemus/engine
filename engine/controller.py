@@ -71,10 +71,10 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
 
-    # TODO test with multiple inventories to ensure tabbed list of inventories works correctly.
+    # TODO-DONE test with multiple inventories to ensure tabbed list of inventories works correctly.
     def character_sheet(self):
         gc = self.game.char
-        weapons = [f"{x.name}: {BC.YELLOW}{x.damage[1].name}{BC.OFF} {BC.RED}({x.damage[0]}){BC.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
+        weapons = [f"{x.name}: {C.BLUE}{x.damage[1].name}{C.OFF} {C.RED}({x.damage[0]}){C.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
 
         inventory = ""
         for subelement in gc.subelements[0].limb_check('equipment'):
@@ -97,7 +97,7 @@ class Controller:
                  f"{self.game.char.desc(stats=True)}"
             self.display_long_text(cs)
 
-    # TODO should show weapons (grasped) which means desc() should.
+    # TODO-DONE should show weapons (grasped) which means desc() should.
     def examine(self):
         """Desc for a particular creature or element in the room."""
         # Sight check
@@ -167,16 +167,16 @@ class Controller:
         else:
             print("You cannot see well enough to read the map.")
 
-    # TODO get rid of this function
-    def borders(self):
-        borders = self.game.char.location.borders
-        for direction in borders.keys():
-            # print(direction + ": " + str(borders[direction]))
-            if borders[direction] is not None:
-                border = f"{C.RED}{borders[direction].name}{C.OFF}"
-            else:
-                border = str(borders[direction])
-            print(direction + ": " + border)
+    # TODO-DONE get rid of this function
+    # def borders(self):
+    #     borders = self.game.char.location.borders
+    #     for direction in borders.keys():
+    #         # print(direction + ": " + str(borders[direction]))
+    #         if borders[direction] is not None:
+    #             border = f"{C.RED}{borders[direction].name}{C.OFF}"
+    #         else:
+    #             border = str(borders[direction])
+    #         print(direction + ": " + border)
 
     def north(self):
         self.game.char.leave("n")
@@ -201,12 +201,12 @@ class Controller:
             new_level = self.game.char.location.get_level()
             new_level_idx = self.game.level_list.index(new_level)
             self.game.set_current_level(new_level_idx)
-            # TODO only print level_text if this is first time entering level (and entering first_room)
-            print(self.game.current_level.level_text)
+            # TODO-DONE only print level_text if this is first time entering level (and entering first_room)
+
         return self.check_safety()
 
     # Combat
-    # TODO ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields).
+    # TODO ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields) (50%?).
     # TODO should not be able to attack without vision
     def attack(self):
         self.combat.fullCombat()
@@ -240,7 +240,7 @@ class Controller:
         weapons = self.listtodict(weapons)
         # self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}" if y != "Cancel" else x)
         self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name}) {C.RED}({y.damage[0]}){C.OFF}")
-        # TODO-DONE crashes if not in keys(). Needs to be fixed across all functions
+
         i = None
         while i not in weapons.keys():
             i = input(f"{BC.GREEN}Pick a weapon:{BC.OFF}")
@@ -266,8 +266,6 @@ class Controller:
 
         i = input(f"\n{BC.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.OFF}{BC.GREEN}? {BC.OFF}")
 
-        # TODO-DONE exception handling for this and other similar controller functions when non-indexed key is pressed.
-        #  Easiest way is to just treat all unknown as x.
         if i != "x" and i in limbs.keys():
             limb = limbs[i]
         else:
@@ -442,5 +440,3 @@ class Controller:
                 target_inv.vis_inv.append(hand.grasped)
                 hand.grasped = None
 
-# TODO-DONE equip and unequip from and to inventories
-# TODO-DONE (including detached limbs)

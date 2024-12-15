@@ -74,7 +74,6 @@ class Limb:
         Used for gathering limbs for a task, eg. tag=grasp to pick up an item."""
         limb_total = []
 
-        # TODO-DONE don't allow this for items in eg backpack
         # Allows for items with that tag to be used as if they were a limb themselves.
         if hasattr(self, tag) or sum([hasattr(x, tag) for x in self.equipment]):
             limb_total.append(self)
@@ -415,7 +414,7 @@ class creature:
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
-        # TODO-DONE vital should be returned by remove_limb. We should also check if other copies of the vital organ remain (if so, do not die)
+
         # Losing a vital limb kills the creature
         if hasattr(limb, "vital") and limb.vital:
             vitals = self.subelements[0].limb_check("vital")
@@ -435,7 +434,6 @@ class creature:
         print(f"{speaker.printcolor}{speaker.name}{C.OFF} says: \"{words}\".")
         print(f"{self.printcolor}{self.name}{C.OFF} listens carefully.")
 
-    # TODO-DONE add looting for severed limbs (inventory management in general needs work)
     def die(self):
         print(f"{self.name} dies.")
         room = self.location

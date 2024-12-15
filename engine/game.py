@@ -18,7 +18,6 @@ class Game(object):
         # Generate
         self._generate(gamestyle)
         self.set_current_level(0)
-        print(self.level_list[0].level_text)
 
     def _generate(self, gamestyle):
         assert issubclass(gamestyle, styles.GameStyle)
@@ -47,6 +46,9 @@ class Game(object):
 
     def set_current_level(self, index):
         self.current_level = self.level_list[index]
+        if not self.current_level.level_text_printed:
+            print(self.current_level.level_text)
+            self.current_level.level_text_printed = True
 
     def get_char(self):
         return self.char

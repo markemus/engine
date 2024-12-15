@@ -7,7 +7,6 @@ from . import controller
 from . import save
 
 
-# TODO-DONE equipping and unequipping armor and weapons
 # TODO game over and load game
 # TODO game stats sheet (kills, limbs lost?)
 class Interface:
@@ -38,6 +37,7 @@ class Interface:
             "r": self.cont.rest,
             "q": self.cont.eat,
             "/": self.save,
+            "*": self.load,
         }
 
         fight = {
@@ -94,4 +94,8 @@ class Interface:
     def load(self):
         savepath = input("Load stored save:")
         i = save.load(savepath)
-        return i
+        print("Save loaded.")
+        # Just continue the game that was saved. This adds some overhead but shouldn't matter much.
+        # It does break cheating though :(
+        while True:
+            i.command()

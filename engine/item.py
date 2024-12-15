@@ -6,7 +6,11 @@ import random
 from colorist import Color as C, BrightColor as BC
 
 
-# TODO interior and exterior inventories.
+def defaultdict_false():
+    """This is used instead of a lambda so that Item can be pickled (for saving)."""
+    return False
+
+# TODO test covers works (give glove)
 class Item:
     """name: Item's displayed name.
     canwear: Item can be worn on Limbs with this 'wears' tag.
@@ -15,8 +19,12 @@ class Item:
     requires: (tag, amount)- if Item requires a tag on a Limb to be equipped.
     level: each Limb can only wear one Item per level (eg undershirt=1 and shirt=2)."""
     name = "item"
-    canwear = defaultdict(lambda: False)
-    covers = defaultdict(lambda: False)
+    # canwear = defaultdict(lambda: False)
+    canwear = defaultdict(defaultdict_false)
+    # covers = defaultdict(lambda: False)
+    covers = defaultdict(defaultdict_false)
+    # canwear = {}
+    # covers = {}
     printcolor = C.BLUE
     # requires = (tag, amount) if needed- eg (grasp, 1)
     requires = None

@@ -10,6 +10,8 @@ class levelmap:
     name = ''
     start = None
     end = None
+    level_text = None
+    level_text_printed = False
 
     def __init__(self, newname, roomnum):
         self.name = newname
