@@ -185,7 +185,6 @@ class Tentacle(cr.Limb):
     f_grasp = 1
     t_grasp = 1
 
-# TODO-DONE potion of tentacle growth
 # TODO-DECIDE let limbs have their own (coordinated) colors? How? (because PTentacles come from the potion).
 class PTentacle(Tentacle):
     """Prisoners only have a small number of tentacles- no big deal."""

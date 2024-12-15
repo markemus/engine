@@ -201,13 +201,13 @@ class Platform(Element):
 
         return text
 
-# TODO invis_inv class once invis_inv is implemented.
-
 class Furniture(Element):
     visible = True
     printcolor = C.MAGENTA
 
-class DisplayFurniture(Platform):
+
+# TODO invis_inv class once invis_inv is implemented.
+class DisplayFurniture(Furniture, Platform):
     visible = True  # element is shown during place's desc()
     color = "NO_COLOR"
     printcolor = C.MAGENTA

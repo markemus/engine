@@ -83,7 +83,7 @@ class PlayerCell(Cell):
     # creature_classes = []
     furniture_classes = [fur.BedPrison]
 
-# TODO dining room should contain cooked food
+# TODO-DONE dining room should contain cooked food
 class DiningRoom(pl.Place):
     name = "dining room"
     sprite = "D"
@@ -105,7 +105,7 @@ class Guardroom(pl.Place):
     furniture_classes = [fur.Table, fur.Chair]
     subelement_classes = [wall, floor]
 
-# TODO kitchen should contain severed limbs and cooked food
+# TODO-DONE kitchen should contain severed limbs and cooked food
 class Kitchen(pl.Place):
     name = "kitchen"
     sprite = "K"

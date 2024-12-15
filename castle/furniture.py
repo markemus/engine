@@ -122,4 +122,4 @@ class CabinetMetal(pl.DisplayFurniture):
 # TODO vis_inv and invis_inv. vis_inv should be displayed in place.desc(),
 #  and objects with invis_inv should be marked with * in desc().
 
-# TODO furniture is getting the color and texture of the room? That doesn't seem right.
+# TODO-DONE furniture is getting the color and texture of the room? That doesn't seem right.
