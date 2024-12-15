@@ -435,7 +435,7 @@ class creature:
         print(f"{speaker.printcolor}{speaker.name}{C.OFF} says: \"{words}\".")
         print(f"{self.printcolor}{self.name}{C.OFF} listens carefully.")
 
-    # TODO add looting for severed limbs (inventory management in general needs work)
+    # TODO-DONE add looting for severed limbs (inventory management in general needs work)
     def die(self):
         print(f"{self.name} dies.")
         room = self.location

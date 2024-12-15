@@ -308,7 +308,11 @@ class Controller:
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
     def eat(self):
-        invs = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+        # TODO-DONE forget invis_inv. Too complicated already.
+        invs = self.game.char.subelements[0].find_invs()
+        # Drop equipment
+        invs = [inv for inv in invs if hasattr(inv, "vis_inv")]
+        invs = self.listtodict(invs, add_x=True)
         self.dictprint(invs)
         i = input(f"\n{BC.GREEN}Which inventory would you like to eat from?{BC.OFF} ")
 
@@ -419,6 +423,8 @@ class Controller:
         self.dictprint(graspers_desc)
         i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF}")
 
+        # TODO this doesn't include severed limbs. We should use the new find_invs()? Or is this too much trouble
+        #  for a bad approach (who really wants to put things on severed limbs anyway)?.
         if i in graspers_desc.keys() and i != "x":
             hand = graspers[int(i)]
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
@@ -436,13 +442,5 @@ class Controller:
                 target_inv.vis_inv.append(hand.grasped)
                 hand.grasped = None
 
-
-
-
-
-
-
-
-
 # TODO-DONE equip and unequip from and to inventories
-# TODO (including detached limbs)
+# TODO-DONE (including detached limbs)

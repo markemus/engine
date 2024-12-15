@@ -239,7 +239,6 @@ class Furniture(Element):
     printcolor = C.MAGENTA
 
 
-# TODO invis_inv class once invis_inv is implemented.
 class DisplayFurniture(Furniture, Platform):
     visible = True  # element is shown during place's desc()
     color = "NO_COLOR"
@@ -254,7 +253,6 @@ class DisplayFurniture(Furniture, Platform):
 
     def _fill(self):
         """Put items in furniture upon creation."""
-        # TODO for (collection, inv) in zip((vis_collections, invis_collections), (vis_inv, invis_inv)) once invis_inv is implemented.
         if self.vis_collections:
             for (item_collection, count) in self.vis_collections:
                 for n in range(*count):
