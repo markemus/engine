@@ -34,6 +34,7 @@ for x in adam_limbs:
 adams_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
+# adams_pillowcase.vis_inv.append(potions.TentacleGrowthPotion())
 adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("dirty", "linen"))
