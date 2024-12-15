@@ -20,7 +20,7 @@ t_game = game.Game("The Howling Manor", castle_style.Castle)
 thisLevel = t_game.level_list[0]
 
 # Character creation
-# TODO adam should be custom class with custom starting equipment (clout and pillowcase, but not transmogrified).
+# TODO-DONE adam should be custom class with custom starting equipment (clout and pillowcase, but not transmogrified).
 adam = human.Human(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)

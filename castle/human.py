@@ -24,6 +24,10 @@ class Human(cr.creature):
     textures = ["skinned"]
     suits = [suits.plainsuit]
 
+class PlayerHuman(Human):
+    """A non-transmogrified Human, but a prisoner."""
+    team = "prisoner"
+    suits = [suits.prisonersuit]
 
 class PrisonerHuman(Human):
     team = "prisoner"

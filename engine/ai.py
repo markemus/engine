@@ -5,23 +5,25 @@ import random
 class CombatAI:
     def __init__(self, creature):
         self.creature = creature
+        self.target = None
 
     def target_creature(self):
         targets = []
 
-        # Gather targets
-        for creature in self.get_target_creatures():
-            if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):
-                targets.append(creature)
+        if not self.target or self.target.dead:
+            # Gather targets
+            for creature in self.get_target_creatures():
+                if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):
+                    targets.append(creature)
 
-        # Pick
-        if len(targets) > 0:
-            # TODO choice should be (semi?) persistent
-            target = random.choice(targets)
-        else:
-            target = False
+            # Pick
+            if len(targets) > 0:
+                # choice is random but persistent
+                self.target = random.choice(targets)
+            else:
+                self.target = None
 
-        return target
+        return self.target
 
     # TODO add minor chance a random limb will be targeted.
     def target_limb(self, target):

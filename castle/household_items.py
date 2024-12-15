@@ -138,7 +138,7 @@ cookery = {
     "full": False,
 }
 
-# TODO cooking utensils
+# TODO-DONE cooking utensils
 cooking_utensils = {
     "contains": [KitchenKnife],
     "color": ["gray", "black", "white"],

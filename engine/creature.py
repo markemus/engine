@@ -218,6 +218,7 @@ class creature:
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object
     aggressive = True
+    dead = False
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)
@@ -430,6 +431,7 @@ class creature:
         print(f"{self.name} dies.")
         room = self.location
         room.removeCreature(self)
+        self.dead = True
         landings = room.elem_check("canCatch")
         if len(landings) > 0:
             lands_at = random.choice(landings)
