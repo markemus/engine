@@ -33,6 +33,7 @@ class Controller:
         intkeys.sort(key=int)
 
         keys = intkeys + strkeys
+        fullstr = ""
 
         for key in keys:
             # Keys should always have the same (brown) color.
@@ -61,7 +62,8 @@ class Controller:
                 if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
                     exstr = exstr + " *"
 
-            print(exstr)
+            fullstr = fullstr + "\n" + exstr
+        self.display_long_text(fullstr)
 
     def desc(self):
         # Sight check
@@ -249,7 +251,7 @@ class Controller:
             return str
         self.dictprint(limbs, pfunc=a_pfunc)
 
-        i = input(f"\n{C.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.GREEN}? {C.OFF}")
+        i = input(f"\n{BC.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.OFF}{BC.GREEN}? {BC.OFF}")
 
         # TODO-DONE exception handling for this and other similar controller functions when non-indexed key is pressed.
         #  Easiest way is to just treat all unknown as x.
@@ -273,7 +275,7 @@ class Controller:
 
         self.dictprint(blockers, pfunc=a_pfunc)
 
-        i = input(f"\n{BC.GREEN}Which {C.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF}")
+        i = input(f"\n{BC.GREEN}Which {BC.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF}")
 
         if i != "x" and i in blockers.keys():
             blocker = blockers[i]

@@ -1,23 +1,29 @@
 import random
-from colorist import Color as C
+from colorist import Color as C, BrightColor as BC
 
 
-class one:
-    pass
+print(f"{C.RED}this is red{BC.OFF} is this red?")
 
-class two(one):
-    pass
 
-class three(two):
-    pass
 
-a = one()
-b = two()
-c = three()
-isinstance(a, one)
-isinstance(b, one)
-isinstance(c, one)
-isinstance(c, type(a))
+
+
+# class one:
+#     pass
+#
+# class two(one):
+#     pass
+#
+# class three(two):
+#     pass
+#
+# a = one()
+# b = two()
+# c = three()
+# isinstance(a, one)
+# isinstance(b, one)
+# isinstance(c, one)
+# isinstance(c, type(a))
 # print(f"This is a {C.GREEN}green{C.OFF} tag")
 #
 #
