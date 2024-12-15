@@ -46,9 +46,14 @@ class Item:
         else:
             print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
-    def desc(self, offset=0):
+    def desc(self, offset=0, stats=True):
         """Basic describe function is always called desc."""
         text = (" "*offset) + f"* {C.BLUE}{self.color} {self.texture} {self.name}{C.OFF}"
+
+        if hasattr(self, "damage"):
+            text += f" {C.RED}({self.damage}){C.OFF}"
+        if hasattr(self, "armor"):
+            text += f" {BC.CYAN}({self.armor}){BC.OFF}"
 
         return text
 

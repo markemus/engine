@@ -34,14 +34,14 @@ thisLevel = t_game.level_list[0]
 
 # Character creation
 # TODO-DONE adam should be custom class with custom starting equipment (clout and pillowcase, but not transmogrified).
-adam = human.Human(location=thisLevel.start)
+adam = human.PlayerHuman(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
 adam.team = "prisoner"
-adam_limbs = adam.subelements[0].limb_check("name")
-for x in adam_limbs:
-    x.hp = 1000
+# adam_limbs = adam.subelements[0].limb_check("name")
+# for x in adam_limbs:
+#     x.hp = 1000
 
 # TODO fix grasp_check- will items in hands drop if grasp_check fails? Don't think so...
 # Give adam starting equipment

@@ -20,7 +20,7 @@ class Human(cr.creature):
     team = "neutral"
     namelist = nm.names["human"]
     baseElem = Torso
-    colors = ["black", "white", "red", "yellow", "brown"]
+    colors = ["black", "white", "brown", "tan"]
     textures = ["skinned"]
     suits = [suits.plainsuit]
 

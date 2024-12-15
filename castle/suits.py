@@ -141,7 +141,7 @@ class Hose(i.Item):
     descends = 0
 
 class Shoe(i.Item):
-    name = "boot"
+    name = "shoe"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["foot"] = True

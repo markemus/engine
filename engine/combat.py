@@ -40,6 +40,7 @@ class Combat:
             else:
                 print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
 
+    # TODO combat needs a vision check before each section (for attacker and defender).
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
         used = False
@@ -61,8 +62,7 @@ class Combat:
 
         if limb:
             # TODO allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
-            # TODO target color should change based on relationship to player (or team). Aggressor too.
-            # TODO don't allow player to target allies
+            # TODO-DONE don't allow player to target allies
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
@@ -73,7 +73,8 @@ class Combat:
             if target is self.char:
                 blocker = self.cont.pick_blocker(blockers)
             else:
-                blocker = actor.ai.block(blockers)
+                # TODO-DONE the ai should decide if blocking is worthwhile, not block every attack.
+                blocker = actor.ai.block(blockers, limb)
 
             if blocker:
                 limb = blocker
@@ -81,7 +82,7 @@ class Combat:
                 print(f"{C.YELLOW}{target.name}{C.OFF} blocks the blow with their {BC.RED}{blocker.name}{BC.OFF}!")
             else:
                 print(f"{C.YELLOW}{target.name}{C.OFF} accepts the blow.")
-            
+            # TODO damage rolls, to miss rolls (hit neighboring limb), blocking rolls. Right now it's too algorithmic.
             self.attack(target, limb, weapon)
             used = True
         else:

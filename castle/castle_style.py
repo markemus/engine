@@ -177,10 +177,10 @@ LevelStyle.register(BedroomFloor)
 
 
 class Dungeon:
-    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.{BC.OFF}"""
+    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.\n\nThe first thing you should do is drink your potion.{BC.OFF}"""
     room_classes = [TortureChamber, Cell]
-    # start_room = PlayerCell
-    start_room = Kitchen
+    start_room = PlayerCell
+    # start_room = Kitchen
     end_room = Guardroom
     creature_classes = [[(Goblin, 3), (None, 3)]]
 

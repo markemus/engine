@@ -53,14 +53,18 @@ class Limb:
                     elem = elemclass(self.color, self.texture)
                     self.subelements.append(elem)
 
-    def desc(self, full=True, offset=0):
+    def desc(self, full=True, offset=0, stats=True):
         """Basic describe function is always called desc."""
         text = (" "*offset) + f"+ {C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
+        if stats:
+            text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armor}){C.OFF}"
         if full:
-            for item in self.equipment:
-                text += "\n" + item.desc(offset = offset+1)
+            if hasattr(self, "grasped") and self.grasped:
+                text += "\n" + self.grasped.desc(offset=offset+1)
+            for item in self.covers:
+                text += "\n" + item.desc(offset=offset+1, )
             for elem in self.subelements:
-                text += "\n" + elem.desc(offset = offset+1)
+                text += "\n" + elem.desc(offset=offset+1, stats=stats)
 
         return text
 
@@ -307,12 +311,12 @@ class creature:
         # Reset seed
         random.seed()
 
-    def desc(self, full=True, offset=0):
+    def desc(self, full=True, offset=0, stats=True):
         """Basic describe function is always called desc."""
         text = (" " * offset) + f"> {self.printcolor}{self.name} ({self.classname}){C.OFF}"
         if full:
             for elem in self.subelements:
-                text += "\n" + elem.desc(offset=offset + 1)
+                text += "\n" + elem.desc(offset=offset + 1, stats=stats)
 
         return text
 

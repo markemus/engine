@@ -93,7 +93,8 @@ class Controller:
                  f"\n{C.RED}Weapons{C.OFF}\n" \
                  f"{''.join(weapons)}" \
                  f"\n{C.RED}Inventories{C.OFF}\n" \
-                 f"{inventory}\n"
+                 f"{inventory}\n" \
+                 f"{self.game.char.desc(stats=True)}"
             self.display_long_text(cs)
 
     # TODO should show weapons (grasped) which means desc() should.
@@ -111,7 +112,8 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO-DONE consider input values other than those listed as "x" for all functions
+    # TODO needs more info on where inventory comes from- creature, detached, etc. char's limbs should be distinguished from disembodied limbs. But close!
+    #  Easiest way is a different color for your_inventories
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
@@ -204,6 +206,8 @@ class Controller:
         return self.check_safety()
 
     # Combat
+    # TODO ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields).
+    # TODO should not be able to attack without vision
     def attack(self):
         self.combat.fullCombat()
 
@@ -293,6 +297,8 @@ class Controller:
 
         return blocker
 
+    # TODO resting should not restore hp, or only a limited amount. Add healing potions and misses.
+    # TODO-DECIDE improvised armor from blankets and pillows?
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):

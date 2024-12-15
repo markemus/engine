@@ -53,13 +53,42 @@ class CombatAI:
 
         return chosen
 
-    # TODO the ai should decide if blocking is worthwhile, not block every attack.
-    # TODO ai should pick a smart blocking limb (most hp*armor? least damage?)
+    # TODO-DONE ai should pick a smart blocking limb (most hp*armor? least damage?)
     # TODO-DONE select_blockers(self)
-    def block(self, blockers):
+    # TODO I think we can still do better on the blocking decision making.
+    def block(self, blockers, target_limb):
+        """Calculates a block value. The algorithm tries to minimize damage taken while maximizing damage potential."""
         if len(blockers) > 0:
-            # blocker = blockers[0]
-            blocker = max(blockers, key=lambda x: x.armor)
+            blocker = blockers[0]
+            current_block_value = -float("inf")
+            current_damage = 0
+
+            # Find target limb's descendant damage
+            target_descendant_damagers = target_limb.limb_check("damage")
+            if target_descendant_damagers:
+                limb_descendant_damage = max(target_descendant_damagers, key=lambda x: x.damage[0]).damage[0]
+            else:
+                limb_descendant_damage = 0
+
+            for limb in blockers:
+                descendant_damagers = limb.limb_check("damage")
+                block_value = (limb.armor * limb.hp)
+                if descendant_damagers:
+                    descendant_damage = max(descendant_damagers, key=lambda x: x.damage[0]).damage[0]
+                    block_value -= descendant_damage
+                else:
+                    descendant_damage = 0
+                if block_value > current_block_value:
+                    blocker = limb
+                    current_block_value = block_value
+                    current_damage = descendant_damage
+
+            # Decide whether to block with blocker. We will still block if target_limb is vital, otherwise, tank the hit.
+            if limb_descendant_damage < current_damage:
+                if len(target_limb.limb_check("vital")):
+                    pass
+                else:
+                    blocker = False
         else:
             blocker = False
 
