@@ -103,7 +103,6 @@ class Guardroom(pl.Place):
     furniture_classes = [fur.Table, fur.Chair]
     subelement_classes = [wall, floor]
 
-# TODO-DONE kitchen should contain severed limbs and cooked food
 class Kitchen(pl.Place):
     name = "kitchen"
     sprite = "K"

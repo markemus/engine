@@ -386,5 +386,4 @@ weapons = {
     "full": True,
 }
 
-# TODO-DONE current attack-block cycle is boring with shields- but blocking with arms only makes sense in Castle. Think about how to improve shields. Blocking miss chance?
 # TODO more potions (add temporary effects- stoneskin?)

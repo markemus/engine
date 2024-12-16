@@ -279,7 +279,7 @@ class PSmallLeg(SmallLeg):
     colors = ["pale"]
     textures = ["skinned"]
 
-# TODO-DECIDE let limbs have their own (coordinated) colors? How? (because PTentacles come from the potion).
+# TODO-DONE let limbs have their own (coordinated) colors? How? (because PTentacles come from the potion).
 class PTentacle(Tentacle):
     """Prisoners only have a small number of tentacles- no big deal."""
     appendageRange = (1, 3)

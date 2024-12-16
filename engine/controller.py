@@ -110,8 +110,8 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO should not show equipment, only inventories. We have put_on() and take_off() now.
-    # TODO-DECIDE find_invs() should only return vis_invs, not equipment?
+    # TODO-DONE should not show equipment, only inventories. We have put_on() and take_off() now.
+    # TODO-DONE find_invs() should only return vis_invs, not equipment?
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
@@ -153,7 +153,6 @@ class Controller:
                     self.dictprint(self.listtodict(origin_inv))
                     k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF} ")
                     if k != "x" and 0 <= int(k) < len(origin_inv):
-                        # TODO-DONE why does this fail twice when it fails?
                         origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
         else:
             print("You cannot see well enough for that.")
@@ -202,8 +201,6 @@ class Controller:
         return self.check_safety()
 
     # Combat
-    # TODO-DONE ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields) (50%?).
-    # TODO-DONE should not be able to attack without vision
     def attack(self):
         self.combat.fullCombat()
 
@@ -215,7 +212,6 @@ class Controller:
         return True
 
     def pick_target(self):
-        # TODO-DONE chopping off thumbs is too easy now. Smaller targets should be harder to hit?
         enemylist = self.game.char.ai.get_target_creatures()
         targets = self.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
@@ -229,7 +225,6 @@ class Controller:
             print(f"{C.RED}{self.game.char.name}{C.OFF} aims at {C.YELLOW}{defender.name}{C.OFF}!")
         else:
             defender = False
-            # print(f"{C.RED}{self.game.char.name}{C.OFF} withholds their blow.")
 
         return defender
 
@@ -298,7 +293,6 @@ class Controller:
 
         return blocker
 
-    # TODO resting should not restore hp, or only a limited amount. Add healing potions and misses.
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):

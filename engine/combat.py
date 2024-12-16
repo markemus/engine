@@ -42,7 +42,6 @@ class Combat:
             else:
                 print(f"\n{C.RED}{actor.name} cannot see well enough to attack!{C.OFF}")
 
-    # TODO-DONE combat needs a vision check before each section (for attacker and defender).
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
         used = False
@@ -63,7 +62,6 @@ class Combat:
             limb = None
 
         if limb:
-            # TODO-DONE allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
@@ -87,10 +85,9 @@ class Combat:
                     print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
             else:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
-            # TODO-DONE damage rolls, to miss rolls (hit neighboring limb), blocking rolls. Right now it's too algorithmic.
 
             # TODO-DECIDE we need to do the math on this to-hit algorithm. Seems reasonable but might lead to strange results.
-            # To hit roll
+            # To hit roll- smaller limbs are harder to hit
             roll = random.randint(0, 5) + limb.size
             if roll >= 6:
                 limb = limb
@@ -149,7 +146,6 @@ class Combat:
             print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {C.RED}{defender.name}{C.OFF}'s body!")
             
             self.throw_limb(defender, limb)
-            # TODO-DONE update defender status- drop weapon, fall over
 
             cutoff = True
 
