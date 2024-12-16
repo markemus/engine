@@ -45,7 +45,7 @@ adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 # adam.subelements[0].limb_check("grasp")[0].grasped = adams_pillowcase2
 adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("dirty", "linen"))
-# TODO rework inventories so this potion can be looted by player.
+# TODO-DONE rework inventories so this potion can be looted by player.
 # Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 

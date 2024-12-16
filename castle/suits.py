@@ -181,22 +181,31 @@ class Clout(i.Item):
 class Bracelet(i.Item):
     name = "bracelet"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["hand"] = True
+    covers["hand"] = True
     canwear["right hand"] = True
+    covers["right hand"] = True
     canwear["left hand"] = True
+    covers["left hand"] = True
     canwear["foot"] = True
+    covers["foot"] = True
     level = 2
 
 class Necklace(i.Item):
     name = "necklace"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["body"] = True
+    covers["body"] = True
     level = 2
 
 class Ring(i.Item):
     name = "ring"
     canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
     canwear["finger"] = True
+    covers["finger"] = True
     level = 2
 
 # Weapons
@@ -267,7 +276,7 @@ class SkinMask(i.Item):
     level = 1
     descends = 3
 
-# TODO add third _scheme option- more than distinct, give each element a unique scheme
+# TODO-DONE add third _scheme option- more than distinct, give each element a unique scheme
 #  (distinct for matching gloves, unique for separate rings)
 # Suits
 jewelry = {
@@ -279,10 +288,10 @@ jewelry = {
         "foot": Bracelet},
     "grasps": {},
     "color": ["sapphire", "emerald", "turquoise"],
-    "color_scheme": "distinct",
+    "color_scheme": "unique",
     "texture": ["in silver", "in gold", "in platinum"],
-    "texture_scheme": "distinct",
-    "full": False,
+    "texture_scheme": "unique",
+    "full": True,
 }
 
 cookery = {

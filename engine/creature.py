@@ -258,14 +258,14 @@ class creature:
             # Color and texture are either set once for the full suit, or uniquely per "wears" (so socks will always match)
             if suit["color_scheme"] == "distinct":
                 colors = {key: random.choice(suit["color"]) for key in {**suit["wears"], **suit["grasps"]}}
-            else:
-                color = random.choice(suit["color"])
-                colors = {key: color for key in {**suit["wears"], **suit["grasps"]}}
+            elif suit["color_scheme"] == "same":
+                c = random.choice(suit["color"])
+                colors = {key: c for key in {**suit["wears"], **suit["grasps"]}}
             if suit["texture_scheme"] == "distinct":
                 textures = {key: random.choice(suit["texture"]) for key in {**suit["wears"], **suit["grasps"]}}
-            else:
-                texture = random.choice(suit["texture"])
-                textures = {key: texture for key in {**suit["wears"], **suit["grasps"]}}
+            elif suit["texture_scheme"] == "same":
+                t = random.choice(suit["texture"])
+                textures = {key: t for key in {**suit["wears"], **suit["grasps"]}}
 
             # If suit is not supposed to be full, drop a random subset of limbs
             if not suit["full"]:
@@ -274,11 +274,13 @@ class creature:
 
             for limb in limbs:
                 if "wears" in suit.keys() and limb.wears in suit["wears"].keys():
-                    random.seed(seed)
                     # Choose and construct articles
                     article = suit["wears"][limb.wears]
                     if type(article) == tuple:
+                        # We want article choices to be coordinated, so we use the same seed for each tuple selection (eg pairs of shoes).
+                        random.seed(seed)
                         articles = [random.choice(article)]
+                        random.seed()
                     elif type(article) == list:
                         articles = article.copy()
                     else:
@@ -286,12 +288,20 @@ class creature:
 
                     for article in articles:
                         # Create article and equip
-                        article = article(color=colors[limb.wears], texture=textures[limb.wears])
+                        # For unique color scheme, each item gets its own color and texture
+                        if suit["color_scheme"] == "unique":
+                            color = random.choice(suit["color"])
+                        else:
+                            color = colors[limb.wears]
+                        if suit["texture_scheme"] == "unique":
+                            texture = random.choice(suit["texture"])
+                        else:
+                            texture = textures[limb.wears]
+                        article = article(color=color, texture=texture)
                         limb.equip(article)
 
                 if "grasps" in suit.keys() and limb.wears in suit["grasps"].keys():
                     # We don't need to coordinate weapon selections
-                    random.seed()
                     # Choose and construct articles
                     weapon = suit["grasps"][limb.wears]
                     if type(weapon) == tuple:
@@ -304,7 +314,15 @@ class creature:
                     for weapon in weapons:
                         if not limb.grasped:
                             # Create weapon and grasp
-                            weapon = weapon(color=colors[limb.wears], texture=textures[limb.wears])
+                            if suit["color_scheme"] == "unique":
+                                color = random.choice(suit["color"])
+                            else:
+                                color = colors[limb.wears]
+                            if suit["texture_scheme"] == "unique":
+                                texture = random.choice(suit["texture"])
+                            else:
+                                texture = textures[limb.wears]
+                            weapon = weapon(color=color, texture=texture)
                             limb.grasped = weapon
 
         # Reset seed

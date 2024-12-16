@@ -67,7 +67,7 @@ class Combat:
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-            print(f"It will deal {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked.")
+            print(f"It will deal {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked {C.RED}({limb.hp} hp){C.OFF}.")
 
             # Blocking
             blockers = self.blockers[target].copy()
@@ -147,14 +147,15 @@ class Combat:
         
         if len(landings) > 0:
             lands_at = random.choice(landings)
-            lands_at.vis_inv.append(limb)
             # Drop whatever it's holding
             hands = limb.limb_check("grasp")
             for hand in hands:
                 if hand.grasped:
                     lands_at.vis_inv.append(hand.grasped)
                     print(f"{BC.CYAN}The {hand.grasped.name} slips from the {hand.name} and lands on the {lands_at.name}.{BC.OFF}")
-                    amputee.ungrasp(hand.grasped)
+                    hand.grasped = None
+            # Limb lands
+            lands_at.vis_inv.append(limb)
             print(f"{BC.CYAN}The {limb.name} lands on the {lands_at.name}.{BC.OFF}")
         else:
             print(f"{BC.CYAN}The limb flies off and disappears out of sight.{BC.OFF}")

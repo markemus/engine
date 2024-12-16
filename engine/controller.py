@@ -136,7 +136,7 @@ class Controller:
                 return str + ex_str
             self.dictprint(inventory_dict, pfunc=pfunc)
 
-            i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF}")
+            i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF} ")
             if i != "x" and i in inventory_dict.keys():
                 origin_inv = inventory_dict[i]
                 if hasattr(origin_inv, "vis_inv"):
@@ -145,7 +145,7 @@ class Controller:
                     origin_inv = origin_inv.equipment
                 del inventory_dict[i]
 
-                j = input(f"\n{BC.GREEN}Second, which inventory would like to transfer to (x to cancel)?{BC.OFF}")
+                j = input(f"\n{BC.GREEN}Second, which inventory would like to transfer to (x to cancel)?{BC.OFF} ")
                 if j != "x" and j in inventory_dict.keys():
                     target_inv = inventory_dict[j]
                     if hasattr(target_inv, "vis_inv"):
@@ -153,8 +153,9 @@ class Controller:
                     elif hasattr(target_inv, "equipment"):
                         target_inv = target_inv.equipment
                     self.dictprint(self.listtodict(origin_inv))
-                    k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF}")
+                    k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF} ")
                     if k != "x" and 0 <= int(k) < len(origin_inv):
+                        # TODO why does this fail twice when it fails?
                         origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
         else:
             print("You cannot see well enough for that.")
@@ -295,7 +296,7 @@ class Controller:
 
         self.dictprint(blockers, pfunc=a_pfunc)
 
-        i = input(f"\n{BC.GREEN}Which {BC.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF}")
+        i = input(f"\n{BC.GREEN}Which {BC.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF} ")
 
         if i != "x" and i in blockers.keys():
             blocker = blockers[i]

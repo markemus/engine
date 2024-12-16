@@ -23,6 +23,7 @@ class Item:
     canwear = defaultdict(defaultdict_false)
     # covers = defaultdict(lambda: False)
     covers = defaultdict(defaultdict_false)
+    descends = 0
     # canwear = {}
     # covers = {}
     printcolor = C.BLUE
@@ -38,8 +39,6 @@ class Item:
         self.color = color
         self.texture = texture
 
-    # TODO it would be nice to replace this function with one that gives more info on wherefrom and whereto to the player.
-    #  or just get rid of it entirely and just simply move the item
     def transfer(self, who, wherefrom, whereto):
         """A creature moves an item from one inventory to another."""
         if self in wherefrom:
@@ -118,12 +117,19 @@ class Holder(Item):
 
                     # Create items
                     for item_class in item_collection["contains"]:
-                        c = colors[item_class]
-                        t = textures[item_class]
+                        # For unique color scheme, each item gets its own color and texture
+                        if item_collection["color_scheme"] == "unique":
+                            color = random.choice(item_collection["color"])
+                        else:
+                            color = colors[item_class]
+                        if item_collection["texture_scheme"] == "unique":
+                            texture = random.choice(item_collection["texture"])
+                        else:
+                            texture = textures[item_class]
                         if isinstance(item_class, tuple):
                             item_class = random.choice(item_class)
 
-                        item = item_class(c, t)
+                        item = item_class(color, texture)
                         self.vis_inv.append(item)
 
 

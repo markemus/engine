@@ -278,10 +278,17 @@ class DisplayFurniture(Furniture, Platform):
                         item_classes = item_classes[:random.randrange(0, len(item_classes))]
 
                     for item_class in item_classes:
-                        c = colors[item_class]
-                        t = textures[item_class]
+                        if item_collection["color_scheme"] == "unique":
+                            color = random.choice(item_collection["color"])
+                        else:
+                            color = colors[item_class]
+                        if item_collection["texture_scheme"] == "unique":
+                            texture = random.choice(item_collection["texture"])
+                        else:
+                            texture = textures[item_class]
                         if isinstance(item_class, tuple):
+                            # TODO-DECIDE should we use a fixed seed for this? To coordinate sets of shoes eg? Same by Item._fill_vis()
                             item_class = random.choice(item_class)
 
-                        item = item_class(c, t)
+                        item = item_class(color, texture)
                         self.vis_inv.append(item)
