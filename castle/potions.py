@@ -8,7 +8,7 @@ from engine import item as I
 class PotionOfStoneskin(I.Potion):
     """Creature's skin turns to stone, granting extra HP."""
     name = "Potion of Stoneskin"
-    def eat(self, creature):
+    def effect(self, creature):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
@@ -21,7 +21,7 @@ class ArmGrowthPotion(I.Potion):
     """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""
     name = "Potion of Arm Growth"
 
-    def eat(self, creature):
+    def effect(self, creature):
         # First we find a torso to sprout from.
         wears = creature.subelements[0].limb_check("wears")
         torso = None
@@ -41,7 +41,7 @@ class TentacleGrowthPotion(I.Potion):
     """Creature grows tentacles out of their face. Useful!"""
     name = "Potion of Tentacle Growth"
 
-    def eat(self, creature):
+    def effect(self, creature):
         wears = creature.subelements[0].limb_check("wears")
         head = None
         for limb in wears:

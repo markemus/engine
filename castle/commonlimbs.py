@@ -87,13 +87,14 @@ class Tongue(cr.Limb):
     size = 1
 
 class Jaw(cr.Limb):
-    name = "mouth"
+    name = "jaw"
     subelement_classes = [Teeth, Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "mouth"
     base_hp = 3
     size = 1
+    eats = 1
 
 class Nose(cr.Limb):
     name = "nose"

@@ -317,7 +317,7 @@ class Controller:
 
             if j in edibles.keys() and j != "x":
                 food = edibles[j]
-                print(f"{BC.CYAN}{self.game.char.name} consumes the {food.name}{BC.OFF}.")
+                # print(f"{BC.CYAN}{self.game.char.name} consumes the {food.name}{BC.OFF}.")
                 food.eat(self.game.char)
                 invs[i].vis_inv.remove(food)
 

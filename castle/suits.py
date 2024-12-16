@@ -35,7 +35,7 @@ class Boot(i.Item):
     canwear["foot"] = True
     covers["foot"] = True
     armor = 2
-    level = 2
+    level = 3
     descends = 0
 
 class Bracer(i.Item):
@@ -45,7 +45,7 @@ class Bracer(i.Item):
     canwear["arm"] = True
     covers["arm"] = True
     armor = 1
-    level = 2
+    level = 3
     descends = 0
 
 class Chainmail(i.Item):
@@ -55,7 +55,7 @@ class Chainmail(i.Item):
     canwear["body"] = True
     covers["body"] = True
     armor = 6
-    level = 2
+    level = 3
     descends = 0
 
 class Gauntlet(i.Item):
@@ -69,7 +69,7 @@ class Gauntlet(i.Item):
     covers["finger"] = True
     covers["thumb"] = True
     armor = 2
-    level = 2
+    level = 3
     descends = 1
 
 class Greave(i.Item):
@@ -79,7 +79,7 @@ class Greave(i.Item):
     canwear["leg"] = True
     covers["leg"] = True
     armor = 2
-    level = 2
+    level = 3
     descends = 0
 
 class Helm(i.Item):
@@ -94,7 +94,7 @@ class Helm(i.Item):
     covers["mouth"] = True
     covers["teeth"] = True
     armor = 4
-    level = 2
+    level = 3
     descends = 2
 
 class Shield(i.Item):
@@ -146,7 +146,7 @@ class Shoe(i.Item):
     covers = i.Item.covers.copy()
     canwear["foot"] = True
     covers["foot"] = True
-    level = 2
+    level = 1
     descends = 0
 
 class Slipper(i.Item):
@@ -155,7 +155,7 @@ class Slipper(i.Item):
     covers = i.Item.covers.copy()
     canwear["foot"] = True
     covers["foot"] = True
-    level = 2
+    level = 1
     descends = 0
 
 class Tunic(i.Item):

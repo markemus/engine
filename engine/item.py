@@ -141,6 +141,12 @@ class Potion(Item):
         """Color and texture are accepted but ignored."""
         super().__init__(color=color, texture=texture)
 
-    def eat(self, creature):
+    def effect(self, creature):
         """Subclasses should define an effect on creature when creature drinks the potion."""
         print(f"{BC.CYAN}The {self.name} has no effect.{BC.OFF}")
+
+    def eat(self, creature):
+        if creature.limb_count("eats") >= 1:
+            print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
+            self.effect(creature)
+

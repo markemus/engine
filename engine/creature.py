@@ -467,31 +467,25 @@ class creature:
 
     def remove_limb(self, limb):
         if limb in self.subelements:
+            # Limb is the core limb. Just die and don't try checking statuses since we're removing the whole limb tree.
             self.subelements.remove(limb)
+            self.die()
+            return
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
 
         # Losing a vital limb kills the creature
-        if hasattr(limb, "vital") and limb.vital:
-            vitals = self.subelements[0].limb_check("vital")
-            # We check if other vital limbs share this exact class (eg two heads, two hearts).
-            if not sum([vital.__class__ == limb.__class__ for vital in vitals]):
+        limb_vitals = limb.limb_check("vital")
+        # We'll see if others of this class are still attached
+        limb_vitals = set([x.__class__ for x in limb_vitals])
+        if len(limb_vitals):
+            other_vitals = set([x.__class__ for x in self.subelements[0].limb_check("vital")])
+            # We confirm that all vitals that were removed still exist in our subelements. Otherwise, die.
+            if len(limb_vitals.intersection(other_vitals)) < len(limb_vitals):
                 self.die()
 
         self.update_status()
-
-    def speak(self, words, listener):
-        room = self.location.get_creatures()
-
-        if listener in room:
-            listener.listen(words, self)
-        else:
-            print("Who are you talking to?")
-
-    def listen(self, words, speaker):
-        print(f"{speaker.printcolor}{speaker.name}{C.OFF} says: \"{words}\".")
-        print(f"{self.printcolor}{self.name}{C.OFF} listens carefully.")
 
     def die(self):
         print(f"{self.name} dies.")
