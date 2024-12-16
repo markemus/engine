@@ -199,6 +199,8 @@ class RoofTop:
     room_classes = []
     start_room = Roof
 
+LevelStyle.register(RoofTop)
+
 # And finally, the game itself.
 class Castle:
     levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]

@@ -71,7 +71,6 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
 
-    # TODO-DONE test with multiple inventories to ensure tabbed list of inventories works correctly.
     def character_sheet(self):
         gc = self.game.char
         weapons = [f"{x.name}: {C.BLUE}{x.damage[1].name}{C.OFF} {C.RED}({x.damage[0]}){C.OFF}\n" for x in gc.subelements[0].limb_check('damage')]
@@ -97,7 +96,6 @@ class Controller:
                  f"{self.game.char.desc(stats=True)}"
             self.display_long_text(cs)
 
-    # TODO-DONE should show weapons (grasped) which means desc() should.
     def examine(self):
         """Desc for a particular creature or element in the room."""
         # Sight check
@@ -112,8 +110,6 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO needs more info on where inventory comes from- creature, detached, etc. char's limbs should be distinguished from disembodied limbs. But close!
-    #  Easiest way is a different color for your_inventories
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
@@ -177,17 +173,6 @@ class Controller:
         else:
             print("You cannot see well enough to read the map.")
 
-    # TODO-DONE get rid of this function
-    # def borders(self):
-    #     borders = self.game.char.location.borders
-    #     for direction in borders.keys():
-    #         # print(direction + ": " + str(borders[direction]))
-    #         if borders[direction] is not None:
-    #             border = f"{C.RED}{borders[direction].name}{C.OFF}"
-    #         else:
-    #             border = str(borders[direction])
-    #         print(direction + ": " + border)
-
     def north(self):
         self.game.char.leave("n")
         return self.check_safety()
@@ -211,7 +196,6 @@ class Controller:
             new_level = self.game.char.location.get_level()
             new_level_idx = self.game.level_list.index(new_level)
             self.game.set_current_level(new_level_idx)
-            # TODO-DONE only print level_text if this is first time entering level (and entering first_room)
 
         return self.check_safety()
 
@@ -316,7 +300,6 @@ class Controller:
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
     def eat(self):
-        # TODO-DONE forget invis_inv. Too complicated already.
         invs = self.game.char.subelements[0].find_invs()
         # Drop equipment
         invs = [inv for inv in invs if hasattr(inv, "vis_inv")]

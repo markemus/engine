@@ -7,7 +7,7 @@ from . import controller
 from . import save
 
 
-# TODO game over and load game
+# TODO-DONE game over and load game
 # TODO game stats sheet (kills, limbs lost?)
 class Interface:
     def __init__(self, game):

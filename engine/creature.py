@@ -409,7 +409,7 @@ class creature:
 
         return grasped
 
-    # TODO refactor ungrasp and transfer? None of this feels necessary. How would we even know to call ungrasp without knowing what hand is holding the item?
+    # TODO refactor ungrasp? How would we even know to call ungrasp without knowing what hand is holding the item?
     def ungrasp(self, item):
         """Ungrasp an item from an appendage. The calling function will need to determine where to put it next."""
         ungrasped = False

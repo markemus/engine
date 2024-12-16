@@ -53,9 +53,6 @@ class CombatAI:
 
         return chosen
 
-    # TODO-DONE ai should pick a smart blocking limb (most hp*armor? least damage?)
-    # TODO-DONE select_blockers(self)
-    # TODO I think we can still do better on the blocking decision making.
     def block(self, blockers, target_limb):
         """Calculates a block value. The algorithm tries to minimize damage taken while maximizing damage potential."""
         if len(blockers) > 0:

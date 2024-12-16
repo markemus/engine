@@ -10,7 +10,6 @@ class Combat:
         self.cont = cont
         self.blockers = None
 
-    # TODO opponent withheld their blow after Adam did? Why? Now he won't fight.
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
@@ -25,7 +24,6 @@ class Combat:
         # only one weapon per combat round
         for actor in creatures:
             # select best weapon
-            # TODO-DONE allow player to select their own weapon
             weapons = self.get_weapons(actor)
             if weapons:
                 if actor is self.char:
@@ -63,7 +61,6 @@ class Combat:
 
         if limb:
             # TODO allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
-            # TODO-DONE don't allow player to target allies
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
@@ -74,7 +71,6 @@ class Combat:
             if target is self.char:
                 blocker = self.cont.pick_blocker(blockers)
             else:
-                # TODO-DONE the ai should decide if blocking is worthwhile, not block every attack.
                 blocker = actor.ai.block(blockers, limb)
 
             if blocker:

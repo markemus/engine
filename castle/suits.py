@@ -291,7 +291,7 @@ jewelry = {
     "color_scheme": "unique",
     "texture": ["in silver", "in gold", "in platinum"],
     "texture_scheme": "unique",
-    "full": True,
+    "full": False,
 }
 
 cookery = {

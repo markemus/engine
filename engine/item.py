@@ -10,7 +10,7 @@ def defaultdict_false():
     """This is used instead of a lambda so that Item can be pickled (for saving)."""
     return False
 
-# TODO test covers works (give glove)
+# TODO-DONE test covers works (give glove)
 class Item:
     """name: Item's displayed name.
     canwear: Item can be worn on Limbs with this 'wears' tag.

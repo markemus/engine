@@ -34,9 +34,8 @@ class PrisonerHuman(Human):
     baseElem = PTorso
     suits = [suits.prisonersuit]
 
-
 class HumanKing(Human):
     classname = "king"
     team = "monster"
-    suits = [suits.weapons, suits.testsuit]
+    suits = [suits.weapons, suits.jewelry, suits.testsuit]
 # TODO special equipment for king
