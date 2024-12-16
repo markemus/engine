@@ -148,6 +148,13 @@ class Combat:
         if len(landings) > 0:
             lands_at = random.choice(landings)
             lands_at.vis_inv.append(limb)
+            # Drop whatever it's holding
+            hands = limb.limb_check("grasp")
+            for hand in hands:
+                if hand.grasped:
+                    lands_at.vis_inv.append(hand.grasped)
+                    print(f"{BC.CYAN}The {hand.grasped.name} slips from the {hand.name} and lands on the {lands_at.name}.{BC.OFF}")
+                    amputee.ungrasp(hand.grasped)
             print(f"{BC.CYAN}The {limb.name} lands on the {lands_at.name}.{BC.OFF}")
         else:
             print(f"{BC.CYAN}The limb flies off and disappears out of sight.{BC.OFF}")

@@ -125,7 +125,16 @@ class Controller:
             all_inventories = your_inventories + room_inventories
             inventory_dict = self.listtodict(all_inventories)
             inventory_dict["x"] = "look away"
-            self.dictprint(inventory_dict)
+            def pfunc(str, invobj):
+                ex_str = ""
+                if hasattr(invobj, "vis_inv") and invobj.vis_inv:
+                    ex_str += f" ("+ ", ".join([x.name for x in invobj.vis_inv]) +")"
+                if hasattr(invobj, "equipment") and invobj.equipment:
+                    ex_str += f" ({', '.join([x.name for x in invobj.equipment])})"
+                # if hasattr(invobj, "grasped") and invobj.grasped:
+                #     ex_str += f" ({invobj.grasped.name})"
+                return str + ex_str
+            self.dictprint(inventory_dict, pfunc=pfunc)
 
             i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF}")
             if i != "x" and i in inventory_dict.keys():

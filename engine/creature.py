@@ -122,7 +122,7 @@ class Limb:
                 who.ungrasp(self)
                 print(f"{BC.CYAN}{who.name} puts away the {self.name}.{BC.OFF}")
             else:
-                print(f"{C.RED}The {who.name} cannot pick up the {self.name}.{C.OFF}")
+                print(f"{C.RED}{who.name} cannot pick up the {self.name}.{C.OFF}")
         else:
             print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
@@ -391,8 +391,7 @@ class creature:
 
         return grasped
 
-    # TODO-DECIDE refactor ungrasp and transfer? None of this feels necessary. How would we even know to call ungrasp without knowing what hand is holding the item?
-    #  on the other hand it does play well with transfer()?
+    # TODO refactor ungrasp and transfer? None of this feels necessary. How would we even know to call ungrasp without knowing what hand is holding the item?
     def ungrasp(self, item):
         """Ungrasp an item from an appendage. The calling function will need to determine where to put it next."""
         ungrasped = False

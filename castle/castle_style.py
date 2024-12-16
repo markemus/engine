@@ -74,7 +74,6 @@ class Cell(pl.Place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
-# TODO-DONE inventory redo- add pillowcase to PlayerCell and remove inventory from player. (can carry in left hand or third hand)
 # TODO re-enable first combat
 class PlayerCell(Cell):
     """Spawning room for player."""
@@ -83,7 +82,6 @@ class PlayerCell(Cell):
     # creature_classes = []
     furniture_classes = [fur.BedPrison]
 
-# TODO-DONE dining room should contain cooked food
 class DiningRoom(pl.Place):
     name = "dining room"
     sprite = "D"

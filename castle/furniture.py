@@ -94,7 +94,6 @@ class Dresser(pl.DisplayFurniture):
     color = ["brown", "black", "white"]
     texture = ["wood"]
     count = (1, 2)
-    # TODO this should be an invis_collections
     vis_collections = [(cst.plainsuit_c, (1, 3))]
 
 class CabinetElegant(pl.DisplayFurniture):
@@ -116,10 +115,3 @@ class CabinetMetal(pl.DisplayFurniture):
 #     n = 6
 #     # - > table (settings x 6) teak, chair x 6 mahogany, walls x4 paneled
 
-
-
-
-# TODO vis_inv and invis_inv. vis_inv should be displayed in place.desc(),
-#  and objects with invis_inv should be marked with * in desc().
-
-# TODO-DONE furniture is getting the color and texture of the room? That doesn't seem right.

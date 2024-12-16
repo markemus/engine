@@ -82,6 +82,7 @@ class Interface:
             print(f"{BC.CYAN}There are still enemies around.{BC.OFF}")
 
     # Commands
+    # TODO death transition should happen when death occurs, not at the end of the combat round
     def command(self):
         print(f"Available commands: {BC.BLUE}{''.join(self.commands[self.state].keys())}{C.OFF}")
         x = input(f"{BC.GREEN}Choose a command (h for help): {C.OFF}")

@@ -50,7 +50,7 @@ class Item:
                 who.ungrasp(self)
                 print(f"{BC.CYAN}{who.name} puts away the {self.name}.{BC.OFF}")
             else:
-                print(f"{C.RED}The {who.name} cannot pick up the {self.name}.{C.OFF}")
+                print(f"{C.RED}{who.name} cannot pick up the {self.name}.{C.OFF}")
         else:
             print(f"{C.RED}The {self.name} is not there.{C.OFF}")
 
