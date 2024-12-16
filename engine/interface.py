@@ -12,7 +12,7 @@ from . import save
 class Interface:
     def __init__(self, game):
         self.cont = controller.Controller(game)
-        self.states = ["move", "fight"]
+        self.states = ["move", "fight", "dead"]
         self.state = "move"
 
         move = {
@@ -52,15 +52,26 @@ class Interface:
             "w": self.move
         }
 
+        dead = {
+            "h": self.help,
+            "c": self.cont.character_sheet,
+            "*": self.load,
+        }
+
         self.commands = {
             "move": move,
-            "fight": fight
+            "fight": fight,
+            "dead": dead,
         }
 
     # Transitions
     def fight(self):
         print(f"{C.RED}You ready yourself for a fight.{C.OFF}")
         self.state = self.states[1]
+
+    def dead(self):
+        print(self.cont.game.death_splash)
+        self.state = self.states[2]
 
     def move(self):
         safe = self.cont.check_safety()
@@ -76,9 +87,11 @@ class Interface:
         x = input(f"{BC.GREEN}Choose a command (h for help): {C.OFF}")
         if x in self.commands[self.state].keys():
             safety_val = self.commands[self.state][x]()
-            # This should check after every action unless char is already fighting. None should be safe.
-            if safety_val == False and self.state != "fight":
+            # Commands that lead to a state that would initialize combat should return False
+            if safety_val is False and self.state == "move":
                 self.fight()
+            if self.cont.game.char.dead:
+                self.dead()
         else:
             print(x, "is not a valid command.")
 
@@ -94,8 +107,6 @@ class Interface:
     def load(self):
         savepath = input("Load stored save:")
         i = save.load(savepath)
+        # Overwrite game with the saved game
+        self.cont.game = i.cont.game
         print("Save loaded.")
-        # Just continue the game that was saved. This adds some overhead but shouldn't matter much.
-        # It does break cheating though :(
-        while True:
-            i.command()

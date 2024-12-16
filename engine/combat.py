@@ -10,6 +10,7 @@ class Combat:
         self.cont = cont
         self.blockers = None
 
+    # TODO opponent withheld their blow after Adam did? Why? Now he won't fight.
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()

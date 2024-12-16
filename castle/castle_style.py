@@ -3,7 +3,7 @@
 This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?"""
 import engine.place as pl
 
-from colorist import BrightColor as BC
+from colorist import BrightColor as BC, Color as C
 
 from castle.animated_armor import AnimatedArmor
 from castle.beholder import Beholder
@@ -205,7 +205,22 @@ class RoofTop:
 class Castle:
     levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]
     links = [(0, 1), (1, 2), (2, 3)]
+    # This will display when game starts
+    start_splash = f"""
+------------------------
+|     {C.RED}Escape From{C.OFF}      |
+|    {C.RED}Castle  Black{C.OFF}     |
+|                      |
+|  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
+|     by Markemus      |
+------------------------
+    """
+    # This will display on game over
+    death_splash = f"""
+------------------------
+|       {C.RED}YOU DIED{C.OFF}       |
+------------------------
+    """
+
 
 GameStyle.register(Castle)
-
-# TODO-DONE prisoners should be injured and "abominized" (extra limbs)

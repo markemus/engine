@@ -17,16 +17,7 @@ from castle import suits
 
 
 # Main
-splash = f"""
-------------------------
-|     {C.RED}Escape From{C.OFF}      |
-|    {C.RED}Castle  Black{C.OFF}     |
-|                      |
-|  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
-|     by Markemus      |
-------------------------
-"""
-print(splash)
+
 
 # Generate a game using the Castle template.
 t_game = game.Game("The Howling Manor", castle_style.Castle)
@@ -38,8 +29,8 @@ adam = human.PlayerHuman(location=thisLevel.start)
 adam.name = "Adam"
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
-# adam.team = "prisoner"
-adam.team = "neutral"
+adam.team = "prisoner"
+# adam.team = "neutral"
 # adam_limbs = adam.subelements[0].limb_check("name")
 # for x in adam_limbs:
 #     x.hp = 1000
@@ -59,10 +50,14 @@ adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 
-# adam.team = "neutral"
+adam.team = "neutral"
+
+
 
 i = interface.Interface(t_game)
 i.state = "fight"
 # Game loop
 while True:
     i.command()
+
+# print(game_over)

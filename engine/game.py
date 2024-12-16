@@ -16,6 +16,10 @@ class Game(object):
         self.levelGenerator = levelGenerator.levelGenerator()
         
         # Generate
+        self.start_splash = gamestyle.start_splash
+        self.death_splash = gamestyle.death_splash
+        print(self.start_splash)
+
         self._generate(gamestyle)
         self.set_current_level(0)
 

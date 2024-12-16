@@ -23,6 +23,9 @@ class GameStyle(abc.ABC):
     links = []
     # TODO-DECIDE game level creature classes?
     # creature_classes = []
+    start_splash = None
+    win_splash = None
+    death_splash = None
 
 class wall(pl.Element):
     name = "wall"

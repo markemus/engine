@@ -243,7 +243,7 @@ class Controller:
 
         i = None
         while i not in weapons.keys():
-            i = input(f"{BC.GREEN}Pick a weapon:{BC.OFF}")
+            i = input(f"{BC.GREEN}Pick a weapon:{BC.OFF} ")
             if i in weapons.keys():
                 weapon = weapons[i]
             else:

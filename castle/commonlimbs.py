@@ -176,7 +176,7 @@ class PLeg(Leg):
     appendageRange = (0, 9)
 
 # Tentacles
-class Tentacle(cr.Limb):
+class Tentacle(cr.Weapon):
     name = "tentacle"
     subelement_classes = []
     isSurface = True
