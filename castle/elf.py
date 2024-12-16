@@ -6,6 +6,8 @@ from castle import suits
 
 class PointyEar(cl.Ear):
     name = "pointy ear"
+    size = 1
+
 class Head(cr.Limb):
     name = "head"
     subelement_classes = [PointyEar, cl.Eye, cl.Nose, cl.Jaw]
@@ -14,6 +16,7 @@ class Head(cr.Limb):
     wear = "head"
     vital = True
     base_hp = 10
+    size = 2
 
 class PHead(Head):
     # Prisoners may have tentacles, but rarely.
@@ -26,6 +29,7 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
     base_hp = 35
+    size = 3
 
 class PTorso(Torso):
     subelement_classes = [PHead, cl.PRArm, cl.PLArm, cl.PLeg]

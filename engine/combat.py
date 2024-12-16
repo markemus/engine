@@ -33,9 +33,9 @@ class Combat:
 
                 # Attack
                 used = self.combatRound(actor, weapon)
-                # Can't block with weapons used to attack
-                if used and (weapon in self.blockers[actor]):
-                    self.blockers[actor].remove(weapon)
+                # # Can't block with weapons used to attack
+                # if used and (weapon in self.blockers[actor]):
+                #     self.blockers[actor].remove(weapon)
             else:
                 print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
 
@@ -86,13 +86,14 @@ class Combat:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
             # TODO-DONE damage rolls, to miss rolls (hit neighboring limb), blocking rolls. Right now it's too algorithmic.
 
+            # TODO-DECIDE we need to do the math on this to-hit algorithm. Seems reasonable but might lead to strange results.
             # To hit roll
-            roll = random.randint(0, 3)
-            if roll in (0, 1):
+            roll = random.randint(0, 5) + limb.size
+            if roll >= 6:
                 limb = limb
                 print(f"{BC.RED}{actor.name}{BC.OFF}'s attack is swift and sure.")
                 self.attack(target, limb, weapon)
-            elif roll == 2:
+            elif roll >= 4:
                 limb = random.choice(target.get_neighbors(limb))
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack misses narrowly and strikes {BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF}.")
                 self.attack(target, limb, weapon)
@@ -145,6 +146,7 @@ class Combat:
             print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {C.RED}{defender.name}{C.OFF}'s body!")
             
             self.throw_limb(defender, limb)
+            # TODO update defender status- drop weapon, fall over
 
             cutoff = True
 
@@ -166,6 +168,7 @@ class Combat:
             hands = limb.limb_check("grasp")
             for hand in hands:
                 if hand.grasped:
+                    # TODO refactor to use place.drop_item()
                     lands_at.vis_inv.append(hand.grasped)
                     print(f"{BC.CYAN}The {hand.grasped.name} slips from the {hand.name} and lands on the {lands_at.name}.{BC.OFF}")
                     hand.grasped = None

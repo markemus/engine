@@ -79,13 +79,14 @@ class CombatAI:
                     blocker = limb
                     current_block_value = block_value
                     current_damage = descendant_damage
-
+            # TODO refactor. We should always block because AI can't easily tell which limbs are important.
+            #  That's how it works now, but there's still old code for deciding whether to block.
             # Decide whether to block with blocker. We will still block if target_limb is vital, otherwise, tank the hit.
-            if limb_descendant_damage < current_damage:
-                if len(target_limb.limb_check("vital")):
-                    pass
-                else:
-                    blocker = False
+            # if limb_descendant_damage < current_damage:
+            #     if len(target_limb.limb_check("vital")):
+            #         pass
+            #     else:
+            #         blocker = False
         else:
             blocker = False
 

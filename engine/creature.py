@@ -19,6 +19,8 @@ class Limb:
     blocker = False
     printcolor = C.CYAN
     grasped = None
+    # Size should be an int between 1 and 3. This affects to-hit chance.
+    size = 2
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -83,6 +85,20 @@ class Limb:
 
         return(limb_total)
 
+    def limb_count(self, tag):
+        """Counts total of tag value in subelements."""
+        limbs = self.limb_check(tag)
+
+        limb_total = 0
+        for limb in limbs:
+            if hasattr(limb, tag):
+                limb_total += getattr(limb, tag)
+            for x in limb.equipment:
+                if hasattr(x, tag):
+                    limb_total += getattr(x, tag)
+
+        return limb_total
+
     def find_invs(self):
         """Find all inventories lower in the body hierarchy."""
         invs = []
@@ -106,6 +122,7 @@ class Limb:
         return invs
 
     def remove_limb(self, limb):
+        # Losing a grasping limb should make the creature drop the associated weapon
         if limb in self.subelements:
             self.subelements.remove(limb)
         else:
@@ -367,6 +384,7 @@ class creature:
         return left
 
     def limb_count(self, tag):
+        """Counts total of tag value in subelements."""
         limbs = self.subelements[0].limb_check(tag)
 
         limb_total = 0
@@ -438,6 +456,17 @@ class creature:
     def get_neighbors(self, limb):
         return self.subelements[0].get_neighbors(limb)
 
+    def update_status(self):
+        """Checks all limbs for necessary tags and updates status."""
+        limbs = self.subelements[0].limb_check("name")
+        for limb in limbs:
+            if hasattr(limb, "grasp"):
+                if not (limb.limb_count("f_grasp") >= 1) or not (limb.limb_count("t_grasp") >= 1):
+                    if limb.grasped:
+                        self.location.drop_item(limb.grasped)
+                        limb.grasped = None
+
+
     def remove_limb(self, limb):
         if limb in self.subelements:
             self.subelements.remove(limb)
@@ -451,6 +480,8 @@ class creature:
             # We check if other vital limbs share this exact class (eg two heads, two hearts).
             if not sum([vital.__class__ == limb.__class__ for vital in vitals]):
                 self.die()
+
+        self.update_status()
 
     def speak(self, words, listener):
         room = self.location.get_creatures()

@@ -16,6 +16,7 @@ class Head(cr.Limb):
     wears = "head"
     vital = True
     base_hp = 5
+    size = 2
 
 # Torso
 class Torso(cr.Limb):
@@ -25,6 +26,7 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
     base_hp = 20
+    size = 3
 
 # Goblin
 class Goblin(cr.creature):

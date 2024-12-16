@@ -13,6 +13,7 @@ class Head(cr.Limb):
     wear = "head"
     vital = True
     base_hp = 10
+    size = 2
 
 
 class Torso(cr.Limb):
@@ -22,6 +23,7 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
     base_hp = 40
+    size = 3
 
 class PHead(Head):
     # Prisoners may have tentacles, but rarely.

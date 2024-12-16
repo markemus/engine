@@ -12,6 +12,7 @@ class Snout(cr.Limb):
     appendageRange = (1, 2)
     wears = "snout"
     base_hp = 5
+    size = 1
 
 class Head(cr.Limb):
     name = "head"
@@ -21,6 +22,7 @@ class Head(cr.Limb):
     wear = "head"
     vital = True
     base_hp = 8
+    size = 2
 
 class TripleHead(cr.Limb):
     name = "head"
@@ -30,6 +32,7 @@ class TripleHead(cr.Limb):
     wear = "head"
     vital = True
     base_hp = 8
+    size = 2
 
 class Claw(cr.Limb):
     name = "claw"
@@ -38,6 +41,7 @@ class Claw(cr.Limb):
     appendageRange = (5, 6)
     wears = "claw"
     base_hp = 3
+    size = 1
 
 class Leg(cr.Limb):
     name = "leg"
@@ -46,6 +50,7 @@ class Leg(cr.Limb):
     appendageRange = (4, 5)
     wears = "leg"
     base_hp = 15
+    size = 2
 
 class Tail(cr.Limb):
     name = "tail"
@@ -53,6 +58,7 @@ class Tail(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     base_hp = 3
+    size = 1
     
 class Torso(cr.Limb):
     name = "torso"
@@ -61,6 +67,7 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
     base_hp = 30
+    size = 3
 
 class CTorso(Torso):
     subelement_classes = [TripleHead, Leg, Tail]

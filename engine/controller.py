@@ -213,6 +213,7 @@ class Controller:
         return True
 
     def pick_target(self):
+        # TODO chopping off thumbs is too easy now. Smaller targets should be harder to hit?
         enemylist = self.game.char.ai.get_target_creatures()
         targets = self.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
@@ -255,6 +256,8 @@ class Controller:
                 str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
             if hasattr(obj, "hp"):
                 str = f"{str} {C.RED}({obj.hp}){C.OFF}"
+            if hasattr(obj, "size"):
+                str = f"{str} {C.YELLOW}({obj.size}){C.OFF}"
             return str
         self.dictprint(limbs, pfunc=a_pfunc)
 

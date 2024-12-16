@@ -141,6 +141,15 @@ class Place:
 
         return invs
 
+    def drop_item(self, item):
+        catchers = self.elem_check("canCatch")
+        if catchers:
+            catcher = random.choice(catchers)
+            catcher.vis_inv.append(item)
+            print(f"{BC.CYAN}The {item.name} falls onto the {catcher.name}.{BC.OFF}")
+        else:
+            print(f"{C.RED}The {item.name} falls and disappears out of sight.{C.OFF}")
+
 
 
 class Element:

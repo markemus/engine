@@ -57,6 +57,7 @@ class Head(cr.Limb):
     wears = "head"
     vital = True
     base_hp = 10
+    size = 2
 
 # Arms
 # class Finger(cr.Limb):
@@ -114,6 +115,7 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
     base_hp = 40
+    size = 3
 
 # Orc
 class Orc(cr.creature):

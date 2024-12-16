@@ -11,6 +11,7 @@ class Torso(cr.Limb):
     appendageRange = (1, 2)
     wears = "body"
     base_hp = 40
+    size = 3
 
 class PTorso(Torso):
     subelement_classes = [cl.PHead, cl.PRArm, cl.PLArm, cl.PLeg]

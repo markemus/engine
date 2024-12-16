@@ -8,6 +8,8 @@ class Gem(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     vital = True
+    base_hp = 5
+    size = 1
 
 class Head(cr.Limb):
     name = "head"
@@ -15,6 +17,8 @@ class Head(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"
+    base_hp = 30
+    size = 2
 
 # Arms
 class Finger(cr.Limb):
@@ -24,6 +28,8 @@ class Finger(cr.Limb):
     isSurface = True
     appendageRange = (4, 5)
     wears = "finger"
+    base_hp = 10
+    size = 1
 
 class Thumb(cr.Limb):
     name = "thumb"
@@ -32,6 +38,8 @@ class Thumb(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "finger"
+    base_hp = 10
+    size = 1
 
 class Hand(cr.Weapon):
     name = "hand"
@@ -40,6 +48,8 @@ class Hand(cr.Weapon):
     isSurface = True
     appendageRange = (1, 2)
     wears = "hand"
+    base_hp = 15
+    size = 2
 
 class Arm(cr.Limb):
     name = "arm"
@@ -47,6 +57,8 @@ class Arm(cr.Limb):
     isSurface = True
     appendageRange = (2, 3)
     wears = "arm"
+    base_hp = 40
+    size = 2
 
 # Legs
 class Foot(cr.Limb):
@@ -56,6 +68,8 @@ class Foot(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "foot"
+    base_hp = 15
+    size = 2
 
 class Leg(cr.Limb):
     name = "leg"
@@ -63,6 +77,8 @@ class Leg(cr.Limb):
     isSurface = True
     appendageRange = (2, 3)
     wears = "leg"
+    base_hp = 40
+    size = 3
 
 class Torso(cr.Limb):
     name = "torso"
@@ -70,6 +86,8 @@ class Torso(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 80
+    size = 3
 
 class AnimatedArmor(cr.creature):
     classname = "armor"

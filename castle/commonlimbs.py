@@ -28,6 +28,7 @@ class Hair(cr.Limb):
     isSurface = 1
     appendageRange = (1, 2)
     wears = "hair"
+    size = 1
 
 class Beard(cr.Limb):
     name = "beard"
@@ -36,6 +37,7 @@ class Beard(cr.Limb):
     appendageRange = (1, 2)
     wears = "hair"
     base_hp = 1
+    size = 1
 
 class Ear(cr.Limb):
     name = "ear"
@@ -44,6 +46,7 @@ class Ear(cr.Limb):
     appendageRange = (2, 3)
     wears = "ear"
     base_hp = 3
+    size = 1
 
 class Eye(cr.Limb):
     name = "eye"
@@ -53,6 +56,7 @@ class Eye(cr.Limb):
     wears = "eye"
     see = 1
     base_hp = 3
+    size = 1
 
 class Horn(cr.Weapon):
     name = "horn"
@@ -63,6 +67,7 @@ class Horn(cr.Weapon):
     wears = "horn"
     blocker = True
     base_hp = 5
+    size = 1
 
 class Teeth(cr.Weapon):
     name = "teeth"
@@ -71,6 +76,7 @@ class Teeth(cr.Weapon):
     appendageRange = (1, 2)
     wears = "teeth"
     base_hp = 3
+    size = 1
 
 class Tongue(cr.Limb):
     name = "tongue"
@@ -78,6 +84,7 @@ class Tongue(cr.Limb):
     appendageRange = (1, 2)
     wears = "tongue"
     base_hp = 3
+    size = 1
 
 class Jaw(cr.Limb):
     name = "mouth"
@@ -86,6 +93,7 @@ class Jaw(cr.Limb):
     appendageRange = (1, 2)
     wears = "mouth"
     base_hp = 3
+    size = 1
 
 class Nose(cr.Limb):
     name = "nose"
@@ -94,6 +102,7 @@ class Nose(cr.Limb):
     appendageRange = (1, 2)
     wears = "nose"
     base_hp = 3
+    size = 1
 
 class Head(cr.Limb):
     name = "head"
@@ -103,6 +112,7 @@ class Head(cr.Limb):
     wears = "head"
     vital = True
     base_hp = 10
+    size = 2
 
 # Arms
 class Finger(cr.Limb):
@@ -113,6 +123,7 @@ class Finger(cr.Limb):
     appendageRange = (4, 5)
     wears = "finger"
     base_hp = 5
+    size = 1
 
 class Thumb(cr.Limb):
     name = "thumb"
@@ -122,16 +133,19 @@ class Thumb(cr.Limb):
     appendageRange = (1, 2)
     wears = "finger"
     base_hp = 5
+    size = 1
 
 class RHand(cr.Weapon):
     name = "right hand"
     subelement_classes = [Finger, Thumb]
     grasp = 1
+    blocker = True
     isSurface = True
     appendageRange = (1, 2)
     wears = "right hand"
     _damage = 3
     base_hp = 10
+    size = 2
 
 class LHand(cr.Weapon):
     name = "left hand"
@@ -143,6 +157,7 @@ class LHand(cr.Weapon):
     wears = "left hand"
     _damage = 2
     base_hp = 10
+    size = 2
 
 class RArm(cr.Limb):
     name = "arm"
@@ -152,6 +167,7 @@ class RArm(cr.Limb):
     wears = "arm"
     blocker = True
     base_hp = 30
+    size = 2
 
 class LArm(cr.Limb):
     name = "arm"
@@ -161,6 +177,7 @@ class LArm(cr.Limb):
     wears = "arm"
     blocker = True
     base_hp = 30
+    size = 2
 
 # Legs
 class Foot(cr.Limb):
@@ -171,6 +188,7 @@ class Foot(cr.Limb):
     appendageRange = (1, 2)
     wears = "foot"
     base_hp = 15
+    size = 2
 
 class Leg(cr.Limb):
     name = "leg"
@@ -179,6 +197,7 @@ class Leg(cr.Limb):
     appendageRange = (2, 3)
     wears = "leg"
     base_hp = 40
+    size = 3
 
 # Tentacles
 class Tentacle(cr.Weapon):
@@ -190,6 +209,7 @@ class Tentacle(cr.Weapon):
     f_grasp = 1
     t_grasp = 1
     base_hp = 5
+    size = 2
 
 # Small limbs- for smaller creatures
 class SmallRHand(RHand):

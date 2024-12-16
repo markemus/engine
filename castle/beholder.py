@@ -12,6 +12,7 @@ class Eye(cr.Limb):
     appendageRange = (1, 2)
     wears = "eye"
     base_hp = 3
+    size = 1
 
 class Head(cr.Limb):
     name = "head"
@@ -22,6 +23,7 @@ class Head(cr.Limb):
     amble = 1 # beholders fly
     vital = True
     base_hp = 10
+    size = 2
 
 class Beholder(cr.creature):
     classname = "beholder"
