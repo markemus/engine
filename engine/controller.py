@@ -201,7 +201,7 @@ class Controller:
 
     # Combat
     # TODO-DONE ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields) (50%?).
-    # TODO should not be able to attack without vision
+    # TODO-DONE should not be able to attack without vision
     def attack(self):
         self.combat.fullCombat()
 
@@ -297,7 +297,6 @@ class Controller:
         return blocker
 
     # TODO resting should not restore hp, or only a limited amount. Add healing potions and misses.
-    # TODO-DECIDE improvised armor from blankets and pillows?
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):

@@ -50,7 +50,8 @@ class Limb:
                 countRange = random.randrange(potentialRange[0], potentialRange[1])
 
                 # Create
-                # TODO-DECIDE should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
+                # TODO should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
+                #  best way would be to use self.color if limb does not have limb.colors, otherwise use those.
                 for count in range(countRange):
                     elem = elemclass(self.color, self.texture)
                     self.subelements.append(elem)
@@ -435,7 +436,6 @@ class creature:
 
         return grasped
 
-    # TODO refactor ungrasp? How would we even know to call ungrasp without knowing what hand is holding the item?
     def ungrasp(self, item):
         """Ungrasp an item from an appendage. The calling function will need to determine where to put it next."""
         ungrasped = False

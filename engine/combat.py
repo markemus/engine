@@ -23,7 +23,8 @@ class Combat:
 
         # only one weapon per combat round
         for actor in creatures:
-            if actor.limb_count("see") >= 1:
+            # TODO add blind-fighting
+            if actor.limb_count("see") >= 1 and not actor.dead:
                 # select best weapon
                 weapons = self.get_weapons(actor)
                 if weapons:
@@ -42,7 +43,7 @@ class Combat:
             else:
                 print(f"\n{C.RED}{actor.name} cannot see well enough to attack!{C.OFF}")
 
-    # TODO combat needs a vision check before each section (for attacker and defender).
+    # TODO-DONE combat needs a vision check before each section (for attacker and defender).
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
         used = False
@@ -171,7 +172,6 @@ class Combat:
             hands = limb.limb_check("grasp")
             for hand in hands:
                 if hand.grasped:
-                    # TODO refactor to use place.drop_item()
                     lands_at.vis_inv.append(hand.grasped)
                     print(f"{BC.CYAN}The {hand.grasped.name} slips from the {hand.name} and lands on the {lands_at.name}.{BC.OFF}")
                     hand.grasped = None

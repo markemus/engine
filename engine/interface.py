@@ -54,7 +54,6 @@ class Interface:
 
         dead = {
             "h": self.help,
-            "c": self.cont.character_sheet,
             "*": self.load,
         }
 
@@ -91,7 +90,7 @@ class Interface:
             # Commands that lead to a state that would initialize combat should return False
             if safety_val is False and self.state == "move":
                 self.fight()
-            if self.cont.game.char.dead:
+            if self.cont.game.char.dead and self.state != "dead":
                 self.dead()
         else:
             print(x, "is not a valid command.")
@@ -110,4 +109,5 @@ class Interface:
         i = save.load(savepath)
         # Overwrite game with the saved game
         self.cont.game = i.cont.game
+        self.state = i.state
         print("Save loaded.")
