@@ -4,7 +4,7 @@ which are used to fill Furniture.
 # A suit is a dictionary of parameters
 suit = {
 
-    # Which body part is equipped with/will be holding which item.
+    # Which body part is equipped with which item.
     "wears": {
         "head": Helm,
         "body": Chainmail,
@@ -14,7 +14,7 @@ suit = {
         "right hand": Gauntlet,
         "leg": Greave,
         "foot": Boot},
-    "grasps": {same as wears}
+    "grasps": {same as wears, but for weapons}
 
     # Color and texture are used to customize the items. Scheme options are "same", "distinct", and "unique".
     # "distinct" makes items of the same type share a color scheme. "same" means all items share the same color and texture.
@@ -385,5 +385,3 @@ weapons = {
     "texture_scheme": "same",
     "full": True,
 }
-
-# TODO more potions (add temporary effects- stoneskin?)

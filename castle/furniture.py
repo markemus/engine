@@ -1,5 +1,13 @@
 """Furniture is a type of item used in rooms. They can hold items, specified in collections.
-'count' is a range specifying how many will spawn per room."""
+
+class BathroomCabinet(pl.DisplayFurniture):
+    name = "medicine cabinet"
+    color = ["gray", "black", "white"]
+    texture = ["metal", "steel"]
+    # a range specifying how many will spawn per room.
+    count = (0, 3)
+    # Collections that will be spawned inside this piece of furniture
+    vis_collections = [hi.medicine]"""
 import castle.household_items as hi
 import castle.castle_collections as cst
 from engine import place as pl
@@ -108,6 +116,13 @@ class CabinetMetal(pl.DisplayFurniture):
     color = ["gray", "black", "white"]
     texture = ["metal", "steel"]
     count = (0, 3)
+
+class BathroomCabinet(pl.DisplayFurniture):
+    name = "medicine cabinet"
+    color = ["gray", "black", "white"]
+    texture = ["metal", "steel"]
+    count = (0, 3)
+    vis_collections = [hi.medicine]
 
 # class Theme:
 #     name = "DiningRoom"

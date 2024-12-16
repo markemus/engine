@@ -1,12 +1,23 @@
 """These collections are used to populate rooms. The texture and color options define the strategy for
-how the items are themed."""
+how the items are themed.
+linens = {
+    # Items that will be spawned in Furniture
+    "contains": [Pillow, Blanket, Sheet],
+    # Color and texture info tells the generator how to color the created items
+    "color": ["blue", "green", "silver", "brown"],
+    "color_scheme": "distinct",
+    "texture": ["quilted", "patterned", "wool", "linen"],
+    "texture_scheme": "same",
+    # Whether the full set will be placed in each piece of Furniture, or only a subset.
+    "full": True,
+}"""
 from engine import item as it
 from engine import suits_and_collections as sc
 
 from castle import castle_collections as cst
 from castle import commonlimbs as cl
 from castle import human
-
+from castle import potions
 
 
 class Blanket(it.Item):
@@ -96,8 +107,19 @@ tools = {
     "full": False,
 }
 
+# TODO-DECIDE collections should have a no color option so objects can keep their default colors?
+medicine = {
+    "contains": [potions.ArmGrowthPotion, potions.PotionOfHealing],
+    "color": ["gray"],
+    "color_scheme": "distinct",
+    "texture": ["murky"],
+    "texture_scheme": "distinct",
+    "full": False,
+}
+
 # Kitchen
 arms_and_legs = sc.limbs_to_collection(limbs=[(cl.RArm, cl.LArm, cl.Leg, cl.Tentacle)], model=human.Human)
+
 class KitchenKnife(it.Item):
     name = "kitchen knife"
     _damage = 3

@@ -1,3 +1,17 @@
+"""See commonlimbs.py for more info on limb design.
+class Human(cr.creature):
+    classname = "man"
+    # teams fight against other teams in the same room. Neutral is not a team and will not fight.
+    team = "neutral"
+    namelist = nm.names["human"]
+    # baseElem is the root element of the limb tree. It will contain subelements in subelement_classes.
+    baseElem = Torso
+    # colors and textures are used during creature generation to color the limbs
+    colors = ["black", "white", "brown", "tan"]
+    textures = ["skinned"]
+    # the creature will be clothed in their suits during generation.
+    suits = [suits.plainsuit]
+"""
 import engine.creature as cr
 import castle.commonlimbs as cl
 import castle.namelists as nm

@@ -1,11 +1,12 @@
 """The Book of Common Limbs. These limbs are used for the creatures stored in separate modules.
-If a creature needs a specialized limb, I've generally just made a new class instead of subclassing.
+See human.py for a description of creature specifications.
 
 # Example
-class Tentacle(cr.limb):
+class Tentacle(cr.Limb):
     name = "tentacle"
 
-    # Subelements that will be generated. Only add once, use their appendageRange to determine how many will spawn.
+    # Subelements make up the lower parts of the limb tree that will be generated.
+    # Only add once, use their appendageRange to determine how many will spawn (eg two arms).
     subelement_classes = [Subtentacle]
 
     # Whether the limb can be seen or not
@@ -15,10 +16,20 @@ class Tentacle(cr.limb):
     appendageRange = (3, 6)
 
     # Tags. These determine behavior. A limb or its subelements can contain a tag to allow the behavior
-    # A tentacle is hand-like (and doesn't need fingers or thumbs)
+    # A tentacle is hand-like (and doesn't need finger or thumb subelements)
     grasp = 1
     f_grasp = 1
     t_grasp = 1
+
+    # Wears tells the generator what type of equipment the limb can wear.
+    wears = "noodly"
+
+    # How hard a limb is to hit in combat (1,2,3)
+    size = 2
+
+    # Colors, textures are used during element generation. If limb doesn't have these it will inherit from parent limb.
+    colors = []
+    textures = []
 """
 import engine.creature as cr
 
@@ -279,7 +290,6 @@ class PSmallLeg(SmallLeg):
     colors = ["pale"]
     textures = ["skinned"]
 
-# TODO-DONE let limbs have their own (coordinated) colors? How? (because PTentacles come from the potion).
 class PTentacle(Tentacle):
     """Prisoners only have a small number of tentacles- no big deal."""
     appendageRange = (1, 3)

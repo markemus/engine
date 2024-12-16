@@ -102,7 +102,7 @@ class Controller:
         if self.game.char.limb_count("see") >= 1:
             examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements, add_x=True)
             self.dictprint(examine_dict)
-            i = input(f"{BC.GREEN}\nWho/what are you examining?{BC.OFF}")
+            i = input(f"{BC.GREEN}\nWho/what are you examining?{BC.OFF} ")
             if i in examine_dict.keys() and i != "x":
                 self.display_long_text(examine_dict[i].desc(full=True))
             else:

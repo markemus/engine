@@ -55,3 +55,21 @@ class TentacleGrowthPotion(I.Potion):
             head.subelements.append(cl.PTentacle(color="green", texture="slimy"))
         else:
             print(f"{C.RED}The potion has no effect.{C.OFF}")
+
+class PotionOfHealing(I.Potion):
+    """Heals a certain amount of HP on random limbs."""
+    name = "Potion of Healing"
+
+    def effect(self, creature):
+        limbs = creature.subelements[0].limb_check("name")
+        total_heal = 30
+        for limb in limbs:
+            to_heal = limb.base_hp - limb.hp
+            if to_heal > total_heal:
+                to_heal = total_heal
+            total_heal -= to_heal
+            limb.hp += to_heal
+            if to_heal:
+                print(f"{BC.CYAN}{limb.name}{BC.OFF} gains {C.RED}({to_heal}/{limb.base_hp}){C.OFF} hp.")
+            if total_heal <= 0:
+                break

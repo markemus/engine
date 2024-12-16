@@ -1,12 +1,35 @@
-"""An example style- from lowest to highest, build a hierarchy.
+"""A gamestyle is used to generate a game. This is the gamestyle for Escape From Castle Black.
+This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?
 
-This dark castle harbors many deadly creatures. But perhaps great treasure is hidden here?"""
+A gamestyle is composed of levelstyles. Levelstyles are composed of rooms.
+
+# Example levelstyle
+class Dungeon:
+    level_text = "This is the intro text to the level"
+    # Rooms that will spawn on the level
+    room_classes = [TortureChamber, Cell]
+    # The level will begin with start_room and end with end_room, if they are provided. They are optional
+    start_room = PlayerCell
+    end_room = Guardroom
+    # These creatures can spawn anywhere in the level, except for start_room and end_room
+    creature_classes = [[(Goblin, 3), (None, 3)]]
+
+# Example gamestyle
+class Castle:
+    # levels will spawn in this order
+    levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]
+    # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
+    links = [(0, 1), (1, 2), (2, 3)]
+    # the splash screens will display at the beginning and end of the game.
+
+
+register() your styles to ensure that all parameters are set.
+"""
 import engine.place as pl
 
 from colorist import BrightColor as BC, Color as C
 
 from castle.animated_armor import AnimatedArmor
-from castle.beholder import Beholder
 from castle.cat import Cat
 from castle.dog import Dog, Cerberus
 from castle.dwarf import Dwarf, PrisonerDwarf
@@ -36,7 +59,7 @@ cc = {
 # Rooms
 class Ballroom(pl.Place):
     name = "ballroom"
-    sprite = "D"
+    sprite = "B"
     count = (0, 2)
     colors = ["gold", "white", "silver"]
     textures = ["marble", "granite", "limestone"]
@@ -166,8 +189,10 @@ class TortureChamber(pl.Place):
 # Levels
 class BedroomFloor:
     level_text = f"""{BC.BLUE}You've made it to the top floor of the castle. Time to finally confront your captor and put an end to this evil once and for all!{BC.OFF}"""
+    # The level will be populated with these floors
     room_classes = [Bedroom, Bathroom]
     end_room = Den
+    # These creatures can spawn anywhere in the level, except for start_room and end_room
     creature_classes = [[(Orc, 1), (Goblin, 1), (None, 3)]]
 
 LevelStyle.register(BedroomFloor)
@@ -202,7 +227,9 @@ LevelStyle.register(RoofTop)
 
 # And finally, the game itself.
 class Castle:
+    # levels will spawn in this order
     levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]
+    # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
     links = [(0, 1), (1, 2), (2, 3)]
     # This will display when game starts
     start_splash = f"""

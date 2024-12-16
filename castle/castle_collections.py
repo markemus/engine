@@ -1,4 +1,4 @@
-"""Collections are used to populate Furniture and Items with vis_- or invis_- collections."""
+"""Collections are used to populate Furniture and Items with other Items."""
 from engine import suits_and_collections as sc
 from castle.human import Human
 from castle import suits as st

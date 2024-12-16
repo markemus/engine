@@ -2,8 +2,6 @@
 
 Run from toplevel engine/ directory as 'python3 -m castle.index' so that the package can properly inherit from
 the engine.engine subpackage."""
-import textwrap
-
 from colorist import BrightColor as BC, Color as C
 
 from engine import game
@@ -20,7 +18,7 @@ from castle import suits
 
 
 # Generate a game using the Castle template.
-t_game = game.Game("The Howling Manor", castle_style.Castle)
+t_game = game.Game("Escape From Castle Black", castle_style.Castle)
 thisLevel = t_game.level_list[0]
 
 # Character creation
@@ -39,6 +37,7 @@ adams_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 # adams_pillowcase2 = hi.Pillowcase(color="dirty", texture="roughspun")
 adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
+adams_pillowcase.vis_inv.append(potions.PotionOfHealing())
 # adams_pillowcase2.vis_inv.append(potions.TentacleGrowthPotion())
 adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 # adam.subelements[0].limb_check("grasp")[0].grasped = adams_pillowcase2
