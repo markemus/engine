@@ -34,7 +34,7 @@ adam.team = "prisoner"
 # for x in adam_limbs:
 #     x.hp = 1000
 
-# TODO fix grasp_check- will items in hands drop if grasp_check fails? Don't think so...
+# TODO-DONE fix grasp_check- will items in hands drop if grasp_check fails? Don't think so...
 # Give adam starting equipment
 adams_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
@@ -45,7 +45,6 @@ adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 # adam.subelements[0].limb_check("grasp")[0].grasped = adams_pillowcase2
 adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # adam.subelements[0].subelements[0].inventory.append(suits.Blindfold("dirty", "linen"))
-# TODO-DONE rework inventories so this potion can be looted by player.
 # Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 

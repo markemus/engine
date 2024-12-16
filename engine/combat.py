@@ -146,7 +146,7 @@ class Combat:
             print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {C.RED}{defender.name}{C.OFF}'s body!")
             
             self.throw_limb(defender, limb)
-            # TODO update defender status- drop weapon, fall over
+            # TODO-DONE update defender status- drop weapon, fall over
 
             cutoff = True
 

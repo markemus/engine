@@ -397,8 +397,6 @@ class creature:
 
         return limb_total
 
-    # TODO this is the way tag checks should work in general, and we should have a general function to check them.
-    #  use properties to set tag = 0 if subtags aren't there? We need hasattr to be supported... it's a bit messy.
     def grasp_check(self):
         """Grasps an item with the first available appendage."""
         graspHand = None

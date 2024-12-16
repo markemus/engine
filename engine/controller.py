@@ -200,7 +200,7 @@ class Controller:
         return self.check_safety()
 
     # Combat
-    # TODO ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields) (50%?).
+    # TODO-DONE ai should defend things like eyes. Maybe always block if possible? Needs decent chance of failing to block (then bring back shields) (50%?).
     # TODO should not be able to attack without vision
     def attack(self):
         self.combat.fullCombat()
@@ -213,7 +213,7 @@ class Controller:
         return True
 
     def pick_target(self):
-        # TODO chopping off thumbs is too easy now. Smaller targets should be harder to hit?
+        # TODO-DONE chopping off thumbs is too easy now. Smaller targets should be harder to hit?
         enemylist = self.game.char.ai.get_target_creatures()
         targets = self.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
