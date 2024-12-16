@@ -3,10 +3,13 @@ import castle.commonlimbs as cl
 import castle.namelists as nm
 from castle import suits
 
+class Head(cl.Head):
+    # optional beard for humans
+    subelement_classes = cl.Head.subelement_classes.copy() + [(cl.Beard, None)]
 
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [cl.Head, cl.RArm, cl.LArm, cl.Leg]
+    subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

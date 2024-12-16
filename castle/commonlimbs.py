@@ -29,6 +29,8 @@ class Hair(cr.Limb):
     appendageRange = (1, 2)
     wears = "hair"
     size = 1
+    colors = ["black", "red", "brown", "blonde"]
+    textures = ["haired"]
 
 class Beard(cr.Limb):
     name = "beard"
@@ -38,6 +40,8 @@ class Beard(cr.Limb):
     wears = "hair"
     base_hp = 1
     size = 1
+    colors = ["black", "red", "brown", "blonde"]
+    textures = ["haired"]
 
 class Ear(cr.Limb):
     name = "ear"
@@ -57,6 +61,8 @@ class Eye(cr.Limb):
     see = 1
     base_hp = 3
     size = 1
+    colors = ["blue", "hazel", "black", "brown", "green"]
+    textures = ["colored"]
 
 class Horn(cr.Weapon):
     name = "horn"
@@ -68,6 +74,8 @@ class Horn(cr.Weapon):
     blocker = True
     base_hp = 5
     size = 1
+    colors = ["black", "gray", "brown"]
+    textures = ["smooth"]
 
 class Teeth(cr.Weapon):
     name = "teeth"
@@ -77,6 +85,8 @@ class Teeth(cr.Weapon):
     wears = "teeth"
     base_hp = 3
     size = 1
+    colors = ["white"]
+    textures = ["enameled"]
 
 class Tongue(cr.Limb):
     name = "tongue"
@@ -85,6 +95,8 @@ class Tongue(cr.Limb):
     wears = "tongue"
     base_hp = 3
     size = 1
+    colors = ["red"]
+    textures = ["fleshy"]
 
 class Jaw(cr.Limb):
     name = "jaw"

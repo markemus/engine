@@ -1,7 +1,6 @@
 import random
 
 from colorist import BrightColor as BC, Color as C
-from transitions import Machine
 
 
 class Combat:

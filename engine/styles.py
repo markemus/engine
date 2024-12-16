@@ -41,7 +41,6 @@ class floor(pl.Platform):
     count = (1, 2)
     canCatch = True
 
-# TODO doors should have their own color and texture instead of borrowing from room. This fix is needed in general for hair and nails, etc.
 class door(pl.Element):
     name = "door"
     sprite = "O"

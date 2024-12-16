@@ -52,8 +52,16 @@ class Limb:
                 # Create
                 # TODO should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
                 #  best way would be to use self.color if limb does not have limb.colors, otherwise use those.
+                # If element has its own color definitions, use those (eg hair). Most elements should just inherit parent color.
+                if hasattr(elemclass, "colors"):
+                    color = random.choice(elemclass.colors)
+                    texture = random.choice(elemclass.textures)
+                else:
+                    color = self.color
+                    texture = self.texture
+
                 for count in range(countRange):
-                    elem = elemclass(self.color, self.texture)
+                    elem = elemclass(color, texture)
                     self.subelements.append(elem)
 
     def desc(self, full=True, offset=0, stats=True):
