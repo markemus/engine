@@ -151,7 +151,7 @@ class Controller:
                     self.dictprint(self.listtodict(origin_inv))
                     k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF} ")
                     if k != "x" and 0 <= int(k) < len(origin_inv):
-                        # TODO why does this fail twice when it fails?
+                        # TODO-DONE why does this fail twice when it fails?
                         origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
         else:
             print("You cannot see well enough for that.")

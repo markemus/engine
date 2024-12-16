@@ -50,7 +50,7 @@ class Limb:
                 countRange = random.randrange(potentialRange[0], potentialRange[1])
 
                 # Create
-                # TODO should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
+                # TODO-DONE should this use same color? Good for fingers, maybe not for horns. Maybe add share_color tag?
                 #  best way would be to use self.color if limb does not have limb.colors, otherwise use those.
                 # If element has its own color definitions, use those (eg hair). Most elements should just inherit parent color.
                 if hasattr(elemclass, "colors"):
