@@ -67,8 +67,9 @@ class levelGenerator:
                 lastRoom = roomList[lastRoomNum]
 
             # Link the room to the previous room
-            door = self.connectRooms(gennedRoom, lastRoom)
-            # Add room to gennedLevel's levelMap and roomList
+            if lastRoom:
+                door = self.connectRooms(gennedRoom, lastRoom)
+                # Add room to gennedLevel's levelMap and roomList
             gennedLevel.addRoom(x, y, gennedRoom)
             roomList.append(gennedRoom)
             # Add door to map
