@@ -7,25 +7,27 @@ from castle import suits
 
 class Head(cr.Limb):
     name = "head"
-    subelement_classes = [cl.Ear, cl.Eye, cl.Mouth, cl.Nose, cl.Beard]
+    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, cl.Jaw, cl.Beard]
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"
     vital = True
+    base_hp = 10
 
 
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
+    subelement_classes = [Head, cl.SmallRArm, cl.SmallLArm, cl.SmallLeg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 40
 
 class PHead(Head):
     # Prisoners may have tentacles, but rarely.
     subelement_classes = Head.subelement_classes.copy() + [(cl.PTentacle, None, None)]
 class PTorso(Torso):
-    subelement_classes = [PHead, cl.PRArm, cl.PLArm, cl.PLeg]
+    subelement_classes = [PHead, cl.PSmallRArm, cl.PSmallLArm, cl.PSmallLeg]
 
 class Dwarf(cr.creature):
     classname = "dwarf"

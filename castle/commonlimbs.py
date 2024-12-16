@@ -35,6 +35,7 @@ class Beard(cr.Limb):
     isSurface = 1
     appendageRange = (1, 2)
     wears = "hair"
+    base_hp = 1
 
 class Ear(cr.Limb):
     name = "ear"
@@ -42,6 +43,7 @@ class Ear(cr.Limb):
     isSurface = 1
     appendageRange = (2, 3)
     wears = "ear"
+    base_hp = 3
 
 class Eye(cr.Limb):
     name = "eye"
@@ -50,6 +52,7 @@ class Eye(cr.Limb):
     appendageRange = (2, 3)
     wears = "eye"
     see = 1
+    base_hp = 3
 
 class Horn(cr.Weapon):
     name = "horn"
@@ -59,6 +62,7 @@ class Horn(cr.Weapon):
     appendageRange = (2, 3)
     wears = "horn"
     blocker = True
+    base_hp = 5
 
 class Teeth(cr.Weapon):
     name = "teeth"
@@ -66,19 +70,22 @@ class Teeth(cr.Weapon):
     _damage = 2
     appendageRange = (1, 2)
     wears = "teeth"
+    base_hp = 3
 
 class Tongue(cr.Limb):
     name = "tongue"
     subelement_classes = []
     appendageRange = (1, 2)
     wears = "tongue"
+    base_hp = 3
 
-class Mouth(cr.Limb):
+class Jaw(cr.Limb):
     name = "mouth"
     subelement_classes = [Teeth, Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "mouth"
+    base_hp = 3
 
 class Nose(cr.Limb):
     name = "nose"
@@ -86,14 +93,16 @@ class Nose(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "nose"
+    base_hp = 3
 
 class Head(cr.Limb):
     name = "head"
-    subelement_classes = [Ear, Eye, Mouth, Nose]
+    subelement_classes = [Ear, Eye, Nose, Jaw]
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
     vital = True
+    base_hp = 10
 
 # Arms
 class Finger(cr.Limb):
@@ -103,6 +112,7 @@ class Finger(cr.Limb):
     isSurface = True
     appendageRange = (4, 5)
     wears = "finger"
+    base_hp = 5
 
 class Thumb(cr.Limb):
     name = "thumb"
@@ -111,6 +121,7 @@ class Thumb(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "finger"
+    base_hp = 5
 
 class RHand(cr.Weapon):
     name = "right hand"
@@ -120,6 +131,7 @@ class RHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "right hand"
     _damage = 3
+    base_hp = 10
 
 class LHand(cr.Weapon):
     name = "left hand"
@@ -130,6 +142,7 @@ class LHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "left hand"
     _damage = 2
+    base_hp = 10
 
 class RArm(cr.Limb):
     name = "arm"
@@ -138,10 +151,7 @@ class RArm(cr.Limb):
     appendageRange = (1, 2)
     wears = "arm"
     blocker = True
-
-class PRArm(RArm):
-    """Prisoner's right arm- transmogrified."""
-    appendageRange = (0, 4)
+    base_hp = 30
 
 class LArm(cr.Limb):
     name = "arm"
@@ -150,10 +160,7 @@ class LArm(cr.Limb):
     appendageRange = (1, 2)
     wears = "arm"
     blocker = True
-
-class PLArm(LArm):
-    """Prisoner's left arm- transmogrified"""
-    appendageRange = (0, 4)
+    base_hp = 30
 
 # Legs
 class Foot(cr.Limb):
@@ -163,6 +170,7 @@ class Foot(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "foot"
+    base_hp = 15
 
 class Leg(cr.Limb):
     name = "leg"
@@ -170,10 +178,7 @@ class Leg(cr.Limb):
     isSurface = True
     appendageRange = (2, 3)
     wears = "leg"
-
-class PLeg(Leg):
-    """Prisoner's leg- transmogrified."""
-    appendageRange = (0, 9)
+    base_hp = 40
 
 # Tentacles
 class Tentacle(cr.Weapon):
@@ -184,6 +189,50 @@ class Tentacle(cr.Weapon):
     grasp = 1
     f_grasp = 1
     t_grasp = 1
+    base_hp = 5
+
+# Small limbs- for smaller creatures
+class SmallRHand(RHand):
+    base_hp = int(RHand.base_hp / 2)
+
+class SmallRArm(RArm):
+    subelement_classes = [SmallRHand]
+    base_hp = int(RArm.base_hp / 2)
+
+class SmallLHand(LHand):
+    base_hp = int(LHand.base_hp / 2)
+
+class SmallLArm(LArm):
+    subelement_classes = [SmallLHand]
+    base_hp = int(LArm.base_hp / 2)
+
+class SmallLeg(Leg):
+    base_hp = int(Leg.base_hp / 2)
+
+class SmallHead(Head):
+    base_hp = int(Head.base_hp / 2)
+
+
+# Prisoner limbs- transmogrified
+class PRArm(RArm):
+    """Prisoner's right arm- transmogrified."""
+    appendageRange = (0, 4)
+
+class PSmallRArm(SmallRArm):
+    appendageRange = (0, 4)
+
+class PLArm(LArm):
+    """Prisoner's left arm- transmogrified"""
+    appendageRange = (0, 4)
+
+class PSmallLArm(SmallLArm):
+    appendageRange = (0, 4)
+
+class PLeg(Leg):
+    """Prisoner's leg- transmogrified."""
+    appendageRange = (0, 9)
+class PSmallLeg(SmallLeg):
+    appendageRange = (0, 4)
 
 # TODO-DECIDE let limbs have their own (coordinated) colors? How? (because PTentacles come from the potion).
 class PTentacle(Tentacle):
@@ -193,3 +242,6 @@ class PTentacle(Tentacle):
 class PHead(Head):
     # Prisoners may have tentacles, but rarely.
     subelement_classes = Head.subelement_classes.copy() + [(PTentacle, None, None)]
+
+class PSmallHead(PHead):
+    base_hp = int(PHead.base_hp / 2)

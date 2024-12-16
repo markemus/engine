@@ -7,13 +7,14 @@ from castle import suits
 
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [cl.Head, cl.RArm, cl.LArm, cl.Leg]
+    subelement_classes = [cl.SmallHead, cl.SmallRArm, cl.SmallLArm, cl.SmallLeg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 20
 
 class PTorso(Torso):
-    subelement_classes = [cl.PHead, cl.PRArm, cl.PLArm, cl.PLeg]
+    subelement_classes = [cl.PSmallHead, cl.PSmallRArm, cl.PSmallLArm, cl.PSmallLeg]
 
 
 class Hobbit(cr.creature):

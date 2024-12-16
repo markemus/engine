@@ -7,10 +7,11 @@ import castle.namelists as nm
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Teeth, cl.Tongue, cl.Nose]
+    subelement_classes = [cl.Nose, cl.Teeth, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
+    base_hp = 1
 
 class Head(cr.Limb):
     name = "head"
@@ -19,6 +20,7 @@ class Head(cr.Limb):
     appendageRange = (1, 2)
     wear = "head"
     vital = True
+    base_hp = 5
 
 class Claw(cr.Limb):
     name = "claw"
@@ -26,6 +28,7 @@ class Claw(cr.Limb):
     isSurface = True
     appendageRange = (5, 6)
     wears = "claw"
+    base_hp = 3
 
 class Leg(cr.Limb):
     name = "leg"
@@ -33,12 +36,14 @@ class Leg(cr.Limb):
     isSurface = True
     appendageRange = (4, 5)
     wears = "leg"
+    base_hp = 10
 
 class Tail(cr.Limb):
     name = "tail"
     subelement_classes = []
     isSurface = True
     appendageRange = (1, 2)
+    base_hp = 3
 
 class Torso(cr.Limb):
     name = "torso"
@@ -46,6 +51,7 @@ class Torso(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 15
 
 class Cat(cr.creature):
     classname = "cat"

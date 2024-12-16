@@ -8,11 +8,12 @@ class PointyEar(cl.Ear):
     name = "pointy ear"
 class Head(cr.Limb):
     name = "head"
-    subelement_classes = [PointyEar, cl.Eye, cl.Mouth, cl.Nose]
+    subelement_classes = [PointyEar, cl.Eye, cl.Nose, cl.Jaw]
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"
     vital = True
+    base_hp = 10
 
 class PHead(Head):
     # Prisoners may have tentacles, but rarely.
@@ -24,6 +25,7 @@ class Torso(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 35
 
 class PTorso(Torso):
     subelement_classes = [PHead, cl.PRArm, cl.PLArm, cl.PLeg]

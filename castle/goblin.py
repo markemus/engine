@@ -1,5 +1,5 @@
 """Goblins are the Orc's smaller cousin. They are no more worthy of kindness than their equally foul
-kinsmen. They can be distinguished by their lack of horns."""
+kinsmen. They can be distinguished by their lack of horns and small stature."""
 import engine.creature as cr
 import castle.commonlimbs as cl
 import castle.orc as orc
@@ -10,19 +10,21 @@ import castle.namelists as nm
 # Head
 class Head(cr.Limb):
     name = "head"
-    subelement_classes = [orc.Ear, orc.Eye, orc.Teeth, orc.Tongue, orc.Nose]
+    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, cl.Jaw]
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
     vital = True
+    base_hp = 5
 
 # Torso
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, cl.RArm, cl.LArm, orc.Leg]
+    subelement_classes = [Head, cl.SmallRArm, cl.SmallLArm, cl.SmallLeg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 20
 
 # Goblin
 class Goblin(cr.creature):

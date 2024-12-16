@@ -11,14 +11,17 @@ class Eye(cr.Limb):
     isSurface = 1
     appendageRange = (1, 2)
     wears = "eye"
+    base_hp = 3
 
 class Head(cr.Limb):
     name = "head"
-    subelement_classes = [cl.Ear, Eye, cl.Mouth, cl.Tentacle]
+    subelement_classes = [cl.Ear, Eye, cl.Jaw, cl.Tentacle]
     isSurface = True
     appendageRange = (1, 2)
     wear = "head"
     amble = 1 # beholders fly
+    vital = True
+    base_hp = 10
 
 class Beholder(cr.creature):
     classname = "beholder"

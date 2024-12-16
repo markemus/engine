@@ -10,6 +10,7 @@ class Torso(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
+    base_hp = 40
 
 class PTorso(Torso):
     subelement_classes = [cl.PHead, cl.PRArm, cl.PLArm, cl.PLeg]
