@@ -281,7 +281,7 @@ class creature:
         can be added after armor etc. Note that color schemes will be shared across weapons and armor, so it
         might make sense to split them into separate suits."""
         # Seed is to coordinate item selection across limbs of the same type, we don't get eg shoe+slipper
-        seed = int(time.time())
+        seed = random.randint(0, 100)
         for suit in self.suits:
             # print(suit)
             if (type(suit) == tuple):

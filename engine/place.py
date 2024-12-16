@@ -1,5 +1,6 @@
 import copy
 import random
+import time
 
 from colorist import Color as C
 from colorist import BrightColor as BC
@@ -262,6 +263,7 @@ class DisplayFurniture(Furniture, Platform):
         if self.vis_collections:
             for (item_collection, count) in self.vis_collections:
                 for n in range(*count):
+                    seed = random.randint(0, 100)
                     if item_collection["color_scheme"] == "distinct":
                         # print("\n", item_collection["contains"])
                         colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
@@ -293,8 +295,12 @@ class DisplayFurniture(Furniture, Platform):
                         else:
                             texture = textures[item_class]
                         if isinstance(item_class, tuple):
-                            # TODO-DECIDE should we use a fixed seed for this? To coordinate sets of shoes eg? Same by Item._fill_vis()
+                            # TODO why is it always picking the same item_class in the tuple? Seems to be consistent throughout level.
+                            # Seed ensures we always make the same choice for tuples- eg both shoes, not shoe and slipper
+                            random.seed(seed)
                             item_class = random.choice(item_class)
 
                         item = item_class(color, texture)
                         self.vis_inv.append(item)
+                    # Reset seed
+                    random.seed()

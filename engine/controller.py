@@ -110,8 +110,6 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
-    # TODO-DONE should not show equipment, only inventories. We have put_on() and take_off() now.
-    # TODO-DONE find_invs() should only return vis_invs, not equipment?
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check

@@ -338,7 +338,7 @@ plainsuit = {
     "wears": {
         "body": Tunic,
         "leg": Hose,
-        "foot": (Shoe, Slipper)},
+        "foot": (Slipper, Shoe)},
     "grasps": {},
     "color": ["red", "blue", "green", "yellow", "striped"],
     "color_scheme": "distinct",

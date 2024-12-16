@@ -48,7 +48,7 @@ adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # Give first creature (not Adam) a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 
-# adam.team = "neutral"
+adam.team = "neutral"
 
 
 

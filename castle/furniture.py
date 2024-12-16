@@ -121,8 +121,8 @@ class BathroomCabinet(pl.DisplayFurniture):
     name = "medicine cabinet"
     color = ["gray", "black", "white"]
     texture = ["metal", "steel"]
-    count = (0, 3)
-    vis_collections = [hi.medicine]
+    count = (1, 2)
+    vis_collections = [(hi.medicine, (1, 4))]
 
 # class Theme:
 #     name = "DiningRoom"

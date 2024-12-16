@@ -1,7 +1,6 @@
 import random
 
 
-# TODO-DECIDE multiple ai types? Styles?
 class CombatAI:
     def __init__(self, creature):
         self.creature = creature

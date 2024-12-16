@@ -35,7 +35,6 @@ class pillar(pl.Element):
     name = "pillar"
     count = (8, 9)
 
-
 class floor(pl.Platform):
     name = "floor"
     count = (1, 2)

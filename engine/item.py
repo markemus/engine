@@ -2,6 +2,7 @@
 item that is used to fill rooms. Items have an inventory that can hold other items."""
 from collections import defaultdict
 import random
+import time
 
 from colorist import Color as C, BrightColor as BC
 
@@ -93,10 +94,10 @@ class Holder(Item):
         return text
 
     def _fill_vis(self):
-        """Put items in furniture upon creation."""
         if self.vis_collections:
             for (item_collection, count) in self.vis_collections:
                 for n in range(*count):
+                    seed = random.randint(0, 100)
                     if item_collection["color_scheme"] == "distinct":
                         # print("\n", item_collection["contains"])
                         colors = {key: random.choice(item_collection["color"]) for key in item_collection["contains"]}
@@ -124,11 +125,14 @@ class Holder(Item):
                         else:
                             texture = textures[item_class]
                         if isinstance(item_class, tuple):
+                            # Seed ensures we always make the same choice for tuples- eg both shoes, not shoe and slipper
+                            random.seed(seed)
                             item_class = random.choice(item_class)
 
                         item = item_class(color, texture)
                         self.vis_inv.append(item)
-
+                    # Reset seed
+                    random.seed()
 
 
 class Potion(Item):

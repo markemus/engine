@@ -69,12 +69,12 @@ class Ballroom(pl.Place):
 
 class Bathroom(pl.Place):
     name = "bathroom"
-    sprite = "T"
+    sprite = "W"
     count = (1, 3)
     colors = ["white", "blue", "black", "marble"]
     textures = ["tiled"]
     creature_classes = []
-    furniture_classes = [fur.Toilet, fur.CabinetMetal]
+    furniture_classes = [fur.Toilet, fur.BathroomCabinet]
     subelement_classes = [wall, floor]
 
 class Bedroom(pl.Place):

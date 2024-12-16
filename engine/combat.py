@@ -86,7 +86,6 @@ class Combat:
             else:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
 
-            # TODO-DECIDE we need to do the math on this to-hit algorithm. Seems reasonable but might lead to strange results.
             # To hit roll- smaller limbs are harder to hit
             roll = random.randint(0, 5) + limb.size
             if roll >= 6:
