@@ -174,6 +174,16 @@ class Limb:
                 depth_elements += subelement.return_from_depth(depth-1)
         return depth_elements
 
+    def get_neighbors(self, limb):
+        neighbors = []
+        if limb in self.subelements:
+            neighbors = [self, *limb.subelements]
+        else:
+            for x in self.subelements:
+                neighbors.extend(x.get_neighbors(limb))
+
+        return neighbors
+
     @property
     def armor(self):
         armor = self._armor
@@ -424,6 +434,9 @@ class creature:
                 break
 
         return ungrasped
+
+    def get_neighbors(self, limb):
+        return self.subelements[0].get_neighbors(limb)
 
     def remove_limb(self, limb):
         if limb in self.subelements:

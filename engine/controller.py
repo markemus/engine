@@ -414,8 +414,6 @@ class Controller:
         self.dictprint(graspers_desc)
         i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF}")
 
-        # TODO this doesn't include severed limbs. We should use the new find_invs()? Or is this too much trouble
-        #  for a bad approach (who really wants to put things on severed limbs anyway)?.
         if i in graspers_desc.keys() and i != "x":
             hand = graspers[int(i)]
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]

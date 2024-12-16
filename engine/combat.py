@@ -60,11 +60,11 @@ class Combat:
             limb = None
 
         if limb:
-            # TODO allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
+            # TODO-DONE allow near misses (should hit neighboring limb on the pick_limb() list. Or neighboring on the tree would be better)
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
-                  f"{C.YELLOW}{target.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
+                  f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-            print(f"It will deal {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked {C.RED}({limb.hp} hp){C.OFF}.")
+            print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked {C.RED}({limb.hp} hp){C.OFF}.")
 
             # Blocking
             blockers = self.blockers[target].copy()
@@ -74,13 +74,30 @@ class Combat:
                 blocker = actor.ai.block(blockers, limb)
 
             if blocker:
-                limb = blocker
+                # 50/50 chance of blocking an attack
+                block_chance = random.randint(0, 1)
                 self.blockers[target].remove(blocker)
-                print(f"{C.YELLOW}{target.name}{C.OFF} blocks the blow with their {BC.RED}{blocker.name}{BC.OFF}!")
+                if block_chance:
+                    limb = blocker
+                    print(f"{BC.YELLOW}{target.name}{BC.OFF} blocks the blow with their {BC.CYAN}{blocker.name}{BC.OFF}!")
+                else:
+                    print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
             else:
-                print(f"{C.YELLOW}{target.name}{C.OFF} accepts the blow.")
-            # TODO damage rolls, to miss rolls (hit neighboring limb), blocking rolls. Right now it's too algorithmic.
-            self.attack(target, limb, weapon)
+                print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
+            # TODO-DONE damage rolls, to miss rolls (hit neighboring limb), blocking rolls. Right now it's too algorithmic.
+
+            # To hit roll
+            roll = random.randint(0, 3)
+            if roll in (0, 1):
+                limb = limb
+                print(f"{BC.RED}{actor.name}{BC.OFF}'s attack is swift and sure.")
+                self.attack(target, limb, weapon)
+            elif roll == 2:
+                limb = random.choice(target.get_neighbors(limb))
+                print(f"{C.RED}{actor.name}{C.OFF}'s attack misses narrowly and strikes {BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF}.")
+                self.attack(target, limb, weapon)
+            else:
+                print(f"{C.RED}{actor.name}{C.OFF}'s attack misses!")
             used = True
         else:
             print(f"\n{C.RED}{actor.name}{C.OFF} withholds their blow.")
@@ -116,6 +133,8 @@ class Combat:
 
     def attack(self, defender, limb, weapon):
         damage = self.check_damage(weapon, limb)
+        # Damage roll
+        damage = round(random.random() * damage, 2)
         cutoff = False
         
         limb.hp -= damage
