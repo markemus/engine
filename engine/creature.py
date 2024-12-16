@@ -112,8 +112,8 @@ class Limb:
         """Find all inventories lower in the body hierarchy."""
         invs = []
 
-        if self.equipment:
-            invs.append(self)
+        # if self.equipment:
+        #     invs.append(self)
 
         # Equipped items
         for item in self.equipment:
@@ -440,7 +440,7 @@ class creature:
             print(f"{BC.CYAN}{self.name} picks up the {item.name} with their {graspHand.name}.{BC.OFF}")
             grasped = True
         else:
-            print(f"{C.RED}{self.name} cannot pick up the {item.name}.{C.OFF}")
+            print(f"{C.RED}{self.name} does not have a free hand to pick up the {item.name}.{C.OFF}")
 
         return grasped
 
@@ -498,8 +498,18 @@ class creature:
     def die(self):
         print(f"{self.name} dies.")
         room = self.location
+
+        # Drop all held items
+        for grasper in self.subelements[0].limb_check("grasp"):
+            if grasper.grasped:
+                x = grasper.grasped
+                grasper.grasped = None
+                room.drop_item(x)
+
+        # Then die
         room.removeCreature(self)
         self.dead = True
+        # and fall down
         landings = room.elem_check("canCatch")
         if len(landings) > 0:
             lands_at = random.choice(landings)

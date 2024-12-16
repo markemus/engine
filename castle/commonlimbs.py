@@ -250,27 +250,41 @@ class SmallHead(Head):
 class PRArm(RArm):
     """Prisoner's right arm- transmogrified."""
     appendageRange = (0, 4)
+    colors = ["pale"]
+    textures = ["skinned"]
 
 class PSmallRArm(SmallRArm):
     appendageRange = (0, 4)
-
+    colors = ["pale"]
+    textures = ["skinned"]
 class PLArm(LArm):
     """Prisoner's left arm- transmogrified"""
     appendageRange = (0, 4)
+    colors = ["pale"]
+    textures = ["skinned"]
 
 class PSmallLArm(SmallLArm):
     appendageRange = (0, 4)
+    colors = ["pale"]
+    textures = ["skinned"]
 
 class PLeg(Leg):
     """Prisoner's leg- transmogrified."""
     appendageRange = (0, 9)
+    colors = ["pale"]
+    textures = ["skinned"]
+
 class PSmallLeg(SmallLeg):
     appendageRange = (0, 4)
+    colors = ["pale"]
+    textures = ["skinned"]
 
 # TODO-DECIDE let limbs have their own (coordinated) colors? How? (because PTentacles come from the potion).
 class PTentacle(Tentacle):
     """Prisoners only have a small number of tentacles- no big deal."""
     appendageRange = (1, 3)
+    colors = ["green"]
+    textures = ["slimy"]
 
 class PHead(Head):
     # Prisoners may have tentacles, but rarely.

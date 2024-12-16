@@ -110,6 +110,8 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
+    # TODO should not show equipment, only inventories. We have put_on() and take_off() now.
+    # TODO-DECIDE find_invs() should only return vis_invs, not equipment?
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check
@@ -325,7 +327,10 @@ class Controller:
                 invs[i].vis_inv.remove(food)
 
     def put_on(self):
-        invs = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+        invs = self.game.char.subelements[0].find_invs()
+        # drop equipment
+        invs = [x for x in invs if hasattr(x, "vis_inv")]
+        invs = self.listtodict(invs, add_x=True)
         self.dictprint(invs)
         i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
 

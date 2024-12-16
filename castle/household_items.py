@@ -15,8 +15,9 @@ class Blanket(it.Item):
     covers = it.Item.covers.copy()
     canwear["body"] = True
     covers["body"] = True
+    covers["head"] = True
     armor = 1
-    descends = 0
+    descends = 1
     level = 2
 
 class CandleStick(it.Item):

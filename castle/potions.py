@@ -12,10 +12,11 @@ class PotionOfStoneskin(I.Potion):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
-            limb.base_hp *= 3
-            limb.hp *= 3
-            limb.color = "gray"
-            limb.texture = "stony"
+            if limb.texture != "stony":
+                limb.base_hp *= 3
+                limb.hp *= 3
+                limb.color = "gray"
+                limb.texture = "stony"
 
 class ArmGrowthPotion(I.Potion):
     """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""

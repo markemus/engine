@@ -44,11 +44,12 @@ adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 # adam.subelements[0].limb_check("grasp")[0].grasped = adams_pillowcase2
 adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # adam.subelements[0].subelements[0].equipment.append(suits.Blindfold("dirty", "linen"))
-adam.location.drop_item(suits.Blindfold("dirty", "linen"))
-# Give first creature (not Adam) a Pillowcase and a Potion of Arm Growth
+# adam.location.drop_item(suits.Blindfold("dirty", "linen"))
+# TODO-DONE this potion doesn't drop when creature dies.
+# Give first creature (not Adam) a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 
-adam.team = "neutral"
+# adam.team = "neutral"
 
 
 
