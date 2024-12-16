@@ -23,21 +23,24 @@ class Combat:
 
         # only one weapon per combat round
         for actor in creatures:
-            # select best weapon
-            weapons = self.get_weapons(actor)
-            if weapons:
-                if actor is self.char:
-                    weapon = self.cont.pick_weapon(weapons)
-                else:
-                    weapon = max(weapons, key=lambda x: x.damage[0])
+            if actor.limb_count("see") >= 1:
+                # select best weapon
+                weapons = self.get_weapons(actor)
+                if weapons:
+                    if actor is self.char:
+                        weapon = self.cont.pick_weapon(weapons)
+                    else:
+                        weapon = max(weapons, key=lambda x: x.damage[0])
 
-                # Attack
-                used = self.combatRound(actor, weapon)
-                # # Can't block with weapons used to attack
-                # if used and (weapon in self.blockers[actor]):
-                #     self.blockers[actor].remove(weapon)
+                    # Attack
+                    used = self.combatRound(actor, weapon)
+                    # # Can't block with weapons used to attack
+                    # if used and (weapon in self.blockers[actor]):
+                    #     self.blockers[actor].remove(weapon)
+                else:
+                    print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
             else:
-                print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
+                print(f"\n{C.RED}{actor.name} cannot see well enough to attack!{C.OFF}")
 
     # TODO combat needs a vision check before each section (for attacker and defender).
     def combatRound(self, actor, weapon):

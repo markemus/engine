@@ -271,23 +271,27 @@ class Controller:
         return limb
 
     def pick_blocker(self, blockers):
-        blockers = self.listtodict(blockers)
-        blockers["x"] = "Accept the blow."
+        if self.game.char.limb_count("see") >= 1:
+            blockers = self.listtodict(blockers)
+            blockers["x"] = "Accept the blow."
 
-        def a_pfunc(str, obj):
-            if hasattr(obj, "armor"):
-                str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
-            if hasattr(obj, "hp"):
-                str = f"{str} {C.RED}({obj.hp}){C.OFF}"
-            return str
+            def a_pfunc(str, obj):
+                if hasattr(obj, "armor"):
+                    str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
+                if hasattr(obj, "hp"):
+                    str = f"{str} {C.RED}({obj.hp}){C.OFF}"
+                return str
 
-        self.dictprint(blockers, pfunc=a_pfunc)
+            self.dictprint(blockers, pfunc=a_pfunc)
 
-        i = input(f"\n{BC.GREEN}Which {BC.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF} ")
+            i = input(f"\n{BC.GREEN}Which {BC.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF} ")
 
-        if i != "x" and i in blockers.keys():
-            blocker = blockers[i]
+            if i != "x" and i in blockers.keys():
+                blocker = blockers[i]
+            else:
+                blocker = False
         else:
+            print(f"{C.RED}{self.game.char.name} cannot see well enough to block!{C.OFF}")
             blocker = False
 
         return blocker

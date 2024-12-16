@@ -21,7 +21,6 @@ class levelGenerator:
         # Get room counts for level
         roomcounts = self.count_rooms(levelstyle)
         roomNum = sum(roomcounts.values())
-        # TODO styles should inherit instead of implementing ABCs so we can get rid of this hasattr nonsense!!
         if hasattr(levelstyle, "start_room"): roomNum += 1
         if hasattr(levelstyle, "end_room"): roomNum += 1
 
@@ -69,7 +68,7 @@ class levelGenerator:
             # Link the room to the previous room
             if lastRoom:
                 door = self.connectRooms(gennedRoom, lastRoom)
-                # Add room to gennedLevel's levelMap and roomList
+            # Add room to gennedLevel's levelMap and roomList
             gennedLevel.addRoom(x, y, gennedRoom)
             roomList.append(gennedRoom)
             # Add door to map
@@ -154,7 +153,7 @@ class levelGenerator:
 
         return x, y, lastRoomNum
 
-    # TODO figure out why first room on level has an extra door that doesn't connect to anywhere.
+    # TODO-DONE figure out why first room on level has an extra door that doesn't connect to anywhere.
     def connectRooms(self, room1, room2):
         """Add a door connecting room_1 to previous room room_2 (or to nothing if there is no previous room)."""
         color = random.choice(room1.colors)

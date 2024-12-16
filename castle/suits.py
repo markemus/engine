@@ -1,19 +1,24 @@
-"""Suits are used to equip creatures during generation.
+"""Suits are used to equip Creatures during game generation. They can also be converted to collections,
+which are used to fill Furniture.
 
 # A suit is a dictionary of parameters
 suit = {
 
-    # Which body part is equipped with which item.
+    # Which body part is equipped with/will be holding which item.
     "wears": {
         "head": Helm,
         "body": Chainmail,
         "back": Shield,
         "arm": Bracer,
-        "hand": Gauntlet,
+        "left hand": Gauntlet,
+        "right hand": Gauntlet,
         "leg": Greave,
         "foot": Boot},
+    "grasps": {same as wears}
 
-    # Color and texture are used to customize the items
+    # Color and texture are used to customize the items. Scheme options are "same", "distinct", and "unique".
+    # "distinct" makes items of the same type share a color scheme. "same" means all items share the same color and texture.
+    # "unique" means each item gets a separate color and texture.
     "color": ["shiny", "rusty", "matte"],
     "color_scheme": "same",
     "texture": ["steel"],
@@ -276,8 +281,6 @@ class SkinMask(i.Item):
     level = 1
     descends = 3
 
-# TODO-DONE add third _scheme option- more than distinct, give each element a unique scheme
-#  (distinct for matching gloves, unique for separate rings)
 # Suits
 jewelry = {
     "wears": {

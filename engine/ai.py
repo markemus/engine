@@ -25,7 +25,6 @@ class CombatAI:
 
         return self.target
 
-    # TODO add minor chance a random limb will be targeted.
     def target_limb(self, target):
         best_weapon = None
         easiest_vital = None
@@ -79,9 +78,10 @@ class CombatAI:
                     blocker = limb
                     current_block_value = block_value
                     current_damage = descendant_damage
-            # TODO refactor. We should always block because AI can't easily tell which limbs are important.
-            #  That's how it works now, but there's still old code for deciding whether to block.
+            # TODO-DONE refactor. We should always block because AI can't easily tell which limbs are important.
             # Decide whether to block with blocker. We will still block if target_limb is vital, otherwise, tank the hit.
+            # I disabled this check because it isn't obvious to the AI that it needs certain limbs (like fingers), so
+            # it just blocks every attack now using its toughest blocker.
             # if limb_descendant_damage < current_damage:
             #     if len(target_limb.limb_check("vital")):
             #         pass
