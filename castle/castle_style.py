@@ -45,7 +45,7 @@ from engine.styles import LevelStyle, GameStyle, wall, floor, pillar
 # Creature classes with probability of spawning.
 # Don't forget engine.styles.weight_list() to rebalance creature classes when merging sets.
 cc = {
-    "goblinkin": [(Orc, 1), (Goblin, 3), (None, 3)],
+    "goblinkin": [(Orc, 3), (Goblin, 3), (None, 1)],
     "servants": [(ServantGoblin, 1)],
     "fantasy_city": [(Dwarf, 2), (Elf, 2), (Hobbit, 2), (Human, 2), (None, 3)],
     "fantasy_prisoners": [(PrisonerDwarf, 2), (PrisonerElf, 2), (PrisonerHuman, 2), (PrisonerHobbit, 2), (None, 3)],
@@ -83,7 +83,7 @@ class Bedroom(pl.Place):
     count = (2, 5)
     colors = ["blue", "brown", "egg white", "beige"]
     textures = ["painted", "wallpapered"]
-    creature_classes = [cc["fantasy_city"], cc["castle"]]
+    creature_classes = [cc["castle"], cc["goblinkin"]]
     furniture_classes = [fur.Bed, fur.Dresser]
     subelement_classes = [wall, floor]
 

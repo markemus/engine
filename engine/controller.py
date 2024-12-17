@@ -287,12 +287,12 @@ class Controller:
         limbs["x"] = "Withhold your blow."
 
         def a_pfunc(str, obj):
-            if hasattr(obj, "armor"):
-                str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
-            if hasattr(obj, "hp"):
-                str = f"{str} {C.RED}({obj.hp}){C.OFF}"
             if hasattr(obj, "size"):
                 str = f"{str} {C.YELLOW}({obj.size}){C.OFF}"
+            if hasattr(obj, "hp"):
+                str = f"{str} {C.RED}({obj.hp}){C.OFF}"
+            if hasattr(obj, "armor"):
+                str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
             return str
         self.dictprint(limbs, pfunc=a_pfunc)
 
