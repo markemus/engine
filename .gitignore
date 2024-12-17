@@ -2,7 +2,6 @@
 
 notes/
 saves/
-test_game/
 *.pyc
 backups/
 *.sublime-project
