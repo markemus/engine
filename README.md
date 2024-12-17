@@ -49,16 +49,16 @@ The `creature.subelements[0].limb_check()` function is used to recursively gathe
 **Combat** is turn based. Each creature gets to attack with one of their limbs containing a "damage" or "grasp" tag. There is an opportunity to block, a to-hit roll, and a damage roll. Smaller limbs are harder to hit, and you will often be in combat with more than one enemy at a time, so you will have to think strategically. Chop some of those tentacles off, especially the ones holding good weapons! Hack at their ankles to take them off their feet. Chop off their heads one at a time until they're all gone. Just be careful to keep (some of) your head(s), or it's game over.
 
 # Tags
-name: the name of the object.
-grasp: used for picking up/moving objects. Needs f_grasp and t_grasp objects as well.
-f_grasp: denotes a finger.
-t_grasp: a thumb.
-amble: used for walking.
-isSurface: whether the limb is visible on the outside of the body.
-wears: the type of equipment the limb can use.
-see: allows the creature to see- needed for many basic actions.
-damage: the amount of damage the limb can deal in combat.
-blocker: can be used to block attacks.
+name: the name of the object.   
+grasp: used for picking up/moving objects. Needs f_grasp and t_grasp objects as well.   
+f_grasp: denotes a finger.  
+t_grasp: a thumb.   
+amble: used for walking.    
+isSurface: whether the limb is visible on the outside of the body.  
+wears: the type of equipment the limb can use.  
+see: allows the creature to see- needed for many basic actions. 
+damage: the amount of damage the limb can deal in combat.   
+blocker: can be used to block attacks.  
 
 # Creating a Game
 **Potions** are a special kind of item with a scripted effect. This is the only scripting required to create a game- otherwise it's similar to creating a bunch of configuration files. Feel free to script other things if you want to though! It's all code, not configs, so you can really be creative with Python properties or custom methods on your objects. Feel free to make your own tags and functionality! And the engine is open source, so you can modify it to your heart's content.
