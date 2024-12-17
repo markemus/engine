@@ -3,6 +3,7 @@ import textwrap
 
 from colorist import BrightColor as BC, Color as C
 from . import combat
+from . import creature
 
 
 class Controller:
@@ -373,7 +374,8 @@ class Controller:
             if j in inventory.keys() and j != "x":
                 gear = inventory[j]
                 limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
-                self.dictprint(limbs)
+                # self.dictprint(limbs)
+                self.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
                 k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
 
                 if k in limbs.keys() and k != "x":
@@ -385,8 +387,26 @@ class Controller:
 
     def take_off(self):
         """Remove equipment from a limb."""
-        limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
-        self.dictprint(limbs)
+        h = input(f"{BC.GREEN}Remove equipment from one of your limbs (y) or a disembodied limb (o) {C.YELLOW}(y/o){BC.GREEN}?{BC.OFF} ")
+        if h == "y":
+            limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
+        elif h == "o":
+            room_limbs = []
+            for inv in self.game.char.location.find_invs():
+                for x in inv.vis_inv:
+                    if isinstance(x, creature.Limb):
+                        room_limbs.extend(x.find_equipped())
+            pocket_limbs = []
+            for inv in self.game.char.subelements[0].find_invs():
+                for x in inv.vis_inv:
+                    if isinstance(x, creature.Limb):
+                        pocket_limbs.extend(x.find_equipped())
+            limbs = self.listtodict([*room_limbs, *pocket_limbs], add_x=True)
+        else:
+            print(f"{C.RED}Input not recognized.{C.OFF}")
+            return
+
+        self.dictprint(limbs, pfunc=lambda x,y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
         i = input(f"\n{BC.GREEN}Which limb would you like to unequip from?{BC.OFF} ")
 
         if i in limbs.keys() and i != "x":
@@ -403,9 +423,12 @@ class Controller:
 
                 if k in invs.keys() and k != "x":
                     target_inv = invs[k]
-                    limb.equipment.remove(gear)
-                    target_inv.vis_inv.append(gear)
-                    print(f"{BC.CYAN}{self.game.char.name} removes the {gear.name} and places it in their {target_inv.name}.{BC.OFF}")
+                    if self.game.char.grasp_check():
+                        limb.unequip(gear)
+                        target_inv.vis_inv.append(gear)
+                        print(f"{BC.CYAN}{self.game.char.name} removes the {gear.name} and places it in their {target_inv.name}.{BC.OFF}")
+                    else:
+                        print(f"{C.RED}{self.game.char.name} does not have a free hand!{C.OFF}")
 
     def grasp(self):
         """Pick something up in your hand."""
@@ -473,4 +496,3 @@ class Controller:
                 print(f"{BC.CYAN}{self.game.char.name} places the {hand.grasped.name} into the {target_inv.name}.{BC.OFF} ")
                 target_inv.vis_inv.append(hand.grasped)
                 hand.grasped = None
-

@@ -128,6 +128,16 @@ class Limb:
 
         return invs
 
+    def find_equipped(self):
+        """Recursive search for limbs that have equipment on them."""
+        equipped = []
+        if self.equipment:
+            equipped.append(self)
+        for limb in self.subelements:
+            equipped.extend(limb.find_equipped())
+
+        return equipped
+
     def remove_limb(self, limb):
         # Losing a grasping limb should make the creature drop the associated weapon
         if limb in self.subelements:
@@ -189,6 +199,24 @@ class Limb:
             print(f"{C.RED}{self.name} cannot wear a {article.name}!{C.OFF}")
 
         return equipped
+
+    def unequip(self, gear):
+        """Remove a piece of gear from equipment."""
+        removed = False
+        if gear in self.equipment:
+            self.equipment.remove(gear)
+            self.remove_from_covers(gear)
+            removed = True
+        return removed
+
+    def remove_from_covers(self, gear):
+        """Recursively remove a piece of equipment from self.covers.
+        This is necessary because a piece of equipment is only equipped
+        on one limb, but can cover lower limbs as well."""
+        if gear in self.covers:
+            self.covers.remove(gear)
+        for limb in self.subelements:
+            limb.remove_from_covers(gear)
 
     def return_from_depth(self, depth):
         """Returns a list of all subelements down to 'depth' in the subelement tree."""
@@ -483,8 +511,8 @@ class creature:
     def remove_limb(self, limb):
         if limb in self.subelements:
             # Limb is the core limb. Just die and don't try checking statuses since we're removing the whole limb tree.
-            self.subelements.remove(limb)
             self.die()
+            self.subelements.remove(limb)
             return
         else:
             for subLimb in self.subelements:

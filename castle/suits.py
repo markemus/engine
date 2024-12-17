@@ -169,8 +169,9 @@ class Tunic(i.Item):
     covers = i.Item.covers.copy()
     canwear["body"] = True
     covers["body"] = True
+    covers["arm"] = True
     level = 1
-    descends = 0
+    descends = 1
 
 class Clout(i.Item):
     name = "clout"
@@ -220,10 +221,10 @@ class Axe(i.Item):
 
 class Cleaver(i.Item):
     name = "cleaver"
-    damage = 15
+    damage = 30
 
-class Shank(i.Item):
-    name = "prison shank"
+class Shiv(i.Item):
+    name = "prison shiv"
     damage = 5
 
 class Spear(i.Item):

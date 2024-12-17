@@ -33,7 +33,8 @@ adam.team = "prisoner"
 #     x.hp = 1000
 
 # Give adam starting equipment
-adams_knife = suits.Shank(color="rusty", texture="iron")
+adams_knife = suits.Shiv(color="rusty", texture="iron")
+# adams_knife = suits.MaceOfTheKing(color="rusty", texture="iron")
 # other_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 # adams_pillowcase2 = hi.Pillowcase(color="dirty", texture="roughspun")
