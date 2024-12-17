@@ -211,7 +211,7 @@ class Foot(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "foot"
-    base_hp = 15
+    base_hp = 10
     size = 2
 
 class Leg(cr.Limb):
@@ -250,7 +250,11 @@ class SmallLArm(LArm):
     subelement_classes = [SmallLHand]
     base_hp = int(LArm.base_hp / 2)
 
+class SmallFoot(Foot):
+    base_hp = int(Foot.base_hp / 2)
+
 class SmallLeg(Leg):
+    subelement_classes = [SmallFoot]
     base_hp = int(Leg.base_hp / 2)
 
 class SmallHead(Head):

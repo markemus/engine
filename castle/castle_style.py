@@ -37,7 +37,7 @@ from castle.elf import Elf, PrisonerElf
 from castle import furniture as fur
 from castle.goblin import Goblin, ServantGoblin, GoblinCook
 from castle.hobbit import Hobbit, PrisonerHobbit
-from castle.human import Human, PrisonerHuman, HumanKing
+from castle.human import Human, GuardHuman, PrisonerHuman, HumanKing
 from castle.orc import Orc
 from engine.styles import LevelStyle, GameStyle, wall, floor, pillar
 
@@ -193,7 +193,7 @@ class BedroomFloor:
     room_classes = [Bedroom, Bathroom]
     end_room = Den
     # These creatures can spawn anywhere in the level, except for start_room and end_room
-    creature_classes = [[(Orc, 1), (Goblin, 1), (None, 3)]]
+    creature_classes = [[(Orc, 3), (None, 3)]]
 
 LevelStyle.register(BedroomFloor)
 
@@ -214,7 +214,8 @@ class MainFloor:
     room_classes = [DiningRoom, Parlor, Ballroom, Bathroom]
     start_room = Kitchen
     end_room = ThroneRoom
-    creature_classes = [[(Orc, 3), (None, 3)]]
+    creature_classes = [[(GuardHuman, 3)]]
+    creature_classes = []
 
 LevelStyle.register(MainFloor)
 
@@ -222,6 +223,7 @@ class RoofTop:
     level_text = f"""{BC.BLUE}Exhausted from battle, you escape onto the rooftop. Above you, the stars are shining in a beautiful night sky. The evil king lies dead, and you will rule now... but will you rule benevolently, or recreate the evil you have seen here? Only time will tell.\n\nTHE END{BC.OFF}"""
     room_classes = []
     start_room = Roof
+    creature_classes = []
 
 LevelStyle.register(RoofTop)
 

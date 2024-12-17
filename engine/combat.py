@@ -1,7 +1,7 @@
 import random
 
 from colorist import BrightColor as BC, Color as C
-
+from engine import item
 
 class Combat:
     def __init__(self, char, cont):
@@ -14,7 +14,8 @@ class Combat:
         # Search the room for weapons
         invs = actor.location.find_invs()
         for inv in invs:
-            weapons = [x for x in inv.vis_inv if hasattr(x, "damage")]
+            # isinstance is to stop enemies from wielding their own severed hands.
+            weapons = [x for x in inv.vis_inv if isinstance(x, item.Item) and hasattr(x, "damage")]
             if weapons:
                 weapon = max(weapons, key=lambda x: x.damage)
                 graspHand = actor.grasp_check()
@@ -23,6 +24,7 @@ class Combat:
                     graspHand.grasped = weapon
                     print(f"{BC.CYAN}{actor.name} grabs the {weapon.name} from the {inv.name}!")
 
+    # TODO-DECIDE add enemies falling over (easier to-hit rolls)?
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()

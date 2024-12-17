@@ -454,9 +454,9 @@ class Controller:
 
     def ungrasp(self):
         graspers = self.game.char.subelements[0].limb_check("grasp")
-        graspers_desc = self.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped])
+        graspers_desc = self.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped], add_x=True)
         self.dictprint(graspers_desc)
-        i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF}")
+        i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF} ")
 
         if i in graspers_desc.keys() and i != "x":
             hand = graspers[int(i)]

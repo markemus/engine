@@ -53,6 +53,10 @@ class PrisonerHuman(Human):
     baseElem = PTorso
     suits = [suits.prisonersuit]
 
+class GuardHuman(Human):
+    team = "monster"
+    suits = [suits.partial_armorsuit, suits.weapons]
+
 class HumanKing(Human):
     classname = "king"
     team = "monster"

@@ -199,8 +199,13 @@ class Limb:
         return depth_elements
 
     def get_neighbors(self, limb):
+        """Always call this method on root element of the creature- creature.subelements[0].get_neighbors(limb)."""
         neighbors = []
-        if limb in self.subelements:
+        if self is limb:
+            # This will occur if limb is first element checked.
+            # Therefore, always call this method on root element of the creature or you will miss parent element.
+            neighbors = [self, *self.subelements]
+        elif limb in self.subelements:
             neighbors = [self, *limb.subelements]
         else:
             for x in self.subelements:
