@@ -37,7 +37,8 @@ adams_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 # adams_pillowcase2 = hi.Pillowcase(color="dirty", texture="roughspun")
 adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
-adams_pillowcase.vis_inv.append(potions.PotionOfHealing())
+# adams_pillowcase.vis_inv.append(potions.PotionOfHealing())
+# adams_pillowcase.vis_inv.append(hi.Pillow(color="stained", texture="fluffy"))
 # adams_pillowcase2.vis_inv.append(potions.TentacleGrowthPotion())
 adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 # adam.subelements[0].limb_check("grasp")[0].grasped = adams_pillowcase2

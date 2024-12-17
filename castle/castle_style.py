@@ -97,7 +97,6 @@ class Cell(pl.Place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
-# TODO re-enable first combat
 class PlayerCell(Cell):
     """Spawning room for player."""
     creature_classes = [[(Goblin, 1)]]
@@ -199,7 +198,7 @@ LevelStyle.register(BedroomFloor)
 
 
 class Dungeon:
-    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.\n\nThe first thing you should do is drink your potion.{BC.OFF}"""
+    level_text = f"""{BC.BLUE}This is it then. The one who came for you says he only wants your arm... but you've heard enough screams down here to know that it's only the beginning. You've made your preparations... it's time to put an end to this abomination.\n\nHINT: The first thing you should do is drink your potion. Don't forget to loot! Good luck.{BC.OFF}"""
     room_classes = [TortureChamber, Cell]
     start_room = PlayerCell
     # start_room = Kitchen

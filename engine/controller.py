@@ -110,6 +110,38 @@ class Controller:
         else:
             print(f"{C.RED}You cannot see well enough to examine anything closely.{C.OFF}")
 
+    def detailed_view(self, item):
+        """Prints a detailed description of the Item or Limb."""
+        keys_of_interest = ["armor", "damage"]
+        dstr = f"{C.BLUE}" + "-"*27
+        dstr += "\n|" + f"{item.name}".center(25) + "|"
+        for key in keys_of_interest:
+            dstr += "\n" + "|" + f"{key}: {getattr(item, key) if hasattr(item, key) else None}".center(25) + "|"
+        # canwear and covers
+        if hasattr(item, "canwear") and True in item.canwear.values():
+            dstr += "\n|" + " "*25 + "|"
+            dstr += "\n" + "|" + f"Can be worn:".center(25) + "|"
+            for k,v in item.canwear.items():
+                if v == True:
+                    dstr += "\n" + "|" + f"{k}".center(25) + "|"
+
+        dstr += "\n" + ("-"*27) + f"{C.OFF}"
+        print(dstr)
+
+    def details(self):
+        """Detailed view of an item in inventory."""
+        inventories = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+        self.dictprint(inventories)
+        i = input(f"Which inventory contains the {BC.CYAN}item{BC.OFF} you want to examine (x to cancel)? ")
+
+        # Select item
+        if i in inventories.keys() and i != "x":
+            inv_items = self.listtodict(inventories[i].vis_inv, add_x=True)
+            self.dictprint(inv_items)
+            j = input(f"Which {BC.CYAN}item{BC.OFF} would you like to examine (x to cancel)?")
+            if j in inv_items.keys() and j != "x":
+                self.detailed_view(inv_items[j])
+
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
         # Sight check

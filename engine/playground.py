@@ -1,16 +1,24 @@
+import collections
 import random
 from colorist import Color as C, BrightColor as BC
 
+d = collections.defaultdict(lambda x: False)
+d["head"] = True
+d["body"] = True
+d.items()
 
-print(f"{C.RED}this is red{BC.OFF} is this red?")
-for x in range(100):
-    print(x)
 
-import os
-class Cls(object):
-    def __repr__(self):
-        os.system('clear')
-        return ''
+
+
+# print(f"{C.RED}this is red{BC.OFF} is this red?")
+# for x in range(100):
+#     print(x)
+#
+# import os
+# class Cls(object):
+#     def __repr__(self):
+#         os.system('clear')
+#         return ''
 
 
 

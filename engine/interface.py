@@ -20,6 +20,7 @@ class Interface:
             # "H": self.cont.display_health,
             "l": self.cont.desc,
             "e": self.cont.examine,
+            "D": self.cont.details,
             "i": self.cont.inventory,
             "p": self.cont.put_on,
             "t": self.cont.take_off,

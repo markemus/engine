@@ -42,6 +42,13 @@ class Hammer(it.Item):
 
 class Pillow(it.Item):
     name = "pillow"
+    canwear = it.Item.canwear.copy()
+    covers = it.Item.covers.copy()
+    canwear["arm"] = True
+    covers["arm"] = True
+    armor = 1
+    descends = 0
+    level = 2
 
 class Plate(it.Item):
     name = "plate"

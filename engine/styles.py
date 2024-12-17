@@ -21,8 +21,6 @@ class LevelStyle(abc.ABC):
 class GameStyle(abc.ABC):
     levelorder = [LevelStyle, LevelStyle, LevelStyle]
     links = []
-    # TODO-DECIDE game level creature classes?
-    # creature_classes = []
     start_splash = None
     win_splash = None
     death_splash = None
