@@ -234,7 +234,7 @@ class Limb:
             # Therefore, always call this method on root element of the creature or you will miss parent element.
             neighbors = [self, *self.subelements]
         elif limb in self.subelements:
-            neighbors = [self, *limb.subelements]
+            neighbors = [self, *[x for x in self.subelements if x is not limb], *limb.subelements]
         else:
             for x in self.subelements:
                 neighbors.extend(x.get_neighbors(limb))

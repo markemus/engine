@@ -126,7 +126,7 @@ class Combat:
             else:
                 roll = random.randint(0, 5) + limb.size
 
-            if roll >= 6:
+            if roll >= 5:
                 limb = limb
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack is swift and sure.")
                 self.attack(target, limb, weapon)

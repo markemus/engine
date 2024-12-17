@@ -59,8 +59,6 @@ c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = p
 
 i = interface.Interface(t_game)
 i.state = "fight"
-# Game loop
+# Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()
-
-# print(game_over)

@@ -47,6 +47,7 @@ class PlayerHuman(Human):
     """A non-transmogrified Human, but a prisoner."""
     team = "prisoner"
     suits = [suits.prisonersuit]
+    # suits = [suits.armorsuit]
 
 class PrisonerHuman(Human):
     team = "prisoner"
