@@ -10,13 +10,14 @@ class Gem(cr.Limb):
     vital = True
     base_hp = 5
     size = 1
+    see = 1
 
 class Head(cr.Limb):
     name = "head"
     subelement_classes = [Gem]
     isSurface = True
     appendageRange = (1, 2)
-    wear = "head"
+    wears = "head"
     base_hp = 30
     size = 2
 
@@ -41,24 +42,44 @@ class Thumb(cr.Limb):
     base_hp = 10
     size = 1
 
-class Hand(cr.Weapon):
-    name = "hand"
+class RHand(cr.Weapon):
+    name = "right hand"
     subelement_classes = [Finger, Thumb]
     grasp = 1
     isSurface = True
     appendageRange = (1, 2)
-    wears = "hand"
+    wears = "right hand"
     base_hp = 15
     size = 2
 
-class Arm(cr.Limb):
+class RArm(cr.Limb):
     name = "arm"
-    subelement_classes = [Hand]
+    subelement_classes = [RHand]
     isSurface = True
-    appendageRange = (2, 3)
+    appendageRange = (1, 2)
     wears = "arm"
     base_hp = 40
     size = 2
+
+class LHand(cr.Weapon):
+    name = "left hand"
+    subelement_classes = [Finger, Thumb]
+    grasp = 1
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "left hand"
+    base_hp = 15
+    size = 2
+
+class LArm(cr.Limb):
+    name = "arm"
+    subelement_classes = [LHand]
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "arm"
+    base_hp = 40
+    size = 2
+
 
 # Legs
 class Foot(cr.Limb):
@@ -82,7 +103,7 @@ class Leg(cr.Limb):
 
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, Arm, Leg]
+    subelement_classes = [Head, RArm, LArm, Leg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

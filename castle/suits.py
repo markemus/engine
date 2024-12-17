@@ -59,7 +59,7 @@ class Chainmail(i.Item):
     covers = i.Item.covers.copy()
     canwear["body"] = True
     covers["body"] = True
-    armor = 6
+    armor = 2
     level = 3
     descends = 0
 
@@ -98,7 +98,7 @@ class Helm(i.Item):
     covers["nose"] = True
     covers["mouth"] = True
     covers["teeth"] = True
-    armor = 4
+    armor = 2
     level = 3
     descends = 2
 
@@ -112,7 +112,7 @@ class Shield(i.Item):
     covers["left hand"] = True
     covers["finger"] = True
     covers["thumb"] = True
-    armor = 4
+    armor = 2
     level = 4
     descends = 1
 
