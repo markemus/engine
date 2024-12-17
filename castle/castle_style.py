@@ -100,6 +100,7 @@ class Cell(pl.Place):
 class PlayerCell(Cell):
     """Spawning room for player."""
     creature_classes = [[(Goblin, 1)]]
+    # creature_classes = [[(ServantGoblin, 1)]]
     # creature_classes = [[(Cerberus, 1)]]
     # creature_classes = []
     furniture_classes = [fur.BedPrison]

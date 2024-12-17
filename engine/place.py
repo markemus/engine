@@ -295,7 +295,6 @@ class DisplayFurniture(Furniture, Platform):
                         else:
                             texture = textures[item_class]
                         if isinstance(item_class, tuple):
-                            # TODO-DONE why is it always picking the same item_class in the tuple? Seems to be consistent throughout level.
                             # Seed ensures we always make the same choice for tuples- eg both shoes, not shoe and slipper
                             random.seed(seed)
                             item_class = random.choice(item_class)

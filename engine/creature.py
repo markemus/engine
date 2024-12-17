@@ -316,8 +316,11 @@ class creature:
                         articles = [random.choice(article)]
                         random.seed()
                     elif type(article) == list:
-                        # TODO support not suit["full"] here too
+                        # TODO-DONE support not suit["full"] here too
                         articles = article.copy()
+                        if not suit["full"]:
+                            random.shuffle(articles)
+                            articles = articles[:random.randrange(0, len(articles))]
                     else:
                         articles = [article]
 

@@ -9,6 +9,20 @@ class Combat:
         self.cont = cont
         self.blockers = None
 
+    def grab_weapon(self, actor):
+        """AI creatures should grab weapons up off the floor if they have a spare hand."""
+        # Search the room for weapons
+        invs = actor.location.find_invs()
+        for inv in invs:
+            weapons = [x for x in inv.vis_inv if hasattr(x, "damage")]
+            if weapons:
+                weapon = max(weapons, key=lambda x: x.damage)
+                graspHand = actor.grasp_check()
+                if graspHand:
+                    inv.vis_inv.remove(weapon)
+                    graspHand.grasped = weapon
+                    print(f"{BC.CYAN}{actor.name} grabs the {weapon.name} from the {inv.name}!")
+
     def fullCombat(self):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
@@ -22,10 +36,14 @@ class Combat:
 
         # only one weapon per combat round
         for actor in creatures:
-            # TODO add blind-fighting. Picks target at random
-            # TODO enemies should pick up weapons off the floor
-            if actor.limb_count("see") >= 1 and not actor.dead:
+            # TODO-DONE add blind-fighting. Picks target at random
+            # TODO-DONE enemies should pick up weapons off the floor
+            if not actor.dead:
                 # select best weapon
+                if actor is not self.char:
+                    # Check the room for a better weapon
+                    self.grab_weapon(actor)
+
                 weapons = self.get_weapons(actor)
                 if weapons:
                     if actor is self.char:
@@ -40,8 +58,7 @@ class Combat:
                     #     self.blockers[actor].remove(weapon)
                 else:
                     print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
-            else:
-                print(f"\n{C.RED}{actor.name} cannot see well enough to attack!{C.OFF}")
+
 
     def combatRound(self, actor, weapon):
         """Single attack + defense + damage round."""
@@ -55,10 +72,14 @@ class Combat:
             target = actor.ai.target_creature()
 
         if target:
-            if actor is self.char:
-                limb = self.cont.pick_limb(target)
+            if actor.limb_count("see") >= 1:
+                if actor is self.char:
+                    limb = self.cont.pick_limb(target)
+                else:
+                    limb = actor.ai.target_limb(target)
             else:
-                limb = actor.ai.target_limb(target)
+                print(f"{C.RED}{actor.name}{C.OFF} swings their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF} wildly!")
+                limb = random.choice([x for x in target.subelements[0].limb_check("isSurface") if x.isSurface])
         else:
             limb = None
 
@@ -68,7 +89,7 @@ class Combat:
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-            print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp, {C.OFF} {C.BLUE}{limb.armor} armor{C.OFF}).")
+            print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
             blockers = self.blockers[target].copy()

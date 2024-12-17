@@ -38,9 +38,10 @@ class Goblin(cr.creature):
     textures = ["scaled", "haired", "skinned"]
     suits = [suits.plainsuit, suits.weapons, hi.potions_suit]
 
-# TODO test whether these guys fight or not
+# TODO-DONE test whether these guys fight or not
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""
+    # This creature will fight if attacked but you can leave them alone too.
     aggressive = False
     team = "monster"
     suits = [suits.plainsuit]

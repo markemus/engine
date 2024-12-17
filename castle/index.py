@@ -34,6 +34,7 @@ adam.team = "prisoner"
 
 # Give adam starting equipment
 adams_knife = suits.Shank(color="rusty", texture="iron")
+# other_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 # adams_pillowcase2 = hi.Pillowcase(color="dirty", texture="roughspun")
 adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
@@ -45,11 +46,12 @@ adam.subelements[0].limb_check("grasp")[0].grasped = adams_knife
 adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # adam.subelements[0].subelements[0].equipment.append(suits.Blindfold("dirty", "linen"))
 # adam.location.drop_item(suits.Blindfold("dirty", "linen"))
+# adam.location.drop_item(other_knife)
 # TODO-DONE this potion doesn't drop when creature dies.
 # Give first creature (not Adam) a Potion of Arm Growth
 c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
 
-adam.team = "neutral"
+# adam.team = "neutral"
 
 
 
