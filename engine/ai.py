@@ -27,26 +27,40 @@ class CombatAI:
     def target_limb(self, target):
         best_weapon = None
         easiest_vital = None
+        easiest_foot = None
         limbs = target.subelements[0].limb_check("isSurface")
         # print(limbs)
         weapons = [x for x in limbs if hasattr(x, "damage")]
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
+        feet = [x for x in limbs if (hasattr(x, "amble"))]
+
+        # max and min return first if all are equal- we prefer a random one.
+        random.shuffle(weapons)
+        random.shuffle(vitals)
+        random.shuffle(feet)
+
+        # Assemble targets
+        target_limbs = []
 
         if weapons:
             best_weapon = max(weapons, key=lambda x: x.damage[0])
+            target_limbs.append(best_weapon)
         if vitals:
             easiest_vital = min(vitals, key=lambda x: x.armor * x.hp)
+            target_limbs.append(easiest_vital)
+        if feet:
+            easiest_foot = min(feet, key=lambda x: x.armor * x.hp)
+            # no point chopping off feet if target is already supine
+            if target.limb_count("amble") >= 1:
+                target_limbs.append(easiest_foot)
 
-        if best_weapon and not easiest_vital:
-            chosen = best_weapon
-        elif easiest_vital and not best_weapon:
-            chosen = easiest_vital
-        elif best_weapon and easiest_vital:
+        if target_limbs:
             # This way enemies will switch targets instead of relentlessly hammering down the best target
-            chosen = random.choice([best_weapon, easiest_vital])
+            chosen = random.choice([best_weapon, easiest_vital, easiest_foot])
         else:
-            # No weapons, no vitals, so attack a random limb
+            # No weapons, no vitals, no feet, so attack a random limb
             chosen = random.choice(limbs)
+        # TODO-DONE also target weakest_foot
 
         # Small chance AI will target a random limb (just to keep things fun and give a purpose for armor everywhere)
         if not random.randint(0, 5):

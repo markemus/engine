@@ -5,9 +5,13 @@ import castle.commonlimbs as cl
 import castle.namelists as nm
 
 
+class Fangs(cl.Teeth):
+    name = "fangs"
+    _damage = 20
+
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Nose, cl.Teeth, cl.Tongue]
+    subelement_classes = [cl.Nose, Fangs, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
@@ -35,7 +39,7 @@ class TripleHead(cr.Limb):
     base_hp = 8
     size = 2
 
-class Claw(cr.Limb):
+class Claw(cr.Weapon):
     name = "claw"
     subelement_classes = []
     isSurface = True
@@ -43,6 +47,7 @@ class Claw(cr.Limb):
     wears = "claw"
     base_hp = 3
     size = 1
+    _damage = 20
 
 class Leg(cr.Limb):
     name = "leg"
@@ -52,6 +57,7 @@ class Leg(cr.Limb):
     wears = "leg"
     base_hp = 15
     size = 2
+    amble = 1/3
 
 class Tail(cr.Limb):
     name = "tail"

@@ -86,15 +86,14 @@ class Controller:
                 inv_elements = '\n  '.join([x.name for x in subelement.grasped.vis_inv])
                 inventory = inventory + f"{subelement.grasped.name}:\n  {BC.CYAN}{inv_elements}{BC.OFF}\n"
 
-        if gc.limb_count("see") >= 1:
-            cs = f"\n{C.RED}Character Sheet{C.OFF}\n" \
-                 f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
-                 f"\n{C.RED}Weapons{C.OFF}\n" \
-                 f"{''.join(weapons)}" \
-                 f"\n{C.RED}Inventories{C.OFF}\n" \
-                 f"{inventory}\n" \
-                 f"{self.game.char.desc(stats=True)}"
-            self.display_long_text(cs)
+        cs = f"\n{C.RED}Character Sheet{C.OFF}\n" \
+             f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
+             f"\n{C.RED}Weapons{C.OFF}\n" \
+             f"{''.join(weapons)}" \
+             f"\n{C.RED}Inventories{C.OFF}\n" \
+             f"{inventory}\n" \
+             f"{self.game.char.desc(stats=True)}"
+        self.display_long_text(cs)
 
     def examine(self):
         """Desc for a particular creature or element in the room."""
@@ -380,8 +379,8 @@ class Controller:
                 if k in limbs.keys() and k != "x":
                     limb = limbs[k]
                     equipped = limb.equip(gear)
-                    invs[i].vis_inv.remove(gear)
                     if equipped:
+                        invs[i].vis_inv.remove(gear)
                         print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on their {limb.name}.{BC.OFF}")
 
     def take_off(self):

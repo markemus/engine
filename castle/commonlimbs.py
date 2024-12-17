@@ -91,7 +91,7 @@ class Horn(cr.Weapon):
 class Teeth(cr.Weapon):
     name = "teeth"
     subelement_classes = []
-    _damage = 2
+    _damage = 4
     appendageRange = (1, 2)
     wears = "teeth"
     base_hp = 3

@@ -217,7 +217,7 @@ class Limb:
     def armor(self):
         armor = self._armor
 
-        for item in self.equipment:
+        for item in self.covers:
             if hasattr(item, "armor"):
                 armor += item.armor
 
@@ -521,7 +521,7 @@ class creature:
         if len(landings) > 0:
             lands_at = random.choice(landings)
             lands_at.vis_inv.append(self.subelements[0])
-            print(f"{BC.CYAN}{self.name}'s corpse falls onto the {lands_at.name}.{BC.OFF}")
+            print(f"{BC.CYAN}{self.name}'s corpse collapses onto the {lands_at.name}.{BC.OFF}")
         else:
             print(f"{BC.CYAN}{self.name} falls and disappears out of sight.{BC.OFF}")
 

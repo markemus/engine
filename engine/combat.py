@@ -51,6 +51,8 @@ class Combat:
                     if actor is self.char:
                         weapon = self.cont.pick_weapon(weapons)
                     else:
+                        # AI shouldn't favor one weapon if multiple are equal- makes for better gameplay.
+                        random.shuffle(weapons)
                         weapon = max(weapons, key=lambda x: x.damage[0])
 
                     # Attack
@@ -80,14 +82,12 @@ class Combat:
                 else:
                     limb = actor.ai.target_limb(target)
             else:
-                print(f"{C.RED}{actor.name}{C.OFF} swings their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF} wildly!")
+                print(f"{C.RED}{actor.name}{C.OFF} swings their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF} blindly!")
                 limb = random.choice([x for x in target.subelements[0].limb_check("isSurface") if x.isSurface])
         else:
             limb = None
 
         if limb:
-            # TODO-DONE allow inventory management during battle.
-            # TODO-DONE too many misses.
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
@@ -113,7 +113,19 @@ class Combat:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
 
             # To hit roll- smaller limbs are harder to hit
-            roll = random.randint(0, 5) + limb.size
+            if actor.limb_count("see") < 1:
+                # Blind fighting
+                roll = -3 + random.randint(0, 8) + limb.size
+            elif target.limb_count("amble") < 1 and actor.limb_count("amble") >= 1:
+                # easier to hit supine enemies
+                print(f"{C.RED}{target.name} is supine!{C.OFF}")
+                roll = 3 + random.randint(0, 2) + limb.size
+            elif target.limb_count("amble") >= 1 and actor.limb_count("amble") < 1:
+                print(f"{C.RED}{actor.name} is supine!{C.OFF}")
+                roll = -3 + random.randint(0, 8) + limb.size
+            else:
+                roll = random.randint(0, 5) + limb.size
+
             if roll >= 6:
                 limb = limb
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack is swift and sure.")
@@ -162,6 +174,7 @@ class Combat:
         # Damage roll
         damage = round(random.random() * damage, 2)
         cutoff = False
+        can_amble = defender.limb_count("amble") >= 1
         
         limb.hp -= damage
         print(f"It deals {C.RED}{damage}{C.OFF} damage!")
@@ -169,8 +182,11 @@ class Combat:
         if limb.hp <= 0:
             defender.remove_limb(limb)
             print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {C.RED}{defender.name}{C.OFF}'s body!")
-            
             self.throw_limb(defender, limb)
+            # check if target falls over
+            if hasattr(limb, "amble") and can_amble:
+                if defender.limb_count("amble") < 1:
+                    print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
 
             cutoff = True
 

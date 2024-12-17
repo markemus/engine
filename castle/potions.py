@@ -40,6 +40,27 @@ class ArmGrowthPotion(I.Potion):
         else:
             print(f"{C.RED}The potion has no effect.{C.OFF}")
 
+
+class LegGrowthPotion(I.Potion):
+    """Creature grows an extra leg. Will only work if the creature has a recognizable torso."""
+    name = "Potion of Leg Growth"
+
+    def effect(self, creature):
+        # First we find a torso to sprout from.
+        wears = creature.subelements[0].limb_check("wears")
+        torso = None
+        for limb in wears:
+            if limb.wears == "body":
+                torso = limb
+                break
+
+        if torso:
+            print(f"{BC.CYAN}An extra leg sprouts from {creature.name}'s {torso.name}!{BC.OFF}")
+            torso.subelements.append(cl.Leg(color="pale", texture="skinned"))
+        else:
+            print(f"{C.RED}The potion has no effect.{C.OFF}")
+
+
 # TODO-DONE add to loot. Do loot in general.
 # TODO-DONE armor and better equipment in mainfloor level
 class TentacleGrowthPotion(I.Potion):

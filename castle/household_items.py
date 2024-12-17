@@ -119,7 +119,7 @@ tools = {
 
 # TODO-DECIDE collections should have a no color option so objects can keep their default colors?
 medicine = {
-    "contains": [potions.ArmGrowthPotion, potions.PotionOfHealing],
+    "contains": [potions.ArmGrowthPotion, potions.LegGrowthPotion, potions.PotionOfHealing],
     "color": ["gray"],
     "color_scheme": "distinct",
     "texture": ["murky"],
@@ -131,7 +131,7 @@ medicine = {
 potions_suit = {
     "wears": {},
     "grasps": {
-        "left hand": (potions.ArmGrowthPotion, potions.TentacleGrowthPotion),
+        "left hand": (potions.ArmGrowthPotion, potions.LegGrowthPotion, potions.TentacleGrowthPotion),
     },
     "color": ["gray"],
     "color_scheme": "distinct",
