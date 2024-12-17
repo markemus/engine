@@ -28,7 +28,7 @@ thisLevel = t_game.level_list[0]
 
 # Character creation
 adam = human.PlayerHuman(location=thisLevel.start)
-adam.name = "Adam"
+adam.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 thisLevel.start.creatures.append(adam)
 t_game.set_char(adam)
 adam.team = "prisoner"
