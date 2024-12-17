@@ -17,7 +17,8 @@ suit = {
     "grasps": {same as wears, but for weapons}
 
     # Color and texture are used to customize the items. Scheme options are "same", "distinct", and "unique".
-    # "distinct" makes items of the same type share a color scheme. "same" means all items share the same color and texture.
+    # "same" means all items share the same color and texture.
+    # "distinct" makes items of the same type share a color scheme.
     # "unique" means each item gets a separate color and texture.
     "color": ["shiny", "rusty", "matte"],
     "color_scheme": "same",
@@ -27,14 +28,35 @@ suit = {
     # Whether the creature gets the full item set, or a random subset
     "full": True,
     }
+
+Items are objects used by creatures or just stored in rooms to add character.
+    class Gauntlet(i.Item):
+    name = "gauntlet"
+    # canwear- which limbs types can wear the item (specified by limb.wears).
+    # covers- which limbs are covered by the item (for armor, gives armor bonus to these limbs).
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["right hand"] = True
+    canwear["left hand"] = True
+    covers["right hand"] = True
+    covers["left hand"] = True
+    covers["finger"] = True
+    covers["thumb"] = True
+    armor = 2
+    # level- only one Item per level can be worn by a creature on a given Limb. So socks and shoes are okay, but slippers and shoes are not.
+    level = 3
+    # How far down the Limb hierarchy to check for the Limbs in self.covers .
+    descends = 1
 """
 import engine.item as i
-import engine.suits_and_collections as sc
 
 
 # Armor
 class Boot(i.Item):
     name = "boot"
+    # canwear[limb_type] governs where the item can be worn by a creature
+    # covers[limb_type] governs which limbs will be protected by the worn item.
+    # descends tells the engine how far down the limb hierarchy to look for the covers limb types.
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["foot"] = True

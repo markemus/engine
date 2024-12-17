@@ -5,25 +5,28 @@ A gamestyle is composed of levelstyles. Levelstyles are composed of rooms.
 
 # Example levelstyle
 class Dungeon:
-    level_text = "This is the intro text to the level"
+    level_text = "This is the intro text to the level. It will be displayed when the level is first entered."
     # Rooms that will spawn on the level
     room_classes = [TortureChamber, Cell]
-    # The level will begin with start_room and end with end_room, if they are provided. They are optional
+    # The level will begin with start_room and end with end_room, if they are provided. They are optional.
     start_room = PlayerCell
     end_room = Guardroom
-    # These creatures can spawn anywhere in the level, except for start_room and end_room
+    # These creatures can spawn anywhere in the level, except for start_room and end_room.
+    # The numbers in the tuple are the chance that the creature will be spawned per room- converted to a percentage chance.
+    # Here there is a 50% chance of goblin, 50% chance of nothing. Note that creature_classes is a nested list. Multiple sets can be defined and one creature will be chosen from each.
     creature_classes = [[(Goblin, 3), (None, 3)]]
 
 # Example gamestyle
 class Castle:
-    # levels will spawn in this order
+    # levels will be spawned in this order
     levelorder = [Dungeon, MainFloor, BedroomFloor, RoofTop]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
     links = [(0, 1), (1, 2), (2, 3)]
     # the splash screens will display at the beginning and end of the game.
+    start_splash = "Welcome to Castle Black"
+    death_splash = "YOU DIED"
 
-
-register() your styles to ensure that all parameters are set.
+register() your styles to ensure that all the parameters are set.
 """
 import engine.place as pl
 
@@ -52,19 +55,23 @@ cc = {
     "castle": [(AnimatedArmor, 3), (None, 1)],
     "kitchen": [(ServantGoblin, 3), (None, 1)],
     "animals_indoor": [(Cat, 2), (Dog, 2), (None, 3)],
-    # "monsters": [(Beholder, 1), (None, 8)]
-    # "animals_outdoor": [("Sheep", 5), ("Cow", 3), ("Horse", 1), (None, 3)]
 }
 
 # Rooms
 class Ballroom(pl.Place):
     name = "ballroom"
+    # The sprite for this room- will display on the map.
     sprite = "B"
+    # count = range for number of this room that will be generated per level.
     count = (0, 2)
+    # Room color will be chosen from this list. Same for texture.
     colors = ["gold", "white", "silver"]
     textures = ["marble", "granite", "limestone"]
+    # Creatures that can spawn in this room.
     creature_classes = [cc["fantasy_city"], cc["fantasy_city"]]
+    # Furniture that will spawn in this room.
     furniture_classes = []
+    # The subelements that will spawn for this room.
     subelement_classes = [wall, floor]
 
 class Bathroom(pl.Place):
@@ -132,6 +139,7 @@ class Kitchen(pl.Place):
     count = (1, 2)
     colors = ["dirty", "smoke-stained", "unpainted", "gray", "beige"]
     textures = ["brick", "stone"]
+    # note both creatures will spawn, since they're in separate lists.
     creature_classes = [[(GoblinCook, 1)], [(Cat, 1)]]
     furniture_classes = [fur.Stove, fur.CabinetElegant, fur.KitchenCounter]
     subelement_classes = [wall, floor]

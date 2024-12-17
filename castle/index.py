@@ -1,7 +1,12 @@
 """Castle is an example game built using the EverRogue engine.
 
 Run from toplevel engine/ directory as 'python3 -m castle.index' so that the package can properly inherit from
-the engine.engine subpackage."""
+the engine.engine subpackage.
+
+Cheating- if you want to cheat while playing this game, press CTRL-C when in the main command
+menu ["Choose a command (h for help): "]. Then code away to your heart's content on the
+command line, and when you're done retype the code from the end of this module: [while True: i.command()] to
+jump back into the game right where you left off."""
 from colorist import BrightColor as BC, Color as C
 
 from engine import game

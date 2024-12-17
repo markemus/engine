@@ -6,7 +6,7 @@ class Tentacle(cr.Limb):
     name = "tentacle"
 
     # Subelements make up the lower parts of the limb tree that will be generated.
-    # Only add once, use their appendageRange to determine how many will spawn (eg two arms).
+    # Only add once, use their appendageRange attribute to determine how many will spawn (eg for two arms- Arm.appendageRange = (2,3)).
     subelement_classes = [Subtentacle]
 
     # Whether the limb can be seen or not
@@ -15,8 +15,9 @@ class Tentacle(cr.Limb):
     # How many of the limb will spawn (a range)
     appendageRange = (3, 6)
 
-    # Tags. These determine behavior. A limb or its subelements can contain a tag to allow the behavior
-    # A tentacle is hand-like (and doesn't need finger or thumb subelements)
+    # Tags. These determine behavior. A limb or its subelements can contain a tag to allow the behavior.
+    # Generally they need to sum to 1 for the limb to execute an action.
+    # A tentacle is hand-like (and doesn't need finger or thumb subelements to grasp)
     grasp = 1
     f_grasp = 1
     t_grasp = 1

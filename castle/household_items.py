@@ -4,6 +4,10 @@ linens = {
     # Items that will be spawned in Furniture
     "contains": [Pillow, Blanket, Sheet],
     # Color and texture info tells the generator how to color the created items
+    # color_ and texture_ scheme can be either "same", "distinct", or "unique".
+    # same: all items get the same color and texture.
+    # distinct: items of the same type (eg shoes) will be the same color and texture.
+    # unique: all items get their own color and texture.
     "color": ["blue", "green", "silver", "brown"],
     "color_scheme": "distinct",
     "texture": ["quilted", "patterned", "wool", "linen"],

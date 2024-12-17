@@ -9,8 +9,10 @@ class Human(cr.creature):
     # colors and textures are used during creature generation to color the limbs
     colors = ["black", "white", "brown", "tan"]
     textures = ["skinned"]
-    # the creature will be clothed in their suits during generation.
-    suits = [suits.plainsuit]
+    # the creature will be clothed in their suits during generation. You can give them more than one suit, as long as
+    # they don't overlap with each other. It won't crash if they do, but they will fail to overwrite each other where
+    # they overlap and create some messages that the player can see.
+    suits = [suits.plainsuit, suits.weaponsuit]
 """
 import engine.creature as cr
 import castle.commonlimbs as cl
