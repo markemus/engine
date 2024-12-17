@@ -47,7 +47,7 @@ class horse(cr.creature):
     baseElem = torso
     colors = ["brown", "gray", "red", "black"]
     textures = ["dappled", "shaggy", "shorthaired"]
-    suits = [suits.testsuit]
+    suits = [suits.armorsuit]
 
 
 if __name__ == '__main__':

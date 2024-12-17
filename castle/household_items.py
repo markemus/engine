@@ -33,12 +33,14 @@ class Blanket(it.Item):
 
 class CandleStick(it.Item):
     name = "candlestick"
+    damage = 3
 
 class Goblet(it.Item):
     name = "goblet"
 
 class Hammer(it.Item):
     name = "hammer"
+    damage = 10
 
 class Pillow(it.Item):
     name = "pillow"
@@ -58,6 +60,7 @@ class Pliers(it.Item):
 
 class Screwdriver(it.Item):
     name = "screwdriver"
+    damage = 3
 
 class Sheet(it.Item):
     name = "sheet"
@@ -117,6 +120,19 @@ tools = {
 # TODO-DECIDE collections should have a no color option so objects can keep their default colors?
 medicine = {
     "contains": [potions.ArmGrowthPotion, potions.PotionOfHealing],
+    "color": ["gray"],
+    "color_scheme": "distinct",
+    "texture": ["murky"],
+    "texture_scheme": "distinct",
+    "full": False,
+}
+
+# Goblins will carry some of this stuff around to feed to prisoner
+potions_suit = {
+    "wears": {},
+    "grasps": {
+        "left hand": (potions.ArmGrowthPotion, potions.TentacleGrowthPotion),
+    },
     "color": ["gray"],
     "color_scheme": "distinct",
     "texture": ["murky"],

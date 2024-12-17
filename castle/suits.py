@@ -49,7 +49,7 @@ class Bracer(i.Item):
     covers = i.Item.covers.copy()
     canwear["arm"] = True
     covers["arm"] = True
-    armor = 1
+    armor = 2
     level = 3
     descends = 0
 
@@ -113,7 +113,7 @@ class Shield(i.Item):
     covers["finger"] = True
     covers["thumb"] = True
     armor = 4
-    level = 3
+    level = 4
     descends = 1
 
 # Clothing
@@ -216,44 +216,23 @@ class Ring(i.Item):
 # Weapons
 class Axe(i.Item):
     name = "axe"
-    # canwear = i.Item.canwear.copy()
-    # canwear["right hand"] = True
-    damage = 20
-    # requires = ("grasp", 1)
-    # level = 3
+    damage = 15
 
 class Cleaver(i.Item):
     name = "cleaver"
-    # canwear = i.Item.canwear.copy()
-    # canwear["right hand"] = True
-    # canwear["left hand"] = True
-    damage = 10
-    # requires = ("grasp", 1)
-    # level = 3
+    damage = 15
 
 class Shank(i.Item):
     name = "prison shank"
-    # canwear = i.Item.canwear.copy()
-    # canwear["right hand"] = True
     damage = 5
-    # requires = ("grasp", 1)
-    # level = 3
 
 class Spear(i.Item):
     name = "spear"
-    # canwear = i.Item.canwear.copy()
-    # canwear["right hand"] = True
-    damage = 20
-    # requires = ("grasp", 1)
-    # level = 3
+    damage = 10
 
 class Sword(i.Item):
     name = "sword"
-    # canwear = i.Item.canwear.copy()
-    # canwear["right hand"] = True
     damage = 20
-    # requires = ("grasp", 1)
-    # level = 3
 
 # Special
 class Blindfold(i.Item):
@@ -280,6 +259,10 @@ class SkinMask(i.Item):
     covers["teeth"] = True
     level = 1
     descends = 3
+
+class MaceOfTheKing(i.Item):
+    name = "mace of the king"
+    damage = 40
 
 # Suits
 jewelry = {
@@ -358,12 +341,12 @@ prisonersuit = {
     "full": True,
 }
 
-testsuit = {
+armorsuit = {
     "wears": {
         "head": Helm,
         "body": Chainmail,
         "arm": Bracer,
-        "left hand": Gauntlet,
+        "left hand": [Gauntlet, Shield],
         "right hand": Gauntlet,
         "leg": Greave,
         "foot": Boot},
@@ -375,8 +358,25 @@ testsuit = {
     "full": True,
     }
 
+partial_armorsuit = {
+    "wears": {
+        "head": Helm,
+        "body": Chainmail,
+        "arm": Bracer,
+        "left hand": [Gauntlet, Shield],
+        "right hand": Gauntlet,
+        "leg": Greave,
+        "foot": Boot},
+    "grasps": {},
+    "color": ["shiny", "rusty", "matte"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
+    "full": False,
+    }
+
 weapons = {
-    "wears":{},
+    "wears": {},
     "grasps": {
         "right hand": (Sword, Spear, Axe)},
     "color": ["gray"],
@@ -385,3 +385,15 @@ weapons = {
     "texture_scheme": "same",
     "full": True,
 }
+
+king_weapon = {
+    "wears": {},
+    "grasps": {
+        "right hand": MaceOfTheKing},
+    "color": ["gold"],
+    "color_scheme": "same",
+    "texture": ["encrusted"],
+    "texture_scheme": "same",
+    "full": True,
+}
+

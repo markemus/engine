@@ -1,4 +1,6 @@
 """Potions have a one time use permanent effect. The effect needs to be scripted."""
+import random
+
 from colorist import BrightColor as BC, Color as C
 from castle import commonlimbs as cl
 
@@ -33,7 +35,8 @@ class ArmGrowthPotion(I.Potion):
 
         if torso:
             print(f"{BC.CYAN}An extra arm sprouts from {creature.name}'s {torso.name}!{BC.OFF}")
-            torso.subelements.append(cl.RArm(color="pale", texture="skinned"))
+            armclass = random.choice([cl.RArm, cl.LArm])
+            torso.subelements.append(armclass(color="pale", texture="skinned"))
         else:
             print(f"{C.RED}The potion has no effect.{C.OFF}")
 

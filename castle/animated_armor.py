@@ -96,4 +96,4 @@ class AnimatedArmor(cr.creature):
     baseElem = Torso
     colors = ["ethereal"]
     textures = ["mist"]
-    suits = [suits.testsuit, suits.weapons]
+    suits = [suits.armorsuit, suits.weapons]

@@ -2,7 +2,7 @@
 kinsmen. They can be distinguished by their lack of horns and small stature."""
 import engine.creature as cr
 import castle.commonlimbs as cl
-import castle.orc as orc
+import castle.household_items as hi
 from castle import suits
 import castle.namelists as nm
 
@@ -36,8 +36,9 @@ class Goblin(cr.creature):
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
     textures = ["scaled", "haired", "skinned"]
-    suits = [suits.plainsuit, suits.weapons]
+    suits = [suits.plainsuit, suits.weapons, hi.potions_suit]
 
+# TODO test whether these guys fight or not
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""
     aggressive = False

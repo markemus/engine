@@ -316,6 +316,7 @@ class creature:
                         articles = [random.choice(article)]
                         random.seed()
                     elif type(article) == list:
+                        # TODO support not suit["full"] here too
                         articles = article.copy()
                     else:
                         articles = [article]

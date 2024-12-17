@@ -139,7 +139,7 @@ class TestCastle():
         import castle.suits as su
 
         from castle.goblin import Goblin
-        Goblin.suits = [su.testsuit]
+        Goblin.suits = [su.armorsuit]
         room = cs.PlayerCell(level=None)
         g = Goblin(location=room)
         head = g.subelements[0].subelements[0]

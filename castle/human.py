@@ -56,5 +56,4 @@ class PrisonerHuman(Human):
 class HumanKing(Human):
     classname = "king"
     team = "monster"
-    suits = [suits.weapons, suits.jewelry, suits.testsuit]
-# TODO special equipment for king
+    suits = [suits.king_weapon, suits.jewelry, suits.armorsuit]

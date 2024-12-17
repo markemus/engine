@@ -113,10 +113,11 @@ class Controller:
     def detailed_view(self, item):
         """Prints a detailed description of the Item or Limb."""
         keys_of_interest = ["armor", "damage"]
-        dstr = f"{C.BLUE}" + "-"*27
+        dstr = f"{BC.CYAN}" + "-"*27
         dstr += "\n|" + f"{item.name}".center(25) + "|"
         for key in keys_of_interest:
             dstr += "\n" + "|" + f"{key}: {getattr(item, key) if hasattr(item, key) else None}".center(25) + "|"
+
         # canwear and covers
         if hasattr(item, "canwear") and True in item.canwear.values():
             dstr += "\n|" + " "*25 + "|"
@@ -125,7 +126,14 @@ class Controller:
                 if v == True:
                     dstr += "\n" + "|" + f"{k}".center(25) + "|"
 
-        dstr += "\n" + ("-"*27) + f"{C.OFF}"
+        if hasattr(item, "covers") and True in item.covers.values():
+            dstr += "\n|" + " "*25 + "|"
+            dstr += "\n" + "|" + f"Covers:".center(25) + "|"
+            for k,v in item.covers.items():
+                if v == True:
+                    dstr += "\n" + "|" + f"{k}".center(25) + "|"
+
+        dstr += "\n" + ("-"*27) + f"{BC.OFF}"
         print(dstr)
 
     def details(self):
@@ -417,9 +425,10 @@ class Controller:
 
             if j in inventory.keys() and j != "x":
                 wielded = target_inv.vis_inv[int(j)]
-                hands = self.listtodict(self.game.char.subelements[0].limb_check("grasp"), add_x=True)
-                self.dictprint(hands)
-                k = input(f"\n{BC.GREEN}Choose a hand to grasp the {wielded.name} with:{BC.OFF} ")
+                hands = self.listtodict(self.game.char.subelements[0].limb_check("grasp"))
+                # TODO-DONE print grasped as well (pfunc)
+                self.dictprint(hands, pfunc=lambda x, y: x + f": {C.RED}({y.grasped.name if y.grasped else None}){C.OFF}")
+                k = input(f"\n{BC.GREEN}Choose a hand to grasp the {wielded.name} with {C.YELLOW}(x to cancel){BC.GREEN}:{BC.OFF} ")
 
                 if k in hands.keys() and k != "x":
                     hand = hands[k]

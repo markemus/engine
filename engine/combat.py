@@ -22,7 +22,8 @@ class Combat:
 
         # only one weapon per combat round
         for actor in creatures:
-            # TODO add blind-fighting
+            # TODO add blind-fighting. Picks target at random
+            # TODO enemies should pick up weapons off the floor
             if actor.limb_count("see") >= 1 and not actor.dead:
                 # select best weapon
                 weapons = self.get_weapons(actor)
@@ -62,10 +63,12 @@ class Combat:
             limb = None
 
         if limb:
+            # TODO-DONE allow inventory management during battle.
+            # TODO-DONE too many misses.
             print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-            print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked {C.RED}({limb.hp} hp){C.OFF}.")
+            print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp, {C.OFF} {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
             blockers = self.blockers[target].copy()
@@ -92,7 +95,7 @@ class Combat:
                 limb = limb
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack is swift and sure.")
                 self.attack(target, limb, weapon)
-            elif roll >= 4:
+            elif roll >= 3:
                 limb = random.choice(target.get_neighbors(limb))
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack misses narrowly and strikes {BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF}.")
                 self.attack(target, limb, weapon)

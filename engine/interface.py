@@ -43,11 +43,13 @@ class Interface:
         fight = {
             "h": self.help,
             "c": self.cont.character_sheet,
-            # "H": self.cont.display_health,
             "l": self.cont.desc,
             "e": self.cont.examine,
             "m": self.cont.map,
             "q": self.cont.eat,
+            # "i": self.cont.inventory,
+            "g": self.cont.grasp,
+            "u": self.cont.ungrasp,
             "a": self.cont.attack,
             "w": self.move
         }
