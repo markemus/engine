@@ -1,7 +1,6 @@
 #test gitignore file
 
 notes/
-saves/
 *.pyc
 backups/
 *.sublime-project
