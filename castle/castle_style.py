@@ -223,7 +223,6 @@ class MainFloor:
     start_room = Kitchen
     end_room = ThroneRoom
     creature_classes = [[(GuardHuman, 3)]]
-    creature_classes = []
 
 LevelStyle.register(MainFloor)
 
