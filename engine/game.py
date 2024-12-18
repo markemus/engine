@@ -12,6 +12,7 @@ class Game(object):
         self.char = None
         self.level_list = []
         self.current_level = None
+        self.active_spells = []
 
         self.levelGenerator = levelGenerator.levelGenerator()
         
@@ -58,3 +59,11 @@ class Game(object):
 
     def get_level(self):
         return self.current_level
+
+    def update_spells(self):
+        """Spells should be updated every combat round."""
+        for spell in self.active_spells:
+            if spell.rounds != "forever":
+                spell.rounds -= 1
+                if spell.rounds <= 0:
+                    spell.expire()

@@ -11,7 +11,7 @@ class CombatAI:
 
         if not self.target or self.target.dead:
             # Gather targets
-            for creature in self.get_target_creatures():
+            for creature in self.get_enemy_creatures():
                 if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):
                     targets.append(creature)
 
@@ -108,7 +108,7 @@ class CombatAI:
 
         return blocker
 
-    def get_target_creatures(self):
+    def get_enemy_creatures(self):
         targets = self.creature.location.get_creatures()
 
         # Remove self
@@ -116,5 +116,13 @@ class CombatAI:
             targets.remove(self.creature)
         # Remove friendly creatures
         targets = [c for c in targets if c.team != self.creature.team and c.team != "neutral"]
+
+        return targets
+
+    def get_friendly_creatures(self):
+        targets = self.creature.location.get_creatures()
+
+        # Remove unfriendly creatures
+        targets = [c for c in targets if c.team == self.creature.team or c.team == "neutral"]
 
         return targets

@@ -241,6 +241,7 @@ class Controller:
     # Combat
     def attack(self):
         self.combat.fullCombat()
+        self.game.update_spells()
 
     def check_safety(self):
         """Checks whether the current room is safe."""
@@ -250,7 +251,7 @@ class Controller:
         return True
 
     def pick_target(self):
-        enemylist = self.game.char.ai.get_target_creatures()
+        enemylist = self.game.char.ai.get_enemy_creatures()
         targets = self.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
 
@@ -331,6 +332,7 @@ class Controller:
 
         return blocker
 
+    # TODO-DECIDE update_spells on rest? How many times? Or just dispel all spells?
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):
@@ -496,3 +498,28 @@ class Controller:
                 print(f"{BC.CYAN}{self.game.char.name} places the {hand.grasped.name} into the {target_inv.name}.{BC.OFF} ")
                 target_inv.vis_inv.append(hand.grasped)
                 hand.grasped = None
+
+    def cast_magic(self):
+        spellbook = self.game.char.spellbook
+        spell_list = []
+        if spellbook:
+            for spell in spellbook:
+                spell_list.append(f"{BC.CYAN}{spell.name}{BC.OFF}: {BC.MAGENTA}{spell.description}{BC.OFF}")
+            spell_dict = self.listtodict(spell_list, add_x=True)
+            print(f"{C.RED}----------Known Spells----------{C.OFF}")
+            self.dictprint(spell_dict)
+            i = input(f"{BC.GREEN}Which spell would you like to cast? {BC.OFF}")
+            if i in spell_dict.keys() and i != "x":
+                if spellbook[int(i)].targets == "friendly":
+                    target_list = self.game.char.ai.get_friendly_creatures()
+                elif spellbook[int(i)].targets == "enemy":
+                    target_list = self.game.char.ai.get_enemy_creatures()
+                else:
+                    raise ValueError(f"Spell target must be either friendly or enemy: {spellbook[int(i)]}")
+                targets = self.listtodict(target_list, add_x=True)
+                self.dictprint(targets)
+                j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
+                if j in targets.keys() and j != "x":
+                    # TODO track cast spells (combat counter as well)
+                    spell = spellbook[int(i)](self.game.char, targets[j])
+                    self.game.active_spells.append(spell)

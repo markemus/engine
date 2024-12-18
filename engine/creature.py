@@ -292,6 +292,7 @@ class creature:
     # cantransfer = False      # can carry items
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object
+    spellbook = []
     aggressive = True
     dead = False
   

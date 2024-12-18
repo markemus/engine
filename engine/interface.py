@@ -17,7 +17,6 @@ class Interface:
         move = {
             "h": self.help,
             "c": self.cont.character_sheet,
-            # "H": self.cont.display_health,
             "l": self.cont.desc,
             "e": self.cont.examine,
             "D": self.cont.details,
@@ -27,7 +26,6 @@ class Interface:
             "g": self.cont.grasp,
             "u": self.cont.ungrasp,
             "m": self.cont.map,
-            # "b": self.cont.borders,
             "w": self.cont.north,
             "s": self.cont.south,
             "d": self.cont.east,
@@ -36,6 +34,7 @@ class Interface:
             "f": self.fight,
             "r": self.cont.rest,
             "q": self.cont.eat,
+            "M": self.cont.cast_magic,
             "/": self.save,
             "*": self.load,
         }
@@ -47,10 +46,10 @@ class Interface:
             "e": self.cont.examine,
             "m": self.cont.map,
             "q": self.cont.eat,
-            # "i": self.cont.inventory,
             "g": self.cont.grasp,
             "u": self.cont.ungrasp,
             "a": self.cont.attack,
+            "M": self.cont.cast_magic,
             "w": self.move
         }
 
