@@ -77,6 +77,4 @@ while True:
 
 # TODO-DECIDE exchange equipment with party?
 # TODO-DONE caltrops spell- reduce amble for random limbs for 1 round (repeatedly)
-# TODO armor spell- _clothe yourself in light
-# TODO summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
-# TODO fleshrip- tear off a size 1 limb from an opponent
+# TODO-DONE armor spell- _clothe yourself in light

@@ -83,17 +83,17 @@ class Caltrops(sp.Spell):
 class ArmorOfLight(sp.Spell):
     name = "Light Armor"
     description = "armor made of light"
-    rounds = 20
+    rounds = 2
     targets = "friendly"
 
     def cast(self):
         humanity_min = 5
         if self.caster.humanity >= humanity_min:
-            self.suits = self.target.suits
+            old_suits = self.target.suits
             self.target.suits = [su.lightsuit]
             # Puts the armor on the target
             self.target._clothe()
-            self.target.suits = self.suits
+            self.target.suits = old_suits
             print(f"{BC.MAGENTA}A glowing suit of armor envelops {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
             return True
         else:
@@ -101,12 +101,13 @@ class ArmorOfLight(sp.Spell):
             return False
 
     def expire(self):
-        limbs = self.target.subelements[0].limb_check("wears")
-        for limb in limbs:
-            to_remove = tuple(su.lightsuit["wears"].values())
-            for equipment in limb.equipment:
-                if isinstance(equipment, to_remove):
-                    limb.unequip(equipment)
+        self.target.unequip_suit(su.lightsuit)
+        # limbs = self.target.subelements[0].limb_check("wears")
+        # for limb in limbs:
+        #     to_remove = tuple(su.lightsuit["wears"].values())
+        #     for equipment in limb.equipment:
+        #         if isinstance(equipment, to_remove):
+        #             limb.unequip(equipment)
         print(f"{BC.MAGENTA}The glowing armor on {C.RED}{self.target.name}{BC.MAGENTA} fades away and disappears.{BC.OFF}")
 
 
@@ -170,3 +171,10 @@ class ReanimateLimb(sp.Spell):
         else:
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
             return False
+
+# TODO summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
+# TODO fleshrip- tear off a size 1 limb from an opponent
+# TODO tree of life- spawns a sapling with healing fruits
+# TODO scrying- see desc() for neighboring room
+# TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
+# TODO graft limb- graft a disembodied limb onto a friendly creature
