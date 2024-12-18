@@ -119,7 +119,7 @@ class DiningRoom(pl.Place):
     colors = ["purple", "red", "gold", "silver"]
     textures = ["draped", "marble", "painted", "lit"]
     creature_classes = [cc["fantasy_city"], cc["fantasy_city"], cc["servants"], cc["animals_indoor"]]
-    furniture_classes = [fur.Carpet, fur.Table, fur.Chair, fur.CabinetElegant]
+    furniture_classes = [fur.Carpet, fur.DiningTable, fur.DiningChair, fur.CabinetElegant]
     subelement_classes = [wall, floor]
 
 class Guardroom(pl.Place):
@@ -145,7 +145,7 @@ class Kitchen(pl.Place):
     subelement_classes = [wall, floor]
 
 class Den(pl.Place):
-    name = "office"
+    name = "den"
     sprite = "D"
     colors = ["oak", "teak", "mahogany"]
     textures = ["paneled"]

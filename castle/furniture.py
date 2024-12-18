@@ -67,6 +67,9 @@ class Chair(pl.Furniture):
     name = "chair"
     color = ["brown", "beige", "reddish", "black"]
     texture = ["wood"]
+    count = (1, 2)
+
+class DiningChair(Chair):
     count = (3, 10)
 
 class Table(pl.DisplayFurniture):
@@ -74,6 +77,9 @@ class Table(pl.DisplayFurniture):
     color = ["black", "red", "green"]
     texture = ["granite", "marble", "wood"]
     count = (1, 2)
+    vis_collections = []
+
+class DiningTable(Table):
     vis_collections = [(hi.silver, (0, 6)), (hi.serving_utensils, (1, 3))]
 
 class TableWork(pl.DisplayFurniture):
