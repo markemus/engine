@@ -186,9 +186,26 @@ class ReanimateLimb(sp.Spell):
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
             return False
 
+
+# Neither
+class Scry(sp.Spell):
+    name = "Scry"
+    description = "See what is happening in a nearby room."
+    rounds = 1
+    targets = "caster"
+
+    def cast(self):
+        borders = self.caster.location.borders.copy()
+        borders["x"] = "Cancel"
+        utils.dictprint(borders)
+        i = input(f"{BC.MAGENTA}Which room would you like to scry?{BC.OFF}")
+
+        if i in borders.keys() and borders[i] is not None and i != "x":
+            print(borders[i].desc(full=False))
+
 # TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
 # TODO fleshrip- tear off a size 1 limb from an opponent
 # TODO tree of life- spawns a sapling with healing fruits
-# TODO scrying- see desc() for neighboring room
+# TODO-DONE scrying- see desc() for neighboring room
 # TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
 # TODO graft limb- graft a disembodied limb onto a friendly creature
