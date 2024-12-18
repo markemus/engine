@@ -9,10 +9,13 @@ class LightBoot(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["foot"] = True
+    canwear["paw"] = True
     covers["foot"] = True
+    covers["paw"] = True
+    covers["claw"] = True
     armor = 2
     level = 3
-    descends = 0
+    descends = 1
 
 class LightBracer(i.Item):
     name = "bracer of light"
@@ -30,6 +33,8 @@ class LightBreastplate(i.Item):
     covers = i.Item.covers.copy()
     canwear["body"] = True
     covers["body"] = True
+    canwear["animal_body"] = True
+    covers["animal_body"] = True
     armor = 2
     level = 3
     descends = 0
@@ -54,6 +59,8 @@ class LightGreave(i.Item):
     covers = i.Item.covers.copy()
     canwear["leg"] = True
     covers["leg"] = True
+    canwear["animal_leg"] = True
+    covers["animal_leg"] = True
     armor = 2
     level = 3
     descends = 0
@@ -63,12 +70,17 @@ class LightHelm(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["head"] = True
+    canwear["animal_head"] = True
     covers["head"] = True
     covers["eye"] = True
     covers["ear"] = True
     covers["nose"] = True
     covers["mouth"] = True
     covers["teeth"] = True
+    covers["tongue"] = True
+    covers["animal_head"] = True
+    covers["snout"] = True
+    covers["fangs"] = True
     armor = 2
     level = 3
     descends = 2
@@ -82,7 +94,12 @@ lightsuit = {
         "left hand": LightGauntlet,
         "right hand": LightGauntlet,
         "leg": LightGreave,
-        "foot": LightBoot},
+        "foot": LightBoot,
+        "animal_head": LightHelm,
+        "animal_body": LightBreastplate,
+        "animal_leg": LightGreave,
+        "paw": LightBoot
+    },
     "grasps": {},
     "color": ["blue", "white", "gold"],
     "color_scheme": "same",

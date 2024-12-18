@@ -4,10 +4,20 @@ import engine.creature as cr
 import assets.commonlimbs as cl
 import assets.namelists as nm
 
+class Fangs(cr.Weapon):
+    name = "fangs"
+    subelement_classes = []
+    _damage = 8
+    appendageRange = (1, 2)
+    wears = "fangs"
+    base_hp = 3
+    size = 1
+    colors = ["yellow"]
+    textures = ["enameled"]
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Nose, cl.Teeth, cl.Tongue]
+    subelement_classes = [cl.Nose, Fangs, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
@@ -20,7 +30,7 @@ class Head(cr.Limb):
     subelement_classes = [cl.Ear, cl.Eye, Snout]
     isSurface = True
     appendageRange = (1, 2)
-    # wears = "head"
+    wears = "animal_head"
     vital = True
     base_hp = 5
     size = 1
@@ -30,19 +40,28 @@ class Claw(cr.Limb):
     subelement_classes = []
     isSurface = True
     appendageRange = (5, 6)
-    # wears = "claw"
+    wears = "claw"
     base_hp = 3
     size = 1
 
-class Leg(cr.Limb):
-    name = "leg"
+class Paw(cr.Limb):
+    name = "paw"
     subelement_classes = [Claw]
     isSurface = True
+    appendageRange = (1, 2)
+    wears = "paw"
+    base_hp = 5
+    size = 1
+    amble = 1/3
+
+class Leg(cr.Limb):
+    name = "leg"
+    subelement_classes = [Paw]
+    isSurface = True
     appendageRange = (4, 5)
-    # wears = "leg"
+    wears = "animal_leg"
     base_hp = 10
     size = 2
-    amble = 1/3
 
 class Tail(cr.Limb):
     name = "tail"
@@ -57,7 +76,7 @@ class Torso(cr.Limb):
     subelement_classes = [Head, Leg, Tail]
     isSurface = True
     appendageRange = (1, 2)
-    # wears = "body"
+    wears = "animal_body"
     base_hp = 15
     size = 2
 

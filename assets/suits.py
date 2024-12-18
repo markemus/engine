@@ -119,6 +119,7 @@ class Helm(i.Item):
     covers["ear"] = True
     covers["nose"] = True
     covers["mouth"] = True
+    covers["tongue"] = True
     covers["teeth"] = True
     armor = 2
     level = 3
