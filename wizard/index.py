@@ -139,13 +139,14 @@ class ReanimateLimb(Spell):
 
 # Main
 # Generate a game using the Wizard template.
-t_game = game.Game("The Path to Wizardry", Wizard)
+t_game = game.Game("The Way of the Wizard", Wizard)
 thisLevel = t_game.level_list[0]
 
 player = PlayerHuman(location=thisLevel.start)
 player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 familiar = cat.Cat(location=thisLevel.start)
 familiar.name = input(f"{BC.CYAN}Enter the name of your familiar: {BC.OFF}")
+player.team = "adventurer"
 player.companions.append(familiar)
 thisLevel.start.creatures.append(player)
 thisLevel.start.creatures.append(familiar)

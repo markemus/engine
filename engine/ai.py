@@ -56,7 +56,7 @@ class CombatAI:
 
         if target_limbs:
             # This way enemies will switch targets instead of relentlessly hammering down the best target
-            chosen = random.choice([best_weapon, easiest_vital, easiest_foot])
+            chosen = random.choice(target_limbs)
         else:
             # No weapons, no vitals, no feet, so attack a random limb
             chosen = random.choice(limbs)
