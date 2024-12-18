@@ -427,7 +427,8 @@ class creature:
                 left = True
                 print(f"{self.name} leaves {C.RED}{currentRoom.name}{C.OFF} and enters {C.RED}{nextRoom.name}{C.OFF}.")
                 for companion in self.companions:
-                    companion.leave(direction=direction)
+                    if companion.location == currentRoom:
+                        companion.leave(direction=direction)
             else:
                 print(f"{C.RED}{self.name} is unable to move.{C.OFF}")
         else:

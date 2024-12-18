@@ -18,6 +18,7 @@ class Controller:
 
         return d
 
+    # TODO refactor dictprint, listtodict, and display_long_text to use the versions in utils.py
     def dictprint(self, d, pfunc=None, show_invs=False):
         """Pretty print a dictionary. Useful for displaying command sets for user input.
         pfunc amends the final string before printing.
@@ -512,10 +513,12 @@ class Controller:
             if i in spell_dict.keys() and i != "x":
                 if spellbook[int(i)].targets == "friendly":
                     target_list = self.game.char.ai.get_friendly_creatures()
+                elif spellbook[int(i)].targets == "caster":
+                    target_list = [self.game.char]
                 elif spellbook[int(i)].targets == "enemy":
                     target_list = self.game.char.ai.get_enemy_creatures()
                 else:
-                    raise ValueError(f"Spell target must be either friendly or enemy: {spellbook[int(i)]}")
+                    raise ValueError(f"Spell target must be friendly, enemy or caster: {spellbook[int(i)]}")
                 targets = self.listtodict(target_list, add_x=True)
                 self.dictprint(targets)
                 j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")

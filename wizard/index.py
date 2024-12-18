@@ -1,7 +1,12 @@
-from assets import human, cat, giant_spider, places, suits
+from assets import human, cat, giant_spider
+from assets import places
+from assets import suits
 
 from engine.styles import LevelStyle, GameStyle
-from engine import game, interface
+from engine import creature as cr
+from engine import game
+from engine import interface
+from engine import utils
 
 from colorist import BrightColor as BC, Color as C
 
@@ -10,6 +15,23 @@ class PlayerHuman(human.Human):
     """Just an ordinary human."""
     team = "prisoner"
     suits = [suits.plainsuit]
+
+class Zombie(cr.creature):
+    """A reanimated Limb."""
+    classname = "zombie"
+    namelist = ["zombie"]
+    colors = [None]
+    textures = [None]
+    def __init__(self, limb, location):
+        super().__init__(location=location)
+        self.subelements = [limb]
+
+    def _elementGen(self):
+        """Zombies should not have limbs generated for them- we will manually set self.subelements."""
+        pass
+    def _clothe(self):
+        """Zombies should not have clothes generated for them when they're created."""
+        pass
 
 class Home:
     level_text = f"""{BC.BLUE}You are in your home, preparing to set off on your adventure.{BC.OFF}"""
@@ -77,13 +99,42 @@ class SummonSpider(Spell):
     name = "Summon Spider"
     description = "Summon an enemy spider."
     rounds = 1
-    targets = "friendly"
+    targets = "caster"
 
     def _cast(self):
         """This is useful if you want to test combat magic on an opponent."""
         spider = giant_spider.GiantSpider(location=self.target.location)
         self.target.location.creatures.append(spider)
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
+
+class ReanimateLimb(Spell):
+    name = "Reanimate Limb"
+    description = "Reanimate a zombie."
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        """Bring a limb in the room back to life."""
+        if self.caster.humanity <= 1:
+            invs = self.caster.location.find_invs()
+            # Drop equipment
+            invs = utils.listtodict(invs, add_x=True)
+            utils.dictprint(invs)
+            i = input(f"\n{BC.GREEN}Which inventory would you like to resurrect from?{BC.OFF} ")
+
+            if i in invs.keys() and i != "x":
+                limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
+                utils.dictprint(limbs)
+                j = input(f"\n{BC.GREEN}Select a limb to resurrect:{BC.OFF} ")
+
+                if j in limbs.keys() and j != "x":
+                    limb = limbs[j]
+                    zombie = Zombie(limb=limb, location=self.caster.location)
+                    zombie.team = self.caster.team
+                    self.caster.location.addCreature(zombie)
+                    self.caster.companions.append(zombie)
+                    print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
+
 
 
 # Main
@@ -103,6 +154,11 @@ t_game.set_char(player)
 # Character setup
 player.spellbook.append(Light)
 player.spellbook.append(SummonSpider)
+player.spellbook.append(ReanimateLimb)
+# Player humanity affects which spells they can cast
+player.humanity = 1
+
+thisLevel.start.find_invs()[0].vis_inv.append(human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
@@ -112,4 +168,4 @@ while True:
 # TODO-DONE spell tracking
 # TODO-DONE spell casting from interface
 # TODO-DONE player party
-# TODO exchange equipment with party?
+# TODO-DECIDE exchange equipment with party?
