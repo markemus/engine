@@ -65,6 +65,7 @@ player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.ReanimateLimb)
 player.spellbook.append(sb.Caltrops)
 player.spellbook.append(sb.ArmorOfLight)
+player.spellbook.append(sb.SummonTentacleMonster)
 # Player humanity affects which spells they can cast
 player.humanity = 1
 

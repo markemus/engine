@@ -7,8 +7,8 @@ import engine.utils as utils
 import wizard.suits as su
 import wizard.zombie as z
 
-from assets import giant_spider
-
+from wizard import giant_spider
+from wizard import tentacle_monster
 
 from colorist import BrightColor as BC, Color as C
 
@@ -17,7 +17,7 @@ from colorist import BrightColor as BC, Color as C
 # TODO-DECIDE mana costs for spells?
 class SummonSpider(sp.Spell):
     name = "Summon Spider"
-    description = "Summon an enemy spider."
+    description = "Summons an enemy spider."
     rounds = 1
     targets = "caster"
 
@@ -32,6 +32,26 @@ class SummonSpider(sp.Spell):
         else:
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
             return False
+
+class SummonTentacleMonster(sp.Spell):
+    name = "Summon Tentacle Monster"
+    description = "Summons a friendly tentacle monster."
+    rounds = 1
+    targets = "caster"
+
+    def cast(self):
+        humanity_min = 7
+        if self.caster.humanity >= humanity_min:
+            tm = tentacle_monster.TentacleMonster(location=self.target.location)
+            tm.team = self.caster.team
+            self.target.location.creatures.append(tm)
+            self.caster.companions.append(tm)
+            print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
+            return True
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
+            return False
+
 
 class Caltrops(sp.Spell):
     """Area of effect spell that causes enemies to fall down."""
@@ -82,7 +102,7 @@ class Caltrops(sp.Spell):
 
 class ArmorOfLight(sp.Spell):
     name = "Light Armor"
-    description = "armor made of light"
+    description = "Conjures a set of armor made of light."
     rounds = 2
     targets = "friendly"
 
@@ -102,12 +122,6 @@ class ArmorOfLight(sp.Spell):
 
     def expire(self):
         self.target.unequip_suit(su.lightsuit)
-        # limbs = self.target.subelements[0].limb_check("wears")
-        # for limb in limbs:
-        #     to_remove = tuple(su.lightsuit["wears"].values())
-        #     for equipment in limb.equipment:
-        #         if isinstance(equipment, to_remove):
-        #             limb.unequip(equipment)
         print(f"{BC.MAGENTA}The glowing armor on {C.RED}{self.target.name}{BC.MAGENTA} fades away and disappears.{BC.OFF}")
 
 
@@ -141,7 +155,7 @@ class Light(sp.Spell):
 
 class ReanimateLimb(sp.Spell):
     name = "Reanimate Limb"
-    description = "Reanimate a zombie."
+    description = "Reanimates a dead creature as a zombie."
     rounds = 1
     targets = "caster"
 
@@ -172,7 +186,7 @@ class ReanimateLimb(sp.Spell):
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
             return False
 
-# TODO summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
+# TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
 # TODO fleshrip- tear off a size 1 limb from an opponent
 # TODO tree of life- spawns a sapling with healing fruits
 # TODO scrying- see desc() for neighboring room

@@ -82,35 +82,41 @@ class Combat:
                 else:
                     limb = actor.ai.target_limb(target)
             else:
-                print(f"{C.RED}{actor.name}{C.OFF} swings their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF} blindly!")
+                # blind fighting
+                print(f"\n{C.RED}{actor.name}{C.OFF} swings their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF} blindly!")
                 limb = random.choice([x for x in target.subelements[0].limb_check("isSurface") if x.isSurface])
         else:
             limb = None
 
         if limb:
-            print(f"\n{C.RED}{actor.name}{C.OFF} attacks "
+            if actor.limb_count("see") >= 1:
+                print("") # we don't need the paragraph break if we already got one for blind fighting above.
+            print(f"{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
             print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
-            blockers = self.blockers[target].copy()
-            if target is self.char:
-                blocker = self.cont.pick_blocker(blockers)
-            else:
-                blocker = actor.ai.block(blockers, limb)
-
-            if blocker:
-                # 50/50 chance of blocking an attack
-                block_chance = random.randint(0, 1)
-                self.blockers[target].remove(blocker)
-                if block_chance:
-                    limb = blocker
-                    print(f"{BC.YELLOW}{target.name}{BC.OFF} blocks the blow with their {BC.CYAN}{blocker.name}{BC.OFF}!")
+            if target.limb_count("see") >= 1:
+                blockers = self.blockers[target].copy()
+                if target is self.char:
+                    blocker = self.cont.pick_blocker(blockers)
                 else:
-                    print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
+                    blocker = actor.ai.block(blockers, limb)
+
+                if blocker:
+                    # 50/50 chance of blocking an attack
+                    block_chance = random.randint(0, 1)
+                    self.blockers[target].remove(blocker)
+                    if block_chance:
+                        limb = blocker
+                        print(f"{BC.YELLOW}{target.name}{BC.OFF} blocks the blow with their {BC.CYAN}{blocker.name}{BC.OFF}!")
+                    else:
+                        print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
+                else:
+                    print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
             else:
-                print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
+                print(f"{BC.YELLOW}{target.name}{BC.OFF} cannot see the blow coming.")
 
             # To hit roll- smaller limbs are harder to hit
             if actor.limb_count("see") < 1:

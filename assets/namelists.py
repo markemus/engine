@@ -9,4 +9,6 @@ names = {
     "human": ["Emen", "Rami", "Sagden", "Merind", "Hom", "Shriv"],
     "orc": ["Murgur", "Amroth", "Kailin", "Meex", "Ralosh", "Loth"],
     "troll": ["Arggh", "Grargh", "Erff", "Smurr", "Urd"],
+    "eldritch": ["Krrzt", "Mnuthe", "Ftubh", "Mrzath", "Kbul"],
+    "spider": ["Adonimala", "Septisibula", "Mandicopol", "Sebetina", "Marcopistimun"]
 }

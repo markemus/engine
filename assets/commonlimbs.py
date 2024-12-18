@@ -229,6 +229,7 @@ class Tentacle(cr.Weapon):
     name = "tentacle"
     subelement_classes = []
     isSurface = True
+    blocker = True
     appendageRange = (5, 6)
     grasp = 1
     f_grasp = 1
