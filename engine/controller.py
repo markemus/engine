@@ -525,4 +525,5 @@ class Controller:
                 if j in targets.keys() and j != "x":
                     # TODO track cast spells (combat counter as well)
                     spell = spellbook[int(i)](self.game.char, targets[j])
-                    self.game.active_spells.append(spell)
+                    if spell.cast():
+                        self.game.active_spells.append(spell)

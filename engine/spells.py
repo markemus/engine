@@ -5,11 +5,13 @@ class Spell:
         self.caster = caster
         self.target = target
         # Spell is created when it is cast
-        self._cast()
-        # TODO-DECIDE how should we track cast spells? game object?
 
-    def _cast(self):
-        """Spells should define a cast effect."""
+    def cast(self):
+        """Spells should define a cast effect. It should return True if cast is successful and False otherwise."""
+        pass
+
+    def update(self):
+        """Spells should define an update effect. This is called during every combat round."""
         pass
 
     def expire(self):

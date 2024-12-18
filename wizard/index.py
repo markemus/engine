@@ -61,6 +61,7 @@ t_game.set_char(player)
 player.spellbook.append(sb.Light)
 player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.ReanimateLimb)
+player.spellbook.append(sb.Caltrops)
 # Player humanity affects which spells they can cast
 player.humanity = 1
 
@@ -71,7 +72,8 @@ i = interface.Interface(t_game)
 while True:
     i.command()
 
-# TODO-DONE spell tracking
-# TODO-DONE spell casting from interface
-# TODO-DONE player party
 # TODO-DECIDE exchange equipment with party?
+# TODO-DONE caltrops spell- reduce amble for random limbs for 1 round (repeatedly)
+# TODO armor spell- _clothe yourself in light
+# TODO summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
+# TODO fleshrip- tear off a size 1 limb from an opponent
