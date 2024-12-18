@@ -503,11 +503,11 @@ class Controller:
     def cast_magic(self):
         spellbook = self.game.char.spellbook
         spell_list = []
+        print(f"{C.RED}----------Known Spells----------{C.OFF}")
         if spellbook:
             for spell in spellbook:
                 spell_list.append(f"{BC.CYAN}{spell.name}{BC.OFF}: {BC.MAGENTA}{spell.description}{BC.OFF}")
             spell_dict = self.listtodict(spell_list, add_x=True)
-            print(f"{C.RED}----------Known Spells----------{C.OFF}")
             self.dictprint(spell_dict)
             i = input(f"{BC.GREEN}Which spell would you like to cast? {BC.OFF}")
             if i in spell_dict.keys() and i != "x":
