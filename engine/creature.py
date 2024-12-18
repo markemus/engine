@@ -304,6 +304,8 @@ class creature:
 
         self.location = location
         self.ai = ai.CombatAI(self)
+        # Companions will follow a creature around.
+        self.companions = []
 
     def _elementGen(self):
         baseElem = self.baseElem(self.color, self.texture)
@@ -408,6 +410,7 @@ class creature:
 
         return text
 
+    # TODO Should ensure that companions follow instead of just going in the same direction.
     # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
         """Move to a new Place. Accepts a str input."""
@@ -421,7 +424,11 @@ class creature:
                 self.location = currentRoom.borders[direction]
                 nextRoom.addCreature(self)
                 left = True
-                print(f"You leave {C.RED}{currentRoom.name}{C.OFF} and enter {C.RED}{nextRoom.name}{C.OFF}.")
+                print(f"{self.name} leaves {C.RED}{currentRoom.name}{C.OFF} and enters {C.RED}{nextRoom.name}{C.OFF}.")
+                for companion in self.companions:
+                    companion.leave(direction=direction)
+            else:
+                print(f"{C.RED}{self.name} is unable to move.{C.OFF}")
         else:
             print("There is no way out in that direction.")
 
