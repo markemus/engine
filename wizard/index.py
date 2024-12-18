@@ -1,4 +1,4 @@
-from assets import human, cat, giant_spider
+from assets import human, cat
 from assets import places
 from assets import suits
 
@@ -49,9 +49,11 @@ t_game = game.Game("The Way of the Wizard", Wizard)
 thisLevel = t_game.level_list[0]
 
 player = PlayerHuman(location=thisLevel.start)
-player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 familiar = cat.Cat(location=thisLevel.start)
-familiar.name = input(f"{BC.CYAN}Enter the name of your familiar: {BC.OFF}")
+# player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
+# familiar.name = input(f"{BC.CYAN}Enter the name of your familiar: {BC.OFF}")
+player.name = "Adam"
+familiar.name = "Cozy"
 player.companions.append(familiar)
 thisLevel.start.creatures.append(player)
 thisLevel.start.creatures.append(familiar)
@@ -62,6 +64,7 @@ player.spellbook.append(sb.Light)
 player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.ReanimateLimb)
 player.spellbook.append(sb.Caltrops)
+player.spellbook.append(sb.ArmorOfLight)
 # Player humanity affects which spells they can cast
 player.humanity = 1
 

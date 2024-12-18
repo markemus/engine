@@ -4,9 +4,11 @@ import engine.creature as cr
 import engine.spells as sp
 import engine.utils as utils
 
+import wizard.suits as su
 import wizard.zombie as z
 
 from assets import giant_spider
+
 
 from colorist import BrightColor as BC, Color as C
 
@@ -21,13 +23,14 @@ class SummonSpider(sp.Spell):
 
     def cast(self):
         """This is useful if you want to test combat magic on an opponent."""
-        if self.caster.humanity >= -5:
+        humanity_min = -5
+        if self.caster.humanity >= humanity_min:
             spider = giant_spider.GiantSpider(location=self.target.location)
             self.target.location.creatures.append(spider)
             print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
             return True
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell!{BC.OFF}")
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
             return False
 
 class Caltrops(sp.Spell):
@@ -42,12 +45,13 @@ class Caltrops(sp.Spell):
         super().__init__(*args, **kwargs)
 
     def cast(self):
-        if self.caster.humanity >= -10:
+        humanity_min = -10
+        if self.caster.humanity >= humanity_min:
             self.update()
             print(f"{BC.MAGENTA}Enchanted caltrops scatter themselves across the floor.{BC.OFF}")
             return True
         else:
-            print(f"{C.RED}{self.caster}{BC.MAGENTA}'s humanity is too low to cast this spell!{BC.OFF}")
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({humanity_min}){BC.OFF}")
             return False
 
     def _fix_legs(self):
@@ -76,6 +80,36 @@ class Caltrops(sp.Spell):
         self._fix_legs()
 
 
+class ArmorOfLight(sp.Spell):
+    name = "Light Armor"
+    description = "armor made of light"
+    rounds = 20
+    targets = "friendly"
+
+    def cast(self):
+        humanity_min = 5
+        if self.caster.humanity >= humanity_min:
+            self.suits = self.target.suits
+            self.target.suits = [su.lightsuit]
+            # Puts the armor on the target
+            self.target._clothe()
+            self.target.suits = self.suits
+            print(f"{BC.MAGENTA}A glowing suit of armor envelops {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
+            return True
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({humanity_min}){BC.OFF}")
+            return False
+
+    def expire(self):
+        limbs = self.target.subelements[0].limb_check("wears")
+        for limb in limbs:
+            to_remove = tuple(su.lightsuit["wears"].values())
+            for equipment in limb.equipment:
+                if isinstance(equipment, to_remove):
+                    limb.unequip(equipment)
+        print(f"{BC.MAGENTA}The glowing armor on {C.RED}{self.target.name}{BC.MAGENTA} fades away and disappears.{BC.OFF}")
+
+
 # Corruption
 class Light(sp.Spell):
     name = "Light"
@@ -83,7 +117,8 @@ class Light(sp.Spell):
     rounds = 10
     targets = "enemy"
     def cast(self):
-        if self.caster.humanity <= 10:
+        humanity_max = 10
+        if self.caster.humanity <= humanity_max:
             self.original_colors = {}
             limbs = self.target.subelements[0].limb_check("isSurface")
             for limb in limbs:
@@ -93,7 +128,7 @@ class Light(sp.Spell):
             print(f"{BC.MAGENTA}A luminous glow surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
             return True
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell!{BC.OFF}")
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
 
     def expire(self):
         limbs = self.target.subelements[0].limb_check("isSurface")
@@ -111,7 +146,8 @@ class ReanimateLimb(sp.Spell):
 
     def cast(self):
         """Bring a limb in the room back to life."""
-        if self.caster.humanity <= 5:
+        humanity_max = 5
+        if self.caster.humanity <= humanity_max:
             invs = self.caster.location.find_invs()
             # Drop equipment
             invs = utils.listtodict(invs, add_x=True)
@@ -132,5 +168,5 @@ class ReanimateLimb(sp.Spell):
                     print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
                     return True
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell!{BC.OFF}")
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
             return False
