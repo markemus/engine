@@ -17,9 +17,13 @@ class PlayerHuman(human.Human):
     team = "adventurer"
     suits = [suits.plainsuit, suits.backpack]
 
+class SpecimenHuman(human.Human):
+    team = "specimen"
+
 class PlayerDen(places.Den):
     # subelement_classes = [wall, floor, fur.TreeOfLife]
     subelement_classes = [wall, floor]
+    creature_classes = [[(SpecimenHuman, 1)]]
 
 class Home:
     level_text = f"""{BC.BLUE}You are in your home, preparing to set off on your adventure.{BC.OFF}"""
@@ -71,6 +75,7 @@ player.spellbook.append(sb.ArmorOfLight)
 player.spellbook.append(sb.SummonTentacleMonster)
 player.spellbook.append(sb.Scry)
 player.spellbook.append(sb.GrowTreeOfLife)
+player.spellbook.append(sb.FleshRip)
 # Player humanity affects which spells they can cast
 player.humanity = 1
 

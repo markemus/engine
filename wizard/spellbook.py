@@ -222,8 +222,32 @@ class Scry(sp.Spell):
         if i in borders.keys() and borders[i] is not None and i != "x":
             print(borders[i].desc(full=False))
 
+
+class FleshRip(sp.Spell):
+    name = "Flesh Rip"
+    description = "Rip a small limb off of an enemy."
+    rounds = 1
+    targets = "enemy"
+
+    def cast(self):
+        limbs = utils.listtodict([x for x in self.target.subelements[0].limb_check("isSurface") if x.isSurface and x.size <= 1], add_x=True)
+        # utils.dictprint(limbs, pfunc=lambda x,y: x + f" {C.RED}({y.hp}){C.OFF}")
+        utils.dictprint(limbs)
+
+        j = input(f"{BC.MAGENTA}Pick a limb to tear off of your enemy: {BC.OFF}")
+        if j in limbs.keys() and j != "x":
+            limb = limbs[j]
+            self.target.remove_limb(limb)
+
+            print(f"{BC.MAGENTA}An ethereal force rips the {BC.CYAN}{limb.name}{BC.MAGENTA} off of {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s body!{BC.OFF}")
+            self.caster.location.drop_item(limb)
+            return True
+        else:
+            return False
+
+
 # TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
-# TODO fleshrip- tear off a size 1 limb from an opponent
+# TODO-DONE fleshrip- tear off a size 1 limb from an opponent
 # TODO-DONE tree of life- spawns a sapling with healing fruits (furniture with subelements)
 # TODO-DONE scrying- see desc() for neighboring room
 # TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1

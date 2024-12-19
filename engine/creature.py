@@ -535,7 +535,6 @@ class creature:
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
-
         # Losing a vital limb kills the creature
         limb_vitals = limb.limb_check("vital")
         # We'll see if others of this class are still attached
