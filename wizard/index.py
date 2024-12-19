@@ -19,15 +19,18 @@ class PlayerHuman(human.Human):
 
 class SpecimenHuman(human.Human):
     team = "specimen"
+    aggressive = False
 
 class PlayerDen(places.Den):
-    # subelement_classes = [wall, floor, fur.TreeOfLife]
     subelement_classes = [wall, floor]
+
+class HomeCell(places.Cell):
+    count = (1, 2)
     creature_classes = [[(SpecimenHuman, 1)]]
 
 class Home:
     level_text = f"""{BC.BLUE}You are in your home, preparing to set off on your adventure.{BC.OFF}"""
-    room_classes = [places.Bathroom, places.Bedroom, places.Parlor, places.Kitchen]
+    room_classes = [places.Bathroom, places.Bedroom, places.Parlor, places.Kitchen, HomeCell]
     start_room = PlayerDen
     end_room = places.DiningRoom
     creature_classes = []
@@ -67,15 +70,18 @@ thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
 # Character setup
+player.spellbook.append(sb.Scry)
 player.spellbook.append(sb.Light)
+player.spellbook.append(sb.Shadow)
 player.spellbook.append(sb.SummonSpider)
+player.spellbook.append(sb.SummonTentacleMonster)
 player.spellbook.append(sb.ReanimateLimb)
 player.spellbook.append(sb.Caltrops)
-player.spellbook.append(sb.ArmorOfLight)
-player.spellbook.append(sb.SummonTentacleMonster)
-player.spellbook.append(sb.Scry)
-player.spellbook.append(sb.GrowTreeOfLife)
 player.spellbook.append(sb.FleshRip)
+player.spellbook.append(sb.ArmorOfLight)
+player.spellbook.append(sb.GrowTreeOfLife)
+player.spellbook.append(sb.SetHumanity)
+
 # Player humanity affects which spells they can cast
 player.humanity = 1
 

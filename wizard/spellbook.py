@@ -45,19 +45,20 @@ class Caltrops(sp.Spell):
         self.legs = {}
 
     def update(self):
-        """Caltrops will cause some creatures to fall every round."""
+        """Caltrops will cause some enemies to fall every round."""
         # First reset amble for all limbs from last round
         self._fix_legs()
         # Then affect some limbs for this round
-        creatures = self.caster.location.creatures
-        for creature in creatures:
-            legs = creature.subelements[0].limb_check("amble")
-            random.shuffle(legs)
-            legs = legs[:random.randint(0, len(legs))]
-            for leg in legs:
-                # If enough legs are affected, creature will fall over
-                self.legs[leg] = leg.amble
-                leg.amble = 0
+        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
+        for enemy in enemies:
+            legs = enemy.subelements[0].limb_check("amble")
+            if legs:
+                random.shuffle(legs)
+                legs = legs[:random.randint(0, int(len(legs)/2))]
+                for leg in legs:
+                    # If enough legs are affected, creature will fall over
+                    self.legs[leg] = leg.amble
+                    leg.amble = 0
 
     def expire(self):
         self._fix_legs()
@@ -172,6 +173,40 @@ class Light(sp.Spell):
                 limb.size -= 1
         print(f"{BC.MAGENTA}The glow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
+class Shadow(sp.Spell):
+    name = "Shadow"
+    description = "A shadowy murk that surrounds a creature, making it harder to hit."
+    rounds = 10
+    targets = "friendly"
+    original_colors = None
+    original_sizes = None
+
+    def cast(self):
+        humanity_max = 10
+        if self.caster.humanity <= humanity_max:
+            self.original_colors = {}
+            self.original_sizes = {}
+            limbs = self.target.subelements[0].limb_check("isSurface")
+            for limb in limbs:
+                self.original_colors[limb] = limb.color
+                self.original_sizes[limb] = limb.size
+                limb.color = f"shadowy {limb.color}"
+                if limb.size > 1:
+                    limb.size -= 1
+            print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
+            return True
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+
+    def expire(self):
+        limbs = self.target.subelements[0].limb_check("isSurface")
+        for limb in limbs:
+            if limb in self.original_colors.keys():
+                limb.color = self.original_colors[limb]
+                limb.size = self.original_sizes[limb]
+        print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
+
+
 class ReanimateLimb(sp.Spell):
     name = "Reanimate Limb"
     description = "Reanimates a dead creature as a zombie."
@@ -206,23 +241,6 @@ class ReanimateLimb(sp.Spell):
             return False
 
 
-# Neither
-class Scry(sp.Spell):
-    name = "Scry"
-    description = "See what is happening in a nearby room."
-    rounds = 1
-    targets = "caster"
-
-    def cast(self):
-        borders = self.caster.location.borders.copy()
-        borders["x"] = "Cancel"
-        utils.dictprint(borders)
-        i = input(f"{BC.MAGENTA}Which room would you like to scry?{BC.OFF}")
-
-        if i in borders.keys() and borders[i] is not None and i != "x":
-            print(borders[i].desc(full=False))
-
-
 class FleshRip(sp.Spell):
     name = "Flesh Rip"
     description = "Rip a small limb off of an enemy."
@@ -246,6 +264,40 @@ class FleshRip(sp.Spell):
             return False
 
 
+# Neither
+class Scry(sp.Spell):
+    name = "Scry"
+    description = "See what is happening in a nearby room."
+    rounds = 1
+    targets = "caster"
+
+    def cast(self):
+        borders = self.caster.location.borders.copy()
+        borders["x"] = "Cancel"
+        utils.dictprint(borders)
+        i = input(f"{BC.MAGENTA}Which room would you like to scry?{BC.OFF}")
+
+        if i in borders.keys() and borders[i] is not None and i != "x":
+            print(borders[i].desc(full=False))
+
+
+class SetHumanity(sp.Spell):
+    name = "Set Humanity"
+    description = "Cheat and set your humanity to whatever you want."
+    rounds = 5
+    targets = "caster"
+    original_humanity = None
+
+    def cast(self):
+        self.original_humanity = self.caster.humanity
+        self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
+        return True
+
+    def expire(self):
+        print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity returns to its normal value.{BC.OFF}")
+        self.caster.humanity = self.original_humanity
+
+
 # TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
 # TODO-DONE fleshrip- tear off a size 1 limb from an opponent
 # TODO-DONE tree of life- spawns a sapling with healing fruits (furniture with subelements)
@@ -253,3 +305,4 @@ class FleshRip(sp.Spell):
 # TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
 # TODO Light() should also add a nimbus to creature limbs
 # TODO graft limb- graft a disembodied limb onto a friendly creature
+# TODO flashbang spell

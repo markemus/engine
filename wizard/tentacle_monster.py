@@ -14,6 +14,8 @@ class Torso(cr.Limb):
     name = "trunk"
     subelement_classes = [Tentacle]
     amble = 1
+    size = 2
+    isSurface = True
 
 class TentacleMonster(cr.creature):
     classname = "tentacle monster"

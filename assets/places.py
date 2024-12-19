@@ -24,6 +24,16 @@ class Bedroom(pl.Place):
     furniture_classes = [fur.Bed, fur.Dresser]
     subelement_classes = [wall, floor]
 
+class Cell(pl.Place):
+    name = "cell"
+    sprite = "C"
+    count = (5, 10)
+    colors = ["unpainted", "grimy", "grey"]
+    textures = ["stone", "concrete"]
+    creature_classes = []
+    furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
+    subelement_classes = [wall, floor]
+
 class Den(pl.Place):
     name = "den"
     sprite = "D"

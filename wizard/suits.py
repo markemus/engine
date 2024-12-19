@@ -107,3 +107,5 @@ lightsuit = {
     "texture_scheme": "same",
     "full": True,
     }
+
+# TODO add support for nimbuses- wears["body"], covers["all"] = True
