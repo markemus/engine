@@ -236,6 +236,9 @@ class GraftLimb(sp.Spell):
                         target_limb = target_limbs[k]
                         target_limb.subelements.append(graft_limb)
                         print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                        # Lowers humanity, if target is appropriate
+                        if hasattr(self.target, "humanity"):
+                            self.target.humanity -= 1
                         return True
             return False
         else:
