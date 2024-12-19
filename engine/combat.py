@@ -30,7 +30,9 @@ class Combat:
         creatures = self.char.location.get_creatures()
         # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player)
         creatures = [creature for creature in creatures if creature.team != "neutral"]
-        if not include_char:
+        if self.char.team == "neutral":
+            print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
+        if not include_char and self.char in creatures:
             creatures.remove(self.char)
 
         # Blockers must be reset each round.

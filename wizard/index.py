@@ -73,6 +73,7 @@ t_game.set_char(player)
 player.spellbook.append(sb.Scry)
 player.spellbook.append(sb.Light)
 player.spellbook.append(sb.Shadow)
+player.spellbook.append(sb.Innocence)
 player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.SummonTentacleMonster)
 player.spellbook.append(sb.GraftLimb)
@@ -93,3 +94,5 @@ i = interface.Interface(t_game)
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()
+
+# TODO put head into a jar, add a hand to another

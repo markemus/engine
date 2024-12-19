@@ -206,6 +206,30 @@ class Shadow(sp.Spell):
                 limb.size = self.original_sizes[limb]
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
+class Innocence(sp.Spell):
+    name = "Innocence"
+    description = "Target will appear harmless to their enemies (<5)."
+    rounds = 10
+    targets = "friendly"
+    original_team = None
+
+    def cast(self):
+        humanity_max = 5
+        if self.caster.humanity <= humanity_max:
+            if self.target.team != "neutral":
+                self.original_team = self.target.team
+                self.target.team = "neutral"
+                return True
+            else:
+                print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is already neutral!{BC.OFF}")
+                return False
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+
+    def expire(self):
+        self.target.team = self.original_team
+        print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} suddenly appears quite menacing!{BC.OFF}")
+
 
 class GraftLimb(sp.Spell):
     name = "Graft Limb"
@@ -362,10 +386,17 @@ class SetHumanity(sp.Spell):
         self.caster.humanity = self.original_humanity
 
 
-# TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
-# TODO-DONE fleshrip- tear off a size 1 limb from an opponent
-# TODO-DONE tree of life- spawns a sapling with healing fruits (furniture with subelements)
-# TODO-DONE scrying- see desc() for neighboring room
-# TODO-DONE cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
-# TODO graft limb- graft a disembodied limb onto a friendly creature
-# TODO-DONE flashbang spell
+# TODO-DONE graft limb- graft a disembodied limb onto a friendly creature
+# TODO grow beard spell
+# TODO change color of an item (using self.colors)
+# TODO fireball- DOT
+# TODO transform yourself into a monster temporarily (or permanently)
+# TODO summon an ethereal hand with a glowing sword
+# TODO enthral- an enemy creature joins your side
+# TODO lightning- damages a few neighboring limbs and has a chance to jump to another enemy
+# TODO conjure flaming sword for yourself
+# TODO disguise as another class (sneak through areas)
+# TODO invisibility
+# TODO sword hands
+# TODO mana costs
+# TODO maintenance costs- reduces max mana
