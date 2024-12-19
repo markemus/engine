@@ -92,7 +92,3 @@ i = interface.Interface(t_game)
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()
-
-# TODO-DECIDE exchange equipment with party?
-# TODO-DONE caltrops spell- reduce amble for random limbs for 1 round (repeatedly)
-# TODO-DONE armor spell- _clothe yourself in light

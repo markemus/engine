@@ -19,7 +19,7 @@ from colorist import BrightColor as BC, Color as C
 class Caltrops(sp.Spell):
     """Area of effect spell that causes enemies to fall down."""
     name = "Caltrops"
-    description = "Causes enemies to fall."
+    description = "Causes enemies to fall. (>-10)"
     rounds = 5
     targets = "caster"
 
@@ -66,12 +66,12 @@ class Caltrops(sp.Spell):
 
 class GrowTreeOfLife(sp.Spell):
     name = "Grow Tree of Life"
-    description = "A tree with healing fruits sprouts out of the floor."
+    description = "A tree with healing fruits sprouts out of the floor (>2)."
     rounds = 1
     targets = "caster"
 
     def cast(self):
-        humanity_min = 5
+        humanity_min = 2
         if self.caster.humanity >= humanity_min:
             tree_of_life = fur.TreeOfLife(color=random.choice(fur.TreeOfLife.color), texture=random.choice(fur.TreeOfLife.texture))
             self.caster.location.elements.append(tree_of_life)
@@ -84,7 +84,7 @@ class GrowTreeOfLife(sp.Spell):
 
 class SummonSpider(sp.Spell):
     name = "Summon Spider"
-    description = "Summons an enemy spider."
+    description = "Summons an enemy spider (>5)."
     rounds = 1
     targets = "caster"
 
@@ -102,7 +102,7 @@ class SummonSpider(sp.Spell):
 
 class SummonTentacleMonster(sp.Spell):
     name = "Summon Tentacle Monster"
-    description = "Summons a friendly tentacle monster."
+    description = "Summons a friendly tentacle monster (>7)."
     rounds = 1
     targets = "caster"
 
@@ -122,12 +122,12 @@ class SummonTentacleMonster(sp.Spell):
 
 class ArmorOfLight(sp.Spell):
     name = "Light Armor"
-    description = "Conjures a set of armor made of light."
+    description = "Conjures a set of armor made of light (>-10)."
     rounds = 20
     targets = "friendly"
 
     def cast(self):
-        humanity_min = 5
+        humanity_min = -10
         if self.caster.humanity >= humanity_min:
             old_suits = self.target.suits
             self.target.suits = [su.lightsuit]
@@ -148,7 +148,7 @@ class ArmorOfLight(sp.Spell):
 # Corruption
 class Light(sp.Spell):
     name = "Light"
-    description = "A luminous glow that surrounds a creature, making it easier to hit."
+    description = "A luminous glow surrounds a creature, making it easier to hit (<10)."
     rounds = 10
     targets = "enemy"
     def cast(self):
@@ -175,7 +175,7 @@ class Light(sp.Spell):
 
 class Shadow(sp.Spell):
     name = "Shadow"
-    description = "A shadowy murk that surrounds a creature, making it harder to hit."
+    description = "A shadowy murk surrounds a creature, making it harder to hit (<10)."
     rounds = 10
     targets = "friendly"
     original_colors = None
@@ -208,8 +208,8 @@ class Shadow(sp.Spell):
 
 
 class ReanimateLimb(sp.Spell):
-    name = "Reanimate Limb"
-    description = "Reanimates a dead creature as a zombie."
+    name = "Reanimate"
+    description = "Reanimates a dead creature as a zombie (<-7)."
     rounds = 1
     targets = "caster"
 
@@ -243,24 +243,29 @@ class ReanimateLimb(sp.Spell):
 
 class FleshRip(sp.Spell):
     name = "Flesh Rip"
-    description = "Rip a small limb off of an enemy."
+    description = "Rip a small limb off of an enemy (<-2)."
     rounds = 1
     targets = "enemy"
 
     def cast(self):
-        limbs = utils.listtodict([x for x in self.target.subelements[0].limb_check("isSurface") if x.isSurface and x.size <= 1], add_x=True)
-        # utils.dictprint(limbs, pfunc=lambda x,y: x + f" {C.RED}({y.hp}){C.OFF}")
-        utils.dictprint(limbs)
+        humanity_max = -2
+        if self.caster.humanity <= humanity_max:
+            limbs = utils.listtodict([x for x in self.target.subelements[0].limb_check("isSurface") if x.isSurface and x.size <= 1], add_x=True)
+            # utils.dictprint(limbs, pfunc=lambda x,y: x + f" {C.RED}({y.hp}){C.OFF}")
+            utils.dictprint(limbs)
 
-        j = input(f"{BC.MAGENTA}Pick a limb to tear off of your enemy: {BC.OFF}")
-        if j in limbs.keys() and j != "x":
-            limb = limbs[j]
-            self.target.remove_limb(limb)
+            j = input(f"{BC.MAGENTA}Pick a limb to tear off of your enemy: {BC.OFF}")
+            if j in limbs.keys() and j != "x":
+                limb = limbs[j]
+                self.target.remove_limb(limb)
 
-            print(f"{BC.MAGENTA}An ethereal force rips the {BC.CYAN}{limb.name}{BC.MAGENTA} off of {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s body!{BC.OFF}")
-            self.caster.location.drop_item(limb)
-            return True
+                print(f"{BC.MAGENTA}An ethereal force rips the {BC.CYAN}{limb.name}{BC.MAGENTA} off of {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s body!{BC.OFF}")
+                self.caster.location.drop_item(limb)
+                return True
+            else:
+                return False
         else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
             return False
 
 
@@ -326,4 +331,4 @@ class SetHumanity(sp.Spell):
 # TODO-DONE scrying- see desc() for neighboring room
 # TODO-DONE cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
 # TODO graft limb- graft a disembodied limb onto a friendly creature
-# TODO flashbang spell
+# TODO-DONE flashbang spell
