@@ -25,11 +25,13 @@ class Combat:
                     print(f"{BC.CYAN}{actor.name} grabs the {weapon.name} from the {inv.name}!")
 
     # TODO-DECIDE add enemies falling over (easier to-hit rolls)?
-    def fullCombat(self):
+    def fullCombat(self, include_char=True):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
         # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player)
         creatures = [creature for creature in creatures if creature.team != "neutral"]
+        if not include_char:
+            creatures.remove(self.char)
 
         # Blockers must be reset each round.
         self.blockers = {}

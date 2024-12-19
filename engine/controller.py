@@ -240,8 +240,8 @@ class Controller:
         return self.check_safety()
 
     # Combat
-    def attack(self):
-        self.combat.fullCombat()
+    def attack(self, include_char=True):
+        self.combat.fullCombat(include_char=include_char)
         self.game.update_spells()
 
     def check_safety(self):
@@ -500,7 +500,7 @@ class Controller:
                 target_inv.vis_inv.append(hand.grasped)
                 hand.grasped = None
 
-    def cast_magic(self):
+    def cast_magic(self, state):
         spellbook = self.game.char.spellbook
         spell_list = []
         print(f"{C.RED}----------Known Spells----------{C.OFF}")
@@ -523,7 +523,9 @@ class Controller:
                 self.dictprint(targets)
                 j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
                 if j in targets.keys() and j != "x":
-                    # TODO track cast spells (combat counter as well)
+                    # TODO-DONE track cast spells (combat counter as well)
                     spell = spellbook[int(i)](self.game.char, targets[j])
                     if spell.cast():
                         self.game.active_spells.append(spell)
+                        if state == "fight":
+                            self.attack(include_char=False)

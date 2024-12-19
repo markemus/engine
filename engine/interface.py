@@ -34,7 +34,7 @@ class Interface:
             "f": self.fight,
             "r": self.cont.rest,
             "q": self.cont.eat,
-            "M": self.cont.cast_magic,
+            "M": lambda: self.cont.cast_magic(self.state),
             "/": self.save,
             "*": self.load,
         }
@@ -49,7 +49,7 @@ class Interface:
             "g": self.cont.grasp,
             "u": self.cont.ungrasp,
             "a": self.cont.attack,
-            "M": self.cont.cast_magic,
+            "M": lambda: self.cont.cast_magic(self.state),
             "w": self.move
         }
 
