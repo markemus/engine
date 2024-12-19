@@ -189,7 +189,8 @@ class Combat:
             # core limb needs to be treated differently- it will drop when creature dies and we don't want to duplicate that.
             if limb is not defender.subelements[0]:
                 defender.remove_limb(limb)
-                print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {C.RED}{defender.name}{C.OFF}'s body!")
+                # TODO-DONE defender should be BC.YELLOW
+                print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                 self.throw_limb(defender, limb)
                 # check if target falls over
                 if hasattr(limb, "amble") and can_amble:

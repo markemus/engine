@@ -122,7 +122,7 @@ class Caltrops(sp.Spell):
 class ArmorOfLight(sp.Spell):
     name = "Light Armor"
     description = "Conjures a set of armor made of light."
-    rounds = 2
+    rounds = 20
     targets = "friendly"
 
     def cast(self):
@@ -224,7 +224,7 @@ class Scry(sp.Spell):
 
 # TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
 # TODO fleshrip- tear off a size 1 limb from an opponent
-# TODO tree of life- spawns a sapling with healing fruits (furniture with subelements)
+# TODO-DONE tree of life- spawns a sapling with healing fruits (furniture with subelements)
 # TODO-DONE scrying- see desc() for neighboring room
 # TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
 # TODO Light() should also add a nimbus to creature limbs

@@ -411,7 +411,7 @@ class creature:
 
         return text
 
-    # TODO Should ensure that companions follow instead of just going in the same direction.
+    # TODO-DONE Should ensure that companions follow instead of just going in the same direction.
     # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
         """Move to a new Place. Accepts a str input."""
@@ -425,7 +425,7 @@ class creature:
                 self.location = currentRoom.borders[direction]
                 nextRoom.addCreature(self)
                 left = True
-                print(f"{self.name} leaves {C.RED}{currentRoom.name}{C.OFF} and enters {C.RED}{nextRoom.name}{C.OFF}.")
+                print(f"{BC.CYAN}{self.name}{BC.OFF} leaves {C.RED}{currentRoom.name}{C.OFF} and enters {C.RED}{nextRoom.name}{C.OFF}.")
                 for companion in self.companions:
                     if companion.location == currentRoom:
                         companion.leave(direction=direction)
