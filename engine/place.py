@@ -156,16 +156,29 @@ class Place:
 class Element:
     name = "NO_NAME_ELEM"
     visible = True                  # element is shown during place's desc()
-    color = "NO_COLOR"
-    texture = "NO_TEXTURE"
+    # color = "NO_COLOR"
+    # texture = "NO_TEXTURE"
     printcolor = C.YELLOW
     # elements = []
+    subelement_classes = None
 
     def __init__(self, color, texture):
         self.borders = []
         self.color = color
         self.texture = texture
         self.subelements = []      # subelements
+        if self.subelement_classes:
+            for subelement_class in self.subelement_classes:
+                if hasattr(subelement_class, "color"):
+                    color = random.choice(subelement_class.color)
+                else:
+                    color = self.color
+                if hasattr(subelement_class, "texture"):
+                    texture = random.choice(subelement_class.texture)
+                else:
+                    texture = self.texture
+                subelem = subelement_class(color=color, texture=texture)
+                self.subelements.append(subelem)
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""

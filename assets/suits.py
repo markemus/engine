@@ -140,6 +140,14 @@ class Shield(i.Item):
     descends = 1
 
 # Clothing
+class Backpack(i.Holder):
+    name = "backpack"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["body"] = True
+    level = 4
+    descends = 0
+
 class Apron(i.Item):
     name = "apron"
     canwear = i.Item.canwear.copy()
@@ -310,6 +318,18 @@ plainsuit = {
     "color": ["red", "blue", "green", "yellow", "striped"],
     "color_scheme": "distinct",
     "texture": ["silk", "cotton", "wool"],
+    "texture_scheme": "same",
+    "full": True,
+    }
+
+backpack = {
+    "wears": {
+        "body": Backpack,
+        },
+    "grasps": {},
+    "color": ["black", "brown"],
+    "color_scheme": "distinct",
+    "texture": ["leather", "cloth"],
     "texture_scheme": "same",
     "full": True,
     }

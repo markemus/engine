@@ -2,11 +2,12 @@ from assets import human, cat
 from assets import places
 from assets import suits
 
-from engine.styles import LevelStyle, GameStyle
+from engine.styles import LevelStyle, GameStyle, wall, floor
 from engine import game
 from engine import interface
 
 from wizard import spellbook as sb
+from wizard import furniture as fur
 
 from colorist import BrightColor as BC, Color as C
 
@@ -14,14 +15,16 @@ from colorist import BrightColor as BC, Color as C
 class PlayerHuman(human.Human):
     """Just an ordinary human."""
     team = "adventurer"
-    suits = [suits.plainsuit]
+    suits = [suits.plainsuit, suits.backpack]
 
-
+class PlayerDen(places.Den):
+    # subelement_classes = [wall, floor, fur.TreeOfLife]
+    subelement_classes = [wall, floor]
 
 class Home:
     level_text = f"""{BC.BLUE}You are in your home, preparing to set off on your adventure.{BC.OFF}"""
     room_classes = [places.Bathroom, places.Bedroom, places.Parlor, places.Kitchen]
-    start_room = places.Den
+    start_room = PlayerDen
     end_room = places.DiningRoom
     creature_classes = []
 
@@ -67,6 +70,7 @@ player.spellbook.append(sb.Caltrops)
 player.spellbook.append(sb.ArmorOfLight)
 player.spellbook.append(sb.SummonTentacleMonster)
 player.spellbook.append(sb.Scry)
+player.spellbook.append(sb.GrowTreeOfLife)
 # Player humanity affects which spells they can cast
 player.humanity = 1
 

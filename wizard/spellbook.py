@@ -4,6 +4,7 @@ import engine.creature as cr
 import engine.spells as sp
 import engine.utils as utils
 
+import wizard.furniture as fur
 import wizard.suits as su
 import wizard.zombie as z
 
@@ -15,6 +16,24 @@ from colorist import BrightColor as BC, Color as C
 
 # Creation
 # TODO-DECIDE mana costs for spells?
+class GrowTreeOfLife(sp.Spell):
+    name = "Grow Tree of Life"
+    description = "A tree with healing fruits sprouts out of the floor."
+    rounds = 1
+    targets = "caster"
+
+    def cast(self):
+        humanity_min = 5
+        if self.caster.humanity >= humanity_min:
+            tree_of_life = fur.TreeOfLife(color=random.choice(fur.TreeOfLife.color), texture=random.choice(fur.TreeOfLife.texture))
+            self.caster.location.elements.append(tree_of_life)
+            print(f"{BC.MAGENTA}A beautiful tree with shiny silver fruits sprouts up out of the ground!{BC.OFF}")
+            return True
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
+            return False
+
+
 class SummonSpider(sp.Spell):
     name = "Summon Spider"
     description = "Summons an enemy spider."
@@ -205,7 +224,8 @@ class Scry(sp.Spell):
 
 # TODO-DONE summon tentacle monster- amble on subelements[0] but overwrite leave() so it cannot move.
 # TODO fleshrip- tear off a size 1 limb from an opponent
-# TODO tree of life- spawns a sapling with healing fruits
+# TODO tree of life- spawns a sapling with healing fruits (furniture with subelements)
 # TODO-DONE scrying- see desc() for neighboring room
 # TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
+# TODO Light() should also add a nimbus to creature limbs
 # TODO graft limb- graft a disembodied limb onto a friendly creature

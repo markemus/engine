@@ -148,6 +148,6 @@ class Potion(Item):
 
     def eat(self, creature):
         if creature.limb_count("eats") >= 1:
-            print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
+            print(f"{BC.CYAN}{creature.name}{BC.OFF} ingests the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
 
