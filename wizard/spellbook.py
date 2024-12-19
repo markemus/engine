@@ -207,6 +207,41 @@ class Shadow(sp.Spell):
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
 
+class GraftLimb(sp.Spell):
+    name = "Graft Limb"
+    description = "Graft a disembodied limb onto a friendly creature (<0)."
+    rounds = 1
+    targets = "friendly"
+
+    def cast(self):
+        humanity_max = 0
+        if self.caster.humanity <= humanity_max:
+            invs = self.caster.location.find_invs()
+            invs = utils.listtodict(invs, add_x=True)
+            utils.dictprint(invs)
+            i = input(f"\n{BC.GREEN}Which inventory would you like to graft from?{BC.OFF} ")
+
+            if i in invs.keys() and i != "x":
+                graft_limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
+                utils.dictprint(graft_limbs)
+                j = input(f"\n{BC.GREEN}Select a limb to graft:{BC.OFF} ")
+
+                if j in graft_limbs.keys() and j != "x":
+                    graft_limb = graft_limbs[j]
+                    target_limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
+                    utils.dictprint(target_limbs)
+                    k = input(f"{BC.GREEN}Select a limb to graft onto: {BC.OFF}")
+
+                    if k in target_limbs.keys() and k != "x":
+                        target_limb = target_limbs[k]
+                        target_limb.subelements.append(graft_limb)
+                        print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                        return True
+            return False
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+
+
 class ReanimateLimb(sp.Spell):
     name = "Reanimate"
     description = "Reanimates a dead creature as a zombie (<-7)."
@@ -218,7 +253,6 @@ class ReanimateLimb(sp.Spell):
         humanity_max = 5
         if self.caster.humanity <= humanity_max:
             invs = self.caster.location.find_invs()
-            # Drop equipment
             invs = utils.listtodict(invs, add_x=True)
             utils.dictprint(invs)
             i = input(f"\n{BC.GREEN}Which inventory would you like to resurrect from?{BC.OFF} ")

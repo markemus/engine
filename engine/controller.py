@@ -240,6 +240,7 @@ class Controller:
         return self.check_safety()
 
     # Combat
+    # TODO combat should start automatically if hostiles are present in the room after an action.
     def attack(self, include_char=True):
         self.combat.fullCombat(include_char=include_char)
         self.game.update_spells()
