@@ -265,6 +265,27 @@ class FleshRip(sp.Spell):
 
 
 # Neither
+class Flashbang(sp.Spell):
+    name = "Flashbang"
+    description = "Temporarily blind your enemies in the area of effect."
+    rounds = 5
+    targets = "caster"
+    original_see = {}
+
+    def cast(self):
+        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
+        for enemy in enemies:
+            for eye in enemy.subelements[0].limb_check("see"):
+                self.original_see[eye] = eye.see
+                eye.see = 0
+                print(f"{BC.YELLOW}{enemy.name}{BC.MAGENTA}'s {BC.CYAN}{eye.name}{BC.MAGENTA} is blinded!{BC.OFF}")
+        return True
+
+    def expire(self):
+        for eye in self.original_see.keys():
+            eye.see = self.original_see[eye]
+            print(f"{BC.CYAN}{eye.name}{BC.MAGENTA} can see again.{BC.OFF}")
+
 class Scry(sp.Spell):
     name = "Scry"
     description = "See what is happening in a nearby room."
@@ -279,6 +300,7 @@ class Scry(sp.Spell):
 
         if i in borders.keys() and borders[i] is not None and i != "x":
             print(borders[i].desc(full=False))
+        return True
 
 
 class SetHumanity(sp.Spell):
@@ -302,7 +324,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE fleshrip- tear off a size 1 limb from an opponent
 # TODO-DONE tree of life- spawns a sapling with healing fruits (furniture with subelements)
 # TODO-DONE scrying- see desc() for neighboring room
-# TODO cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
-# TODO Light() should also add a nimbus to creature limbs
+# TODO-DONE cloak of shadow- _clothes creature in dark shadow and sets limb size -= 1
 # TODO graft limb- graft a disembodied limb onto a friendly creature
 # TODO flashbang spell
