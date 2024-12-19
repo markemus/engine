@@ -31,10 +31,10 @@ fruit = {
 
 class Branch(pl.DisplayFurniture):
     name = "branch"
-    count = (1, 2)
+    count = (2, 5)
     color = ["green", "orange", "red"]
     texture = ["leafy"]
-    vis_collections = [(fruit, (1, 4))]
+    vis_collections = [(fruit, (1, 2))]
 class Trunk(pl.Furniture):
     name = "trunk"
     count = (1, 2)

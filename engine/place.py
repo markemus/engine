@@ -177,8 +177,9 @@ class Element:
                     texture = random.choice(subelement_class.texture)
                 else:
                     texture = self.texture
-                subelem = subelement_class(color=color, texture=texture)
-                self.subelements.append(subelem)
+                for i in range(random.randrange(*subelement_class.count)):
+                    subelem = subelement_class(color=color, texture=texture)
+                    self.subelements.append(subelem)
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""
@@ -275,7 +276,7 @@ class DisplayFurniture(Furniture, Platform):
         """Put items in furniture upon creation."""
         if self.vis_collections:
             for (item_collection, count) in self.vis_collections:
-                for n in range(*count):
+                for n in range(random.randrange(*count)):
                     seed = random.randint(0, 100)
                     if item_collection["color_scheme"] == "distinct":
                         # print("\n", item_collection["contains"])
