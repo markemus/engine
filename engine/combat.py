@@ -32,8 +32,6 @@ class Combat:
         creatures = [creature for creature in creatures if creature.team != "neutral"]
         if self.char.team == "neutral":
             print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
-        if not include_char and self.char in creatures:
-            creatures.remove(self.char)
 
         # Blockers must be reset each round.
         self.blockers = {}
@@ -42,8 +40,9 @@ class Combat:
 
         # only one weapon per combat round
         for actor in creatures:
-            # TODO-DONE add blind-fighting. Picks target at random
-            # TODO-DONE enemies should pick up weapons off the floor
+            if actor is self.char and not include_char:
+                # Skip player round if for some reason they're not supposed to get one.
+                continue
             if not actor.dead:
                 # select best weapon
                 if actor is not self.char:

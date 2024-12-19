@@ -13,29 +13,46 @@ from wizard import tentacle_monster
 
 from colorist import BrightColor as BC, Color as C
 
+class CreationSpell(sp.Spell):
+    """A spell that requires creative powers and therefore has a minimal humanity to cast.
+    Subclasses must set humanity_min and specify _cast() instead of cast()."""
+    humanity_min = None
+    def cast(self):
+        if self.caster.humanity >= self.humanity_min:
+            return self._cast()
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({self.humanity_min}){BC.OFF}")
+
+
+class CorruptionSpell(sp.Spell):
+    """A spell that requires corruptive powers and therefore requires a low humanity to cast.
+    Subclasses must set humanity_max and specify _cast() instead of cast()."""
+    humanity_max = None
+
+    def cast(self):
+        if self.caster.humanity <= self.humanity_max:
+            return self._cast()
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({self.humanity_max})!{BC.OFF}")
 
 # Creation
 # TODO-DECIDE mana costs for spells?
-class Caltrops(sp.Spell):
+class Caltrops(CreationSpell):
     """Area of effect spell that causes enemies to fall down."""
     name = "Caltrops"
     description = "Causes enemies to fall. (>-10)"
     rounds = 5
     targets = "caster"
+    humanity_min = -10
 
     def __init__(self, *args, **kwargs):
         self.legs = {}
         super().__init__(*args, **kwargs)
 
-    def cast(self):
-        humanity_min = -10
-        if self.caster.humanity >= humanity_min:
-            self.update()
-            print(f"{BC.MAGENTA}Enchanted caltrops scatter themselves across the floor.{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({humanity_min}){BC.OFF}")
-            return False
+    def _cast(self):
+        self.update()
+        print(f"{BC.MAGENTA}Enchanted caltrops scatter themselves across the floor.{BC.OFF}")
+        return True
 
     def _fix_legs(self):
         # reset amble for all limbs from last round
@@ -64,81 +81,67 @@ class Caltrops(sp.Spell):
         self._fix_legs()
 
 
-class GrowTreeOfLife(sp.Spell):
+class GrowTreeOfLife(CreationSpell):
     name = "Grow Tree of Life"
     description = "A tree with healing fruits sprouts out of the floor (>2)."
     rounds = 1
     targets = "caster"
+    humanity_min = 2
 
-    def cast(self):
-        humanity_min = 2
-        if self.caster.humanity >= humanity_min:
-            tree_of_life = fur.TreeOfLife(color=random.choice(fur.TreeOfLife.color), texture=random.choice(fur.TreeOfLife.texture))
-            self.caster.location.elements.append(tree_of_life)
-            print(f"{BC.MAGENTA}A beautiful tree with shiny silver fruits sprouts up out of the ground!{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
-            return False
+    def _cast(self):
+        tree_of_life = fur.TreeOfLife(color=random.choice(fur.TreeOfLife.color), texture=random.choice(fur.TreeOfLife.texture))
+        self.caster.location.elements.append(tree_of_life)
+        print(f"{BC.MAGENTA}A beautiful tree with shiny silver fruits sprouts up out of the ground!{BC.OFF}")
+        return True
 
 
-class SummonSpider(sp.Spell):
+class SummonSpider(CreationSpell):
     name = "Summon Spider"
     description = "Summons an enemy spider (>5)."
     rounds = 1
     targets = "caster"
+    humanity_min = -5
 
-    def cast(self):
+    def _cast(self):
         """This is useful if you want to test combat magic on an opponent."""
-        humanity_min = -5
-        if self.caster.humanity >= humanity_min:
-            spider = giant_spider.GiantSpider(location=self.target.location)
-            self.target.location.creatures.append(spider)
-            print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
-            return False
+        spider = giant_spider.GiantSpider(location=self.target.location)
+        self.target.location.creatures.append(spider)
+        print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
+        return True
 
-class SummonTentacleMonster(sp.Spell):
+
+class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
     description = "Summons a friendly tentacle monster (>7)."
     rounds = 1
     targets = "caster"
+    humanity_min = 7
 
-    def cast(self):
-        humanity_min = 7
-        if self.caster.humanity >= humanity_min:
-            tm = tentacle_monster.TentacleMonster(location=self.target.location)
-            tm.team = self.caster.team
-            self.target.location.creatures.append(tm)
-            self.caster.companions.append(tm)
-            print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
-            return False
+    def _cast(self):
+        tm = tentacle_monster.TentacleMonster(location=self.target.location)
+        tm.team = self.caster.team
+        self.target.location.creatures.append(tm)
+        self.caster.companions.append(tm)
+        print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
+        return True
 
 
-class ArmorOfLight(sp.Spell):
+class ArmorOfLight(CreationSpell):
     name = "Light Armor"
     description = "Conjures a set of armor made of light (>-10)."
     rounds = 20
     targets = "friendly"
+    humanity_min = -10
 
-    def cast(self):
-        humanity_min = -10
-        if self.caster.humanity >= humanity_min:
-            old_suits = self.target.suits
-            self.target.suits = [su.lightsuit]
-            # Puts the armor on the target
-            self.target._clothe()
-            self.target.suits = old_suits
-            print(f"{BC.MAGENTA}A glowing suit of armor envelops {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({humanity_min}){BC.OFF}")
-            return False
+    def _cast(self):
+        old_suits = self.target.suits
+        self.target.suits = [su.lightsuit]
+        # Puts the armor on the target
+        self.target._clothe()
+        self.target.suits = old_suits
+        print(f"{BC.MAGENTA}A glowing suit of armor envelops {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
+        return True
+
 
     def expire(self):
         self.target.unequip_suit(su.lightsuit)
@@ -146,24 +149,22 @@ class ArmorOfLight(sp.Spell):
 
 
 # Corruption
-class Light(sp.Spell):
+class Light(CorruptionSpell):
     name = "Light"
     description = "A luminous glow surrounds a creature, making it easier to hit (<10)."
     rounds = 10
     targets = "enemy"
-    def cast(self):
-        humanity_max = 10
-        if self.caster.humanity <= humanity_max:
-            self.original_colors = {}
-            limbs = self.target.subelements[0].limb_check("isSurface")
-            for limb in limbs:
-                self.original_colors[limb] = limb.color
-                limb.color = f"luminous {limb.color}"
-                limb.size += 1
-            print(f"{BC.MAGENTA}A luminous glow surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+    humanity_max = 10
+
+    def _cast(self):
+        self.original_colors = {}
+        limbs = self.target.subelements[0].limb_check("isSurface")
+        for limb in limbs:
+            self.original_colors[limb] = limb.color
+            limb.color = f"luminous {limb.color}"
+            limb.size += 1
+        print(f"{BC.MAGENTA}A luminous glow surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
+        return True
 
     def expire(self):
         limbs = self.target.subelements[0].limb_check("isSurface")
@@ -173,30 +174,27 @@ class Light(sp.Spell):
                 limb.size -= 1
         print(f"{BC.MAGENTA}The glow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
-class Shadow(sp.Spell):
+class Shadow(CorruptionSpell):
     name = "Shadow"
     description = "A shadowy murk surrounds a creature, making it harder to hit (<10)."
     rounds = 10
     targets = "friendly"
     original_colors = None
     original_sizes = None
+    humanity_max = 10
 
-    def cast(self):
-        humanity_max = 10
-        if self.caster.humanity <= humanity_max:
-            self.original_colors = {}
-            self.original_sizes = {}
-            limbs = self.target.subelements[0].limb_check("isSurface")
-            for limb in limbs:
-                self.original_colors[limb] = limb.color
-                self.original_sizes[limb] = limb.size
-                limb.color = f"shadowy {limb.color}"
-                if limb.size > 1:
-                    limb.size -= 1
-            print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+    def _cast(self):
+        self.original_colors = {}
+        self.original_sizes = {}
+        limbs = self.target.subelements[0].limb_check("isSurface")
+        for limb in limbs:
+            self.original_colors[limb] = limb.color
+            self.original_sizes[limb] = limb.size
+            limb.color = f"shadowy {limb.color}"
+            if limb.size > 1:
+                limb.size -= 1
+        print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
+        return True
 
     def expire(self):
         limbs = self.target.subelements[0].limb_check("isSurface")
@@ -206,127 +204,113 @@ class Shadow(sp.Spell):
                 limb.size = self.original_sizes[limb]
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
-class Innocence(sp.Spell):
+class Innocence(CorruptionSpell):
     name = "Innocence"
     description = "Target will appear harmless to their enemies (<5)."
     rounds = 10
     targets = "friendly"
     original_team = None
+    humanity_max = 5
 
-    def cast(self):
-        humanity_max = 5
-        if self.caster.humanity <= humanity_max:
-            if self.target.team != "neutral":
-                self.original_team = self.target.team
-                self.target.team = "neutral"
-                return True
-            else:
-                print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is already neutral!{BC.OFF}")
-                return False
+    def _cast(self):
+        if self.target.team != "neutral":
+            self.original_team = self.target.team
+            self.target.team = "neutral"
+            return True
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+            print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is already neutral!{BC.OFF}")
+            return False
 
     def expire(self):
         self.target.team = self.original_team
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} suddenly appears quite menacing!{BC.OFF}")
 
 
-class GraftLimb(sp.Spell):
+class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     description = "Graft a disembodied limb onto a friendly creature (<0)."
     rounds = 1
     targets = "friendly"
+    humanity_max = 0
 
-    def cast(self):
-        humanity_max = 0
-        if self.caster.humanity <= humanity_max:
-            invs = self.caster.location.find_invs()
-            invs = utils.listtodict(invs, add_x=True)
-            utils.dictprint(invs)
-            i = input(f"\n{BC.GREEN}Which inventory would you like to graft from?{BC.OFF} ")
+    def _cast(self):
+        invs = self.caster.location.find_invs()
+        invs = utils.listtodict(invs, add_x=True)
+        utils.dictprint(invs)
+        i = input(f"\n{BC.GREEN}Which inventory would you like to graft from?{BC.OFF} ")
 
-            if i in invs.keys() and i != "x":
-                graft_limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
-                utils.dictprint(graft_limbs)
-                j = input(f"\n{BC.GREEN}Select a limb to graft:{BC.OFF} ")
+        if i in invs.keys() and i != "x":
+            graft_limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
+            utils.dictprint(graft_limbs)
+            j = input(f"\n{BC.GREEN}Select a limb to graft:{BC.OFF} ")
 
-                if j in graft_limbs.keys() and j != "x":
-                    graft_limb = graft_limbs[j]
-                    target_limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
-                    utils.dictprint(target_limbs)
-                    k = input(f"{BC.GREEN}Select a limb to graft onto: {BC.OFF}")
+            if j in graft_limbs.keys() and j != "x":
+                graft_limb = graft_limbs[j]
+                target_limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
+                utils.dictprint(target_limbs)
+                k = input(f"{BC.GREEN}Select a limb to graft onto: {BC.OFF}")
 
-                    if k in target_limbs.keys() and k != "x":
-                        target_limb = target_limbs[k]
-                        target_limb.subelements.append(graft_limb)
-                        print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
-                        # Lowers humanity, if target is appropriate
-                        if hasattr(self.target, "humanity"):
-                            self.target.humanity -= 1
-                        return True
-            return False
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
+                if k in target_limbs.keys() and k != "x":
+                    target_limb = target_limbs[k]
+                    target_limb.subelements.append(graft_limb)
+                    print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                    # Lowers humanity, if target is appropriate
+                    if hasattr(self.target, "humanity"):
+                        self.target.humanity -= 1
+                    return True
+        return False
 
 
-class ReanimateLimb(sp.Spell):
+class ReanimateLimb(CorruptionSpell):
     name = "Reanimate"
     description = "Reanimates a dead creature as a zombie (<-7)."
     rounds = 1
     targets = "caster"
+    humanity_max = 5
 
-    def cast(self):
+    def _cast(self):
         """Bring a limb in the room back to life."""
-        humanity_max = 5
-        if self.caster.humanity <= humanity_max:
-            invs = self.caster.location.find_invs()
-            invs = utils.listtodict(invs, add_x=True)
-            utils.dictprint(invs)
-            i = input(f"\n{BC.GREEN}Which inventory would you like to resurrect from?{BC.OFF} ")
+        invs = self.caster.location.find_invs()
+        invs = utils.listtodict(invs, add_x=True)
+        utils.dictprint(invs)
+        i = input(f"\n{BC.GREEN}Which inventory would you like to resurrect from?{BC.OFF} ")
 
-            if i in invs.keys() and i != "x":
-                limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
-                utils.dictprint(limbs)
-                j = input(f"\n{BC.GREEN}Select a limb to resurrect:{BC.OFF} ")
+        if i in invs.keys() and i != "x":
+            limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
+            utils.dictprint(limbs)
+            j = input(f"\n{BC.GREEN}Select a limb to resurrect:{BC.OFF} ")
 
-                if j in limbs.keys() and j != "x":
-                    limb = limbs[j]
-                    zombie = z.Zombie(limb=limb, location=self.caster.location)
-                    zombie.team = self.caster.team
-                    self.caster.location.addCreature(zombie)
-                    self.caster.companions.append(zombie)
-                    print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
-                    return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
-            return False
+            if j in limbs.keys() and j != "x":
+                limb = limbs[j]
+                zombie = z.Zombie(limb=limb, location=self.caster.location)
+                zombie.team = self.caster.team
+                self.caster.location.addCreature(zombie)
+                self.caster.companions.append(zombie)
+                print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
+                return True
 
 
-class FleshRip(sp.Spell):
+class FleshRip(CorruptionSpell):
     name = "Flesh Rip"
     description = "Rip a small limb off of an enemy (<-2)."
     rounds = 1
     targets = "enemy"
+    humanity_max = -2
 
-    def cast(self):
-        humanity_max = -2
-        if self.caster.humanity <= humanity_max:
-            limbs = utils.listtodict([x for x in self.target.subelements[0].limb_check("isSurface") if x.isSurface and x.size <= 1], add_x=True)
-            # utils.dictprint(limbs, pfunc=lambda x,y: x + f" {C.RED}({y.hp}){C.OFF}")
-            utils.dictprint(limbs)
+    def _cast(self):
+        limbs = utils.listtodict([x for x in self.target.subelements[0].limb_check("isSurface") if x.isSurface and x.size <= 1], add_x=True)
+        # utils.dictprint(limbs, pfunc=lambda x,y: x + f" {C.RED}({y.hp}){C.OFF}")
+        utils.dictprint(limbs)
 
-            j = input(f"{BC.MAGENTA}Pick a limb to tear off of your enemy: {BC.OFF}")
-            if j in limbs.keys() and j != "x":
-                limb = limbs[j]
-                self.target.remove_limb(limb)
+        j = input(f"{BC.MAGENTA}Pick a limb to tear off of your enemy: {BC.OFF}")
+        if j in limbs.keys() and j != "x":
+            limb = limbs[j]
+            self.target.remove_limb(limb)
 
-                print(f"{BC.MAGENTA}An ethereal force rips the {BC.CYAN}{limb.name}{BC.MAGENTA} off of {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s body!{BC.OFF}")
-                self.caster.location.drop_item(limb)
-                return True
-            else:
-                return False
+            print(f"{BC.MAGENTA}An ethereal force rips the {BC.CYAN}{limb.name}{BC.MAGENTA} off of {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s body!{BC.OFF}")
+            self.caster.location.drop_item(limb)
+            return True
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({humanity_max})!{BC.OFF}")
             return False
 
 
