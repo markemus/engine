@@ -16,6 +16,53 @@ from colorist import BrightColor as BC, Color as C
 
 # Creation
 # TODO-DECIDE mana costs for spells?
+class Caltrops(sp.Spell):
+    """Area of effect spell that causes enemies to fall down."""
+    name = "Caltrops"
+    description = "Causes enemies to fall."
+    rounds = 5
+    targets = "caster"
+
+    def __init__(self, *args, **kwargs):
+        self.legs = {}
+        super().__init__(*args, **kwargs)
+
+    def cast(self):
+        humanity_min = -10
+        if self.caster.humanity >= humanity_min:
+            self.update()
+            print(f"{BC.MAGENTA}Enchanted caltrops scatter themselves across the floor.{BC.OFF}")
+            return True
+        else:
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({humanity_min}){BC.OFF}")
+            return False
+
+    def _fix_legs(self):
+        # reset amble for all limbs from last round
+        for leg in self.legs.keys():
+            leg.amble = self.legs[leg]
+
+        self.legs = {}
+
+    def update(self):
+        """Caltrops will cause some creatures to fall every round."""
+        # First reset amble for all limbs from last round
+        self._fix_legs()
+        # Then affect some limbs for this round
+        creatures = self.caster.location.creatures
+        for creature in creatures:
+            legs = creature.subelements[0].limb_check("amble")
+            random.shuffle(legs)
+            legs = legs[:random.randint(0, len(legs))]
+            for leg in legs:
+                # If enough legs are affected, creature will fall over
+                self.legs[leg] = leg.amble
+                leg.amble = 0
+
+    def expire(self):
+        self._fix_legs()
+
+
 class GrowTreeOfLife(sp.Spell):
     name = "Grow Tree of Life"
     description = "A tree with healing fruits sprouts out of the floor."
@@ -70,53 +117,6 @@ class SummonTentacleMonster(sp.Spell):
         else:
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell ({humanity_min})!{BC.OFF}")
             return False
-
-
-class Caltrops(sp.Spell):
-    """Area of effect spell that causes enemies to fall down."""
-    name = "Caltrops"
-    description = "Causes enemies to fall."
-    rounds = 5
-    targets = "caster"
-
-    def __init__(self, *args, **kwargs):
-        self.legs = {}
-        super().__init__(*args, **kwargs)
-
-    def cast(self):
-        humanity_min = -10
-        if self.caster.humanity >= humanity_min:
-            self.update()
-            print(f"{BC.MAGENTA}Enchanted caltrops scatter themselves across the floor.{BC.OFF}")
-            return True
-        else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({humanity_min}){BC.OFF}")
-            return False
-
-    def _fix_legs(self):
-        # reset amble for all limbs from last round
-        for leg in self.legs.keys():
-            leg.amble = self.legs[leg]
-
-        self.legs = {}
-
-    def update(self):
-        """Caltrops will cause some creatures to fall every round."""
-        # First reset amble for all limbs from last round
-        self._fix_legs()
-        # Then affect some limbs for this round
-        creatures = self.caster.location.creatures
-        for creature in creatures:
-            legs = creature.subelements[0].limb_check("amble")
-            random.shuffle(legs)
-            legs = legs[:random.randint(0, len(legs))]
-            for leg in legs:
-                # If enough legs are affected, creature will fall over
-                self.legs[leg] = leg.amble
-                leg.amble = 0
-
-    def expire(self):
-        self._fix_legs()
 
 
 class ArmorOfLight(sp.Spell):
