@@ -188,7 +188,7 @@ class Light(CorruptionSpell):
     name = "Light"
     mana_cost = 3
     humanity_max = 10
-    description = f"A glow surrounds a creature, making it easier to hit (>{humanity_max}) [{mana_cost}]."
+    description = f"A glow surrounds a creature, making it easier to hit (<{humanity_max}) [{mana_cost}]."
     rounds = 10
     targets = "enemy"
 
@@ -214,7 +214,7 @@ class Shadow(CorruptionSpell):
     name = "Shadow"
     mana_cost = 3
     humanity_max = 10
-    description = f"A shadow surrounds a creature, making it harder to hit (>{humanity_max}) [{mana_cost}]."
+    description = f"A shadow surrounds a creature, making it harder to hit (<{humanity_max}) [{mana_cost}]."
     rounds = 10
     targets = "friendly"
     original_colors = None
@@ -269,7 +269,7 @@ class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
     humanity_max = 0
-    description = f"Graft a disembodied limb onto a friendly creature (>{humanity_max}) [{mana_cost}]."
+    description = f"Graft a disembodied limb onto a friendly creature (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "friendly"
 
@@ -305,7 +305,7 @@ class ReanimateLimb(CorruptionSpell):
     name = "Reanimate"
     mana_cost = 10
     humanity_max = 5
-    description = f"Reanimates a dead creature as a zombie (>{humanity_max}) [{mana_cost}]."
+    description = f"Reanimates a dead creature as a zombie (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
 
@@ -335,7 +335,7 @@ class FleshRip(CorruptionSpell):
     name = "Flesh Rip"
     mana_cost = 5
     humanity_max = -2
-    description = f"Rip a small limb off of an enemy (>{humanity_max}) [{mana_cost}]."
+    description = f"Rip a small limb off of an enemy (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "enemy"
 
@@ -360,7 +360,7 @@ class Enthrall(sp.Spell):
     name = "Enthrall"
     mana_cost = 7
     humanity_max = -5
-    description = f"Force an enemy to fight for you for a little while (>{humanity_max}) [{mana_cost}]."
+    description = f"Force an enemy to fight for you for a little while (<{humanity_max}) [{mana_cost}]."
     rounds = 15
     targets = "enemy"
     old_team = None
@@ -447,10 +447,10 @@ class AWayHome(sp.Spell):
             self.caster.location.addElement(door)
             self.caster.home.start.get_borders()
             self.caster.location.get_borders()
-            print(self.caster.location)
-            print(door.borders)
-            print(self.caster.location.borders)
-            print(self.caster.home.start.borders)
+            # print(self.caster.location)
+            # print(door.borders)
+            # print(self.caster.location.borders)
+            # print(self.caster.home.start.borders)
             print(f"{BC.MAGENTA}A shimmering door of light appears before you.{BC.OFF}")
             return True
         else:
@@ -482,6 +482,24 @@ class GrowBeard(sp.Spell):
             print(f"{BC.MAGENTA}A long flowing beard erupts from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s face!{BC.OFF}")
 
 
+class ReleaseMinion(sp.Spell):
+    name = "Release Minion"
+    mana_cost = 0
+    description = "Release one of your minions from your mental control."
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        minions = utils.listtodict(self.caster.companions, add_x=True)
+        utils.dictprint(minions)
+        i = input(f"{BC.MAGENTA}Select a minion to release from your mental control: {BC.OFF}")
+        if i in minions.keys() and i != "x":
+            minion = minions[i]
+            minion.team = "neutral"
+            self.caster.companions.remove(minion)
+            print(f"{BC.YELLOW}{minion.name}{BC.MAGENTA} stops following you.{BC.OFF}")
+            return True
+        return False
 
 
 class SetHumanity(sp.Spell):
@@ -503,9 +521,10 @@ class SetHumanity(sp.Spell):
 
 
 # TODO-DONE graft limb- graft a disembodied limb onto a friendly creature
-# TODO grow beard spell
+# TODO-DONE grow beard spell
 # TODO fireball- DOT
 # TODO transform yourself into a monster temporarily (or permanently)
+# TODO summon a cerberus
 # TODO summon an ethereal hand with a glowing sword
 # TODO-DONE enthrall- an enemy creature joins your side
 # TODO lightning- damages a few neighboring limbs and has a chance to jump to another enemy
@@ -516,3 +535,5 @@ class SetHumanity(sp.Spell):
 # TODO-DONE Manifest portal to apartment
 # TODO scrolls to learn spells (eat() for now)
 # TODO disorient- enemy chooses a new target (may choose same one again though)
+# TODO mana max reduced to maintain thralls.
+# TODO weapon effects (inherit from spells)
