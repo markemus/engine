@@ -575,3 +575,71 @@ class creature:
 
     def get_team(self):
         return self.team
+
+    def get_tagged_equipment(self, tag):
+        """Returns all equipment that has a certain tag. EG mana."""
+        equipment_lists = self.subelements[0].find_equipped()
+        all_equipment = []
+        tagged_equipment = []
+
+        for equipment_list in equipment_lists:
+            all_equipment.extend(equipment_list.equipment)
+
+        for equipment in all_equipment:
+            if hasattr(equipment, tag):
+                tagged_equipment.append(equipment)
+
+        return tagged_equipment
+
+    def check_siphon_tag(self, tag, amount):
+        """Check whether it will be possible to siphon this amount of the tag from equipment."""
+        tag_equipment = self.get_tagged_equipment(tag)
+        # Amount of tag that will be left after we siphon some off
+        after_siphon = {}
+        for gear in tag_equipment:
+            max_siphon = getattr(gear, tag)
+            if amount <= max_siphon:
+                amount_to_siphon = amount
+                amount = 0
+            else:
+                amount_to_siphon = max_siphon
+                amount -= amount_to_siphon
+
+            after_siphon[gear] = max_siphon - amount_to_siphon
+            # If we've found enough of the tag to siphon, stop checking gear
+            if not amount:
+                break
+
+        # if we found enough of the tag. Otherwise, return False
+        if not amount:
+            return True
+        else:
+            return False
+
+    def siphon_tag(self, tag, amount):
+        """Reduce value of this tag on equipment with this tag by a certain amount in total."""
+        tag_equipment = self.get_tagged_equipment(tag)
+        # Amount of tag that will be left after we siphon some off
+        after_siphon = {}
+        for gear in tag_equipment:
+            max_siphon = getattr(gear, tag)
+            if amount <= max_siphon:
+                amount_to_siphon = amount
+                amount = 0
+            else:
+                amount_to_siphon = max_siphon
+                amount -= amount_to_siphon
+
+            after_siphon[gear] = max_siphon - amount_to_siphon
+            # If we've found enough of the tag to siphon, stop checking gear
+            if not amount:
+                break
+
+        # if we found enough of the tag, proceed to siphon. Otherwise, return False
+        if not amount:
+            for gear in after_siphon.keys():
+                setattr(gear, tag, after_siphon[gear])
+            return True
+        else:
+            # Don't siphon, and tell caller there isn't enough.
+            return False

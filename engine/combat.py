@@ -30,8 +30,8 @@ class Combat:
         creatures = self.char.location.get_creatures()
         # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player)
         creatures = [creature for creature in creatures if creature.team != "neutral"]
-        if self.char.team == "neutral":
-            print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
+        # if self.char.team == "neutral":
+        #     print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
 
         # Blockers must be reset each round.
         self.blockers = {}
@@ -126,11 +126,11 @@ class Combat:
                 # Blind fighting
                 roll = -3 + random.randint(0, 8) + limb.size
             elif target.limb_count("amble") < 1 and actor.limb_count("amble") >= 1:
-                # easier to hit supine enemies
-                print(f"{C.RED}{target.name} is supine!{C.OFF}")
+                # easier to hit prone enemies
+                print(f"{C.RED}{target.name} is prone!{C.OFF}")
                 roll = 3 + random.randint(0, 2) + limb.size
             elif target.limb_count("amble") >= 1 and actor.limb_count("amble") < 1:
-                print(f"{C.RED}{actor.name} is supine!{C.OFF}")
+                print(f"{C.RED}{actor.name} is prone!{C.OFF}")
                 roll = -3 + random.randint(0, 8) + limb.size
             else:
                 roll = random.randint(0, 5) + limb.size

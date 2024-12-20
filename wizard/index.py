@@ -1,6 +1,6 @@
 from assets import human, cat
 from assets import places
-from assets import suits
+from assets import suits as asu
 
 from engine.styles import LevelStyle, GameStyle, wall, floor
 from engine import game
@@ -8,6 +8,7 @@ from engine import interface
 
 from wizard import spellbook as sb
 from wizard import furniture as fur
+from wizard import suits as su
 
 from colorist import BrightColor as BC, Color as C
 
@@ -15,7 +16,7 @@ from colorist import BrightColor as BC, Color as C
 class PlayerHuman(human.Human):
     """Just an ordinary human."""
     team = "adventurer"
-    suits = [suits.plainsuit, suits.backpack]
+    suits = [asu.plainsuit, asu.backpack]
 
 class SpecimenHuman(human.Human):
     team = "specimen"
@@ -73,7 +74,7 @@ t_game.set_char(player)
 player.spellbook.append(sb.Scry)
 player.spellbook.append(sb.Light)
 player.spellbook.append(sb.Shadow)
-player.spellbook.append(sb.Innocence)
+# player.spellbook.append(sb.Innocence)
 player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.SummonTentacleMonster)
 player.spellbook.append(sb.GraftLimb)
@@ -87,6 +88,11 @@ player.spellbook.append(sb.SetHumanity)
 
 # Player humanity affects which spells they can cast
 player.humanity = 1
+
+# Give player some mana to start the game with
+# player.subelements[0].equip(su.ManaLocket(color="emerald", texture="in silver"))
+player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
+player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 
 thisLevel.start.find_invs()[0].vis_inv.append(human.Head(color="gray", texture="rotting"))
 

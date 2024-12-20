@@ -85,6 +85,28 @@ class LightHelm(i.Item):
     level = 3
     descends = 2
 
+class RingOfMana(i.Item):
+    """A ring that stores a small amount of mana."""
+    name = "ring"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["finger"] = True
+    covers["finger"] = True
+    level = 2
+    base_mana = 10
+    mana = base_mana
+
+class ManaLocket(i.Item):
+    """A locket that stores a moderate amount of mana."""
+    name = "locket of mana"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["body"] = True
+    covers["body"] = True
+    level = 2
+    base_mana = 30
+    mana = base_mana
+
 
 lightsuit = {
     "wears": {
@@ -107,5 +129,3 @@ lightsuit = {
     "texture_scheme": "same",
     "full": True,
     }
-
-# TODO add support for nimbuses- wears["body"], covers["all"] = True

@@ -504,7 +504,11 @@ class Controller:
     def cast_magic(self, state):
         spellbook = self.game.char.spellbook
         spell_list = []
+        mana_equipment = self.game.char.get_tagged_equipment("mana")
+        mana = sum([x.mana for x in mana_equipment])
+        max_mana = sum([x.base_mana for x in mana_equipment])
         print(f"{C.RED}----------Known Spells----------{C.OFF}")
+        print(f"{BC.CYAN}----------Mana ({mana}/{max_mana})----------{BC.OFF}")
         if spellbook:
             for spell in spellbook:
                 spell_list.append(f"{BC.CYAN}{spell.name}{BC.OFF}: {BC.MAGENTA}{spell.description}{BC.OFF}")
