@@ -375,6 +375,37 @@ class Scry(sp.Spell):
         return True
 
 
+class AWayHome(sp.Spell):
+    name = "A Way Home"
+    mana_cost = 0
+    description = f"Manifests the door to your home. [{mana_cost}]"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        """Creates a door between current location and the pocket apartment. Door will move whenever this spell is cast."""
+        door = [x for x in self.caster.home.start.elements if x.name == "magic door"][0]
+        if self.caster.location.level != self.caster.home.start.level:
+            if len(door.borders) > 1:
+                # Remove door from old location
+                old_room = door.borders[1]
+                door.borders.remove(old_room)
+                old_room.elements.remove(door)
+                old_room.get_borders()
+
+            door.borders = []
+
+            door.addBorder(self.caster.home.start)
+            door.addBorder(self.caster.location)
+            self.caster.location.elements.append(door)
+            self.caster.location.get_borders()
+            self.caster.home.start.get_borders()
+            print(f"{BC.MAGENTA}A shimmering door of light appears before you.{BC.OFF}")
+        else:
+            print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
+
+
+
 class SetHumanity(sp.Spell):
     name = "Set Humanity"
     mana_cost = 0
@@ -395,7 +426,6 @@ class SetHumanity(sp.Spell):
 
 # TODO-DONE graft limb- graft a disembodied limb onto a friendly creature
 # TODO grow beard spell
-# TODO change color of an item (using self.colors)
 # TODO fireball- DOT
 # TODO transform yourself into a monster temporarily (or permanently)
 # TODO summon an ethereal hand with a glowing sword
@@ -405,5 +435,4 @@ class SetHumanity(sp.Spell):
 # TODO-DONE disguise as another class (sneak through areas)
 # TODO sword hands
 # TODO-DONE mana costs
-# TODO maintenance costs- reduces max mana
 # TODO Manifest portal to apartment

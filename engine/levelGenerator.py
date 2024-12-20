@@ -155,6 +155,7 @@ class levelGenerator:
 
     def connectRooms(self, room1, room2):
         """Add a door connecting room_1 to previous room room_2 (or to nothing if there is no previous room)."""
+        # TODO give doors their own colors and textures, not room's (like furniture)
         color = random.choice(room1.colors)
         texture = random.choice(room1.textures)
 

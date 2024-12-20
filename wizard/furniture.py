@@ -1,6 +1,8 @@
 import engine.place as pl
 import engine.item as it
 
+import engine.styles as st
+
 from colorist import BrightColor as BC, Color as C
 
 class FruitOfLife(it.Potion):
@@ -46,3 +48,9 @@ class TreeOfLife(pl.Furniture):
     texture = ["wood"]
     count = (1, 2)
     subelement_classes = [Trunk]
+
+class MagicDoor(st.door):
+    name = "magic door"
+    color = ["glowing"]
+    texture = ["light"]
+    count = (1, 2)

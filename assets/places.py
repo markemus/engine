@@ -1,5 +1,5 @@
 import engine.place as pl
-from engine.styles import wall, floor, pillar
+from engine.styles import wall, floor, pillar, door
 
 import assets.furniture as fur
 
@@ -37,6 +37,7 @@ class Cell(pl.Place):
 class Den(pl.Place):
     name = "den"
     sprite = "D"
+    count = (1, 2)
     colors = ["oak", "teak", "mahogany"]
     textures = ["paneled"]
     creature_classes = []
