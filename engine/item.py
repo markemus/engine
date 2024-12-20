@@ -1,15 +1,13 @@
 """Items are used by creatures as clothing, weapons, jewelry etc. Furniture is a special type of
 item that is used to fill rooms. Items have an inventory that can hold other items."""
-from collections import defaultdict
 import random
-import time
 
+import engine.utils
+
+from collections import defaultdict
 from colorist import Color as C, BrightColor as BC
 
 
-def defaultdict_false():
-    """This is used instead of a lambda so that Item can be pickled (for saving)."""
-    return False
 
 class Item:
     """name: Item's displayed name.
@@ -20,9 +18,9 @@ class Item:
     level: each Limb can only wear one Item per level (eg undershirt=1 and shirt=2)."""
     name = "item"
     # canwear = defaultdict(lambda: False)
-    canwear = defaultdict(defaultdict_false)
+    canwear = defaultdict(engine.utils.defaultdict_false)
     # covers = defaultdict(lambda: False)
-    covers = defaultdict(defaultdict_false)
+    covers = defaultdict(engine.utils.defaultdict_false)
     descends = 0
     # canwear = {}
     # covers = {}

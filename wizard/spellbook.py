@@ -382,6 +382,7 @@ class AWayHome(sp.Spell):
     rounds = 1
     targets = "caster"
 
+    # TODO test once we have two levels
     def _cast(self):
         """Creates a door between current location and the pocket apartment. Door will move whenever this spell is cast."""
         door = [x for x in self.caster.home.start.elements if x.name == "magic door"][0]
@@ -390,14 +391,11 @@ class AWayHome(sp.Spell):
                 # Remove door from old location
                 old_room = door.borders[1]
                 door.borders.remove(old_room)
-                old_room.elements.remove(door)
+                old_room.removeElement(door)
                 old_room.get_borders()
 
-            door.borders = []
-
-            door.addBorder(self.caster.home.start)
             door.addBorder(self.caster.location)
-            self.caster.location.elements.append(door)
+            self.caster.location.addElement(door)
             self.caster.location.get_borders()
             self.caster.home.start.get_borders()
             print(f"{BC.MAGENTA}A shimmering door of light appears before you.{BC.OFF}")

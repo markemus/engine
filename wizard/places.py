@@ -15,3 +15,14 @@ class MagicFoyer(pl.Place):
     creature_classes = []
     furniture_classes = [fur.Carpet]
     subelement_classes = [wall, floor, wizard.furniture.MagicDoor]
+
+
+class Cavern(pl.Place):
+    name = "cavern"
+    sprite = "C"
+    count = (7, 20)
+    colors = ["gray", "dark", "dripping"]
+    textures = ["stone"]
+    creature_classes = []
+    furniture_classes = []
+    subelement_classes = []

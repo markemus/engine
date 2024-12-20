@@ -1,6 +1,11 @@
 from colorist import BrightColor as BC, Color as C
 
 
+def defaultdict_false():
+    """This is used instead of a lambda so that defaultdicts can be pickled (for saving)."""
+    return False
+
+
 def display_long_text(text, n=20):
     """Used to display long text blobs, so that the player won't need to scroll the terminal upward to read.
     https://stackoverflow.com/a/15369848/9095840"""

@@ -1,7 +1,9 @@
 import copy
 import random
-import time
 
+import engine.utils
+
+from collections import defaultdict
 from colorist import Color as C
 from colorist import BrightColor as BC
 
@@ -10,7 +12,7 @@ class Place:
     """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
     name = "generic_place"
     elements = []
-    borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
+    # borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
     # cantransfer = False
     area = "You are standing in"
     sprite = "R"
@@ -19,7 +21,7 @@ class Place:
     def __init__(self, level, extra_creatures=None):
         # self.name = name
         self.elements = []
-        self.borders = {"n": None, "s": None, "w": None, "e": None, ">": None}
+        self.borders = defaultdict(engine.utils.defaultdict_false)
         self.creatures = []
         # self.sprite = newsprite
         self.level = level
@@ -94,6 +96,9 @@ class Place:
 
     def get_borders(self):
         """Gives the Place its Elements' Borders."""
+        # We will reset borders first in case doors have changed (it happens).
+        self.borders = defaultdict(engine.utils.defaultdict_false)
+
         for subElement in self.elements:
             subBorders = subElement.borders
 
@@ -115,9 +120,17 @@ class Place:
                             self.borders["e"] = room
                     elif room.level != self.level:
                         self.borders[">"] = room
+                    elif room == self:
+                        pass
+                    else:
+                        raise ValueError("Door trying to connect non-neighboring rooms in the same level!")
 
     def addElement(self, element):
         self.elements.append(element)
+
+    def removeElement(self, element):
+        if element in self.elements:
+            self.elements.remove(element)
 
     def addCreature(self, creature):
         if not creature in self.creatures:
