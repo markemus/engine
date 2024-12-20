@@ -356,7 +356,7 @@ class FleshRip(CorruptionSpell):
             return False
 
 
-class Enthrall(sp.Spell):
+class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7
     humanity_max = -5
@@ -377,6 +377,21 @@ class Enthrall(sp.Spell):
         self.target.ai.target = None
         print(f"{BC.MAGENTA}The enthralling wears off and {BC.YELLOW}{self.target.name}{BC.MAGENTA} turns against you again.{BC.OFF}")
 
+
+class Distract(CorruptionSpell):
+    name = "Disorient"
+    mana_cost = 5
+    humanity_max = 7
+    description = f"Confuse an enemy and focus them on a new target (<{humanity_max}) [{mana_cost}]."
+    rounds = 1
+    targets = "enemy"
+
+    def _cast(self):
+        self.target.ai.target = None
+        print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is distracted!{BC.OFF}")
+
+
+# class Distract(CorruptionSpell)
 
 # Neither
 class Flashbang(sp.Spell):
@@ -524,7 +539,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE grow beard spell
 # TODO fireball- DOT
 # TODO transform yourself into a monster temporarily (or permanently)
-# TODO summon a cerberus
 # TODO summon an ethereal hand with a glowing sword
 # TODO-DONE enthrall- an enemy creature joins your side
 # TODO lightning- damages a few neighboring limbs and has a chance to jump to another enemy

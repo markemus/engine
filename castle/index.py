@@ -18,7 +18,9 @@ from castle import castle_style
 from castle import potions
 from castle import suits
 
-
+# Enable color on windows
+import os
+os.system("color")
 # Main
 
 
