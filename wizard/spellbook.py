@@ -123,7 +123,7 @@ class SummonTentacleMonster(CreationSpell):
     mana_cost = 5
     humanity_min = 7
     description = f"Summons a friendly tentacle monster (>{humanity_min}) [{mana_cost}]."
-    rounds = 20
+    rounds = 1
     targets = "caster"
 
     def _cast(self):
@@ -135,32 +135,51 @@ class SummonTentacleMonster(CreationSpell):
         print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
 
+    # TODO-DECIDE I really want permanent summons. Think of a way to do it that isn't brokenly unbalanced or awful.
+    #  or at least, make them die instead of disappear.
     def expire(self):
         print(f"{BC.MAGENTA}The tentacle monster winks out of existence.{BC.OFF}")
         self.caster.companions.remove(self.tm)
         self.tm.location.creatures.remove(self.tm)
 
 
+# TODO bug will occur if creature dies wearing the armor (it'll be available to be picked up).
+#  possible fix- set gear to be deleted by creature.die(). But what if a limb is chopped off?
 class ArmorOfLight(CreationSpell):
     name = "Light Armor"
     mana_cost = 5
     humanity_min = -10
     description = f"Conjures a set of armor made of light (>{humanity_min}) [{mana_cost}]."
-    rounds = 20
+    rounds = 2
     targets = "friendly"
+    equipped = {}
+
+    def find_all_equipped(self):
+        # Store the equipment information. We need to make sure equipment will be removed on expire even if limbs are chopped off.
+        for equipment_type in set(su.lightsuit["wears"].values()):
+            for limb in self.target.subelements[0].limb_check("name"):
+                for gear in limb.equipment:
+                    if isinstance(gear, equipment_type):
+                        if limb in self.equipped.keys():
+                            # Everything on the limb that needs to be unequipped on expire
+                            self.equipped[limb].append(gear)
+                        else:
+                            self.equipped[limb] = [gear]
 
     def _cast(self):
         old_suits = self.target.suits
         self.target.suits = [su.lightsuit]
         # Puts the armor on the target
         self.target._clothe()
+        self.find_all_equipped()
         self.target.suits = old_suits
         print(f"{BC.MAGENTA}A glowing suit of armor envelops {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
         return True
 
-
     def expire(self):
-        self.target.unequip_suit(su.lightsuit)
+        for limb in self.equipped.keys():
+            for gear in self.equipped[limb]:
+                limb.unequip(gear, force_off=True)
         print(f"{BC.MAGENTA}The glowing armor on {C.RED}{self.target.name}{BC.MAGENTA} fades away and disappears.{BC.OFF}")
 
 
@@ -337,6 +356,28 @@ class FleshRip(CorruptionSpell):
             return False
 
 
+class Enthrall(sp.Spell):
+    name = "Enthrall"
+    mana_cost = 7
+    humanity_max = -5
+    description = f"Force an enemy to fight for you for a little while (>{humanity_max}) [{mana_cost}]."
+    rounds = 15
+    targets = "enemy"
+    old_team = None
+
+    def _cast(self):
+        self.old_team = self.target.team
+        self.target.team = self.caster.team
+        self.target.ai.target = None
+        print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} turns around to fight for your team!{BC.OFF}")
+        return True
+
+    def expire(self):
+        self.target.team = self.old_team
+        self.target.ai.target = None
+        print(f"{BC.MAGENTA}The enthralling wears off and {BC.YELLOW}{self.target.name}{BC.MAGENTA} turns against you again.{BC.OFF}")
+
+
 # Neither
 class Flashbang(sp.Spell):
     name = "Flashbang"
@@ -439,7 +480,7 @@ class SetHumanity(sp.Spell):
 # TODO fireball- DOT
 # TODO transform yourself into a monster temporarily (or permanently)
 # TODO summon an ethereal hand with a glowing sword
-# TODO enthrall- an enemy creature joins your side
+# TODO-DONE enthrall- an enemy creature joins your side
 # TODO lightning- damages a few neighboring limbs and has a chance to jump to another enemy
 # TODO conjure flaming sword for yourself
 # TODO-DONE disguise as another class (sneak through areas)

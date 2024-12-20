@@ -259,7 +259,7 @@ class Controller:
 
         def pfunc(x, y):
             if y != "Withhold your blow.":
-                return x + f" {BC.YELLOW}({y.ai.target.name}){BC.OFF}"
+                return x + f" {BC.YELLOW}({y.ai.target.name if y.ai.target else y.ai.target}){BC.OFF}"
             else:
                 return x
 
@@ -449,9 +449,10 @@ class Controller:
                 if k in invs.keys() and k != "x":
                     target_inv = invs[k]
                     if self.game.char.grasp_check():
-                        limb.unequip(gear)
-                        target_inv.vis_inv.append(gear)
-                        print(f"{BC.CYAN}{self.game.char.name} removes the {gear.name} and places it in their {target_inv.name}.{BC.OFF}")
+                        removed = limb.unequip(gear)
+                        if removed:
+                            target_inv.vis_inv.append(gear)
+                            print(f"{BC.CYAN}{self.game.char.name} removes the {gear.name} and places it in their {target_inv.name}.{BC.OFF}")
                     else:
                         print(f"{C.RED}{self.game.char.name} does not have a free hand!{C.OFF}")
 

@@ -16,6 +16,7 @@ class LightBoot(i.Item):
     armor = 2
     level = 3
     descends = 1
+    cannot_remove = True
 
 class LightBracer(i.Item):
     name = "bracer of light"
@@ -26,6 +27,7 @@ class LightBracer(i.Item):
     armor = 2
     level = 3
     descends = 0
+    cannot_remove = True
 
 class LightBreastplate(i.Item):
     name = "breastplate of light"
@@ -38,6 +40,7 @@ class LightBreastplate(i.Item):
     armor = 2
     level = 3
     descends = 0
+    cannot_remove = True
 
 class LightGauntlet(i.Item):
     name = "gauntlet of light"
@@ -52,6 +55,7 @@ class LightGauntlet(i.Item):
     armor = 2
     level = 3
     descends = 1
+    cannot_remove = True
 
 class LightGreave(i.Item):
     name = "greave of light"
@@ -64,6 +68,7 @@ class LightGreave(i.Item):
     armor = 2
     level = 3
     descends = 0
+    cannot_remove = True
 
 class LightHelm(i.Item):
     name = "helm of light"
@@ -84,6 +89,7 @@ class LightHelm(i.Item):
     armor = 2
     level = 3
     descends = 2
+    cannot_remove = True
 
 class RingOfMana(i.Item):
     """A ring that stores a small amount of mana."""
