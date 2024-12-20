@@ -26,7 +26,7 @@ class Head(cr.Limb):
     appendageRange = (1, 2)
     wear = "head"
     vital = True
-    base_hp = 8
+    base_hp = 15
     size = 2
 
 class TripleHead(cr.Limb):
@@ -36,7 +36,7 @@ class TripleHead(cr.Limb):
     appendageRange = (3, 4)
     wear = "head"
     vital = True
-    base_hp = 8
+    base_hp = 15
     size = 2
 
 class Claw(cr.Weapon):
@@ -55,7 +55,7 @@ class Leg(cr.Limb):
     isSurface = True
     appendageRange = (4, 5)
     wears = "leg"
-    base_hp = 15
+    base_hp = 10
     size = 2
     amble = 1/3
 

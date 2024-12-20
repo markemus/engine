@@ -13,7 +13,7 @@ class Head(cr.Limb):
     appendageRange = (1, 2)
     wears = "head"
     vital = True
-    base_hp = 10
+    base_hp = 15
     size = 2
 
 # Torso

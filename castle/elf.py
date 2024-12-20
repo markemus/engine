@@ -15,7 +15,7 @@ class Head(cr.Limb):
     appendageRange = (1, 2)
     wear = "head"
     vital = True
-    base_hp = 10
+    base_hp = 15
     size = 2
 
 class PHead(Head):

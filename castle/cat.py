@@ -42,6 +42,7 @@ class Leg(cr.Limb):
     wears = "leg"
     base_hp = 10
     size = 2
+    amble = 1/3
 
 class Tail(cr.Limb):
     name = "tail"
