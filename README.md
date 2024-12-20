@@ -11,9 +11,8 @@ That's it!
 
 # TO RUN
 The castle package is a game called "Escape From Castle Black" that you can play through. If you're on windows, use cmd instead of Powershell so the colors work.   
-From the root directory, run:
 
-`python3 -i -m castle.index`
+From the root directory, run: `python3 -i -m castle.index`
 
 # Escape From Castle Black
 You are a prisoner in the dungeons of an evil king. Every day you hear the screams when the king's servants torture the prisoners. Today it's finally your turn.
