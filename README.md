@@ -4,7 +4,7 @@ Sick of playing the same rogue-like over and over? Now you can make your own! In
 EverRogue is free and open source.
 
 # TO INSTALL
-Install python 3. If you're on windows, do this by typing 'python3' in Powershell and installing the app it brings up in a pop-up.  
+Install python 3. If you're on windows, do this by typing `python3` in Powershell and installing the app it brings up in a pop-up.  
 Next, run: `pip3 install colorist`
 
 That's it!
