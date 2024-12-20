@@ -34,7 +34,7 @@ class Interface:
             "f": self.fight,
             "r": self.cont.rest,
             "q": self.cont.eat,
-            "M": lambda: self.cont.cast_magic(self.state),
+            "M": self.magic,
             "/": self.save,
             "*": self.load,
         }
@@ -49,7 +49,7 @@ class Interface:
             "g": self.cont.grasp,
             "u": self.cont.ungrasp,
             "a": self.cont.attack,
-            "M": lambda: self.cont.cast_magic(self.state),
+            "M": self.magic,
             "w": self.move
         }
 
@@ -80,6 +80,10 @@ class Interface:
             self.state = self.states[0]
         else:
             print(f"{BC.CYAN}There are still enemies around.{BC.OFF}")
+
+    def magic(self):
+        """Magic casting requires knowledge of the combat state."""
+        self.cont.cast_magic(self.state)
 
     # Commands
     def command(self):
