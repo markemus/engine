@@ -364,24 +364,25 @@ class Controller:
                 limb.hp += hp_diff
                 print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
-    def eat(self):
+    def use(self):
         invs = self.game.char.subelements[0].find_invs()
         # Drop equipment
         invs = [inv for inv in invs if hasattr(inv, "vis_inv")]
         invs = self.listtodict(invs, add_x=True)
         self.dictprint(invs)
-        i = input(f"\n{BC.GREEN}Which inventory would you like to eat from?{BC.OFF} ")
+        i = input(f"\n{BC.GREEN}Which inventory would you like to use item from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            edibles = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "edible") and item.edible], add_x=True)
-            self.dictprint(edibles)
-            j = input(f"\n{BC.GREEN}Select an item to eat/drink:{BC.OFF} ")
+            usables = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "usable") and item.usable], add_x=True)
+            self.dictprint(usables)
+            j = input(f"\n{BC.GREEN}Select an item to use:{BC.OFF} ")
 
-            if j in edibles.keys() and j != "x":
-                food = edibles[j]
+            if j in usables.keys() and j != "x":
+                usable = usables[j]
                 # print(f"{BC.CYAN}{self.game.char.name} consumes the {food.name}{BC.OFF}.")
-                food.eat(self.game.char)
-                invs[i].vis_inv.remove(food)
+                usable.use(self.game.char)
+                if usable.consumable:
+                    invs[i].vis_inv.remove(usable)
 
     def put_on(self):
         invs = self.game.char.subelements[0].find_invs()

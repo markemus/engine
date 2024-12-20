@@ -135,7 +135,8 @@ class Holder(Item):
 
 class Potion(Item):
     name = "potion"
-    edible = True
+    usable = True
+    consumable = True
     def __init__(self, color="gray", texture="murky"):
         super().__init__(color=color, texture=texture)
 
@@ -143,19 +144,23 @@ class Potion(Item):
         """Subclasses should define an effect on creature when creature drinks the potion."""
         print(f"{BC.CYAN}The {self.name} has no effect.{BC.OFF}")
 
-    def eat(self, creature):
+    def use(self, creature):
         if creature.limb_count("eats") >= 1:
-            print(f"{BC.CYAN}{creature.name}{BC.OFF} ingests the {BC.RED}{self.name}{BC.OFF}.")
+            print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
 
+# TODO refactor eat() to be use()
 class Scroll(Item):
     """Adds a spell to the creature's spellbook."""
+    name = "scroll"
     spell = None
+    usable = True
+    consumable = False
     def __init__(self, color=None, texture=None):
         """Color and texture are accepted but ignored."""
         super().__init__(color="white", texture="parchment")
 
-    def eat(self, creature):
+    def use(self, creature):
         if self.spell not in creature.spellbook:
             creature.spellbook.append(self.spell)
             print(f"{BC.YELLOW}{self.spell.name}{BC.OFF} was added to {C.RED}{creature.name}{C.OFF}'s spellbook.")

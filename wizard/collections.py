@@ -18,6 +18,7 @@ class RandomScroll(it.Scroll):
     def __init__(self, color=None, texture=None):
         super().__init__()
         self.spell = random.choice(all_spells)
+        self.name = f"scroll of {self.spell.name}"
 
 scrolls = {
     "contains": [RandomScroll],
