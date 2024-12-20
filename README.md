@@ -7,7 +7,7 @@ EverRogue is free and open source.
 Install python 3. If you're on windows, do this by typing `python3` in Powershell and installing the app it brings up in a pop-up.  
 Next, run: `pip3 install colorist`
 
-That's it!
+That's it! The game itself will work without being installed, but you need python and the colorist package to run it.
 
 # TO RUN
 The castle package is a game called "Escape From Castle Black" that you can play through. If you're on windows, use cmd instead of Powershell so the colors work.   
