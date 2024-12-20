@@ -15,9 +15,9 @@ from colorist import BrightColor as BC, Color as C
 # Main
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
-# TODO set to level_list[1] when game is generated
+# TODO-DONE set to level_list[1] when game is generated
 thisLevel = t_game.level_list[0]
-homeLevel = t_game.level_list[0]
+homeLevel = t_game.level_list[1]
 
 player = human.PlayerHuman(location=thisLevel.start)
 familiar = cat.Cat(location=thisLevel.start)
@@ -56,7 +56,7 @@ player.humanity = 1
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 
-thisLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
+# thisLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.

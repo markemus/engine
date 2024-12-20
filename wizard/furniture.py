@@ -3,6 +3,8 @@ import engine.item as it
 
 import engine.styles as st
 
+import assets.asset_collections as col
+
 from colorist import BrightColor as BC, Color as C
 
 class FruitOfLife(it.Potion):
@@ -54,3 +56,18 @@ class MagicDoor(st.door):
     color = ["glowing"]
     texture = ["light"]
     count = (1, 2)
+
+class Chest(pl.DisplayFurniture):
+    name = "treasure chest"
+    color = ["brown", "black", "gray"]
+    texture = ["wood"]
+    count = (1, 2)
+    vis_collections = [(col.weapons_c, (1, 3))]
+
+class Stalactite(pl.Element):
+    name = "stalactite"
+    count = (0, 5)
+
+class Stalagmite(pl.Element):
+    name = "stalagmite"
+    count = (0, 5)

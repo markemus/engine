@@ -419,7 +419,7 @@ class creature:
         currentRoom = self.location
         nextRoom = self.location.borders[direction]
 
-        if nextRoom is not None:
+        if nextRoom:
             if len(self.subelements[0].limb_check("amble")) >= 1:
                 currentRoom.removeCreature(self)
                 self.location = currentRoom.borders[direction]

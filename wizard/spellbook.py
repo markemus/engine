@@ -386,7 +386,12 @@ class AWayHome(sp.Spell):
     def _cast(self):
         """Creates a door between current location and the pocket apartment. Door will move whenever this spell is cast."""
         door = [x for x in self.caster.home.start.elements if x.name == "magic door"][0]
+        if not door.borders:
+            # If this is the first time this spell is called, the door will be present in the foyer but not set up as a door yet.
+            door.addBorder(self.caster.home.start)
+
         if self.caster.location.level != self.caster.home.start.level:
+            # TODO test moving the door
             if len(door.borders) > 1:
                 # Remove door from old location
                 old_room = door.borders[1]
@@ -396,8 +401,12 @@ class AWayHome(sp.Spell):
 
             door.addBorder(self.caster.location)
             self.caster.location.addElement(door)
-            self.caster.location.get_borders()
             self.caster.home.start.get_borders()
+            self.caster.location.get_borders()
+            print(self.caster.location)
+            print(door.borders)
+            print(self.caster.location.borders)
+            print(self.caster.home.start.borders)
             print(f"{BC.MAGENTA}A shimmering door of light appears before you.{BC.OFF}")
         else:
             print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
@@ -434,3 +443,4 @@ class SetHumanity(sp.Spell):
 # TODO sword hands
 # TODO-DONE mana costs
 # TODO Manifest portal to apartment
+# TODO scrolls to learn spells (eat() for now)

@@ -165,7 +165,7 @@ class levelGenerator:
         room1.addElement(door)
 
         # if first room generated
-        if room2 is None:
+        if not room2:
             pass
         else:
             door.addBorder(room2)

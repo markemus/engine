@@ -97,7 +97,7 @@ class TestCastle():
         t_game = game.Game("The Howling Manor", cs.Castle)
         thisLevel = t_game.level_list[0]
         g = goblin.Goblin(location=thisLevel.start)
-        test_borders = [b for b in g.location.borders.keys() if g.location.borders[b] is not None]
+        test_borders = [b for b in g.location.borders.keys() if g.location.borders[b]]
 
         # Check each path leaving from the first room.
         visited.append(g.location)

@@ -266,6 +266,10 @@ class Sword(i.Item):
     name = "sword"
     damage = 20
 
+class Knife(i.Item):
+    name = "knife"
+    damage = 10
+
 # Special
 class Blindfold(i.Item):
     name = "blindfold"
@@ -383,6 +387,17 @@ weapons = {
     "wears": {},
     "grasps": {
         "right hand": (Sword, Spear, Axe)},
+    "color": ["gray"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+basic_weapons = {
+    "wears": {},
+    "grasps": {
+        "right hand": (Knife)},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],
