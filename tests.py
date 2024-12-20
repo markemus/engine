@@ -120,11 +120,11 @@ class TestCastle():
         from castle.goblin import ServantGoblin
         room = cs.PlayerCell(level=None)
         g = ServantGoblin(location=room)
-        s = su.Shank(color="gray", texture="iron")
+        s = su.Shiv(color="gray", texture="iron")
         g.grasp(s)
-        assert g.grasp_check().grasped == s
+        assert g.subelements[0].subelements[1].subelements[0].grasped == s
         g.ungrasp(s)
-        assert g.grasp_check().grasped is None
+        assert g.subelements[0].subelements[1].subelements[0].grasped is None
 
     def test_return_from_depth(self):
         from castle.goblin import Goblin
