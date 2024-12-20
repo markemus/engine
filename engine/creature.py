@@ -21,6 +21,7 @@ class Limb:
     grasped = None
     # Size should be an int between 1 and 3. This affects to-hit chance.
     size = 2
+    isSurface = True
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color

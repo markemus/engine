@@ -31,6 +31,7 @@ thisLevel.start.creatures.append(player)
 thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
+# TODO select starting spells for release
 # Character setup
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
@@ -51,8 +52,9 @@ player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
 # player.spellbook.append(sb.SetHumanity)
 
+# TODO player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
-player.humanity = 1
+player.humanity = 7
 
 # Give player some mana to start the game with
 # player.subelements[0].equip(su.ManaLocket(color="emerald", texture="in silver"))

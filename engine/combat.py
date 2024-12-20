@@ -86,8 +86,9 @@ class Combat:
                     limb = actor.ai.target_limb(target)
             else:
                 # blind fighting
-                print(f"\n{C.RED}{actor.name}{C.OFF} swings their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF} blindly!")
-                limb = random.choice([x for x in target.subelements[0].limb_check("isSurface") if x.isSurface])
+                print(f"\n{C.RED}{actor.name}{C.OFF} attacks blindly with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
+                all_limbs = [x for x in target.subelements[0].limb_check("isSurface") if x.isSurface]
+                limb = random.choices(all_limbs, weights=[l.size for l in all_limbs], k=1)[0]
         else:
             limb = None
 
