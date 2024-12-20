@@ -457,6 +457,33 @@ class AWayHome(sp.Spell):
             print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
 
 
+class GrowBeard(sp.Spell):
+    name = "Grow Long Beard"
+    mana_cost = 5
+    description = f"Grow a long flowing beard worthy of a powerful wizard[{mana_cost}]."
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        import assets.commonlimbs as cl
+
+        limbs = self.target.subelements[0].limb_check("name")
+        heads = [x for x in limbs if x.name == "head"]
+        if heads:
+            # We want a random head, not the first one each time
+            random.shuffle(heads)
+            head = heads[0]
+            existing_beards = [x for x in head.subelements if x.name == "beard"]
+            if existing_beards:
+                # Cut existing beard(s) (should be max one but we'll be thorough)
+                for beard in existing_beards:
+                    head.remove_limb(beard)
+            head.subelements.append(cl.Beard(color="white", texture="luxuriant"))
+            print(f"{BC.MAGENTA}A long flowing beard erupts from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s face!{BC.OFF}")
+
+
+
+
 class SetHumanity(sp.Spell):
     name = "Set Humanity"
     mana_cost = 0

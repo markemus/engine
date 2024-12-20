@@ -46,6 +46,7 @@ player.spellbook.append(sb.FleshRip)
 # player.spellbook.append(sb.Flashbang)
 player.spellbook.append(sb.ArmorOfLight)
 # player.spellbook.append(sb.GrowTreeOfLife)
+# player.spellbook.append(sb.GrowBeard)
 player.spellbook.append(sb.AWayHome)
 # player.spellbook.append(sb.SetHumanity)
 
