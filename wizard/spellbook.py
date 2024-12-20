@@ -4,7 +4,6 @@ import engine.creature as cr
 import engine.spells as sp
 import engine.utils as utils
 
-import wizard.furniture as fur
 import wizard.suits as su
 import wizard.zombie as z
 
@@ -12,6 +11,8 @@ from wizard import giant_spider
 from wizard import tentacle_monster
 
 from colorist import BrightColor as BC, Color as C
+# If we run into trouble with circular imports, import within the function instead of on module level.
+
 
 class CreationSpell(sp.Spell):
     """A spell that requires creative powers and therefore has a minimal humanity to cast.
@@ -93,6 +94,8 @@ class GrowTreeOfLife(CreationSpell):
     targets = "caster"
 
     def _cast(self):
+        import wizard.furniture as fur
+
         tree_of_life = fur.TreeOfLife(color=random.choice(fur.TreeOfLife.color), texture=random.choice(fur.TreeOfLife.texture))
         self.caster.location.elements.append(tree_of_life)
         print(f"{BC.MAGENTA}A beautiful tree with shiny silver fruits sprouts up out of the ground!{BC.OFF}")
@@ -377,12 +380,12 @@ class Scry(sp.Spell):
 
 class AWayHome(sp.Spell):
     name = "A Way Home"
-    mana_cost = 0
+    mana_cost = 5
     description = f"Manifests the door to your home. [{mana_cost}]"
     rounds = 1
     targets = "caster"
 
-    # TODO test once we have two levels
+    # TODO-DONE test once we have two levels
     def _cast(self):
         """Creates a door between current location and the pocket apartment. Door will move whenever this spell is cast."""
         door = [x for x in self.caster.home.start.elements if x.name == "magic door"][0]
@@ -391,7 +394,7 @@ class AWayHome(sp.Spell):
             door.addBorder(self.caster.home.start)
 
         if self.caster.location.level != self.caster.home.start.level:
-            # TODO test moving the door
+            # TODO-DONE test moving the door
             if len(door.borders) > 1:
                 # Remove door from old location
                 old_room = door.borders[1]
@@ -408,9 +411,9 @@ class AWayHome(sp.Spell):
             print(self.caster.location.borders)
             print(self.caster.home.start.borders)
             print(f"{BC.MAGENTA}A shimmering door of light appears before you.{BC.OFF}")
+            return True
         else:
             print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
-
 
 
 class SetHumanity(sp.Spell):
@@ -436,11 +439,12 @@ class SetHumanity(sp.Spell):
 # TODO fireball- DOT
 # TODO transform yourself into a monster temporarily (or permanently)
 # TODO summon an ethereal hand with a glowing sword
-# TODO enthral- an enemy creature joins your side
+# TODO enthrall- an enemy creature joins your side
 # TODO lightning- damages a few neighboring limbs and has a chance to jump to another enemy
 # TODO conjure flaming sword for yourself
 # TODO-DONE disguise as another class (sneak through areas)
 # TODO sword hands
 # TODO-DONE mana costs
-# TODO Manifest portal to apartment
+# TODO-DONE Manifest portal to apartment
 # TODO scrolls to learn spells (eat() for now)
+# TODO disorient- enemy chooses a new target (may choose same one again though)

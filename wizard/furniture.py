@@ -5,7 +5,10 @@ import engine.styles as st
 
 import assets.asset_collections as col
 
+import wizard.collections as wcol
+
 from colorist import BrightColor as BC, Color as C
+
 
 class FruitOfLife(it.Potion):
     name = "fruit of life"
@@ -62,7 +65,10 @@ class Chest(pl.DisplayFurniture):
     color = ["brown", "black", "gray"]
     texture = ["wood"]
     count = (1, 2)
-    vis_collections = [(col.weapons_c, (1, 3))]
+    # TODO refactor vis_collections so we can set spawn rates better and allow random choice between different collections
+    #  I want a random weapon or a random scroll, 50/50 odds
+    # TODO-DECIDE we might want loot tables or something more complex like that.
+    vis_collections = [(col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2))]
 
 class Stalactite(pl.Element):
     name = "stalactite"

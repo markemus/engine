@@ -30,17 +30,16 @@ class Torso(cr.Limb):
 # Goblin
 class Goblin(cr.creature):
     classname = "goblin"
-    team = "monster"
+    team = "goblinkin"
     namelist = nm.names["goblin"]
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
     textures = ["scaled", "haired", "skinned"]
     suits = [suits.plainsuit, suits.weapons]
 
-# TODO-DONE test whether these guys fight or not
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""
     # This creature will fight if attacked but you can leave them alone too.
     aggressive = False
-    team = "monster"
+    team = "goblinkin"
     suits = [suits.plainsuit]

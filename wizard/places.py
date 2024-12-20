@@ -7,12 +7,13 @@ import wizard.furniture
 
 from wizard.rat import GiantRat
 from wizard.giant_spider import GiantSpider
+from wizard.tunnel_worm import TunnelWorm
 
 from assets.goblin import Goblin
 
 cc = {
     "caverns": [(GiantRat, 7), (Goblin, 2), (None, 1)],
-    "tunnels": [(GiantSpider, 8), (None, 2)],
+    "tunnels": [(GiantSpider, 3), (TunnelWorm, 5), (None, 2)],
 }
 
 class MagicFoyer(pl.Place):
@@ -53,13 +54,14 @@ class Tunnel(pl.Place):
     name = "tunnel"
     sprite = "T"
     count = (1, 3)
-    colors = ["gray", "dark", "dripping"]
-    textures = ["stone"]
+    colors = ["dark", "dripping"]
+    textures = ["stone", "mud"]
     creature_classes = [cc["tunnels"]]
     furniture_classes = []
     subelement_classes = [wall, floor]
 
 class CavernRewards(Cavern):
     """A cavern with a chest in it."""
+    sprite = "R"
     count = (1, 3)
     furniture_classes = [wizard.furniture.Chest]

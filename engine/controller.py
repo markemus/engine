@@ -257,7 +257,13 @@ class Controller:
         targets = self.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
 
-        self.dictprint(targets)
+        def pfunc(x, y):
+            if y != "Withhold your blow.":
+                return x + f" {BC.YELLOW}({y.ai.target.name}){BC.OFF}"
+            else:
+                return x
+
+        self.dictprint(targets, pfunc=pfunc)
 
         i = input(f"{BC.GREEN}\nWho are you attacking {C.YELLOW}(x for none){BC.GREEN}?{BC.OFF} ")
 

@@ -4,8 +4,8 @@ import engine.creature as cr
 import assets.commonlimbs as cl
 
 
-class Fangs(cr.Weapon):
-    name = "fangs"
+class Teeth(cr.Weapon):
+    name = "teeth"
     subelement_classes = []
     _damage = 3
     appendageRange = (1, 2)
@@ -17,7 +17,7 @@ class Fangs(cr.Weapon):
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Nose, Fangs, cl.Tongue]
+    subelement_classes = [cl.Nose, Teeth, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
@@ -83,7 +83,7 @@ class Torso(cr.Limb):
 class GiantRat(cr.creature):
     classname = "giant rat"
     aggressive = True
-    team = "monster"
+    team = "prey"
     namelist = ["giant rat"]
     baseElem = Torso
     colors = ["gray", "black", "brown"]

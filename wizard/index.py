@@ -12,10 +12,10 @@ from wizard import suits as su
 from colorist import BrightColor as BC, Color as C
 
 
+# TODO creatures should die of losing too much hp, or bleed to death, or something that doesn't require them losing their heads.
 # Main
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
-# TODO-DONE set to level_list[1] when game is generated
 thisLevel = t_game.level_list[0]
 homeLevel = t_game.level_list[1]
 
@@ -32,21 +32,21 @@ thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
 # Character setup
-player.spellbook.append(sb.Scry)
-player.spellbook.append(sb.Light)
-player.spellbook.append(sb.Shadow)
+# player.spellbook.append(sb.Scry)
+# player.spellbook.append(sb.Light)
+# player.spellbook.append(sb.Shadow)
 # player.spellbook.append(sb.Innocence)
 player.spellbook.append(sb.SummonSpider)
-player.spellbook.append(sb.SummonTentacleMonster)
-player.spellbook.append(sb.GraftLimb)
-player.spellbook.append(sb.ReanimateLimb)
-player.spellbook.append(sb.Caltrops)
+# player.spellbook.append(sb.SummonTentacleMonster)
+# player.spellbook.append(sb.GraftLimb)
+# player.spellbook.append(sb.ReanimateLimb)
+# player.spellbook.append(sb.Caltrops)
 player.spellbook.append(sb.FleshRip)
-player.spellbook.append(sb.Flashbang)
+# player.spellbook.append(sb.Flashbang)
 player.spellbook.append(sb.ArmorOfLight)
-player.spellbook.append(sb.GrowTreeOfLife)
+# player.spellbook.append(sb.GrowTreeOfLife)
 player.spellbook.append(sb.AWayHome)
-player.spellbook.append(sb.SetHumanity)
+# player.spellbook.append(sb.SetHumanity)
 
 # Player humanity affects which spells they can cast
 player.humanity = 1

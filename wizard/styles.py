@@ -38,8 +38,21 @@ class Wizard:
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
     # TODO connect level 0 to level 2 (skip home)
     links = []
-    start_splash = f"""The Tomb of the Dwarven King"""
-    death_splash = f"""YOU DIED"""
-
+    start_splash = f"""
+    ------------------------
+    |       {C.RED}The Tomb{C.OFF}       |
+    |        {C.RED}of the{C.OFF}        |   
+    |     {C.RED}Dwarven King{C.OFF}     |
+    |                      |
+    |  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
+    |     by Markemus      |
+    ------------------------
+        """
+    # This will display on game over
+    death_splash = f"""
+    ------------------------
+    |       {C.RED}YOU DIED{C.OFF}       |
+    ------------------------
+        """
 GameStyle.register(Wizard)
 

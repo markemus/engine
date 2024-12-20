@@ -137,7 +137,6 @@ class Potion(Item):
     name = "potion"
     edible = True
     def __init__(self, color="gray", texture="murky"):
-        """Color and texture are accepted but ignored."""
         super().__init__(color=color, texture=texture)
 
     def effect(self, creature):
@@ -149,3 +148,16 @@ class Potion(Item):
             print(f"{BC.CYAN}{creature.name}{BC.OFF} ingests the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
 
+class Scroll(Item):
+    """Adds a spell to the creature's spellbook."""
+    spell = None
+    def __init__(self, color=None, texture=None):
+        """Color and texture are accepted but ignored."""
+        super().__init__(color="white", texture="parchment")
+
+    def eat(self, creature):
+        if self.spell not in creature.spellbook:
+            creature.spellbook.append(self.spell)
+            print(f"{BC.YELLOW}{self.spell.name}{BC.OFF} was added to {C.RED}{creature.name}{C.OFF}'s spellbook.")
+        else:
+            print(f"{C.RED}{creature.name}{C.OFF} already knows this spell.")
