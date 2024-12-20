@@ -21,6 +21,7 @@ homeLevel = t_game.level_list[1]
 
 player = human.PlayerHuman(location=thisLevel.start)
 familiar = cat.Cat(location=thisLevel.start)
+familiar.familiar = True
 # player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 # familiar.name = input(f"{BC.CYAN}Enter the name of your familiar: {BC.OFF}")
 player.name = "Adam"

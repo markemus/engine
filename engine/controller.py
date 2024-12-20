@@ -352,10 +352,19 @@ class Controller:
         #     self.game.active_spells.remove(spell)
 
         # All equipment recovers full mana
+        minion_mana = len([x for x in self.game.char.companions if not hasattr(x, "familiar")])
         for mana_equipment in self.game.char.get_tagged_equipment("mana"):
-            if mana_equipment.mana < mana_equipment.base_mana:
-                mana_equipment.mana = mana_equipment.base_mana
-                print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers its mana.")
+            missing_mana = mana_equipment.base_mana - mana_equipment.mana
+            if missing_mana >= minion_mana:
+                missing_mana -= minion_mana
+                minion_mana = 0
+            elif minion_mana > missing_mana:
+                minion_mana -= missing_mana
+                missing_mana = 0
+
+            if (mana_equipment.mana < mana_equipment.base_mana) and missing_mana:
+                mana_equipment.mana += missing_mana
+                print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
         # char heals a bit
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):

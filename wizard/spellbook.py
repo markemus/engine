@@ -490,7 +490,7 @@ class ReleaseMinion(sp.Spell):
     targets = "caster"
 
     def _cast(self):
-        minions = utils.listtodict(self.caster.companions, add_x=True)
+        minions = utils.listtodict([x for x in self.caster.companions if not hasattr(x, "familiar")], add_x=True)
         utils.dictprint(minions)
         i = input(f"{BC.MAGENTA}Select a minion to release from your mental control: {BC.OFF}")
         if i in minions.keys() and i != "x":
@@ -535,5 +535,5 @@ class SetHumanity(sp.Spell):
 # TODO-DONE Manifest portal to apartment
 # TODO-DONE scrolls to learn spells (eat() for now)
 # TODO disorient- enemy chooses a new target (may choose same one again though)
-# TODO mana max reduced to maintain minions.
+# TODO-DONE mana max reduced to maintain minions.
 # TODO weapon effects (inherit from spells)
