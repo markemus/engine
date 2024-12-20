@@ -337,6 +337,21 @@ class Controller:
     # TODO-DECIDE update_spells on rest? How many times? Or just dispel all spells?
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
+
+        # Dispel all active spells
+        for spell in self.game.active_spells:
+            spell.expire()
+        self.game.active_spells = []
+        # for spell in self.game.active_spells:
+        #     self.game.active_spells.remove(spell)
+
+        # All equipment recovers full mana
+        for mana_equipment in self.game.char.get_tagged_equipment("mana"):
+            if mana_equipment.mana < mana_equipment.base_mana:
+                mana_equipment.mana = mana_equipment.base_mana
+                print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers its mana.")
+
+        # char heals a bit
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):
             if limb.hp < limb.base_hp:
                 hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)

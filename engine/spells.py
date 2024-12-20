@@ -15,7 +15,7 @@ class Spell:
             worked = self._cast()
             if worked:
                 siphoned = self.caster.siphon_tag("mana", self.mana_cost)
-                # TODO once we're convinced this never fails, remove this exception
+                # TODO-DECIDE once we're convinced this never fails, remove this exception?
                 if not siphoned:
                     raise ValueError("Not enough mana to siphon!")
             return worked

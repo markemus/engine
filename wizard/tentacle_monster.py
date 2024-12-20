@@ -7,13 +7,12 @@ from colorist import BrightColor as BC, Color as C
 
 
 class Tentacle(cl.Tentacle):
-    _damage = 10
+    _damage = 15
     base_hp = 15
 
 class Torso(cr.Limb):
     name = "trunk"
     subelement_classes = [Tentacle]
-    amble = 1
     size = 2
     isSurface = True
 

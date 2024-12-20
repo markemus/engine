@@ -38,7 +38,6 @@ class CorruptionSpell(sp.Spell):
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({self.humanity_max})!{BC.OFF}")
 
 # Creation
-# TODO-DECIDE mana costs for spells?
 class Caltrops(CreationSpell):
     """Area of effect spell that causes enemies to fall down."""
     name = "Caltrops"
@@ -121,16 +120,22 @@ class SummonTentacleMonster(CreationSpell):
     mana_cost = 5
     humanity_min = 7
     description = f"Summons a friendly tentacle monster (>{humanity_min}) [{mana_cost}]."
-    rounds = 1
+    rounds = 20
     targets = "caster"
 
     def _cast(self):
         tm = tentacle_monster.TentacleMonster(location=self.target.location)
         tm.team = self.caster.team
+        self.tm = tm
         self.target.location.creatures.append(tm)
         self.caster.companions.append(tm)
         print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
+
+    def expire(self):
+        print(f"{BC.MAGENTA}The tentacle monster winks out of existence.{BC.OFF}")
+        self.caster.companions.remove(self.tm)
+        self.tm.location.creatures.remove(self.tm)
 
 
 class ArmorOfLight(CreationSpell):
@@ -399,6 +404,6 @@ class SetHumanity(sp.Spell):
 # TODO conjure flaming sword for yourself
 # TODO-DONE disguise as another class (sneak through areas)
 # TODO sword hands
-# TODO mana costs
+# TODO-DONE mana costs
 # TODO maintenance costs- reduces max mana
 # TODO Manifest portal to apartment

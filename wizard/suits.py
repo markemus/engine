@@ -87,7 +87,7 @@ class LightHelm(i.Item):
 
 class RingOfMana(i.Item):
     """A ring that stores a small amount of mana."""
-    name = "ring"
+    name = "ring of mana"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["finger"] = True
