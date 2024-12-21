@@ -269,7 +269,7 @@ class Controller:
 
         if i != "x" and i in targets.keys():
             defender = targets[i]
-            print(f"{C.RED}{self.game.char.name}{C.OFF} aims at {C.YELLOW}{defender.name}{C.OFF}!")
+            print(f"{C.RED}{self.game.char.name}{C.OFF} aims at {BC.YELLOW}{defender.name}{BC.OFF}!")
         else:
             defender = False
 

@@ -11,6 +11,9 @@ from wizard import suits as su
 
 from colorist import BrightColor as BC, Color as C
 
+# Enable color on windows
+import os
+os.system("color")
 
 # TODO creatures should die of losing too much hp, or bleed to death, or something that doesn't require them losing their heads.
 # Main
@@ -51,7 +54,7 @@ player.spellbook.append(sb.ArmorOfLight)
 # player.spellbook.append(sb.GrowBeard)
 player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
-# player.spellbook.append(sb.SetHumanity)
+player.spellbook.append(sb.SetHumanity)
 
 # TODO player.humanity should be 1 for release
 # Player humanity affects which spells they can cast

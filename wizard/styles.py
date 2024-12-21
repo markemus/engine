@@ -15,6 +15,9 @@ class HomeCell(assets.places.Cell):
     count = (1, 2)
     creature_classes = [[(human.SpecimenHuman, 1)]]
 
+# TODO put cat in apartment den.
+# TODO add trophy room
+# TODO add "dont let the cat out or the monsters in" welcome mat to foyer
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [assets.places.Bathroom, assets.places.Bedroom, assets.places.Parlor, assets.places.Kitchen, assets.places.Den]

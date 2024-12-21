@@ -161,6 +161,8 @@ class Combat:
 
         return weapons
 
+    # TODO strength tag as a damage multiplier- limb needs a trace_parents(limb) function that returns all higher limbs
+    #  in the hierarchy (run search on subelements[0])
     def check_damage(self, weapon, target):
         # No weapon
         if not weapon:

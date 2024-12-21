@@ -38,6 +38,7 @@ class floor(pl.Platform):
     count = (1, 2)
     canCatch = True
 
+# TODO doors should have their own colors when generated (like furniture)
 class door(pl.Element):
     name = "door"
     sprite = "O"
@@ -51,8 +52,3 @@ def weight_list(clist, weight):
     # Apply weights and pivot back
     weighted_list = list(zip(*[ziplist[0], [x * weight for x in ziplist[1]]]))
     return weighted_list
-
-# def populate_levels(gamestyle):
-#     """Causes level styles to inherit game parent characteristics."""
-#     for level in gamestyle.levelorder:
-#         level.creature_classes += gamestyle.creature_classes

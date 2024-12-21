@@ -34,6 +34,10 @@ class CombatAI:
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
         feet = [x for x in limbs if (hasattr(x, "amble"))]
 
+        # subelements[0] is always vital
+        if target.subelements[0] not in vitals:
+            vitals.append(target.subelements[0])
+
         # max and min return first if all are equal- we prefer a random one.
         random.shuffle(weapons)
         random.shuffle(vitals)
@@ -46,6 +50,7 @@ class CombatAI:
             best_weapon = max(weapons, key=lambda x: x.damage[0])
             target_limbs.append(best_weapon)
         if vitals:
+            # TODO-DONE subelements[0] should be considered a vital
             easiest_vital = min(vitals, key=lambda x: x.armor * x.hp)
             target_limbs.append(easiest_vital)
         if feet:

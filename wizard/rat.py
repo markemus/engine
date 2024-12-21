@@ -17,7 +17,7 @@ class Teeth(cr.Weapon):
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Nose, Teeth, cl.Tongue]
+    subelement_classes = [Teeth, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"

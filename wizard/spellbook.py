@@ -150,7 +150,7 @@ class ArmorOfLight(CreationSpell):
     mana_cost = 5
     humanity_min = -10
     description = f"Conjures a set of armor made of light (>{humanity_min}) [{mana_cost}]."
-    rounds = 2
+    rounds = 20
     targets = "friendly"
     equipped = {}
 
@@ -449,7 +449,8 @@ class AWayHome(sp.Spell):
             # If this is the first time this spell is called, the door will be present in the foyer but not set up as a door yet.
             door.addBorder(self.caster.home.start)
 
-        if self.caster.location.level != self.caster.home.start.level:
+        # We don't want to lock you into the apartment or overwrite another door.
+        if self.caster.location.level != self.caster.home.start.level and not self.caster.location.borders[">"]:
             # TODO-DONE test moving the door
             if len(door.borders) > 1:
                 # Remove door from old location
@@ -462,10 +463,7 @@ class AWayHome(sp.Spell):
             self.caster.location.addElement(door)
             self.caster.home.start.get_borders()
             self.caster.location.get_borders()
-            # print(self.caster.location)
-            # print(door.borders)
-            # print(self.caster.location.borders)
-            # print(self.caster.home.start.borders)
+
             print(f"{BC.MAGENTA}A shimmering door of light appears before you.{BC.OFF}")
             return True
         else:
@@ -551,3 +549,5 @@ class SetHumanity(sp.Spell):
 # TODO disorient- enemy chooses a new target (may choose same one again though)
 # TODO-DONE mana max reduced to maintain minions.
 # TODO weapon effects (inherit from spells)
+# TODO spell of tunneling- makes a tunnel to the next level in current room
+# TODO store maintenance costs for summoned creatures in a tag on the creature themselves.

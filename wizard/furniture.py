@@ -5,7 +5,7 @@ import engine.styles as st
 
 import assets.asset_collections as col
 
-import wizard.collections as wcol
+import wizard.item_collections as wcol
 
 from colorist import BrightColor as BC, Color as C
 
