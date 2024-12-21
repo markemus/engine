@@ -34,7 +34,7 @@ class Cell(pl.Place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
-# TODO den should have a bookcase, not a cabinet
+# TODO-DONE den should have a bookcase, not a cabinet
 class Den(pl.Place):
     name = "den"
     sprite = "D"
@@ -42,7 +42,7 @@ class Den(pl.Place):
     colors = ["oak", "teak", "mahogany"]
     textures = ["paneled"]
     creature_classes = []
-    furniture_classes = [fur.Table, fur.Chair, fur.Carpet, fur.CabinetMetal]
+    furniture_classes = [fur.Table, fur.Chair, fur.Carpet, fur.Bookcase]
     subelement_classes = [wall, floor]
 
 class DiningRoom(pl.Place):

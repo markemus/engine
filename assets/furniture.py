@@ -130,6 +130,13 @@ class BathroomCabinet(pl.DisplayFurniture):
     count = (1, 2)
     vis_collections = []
 
+class Bookcase(pl.DisplayFurniture):
+    name = "bookcase"
+    color = ["brown", "black", "polished"]
+    texture = ["wood"]
+    count = (1, 3)
+    vis_collections = []
+
 # class Theme:
 #     name = "DiningRoom"
 #     color_scheme = "antique"
