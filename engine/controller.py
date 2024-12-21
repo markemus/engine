@@ -348,11 +348,9 @@ class Controller:
         for spell in self.game.active_spells:
             spell.expire()
         self.game.active_spells = []
-        # for spell in self.game.active_spells:
-        #     self.game.active_spells.remove(spell)
 
         # All equipment recovers full mana
-        minion_mana = len([x for x in self.game.char.companions if not hasattr(x, "familiar")])
+        minion_mana = sum([x.mana_cost for x in self.game.char.companions])
         for mana_equipment in self.game.char.get_tagged_equipment("mana"):
             missing_mana = mana_equipment.base_mana - mana_equipment.mana
             if missing_mana >= minion_mana:

@@ -1,3 +1,4 @@
+import assets.places
 import engine.place as pl
 from engine.styles import wall, floor, pillar, door
 
@@ -16,6 +17,7 @@ cc = {
     "tunnels": [(GiantSpider, 3), (TunnelWorm, 5), (None, 2)],
 }
 
+# Player apartment rooms
 class MagicFoyer(pl.Place):
     name = "foyer"
     sprite = "F"
@@ -26,7 +28,18 @@ class MagicFoyer(pl.Place):
     furniture_classes = [fur.Carpet]
     subelement_classes = [wall, floor, wizard.furniture.MagicDoor]
 
+class PlayerBathroom(assets.places.Bathroom):
+    count = (1, 2)
 
+class PlayerParlor(assets.places.Parlor):
+    count = (1, 2)
+
+class PlayerBedroom(assets.places.Bedroom):
+    count = (1, 2)
+    furniture_classes = [wizard.furniture.Bed, fur.Dresser]
+
+
+# Cavern rooms
 class CavernEntrance(pl.Place):
     name = "cavern"
     sprite = "C"

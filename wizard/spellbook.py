@@ -113,6 +113,7 @@ class SummonSpider(CreationSpell):
     def _cast(self):
         """This is useful if you want to test combat magic on an opponent."""
         spider = giant_spider.GiantSpider(location=self.target.location)
+        spider.mana_cost = self.mana_cost
         self.target.location.creatures.append(spider)
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
@@ -129,6 +130,7 @@ class SummonTentacleMonster(CreationSpell):
     def _cast(self):
         tm = tentacle_monster.TentacleMonster(location=self.target.location)
         tm.team = self.caster.team
+        tm.mana_cost = self.mana_cost
         self.tm = tm
         self.target.location.creatures.append(tm)
         self.caster.companions.append(tm)
@@ -303,7 +305,7 @@ class GraftLimb(CorruptionSpell):
 
 class ReanimateLimb(CorruptionSpell):
     name = "Reanimate"
-    mana_cost = 10
+    mana_cost = 5
     humanity_max = 5
     description = f"Reanimates a dead creature as a zombie (<{humanity_max}) [{mana_cost}]."
     rounds = 1
@@ -325,6 +327,7 @@ class ReanimateLimb(CorruptionSpell):
                 limb = limbs[j]
                 zombie = z.Zombie(limb=limb, location=self.caster.location)
                 zombie.team = self.caster.team
+                zombie.mana_cost = self.mana_cost
                 self.caster.location.addCreature(zombie)
                 self.caster.companions.append(zombie)
                 print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")

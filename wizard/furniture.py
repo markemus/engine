@@ -4,6 +4,7 @@ import engine.item as it
 import engine.styles as st
 
 import assets.asset_collections as col
+import assets.furniture as fur
 
 import wizard.item_collections as wcol
 
@@ -58,6 +59,10 @@ class MagicDoor(st.door):
     name = "magic door"
     color = ["glowing"]
     texture = ["light"]
+    count = (1, 2)
+
+# Bed for wizard's house should only spawn one bed
+class Bed(fur.Bed):
     count = (1, 2)
 
 class Chest(pl.DisplayFurniture):

@@ -20,6 +20,7 @@ os.system("color")
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
 thisLevel = t_game.level_list[0]
+# TODO check before release that this still puts the cat in the den!
 homeLevel = t_game.level_list[1]
 
 player = human.PlayerHuman(location=thisLevel.start)
@@ -30,9 +31,9 @@ familiar.familiar = True
 player.name = "Adam"
 familiar.name = "Cozy"
 player.home = homeLevel
-player.companions.append(familiar)
+homeLevel.end.creatures.append(familiar)
 thisLevel.start.creatures.append(player)
-thisLevel.start.creatures.append(familiar)
+# thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
 # TODO select starting spells for release
