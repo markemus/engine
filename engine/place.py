@@ -288,7 +288,12 @@ class DisplayFurniture(Furniture, Platform):
     def _fill(self):
         """Put items in furniture upon creation."""
         if self.vis_collections:
-            for (item_collection, count) in self.vis_collections:
+            for col in self.vis_collections:
+                # Allows for choice between collections
+                if isinstance(col[0], tuple):
+                    col = random.choice(col)
+                (item_collection, count) = col
+
                 for n in range(random.randrange(*count)):
                     seed = random.randint(0, 100)
                     if item_collection["color_scheme"] == "distinct":

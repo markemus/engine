@@ -11,7 +11,7 @@ from wizard import spellbook
 all_spells = []
 for x in dir(spellbook):
     variable = getattr(spellbook, x)
-    if inspect.isclass(variable) and issubclass(variable, engine.spells.Spell) and x not in [spellbook.CreationSpell, spellbook.CorruptionSpell]:
+    if inspect.isclass(variable) and issubclass(variable, engine.spells.Spell) and variable not in [spellbook.CreationSpell, spellbook.CorruptionSpell]:
         all_spells.append(variable)
 # all_spells = [spellbook.Caltrops, spellbook.GrowTreeOfLife, spellbook.GraftLimb]
 class RandomScroll(it.Scroll):

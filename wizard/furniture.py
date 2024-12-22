@@ -70,10 +70,8 @@ class Chest(pl.DisplayFurniture):
     color = ["brown", "black", "gray"]
     texture = ["wood"]
     count = (1, 2)
-    # TODO refactor vis_collections so we can set spawn rates better and allow random choice between different collections
-    #  I want a random weapon or a random scroll, 50/50 odds
-    # TODO-DECIDE we might want loot tables or something more complex like that.
-    vis_collections = [(col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2))]
+    # A random weapon or a random scroll, 50/50 odds
+    vis_collections = [((col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2)))]
 
 class Stalactite(pl.Element):
     name = "stalactite"

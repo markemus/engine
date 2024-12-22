@@ -340,7 +340,6 @@ class Controller:
 
         return blocker
 
-    # TODO-DECIDE update_spells on rest? How many times? Or just dispel all spells?
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
 
@@ -349,7 +348,7 @@ class Controller:
             spell.expire()
         self.game.active_spells = []
 
-        # All equipment recovers full mana
+        # All equipment recovers full mana, except that used for creating/summoning minions
         minion_mana = sum([x.mana_cost for x in self.game.char.companions])
         for mana_equipment in self.game.char.get_tagged_equipment("mana"):
             missing_mana = mana_equipment.base_mana - mana_equipment.mana

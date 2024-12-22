@@ -549,8 +549,8 @@ class SetHumanity(sp.Spell):
 # TODO-DONE mana costs
 # TODO-DONE Manifest portal to apartment
 # TODO-DONE scrolls to learn spells (eat() for now)
-# TODO disorient- enemy chooses a new target (may choose same one again though)
+# TODO-DONE distract- enemy chooses a new target (may choose same one again though)
 # TODO-DONE mana max reduced to maintain minions.
 # TODO weapon effects (inherit from spells)
 # TODO spell of tunneling- makes a tunnel to the next level in current room
-# TODO store maintenance costs for summoned creatures in a tag on the creature themselves.
+# TODO-DONE store maintenance costs for summoned creatures in a tag on the creature themselves.
