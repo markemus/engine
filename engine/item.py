@@ -149,7 +149,7 @@ class Potion(Item):
             print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
 
-# TODO refactor eat() to be use()
+# TODO-DONE refactor eat() to be use()
 class Scroll(Item):
     """Adds a spell to the creature's spellbook."""
     name = "scroll"
@@ -160,10 +160,13 @@ class Scroll(Item):
         """Color and texture are accepted but ignored."""
         super().__init__(color="white", texture="parchment")
 
-    # TODO should check "see"
+    # TODO-DONE should check "see"
     def use(self, creature):
-        if self.spell not in creature.spellbook:
-            creature.spellbook.append(self.spell)
-            print(f"{BC.YELLOW}{self.spell.name}{BC.OFF} was added to {C.RED}{creature.name}{C.OFF}'s spellbook.")
+        if creature.limb_count("see") >= 1:
+            if self.spell not in creature.spellbook:
+                creature.spellbook.append(self.spell)
+                print(f"{BC.YELLOW}{self.spell.name}{BC.OFF} was added to {C.RED}{creature.name}{C.OFF}'s spellbook.")
+            else:
+                print(f"{C.RED}{creature.name}{C.OFF} already knows this spell.")
         else:
-            print(f"{C.RED}{creature.name}{C.OFF} already knows this spell.")
+            print(f"{C.RED}{creature.name} cannot see well enough to read!{C.OFF}")

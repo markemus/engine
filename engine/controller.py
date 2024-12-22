@@ -481,7 +481,6 @@ class Controller:
             if j in inventory.keys() and j != "x":
                 wielded = target_inv.vis_inv[int(j)]
                 hands = self.listtodict(self.game.char.subelements[0].limb_check("grasp"))
-                # TODO-DONE print grasped as well (pfunc)
                 self.dictprint(hands, pfunc=lambda x, y: x + f": {C.RED}({y.grasped.name if y.grasped else None}){C.OFF}")
                 k = input(f"\n{BC.GREEN}Choose a hand to grasp the {wielded.name} with {C.YELLOW}(x to cancel){BC.GREEN}:{BC.OFF} ")
 
@@ -557,7 +556,6 @@ class Controller:
                 self.dictprint(targets)
                 j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
                 if j in targets.keys() and j != "x":
-                    # TODO-DONE track cast spells (combat counter as well)
                     spell = spellbook[int(i)](self.game.char, targets[j])
                     if spell.cast():
                         self.game.active_spells.append(spell)

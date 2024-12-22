@@ -50,7 +50,6 @@ class CombatAI:
             best_weapon = max(weapons, key=lambda x: x.damage[0])
             target_limbs.append(best_weapon)
         if vitals:
-            # TODO-DONE subelements[0] should be considered a vital
             easiest_vital = min(vitals, key=lambda x: x.armor * x.hp)
             target_limbs.append(easiest_vital)
         if feet:
@@ -65,7 +64,6 @@ class CombatAI:
         else:
             # No weapons, no vitals, no feet, so attack a random limb
             chosen = random.choice(limbs)
-        # TODO-DONE also target weakest_foot
 
         # Small chance AI will target a random limb (just to keep things fun and give a purpose for armor everywhere)
         if not random.randint(0, 5):

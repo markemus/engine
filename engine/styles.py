@@ -43,6 +43,8 @@ class door(pl.Element):
     name = "door"
     sprite = "O"
     printcolor = C.RED
+    colors = ["red", "blue", "white", "black", "green", "yellow", "purple", "orange"]
+    textures = ["painted"]
 
 def weight_list(clist, weight):
     """Reweights elements in a creature list in preparation for joining with another creature list.

@@ -7,7 +7,6 @@ from . import controller
 from . import save
 
 
-# TODO game stats sheet (kills, limbs lost?)
 class Interface:
     def __init__(self, game):
         self.cont = controller.Controller(game)

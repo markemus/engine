@@ -472,6 +472,8 @@ class AWayHome(sp.Spell):
         if not door.borders:
             # If this is the first time this spell is called, the door will be present in the foyer but not set up as a door yet.
             door.addBorder(self.caster.home.start)
+            door.color = "glowing"
+            door.texture = "light"
 
         # We don't want to lock you into the apartment or overwrite another door.
         if self.caster.location.level != self.caster.home.start.level and not self.caster.location.borders[">"]:

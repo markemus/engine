@@ -357,7 +357,6 @@ class creature:
                         articles = [random.choice(article)]
                         random.seed()
                     elif type(article) == list:
-                        # TODO-DONE support not suit["full"] here too
                         articles = article.copy()
                         if not suit["full"]:
                             random.shuffle(articles)
@@ -416,7 +415,6 @@ class creature:
 
         return text
 
-    # TODO-DONE Should ensure that companions follow instead of just going in the same direction.
     # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
         """Move to a new Place. Accepts a str input."""
