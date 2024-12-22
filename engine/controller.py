@@ -556,7 +556,7 @@ class Controller:
                 self.dictprint(targets)
                 j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
                 if j in targets.keys() and j != "x":
-                    spell = spellbook[int(i)](self.game.char, targets[j])
+                    spell = spellbook[int(i)](self.game.char, targets[j], controller=self)
                     if spell.cast():
                         self.game.active_spells.append(spell)
                         if state == "fight":

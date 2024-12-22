@@ -46,6 +46,7 @@ t_game.set_char(player)
 # player.spellbook.append(sb.Lightning)
 # player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.SummonCerberus)
+# player.spellbook.append(sb.TransformSpider)
 # player.spellbook.append(sb.SummonTentacleMonster)
 # player.spellbook.append(sb.Distract)
 # player.spellbook.append(sb.GraftLimb)
@@ -64,6 +65,7 @@ player.spellbook.append(sb.SetHumanity)
 # TODO player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
 player.humanity = 7
+# player.humanity = -5
 
 # Give player some mana to start the game with
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))

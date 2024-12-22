@@ -275,6 +275,7 @@ class ArmorOfLight(CreationSpell):
 
 
 # Corruption
+# TODO convert Light and Shadow to effects
 class Light(CorruptionSpell):
     name = "Light"
     mana_cost = 3
@@ -332,28 +333,50 @@ class Shadow(CorruptionSpell):
                 limb.size = self.original_sizes[limb]
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
-# TODO-DECIDE rework innocence so player can't cast magic or attack? Hard to code.
-# class Innocence(CorruptionSpell):
-#     name = "Innocence"
-#     mana_cost = 3
-#     humanity_max = 5
-#     description = f"Target will appear harmless to their enemies (>{humanity_max}) [{mana_cost}]."
-#     rounds = 10
-#     targets = "friendly"
-#     original_team = None
-#
-#     def _cast(self):
-#         if self.target.team != "neutral":
-#             self.original_team = self.target.team
-#             self.target.team = "neutral"
-#             return True
-#         else:
-#             print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is already neutral!{BC.OFF}")
-#             return False
-#
-#     def expire(self):
-#         self.target.team = self.original_team
-#         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} suddenly appears quite menacing!{BC.OFF}")
+
+class TransformSpider(CorruptionSpell):
+    name = "Become Spider"
+    mana_cost = 10
+    humanity_max = -5
+    description = f"Transform yourself into a giant spider (<{humanity_max}) [{mana_cost}]."
+    rounds = 20
+    targets = "caster"
+    old_char = None
+
+    # TODO-DONE need way for spells to access game- through controller?
+    def _cast(self):
+        if self.caster.can_transform:
+            spider = giant_spider.GiantSpider(location=self.caster.location)
+            # Set game character to be the spider
+            self.old_char = self.caster
+            self.cont.game.char = spider
+            # Deliberately same list, not a copy, so companions will stay updated
+            spider.companions = self.old_char.companions
+            spider.name = self.old_char.name
+            spider.team = self.old_char.team
+            spider.humanity = self.old_char.humanity
+            # Reduce humanity for transforming
+            spider.humanity -= 1
+            # Make sure no other transformation overrides this one- will lead to bugs
+            spider.can_transform = False
+            # Remove old char from room and add spider
+            self.old_char.location.creatures.append(spider)
+            self.old_char.location.creatures.remove(self.old_char)
+
+            # TODO remove all effects from self.old_char (including bleed?)
+            print(f"{BC.YELLOW}{self.old_char.name}{BC.MAGENTA} transforms into a {C.RED}giant spider{BC.MAGENTA}!{BC.OFF}")
+            return True
+
+    def expire(self):
+        self.old_char.humanity = self.cont.game.char.humanity
+        spider = self.cont.game.char
+        self.cont.game.char = self.old_char
+        # TODO drop all spider carried and wielded items onto the floor
+        spider.location.creatures.append(self.old_char)
+        spider.location.creatures.remove(spider)
+        print(f"{C.RED}{self.old_char.name}{BC.MAGENTA} transforms back into a {C.RED}{self.old_char.classname}{BC.MAGENTA}.{BC.OFF}")
+
+
 
 
 class GraftLimb(CorruptionSpell):
@@ -589,7 +612,7 @@ class SetHumanity(sp.Spell):
     name = "Set Humanity"
     mana_cost = 0
     description = f"Cheat and set your humanity to whatever you want [{mana_cost}]."
-    rounds = 5
+    rounds = 1
     targets = "caster"
     original_humanity = None
 
@@ -598,9 +621,9 @@ class SetHumanity(sp.Spell):
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
 
-    def expire(self):
-        print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity returns to its normal value.{BC.OFF}")
-        self.caster.humanity = self.original_humanity
+    # def expire(self):
+    #     print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity returns to its normal value.{BC.OFF}")
+    #     self.caster.humanity = self.original_humanity
 
 
 # TODO fireball- DOT
@@ -609,5 +632,5 @@ class SetHumanity(sp.Spell):
 # TODO-DONE lightning- damages a few neighboring limbs and has a chance to jump to another enemy
 # TODO conjure flaming sword for yourself
 # TODO sword hands
-# TODO weapon effects (inherit from spells)
+# TODO-DONE weapon effects (inherit from spells)
 # TODO-DONE store maintenance costs for summoned creatures in a tag on the creature themselves.

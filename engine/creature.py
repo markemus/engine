@@ -329,6 +329,7 @@ class creature:
     spellbook = []
     aggressive = True
     dead = False
+    can_transform = True
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)

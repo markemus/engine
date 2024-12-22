@@ -4,9 +4,10 @@ from colorist import BrightColor as BC, Color as C
 class Spell:
     name = "spell"
     rounds = None
-    def __init__(self, caster, target):
+    def __init__(self, caster, target, controller):
         self.caster = caster
         self.target = target
+        self.cont = controller
 
     def cast(self):
         """Spells should define a _cast() method. It should return True if cast is successful and False otherwise."""

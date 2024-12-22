@@ -20,3 +20,8 @@ class FireDOT(sp.Effect):
 
     def _expire(self):
         print(f"{BC.RED}The fire on {C.RED}{self.limb.name}{BC.RED} goes out.{C.OFF}")
+
+# TODO bleed- builds up and if it hits a certain level, creature dies
+# TODO poison- same as bleed
+# TODO shatter- lowers armor
+# TODO light, shadow effects
