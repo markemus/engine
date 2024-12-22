@@ -69,7 +69,7 @@ class Caltrops(CreationSpell):
     name = "Caltrops"
     mana_cost = 5
     humanity_min = -10
-    description = f"Causes enemies to fall. (>{humanity_min}) [{mana_cost}]"
+    description = f"Causes enemies to fall (>{humanity_min}) [{mana_cost}]."
     rounds = 5
     targets = "caster"
 
@@ -108,6 +108,56 @@ class Caltrops(CreationSpell):
 
     def expire(self):
         self._fix_legs()
+
+
+class Lightning(CreationSpell):
+    """Lightning strikes an enemy and has a chance to jump to other enemies."""
+    name = "Lightning"
+    mana_cost = 5
+    humanity_min = -5
+    description = f"Lightning strikes an enemy and jumps to other enemies (>{humanity_min}) [{mana_cost}]."
+    rounds = 1
+    targets = "enemy"
+
+    def _cast(self):
+        # TODO this is very very hacky. But we only need apply_damage(). We could build it into the class definition though.
+        # Create a combat controller just for this spell's duration
+        # (since we don't have access to the main controller from here)
+        import engine.combat
+        # TODO setting char as None is not safe- may autopick options for the player
+        cc = engine.combat.Combat(char=None, cont=None)
+        l_damage = 5
+
+        limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
+        utils.dictprint(limbs)
+        i = input("Select a limb to shoot lightning at: ")
+
+        if i in limbs.keys() and i != "x":
+            # Other limbs to strike from same target
+            other_limbs_to_strike = self.target.get_neighbors(limbs[i])
+            other_limbs_to_strike = other_limbs_to_strike[:random.randrange(0, len(other_limbs_to_strike))]
+            print(f"{BC.MAGENTA}Lightning arcs across the room and strikes {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s {C.RED}{limbs[i].name}{BC.MAGENTA}!{BC.OFF}")
+            cc.apply_damage(self.target, limbs[i], l_damage)
+
+            for limb in other_limbs_to_strike:
+                print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{limb.name}{BC.MAGENTA}!{BC.OFF}")
+                cc.apply_damage(self.target, limb, l_damage)
+
+            # Other limbs to strike from other targets
+            other_targets = [c for c in self.target.location.creatures if c.team not in [self.caster.team, "neutral"] and c is not self.target]
+            other_targets = other_targets[:random.randrange(0, len(other_targets))]
+            for ot in other_targets:
+                jump_limb = random.choice(ot.subelements[0].limb_check("isSurface"))
+                random_neighbors = ot.get_neighbors(jump_limb)
+                print(f"{BC.MAGENTA}Lightning jumps to {BC.YELLOW}{ot.name}{BC.MAGENTA}'s {C.RED}{jump_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                cc.apply_damage(ot, jump_limb, l_damage)
+
+                random_neighbors = random_neighbors[:random.randrange(0, len(random_neighbors))]
+                for r_limb in random_neighbors:
+                    print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{r_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                    cc.apply_damage(ot, r_limb, l_damage)
+            print(f"{BC.MAGENTA}The lightning goes out, leaving a searing afterimage.{BC.OFF}")
+            return True
 
 
 class GrowTreeOfLife(CreationSpell):
@@ -314,7 +364,7 @@ class Shadow(CorruptionSpell):
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
-    humanity_max = 0
+    humanity_max = 1
     description = f"Graft a disembodied limb onto a friendly creature (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "friendly"
@@ -343,6 +393,7 @@ class GraftLimb(CorruptionSpell):
                     # Lowers humanity, if target is appropriate
                     if hasattr(self.target, "humanity"):
                         self.target.humanity -= 1
+                        print(f"{C.RED}{self.target}'s humanity decreases!{C.OFF}")
                     return True
         return False
 
@@ -465,7 +516,6 @@ class AWayHome(sp.Spell):
     rounds = 1
     targets = "caster"
 
-    # TODO-DONE test once we have two levels
     def _cast(self):
         """Creates a door between current location and the pocket apartment. Door will move whenever this spell is cast."""
         door = [x for x in self.caster.home.start.elements if x.name == "magic door"][0]
@@ -477,7 +527,6 @@ class AWayHome(sp.Spell):
 
         # We don't want to lock you into the apartment or overwrite another door.
         if self.caster.location.level != self.caster.home.start.level and not self.caster.location.borders[">"]:
-            # TODO-DONE test moving the door
             if len(door.borders) > 1:
                 # Remove door from old location
                 old_room = door.borders[1]
@@ -559,21 +608,11 @@ class SetHumanity(sp.Spell):
         self.caster.humanity = self.original_humanity
 
 
-# TODO-DONE graft limb- graft a disembodied limb onto a friendly creature
-# TODO-DONE grow beard spell
 # TODO fireball- DOT
 # TODO transform yourself into a monster temporarily (or permanently)
 # TODO summon an ethereal hand with a glowing sword
-# TODO-DONE enthrall- an enemy creature joins your side
-# TODO lightning- damages a few neighboring limbs and has a chance to jump to another enemy
+# TODO-DONE lightning- damages a few neighboring limbs and has a chance to jump to another enemy
 # TODO conjure flaming sword for yourself
-# TODO-DONE disguise as another class (sneak through areas)
 # TODO sword hands
-# TODO-DONE mana costs
-# TODO-DONE Manifest portal to apartment
-# TODO-DONE scrolls to learn spells (eat() for now)
-# TODO-DONE distract- enemy chooses a new target (may choose same one again though)
-# TODO-DONE mana max reduced to maintain minions.
 # TODO weapon effects (inherit from spells)
-# TODO spell of tunneling- makes a tunnel to the next level in current room
 # TODO-DONE store maintenance costs for summoned creatures in a tag on the creature themselves.

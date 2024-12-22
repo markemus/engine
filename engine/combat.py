@@ -190,10 +190,7 @@ class Combat:
 
         return round(damage, 2)
 
-    def attack(self, actor, defender, limb, weapon):
-        damage = self.check_damage(weapon, actor, limb)
-        # Damage roll
-        damage = round(random.random() * damage, 2)
+    def apply_damage(self, defender, limb, damage):
         cutoff = False
         can_amble = defender.limb_count("amble") >= 1
         can_fly = defender.limb_count("flight") >= 1
@@ -219,6 +216,12 @@ class Combat:
             cutoff = True
 
         return cutoff
+
+    def attack(self, actor, defender, limb, weapon):
+        damage = self.check_damage(weapon, actor, limb)
+        # Damage roll
+        damage = round(random.random() * damage, 2)
+        self.apply_damage(defender, limb, damage)
 
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""

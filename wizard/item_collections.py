@@ -15,7 +15,7 @@ for x in dir(sb):
         all_spells.append(variable)
 # all_spells = [spellbook.Caltrops, spellbook.GrowTreeOfLife, spellbook.GraftLimb]
 
-level_one_spells = [sb.Caltrops, sb.Scry, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang]
+level_one_spells = [sb.Caltrops, sb.Scry, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.Lightning]
 
 class RandomScroll(it.Scroll):
     def __init__(self, color=None, texture=None):
