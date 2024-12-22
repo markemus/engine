@@ -97,7 +97,7 @@ class Combat:
             print(f"{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-            print(f"It will deal up to {C.RED}{self.check_damage(weapon, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
+            print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
             if target.limb_count("see") >= 1:
@@ -138,11 +138,11 @@ class Combat:
             if roll >= 5:
                 limb = limb
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack is swift and sure.")
-                self.attack(target, limb, weapon)
+                self.attack(actor, target, limb, weapon)
             elif roll >= 3:
                 limb = random.choice(target.get_neighbors(limb))
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack misses narrowly and strikes {BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF}.")
-                self.attack(target, limb, weapon)
+                self.attack(actor, target, limb, weapon)
             else:
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack misses!")
             used = True
@@ -160,9 +160,9 @@ class Combat:
 
         return weapons
 
-    # TODO strength tag as a damage multiplier- limb needs a trace_parents(limb) function that returns all higher limbs
+    # TODO-DONE strength tag as a damage multiplier- limb needs a trace_parents(limb) function that returns all higher limbs
     #  in the hierarchy (run search on subelements[0])
-    def check_damage(self, weapon, target):
+    def check_damage(self, weapon, actor, target):
         # No weapon
         if not weapon:
             return 0
@@ -178,10 +178,20 @@ class Combat:
             # damage = (damage - target.armor) if damage > target.armor else 0
             damage = (damage / target.armor)
 
+        # TODO create some creatures with strength
+        # Adjust for strength.
+        # This attribute on a parent limb can modify damage positively or negatively (troll vs hobbit eg).
+        parent_strength = [p.strength for p in actor.get_parents(weapon) if hasattr(p, "strength")]
+        if parent_strength:
+            strength = max(parent_strength)
+        else:
+            strength = 1
+        damage = damage * strength
+
         return round(damage, 2)
 
-    def attack(self, defender, limb, weapon):
-        damage = self.check_damage(weapon, limb)
+    def attack(self, actor, defender, limb, weapon):
+        damage = self.check_damage(weapon, actor, limb)
         # Damage roll
         damage = round(random.random() * damage, 2)
         cutoff = False

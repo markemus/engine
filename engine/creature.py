@@ -245,6 +245,18 @@ class Limb:
 
         return neighbors
 
+    def get_parents(self, limb):
+        """Returns the line of descent through the limb tree down to the limb."""
+        if self == limb:
+            return [self]
+        else:
+            for subelement in self.subelements:
+                parents = subelement.get_parents(limb)
+                if parents:
+                    return [self] + parents
+
+        return False
+
     @property
     def armor(self):
         armor = self._armor
@@ -518,6 +530,11 @@ class creature:
 
     def get_neighbors(self, limb):
         return self.subelements[0].get_neighbors(limb)
+
+    def get_parents(self, limb):
+        """Returns the line of descent through the limb tree down to the limb."""
+        parents = self.subelements[0].get_parents(limb)
+        return parents
 
     def update_status(self):
         """Checks all limbs for necessary tags and updates status."""

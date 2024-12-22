@@ -67,7 +67,6 @@ player.humanity = 7
 # Give player some mana to start the game with
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
-
 # thisLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
