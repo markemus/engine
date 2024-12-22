@@ -32,7 +32,7 @@ class Head(cr.Limb):
     appendageRange = (1, 2)
     wears = "animal_head"
     vital = True
-    base_hp = 5
+    base_hp = 10
     size = 1
 
 class Claw(cr.Limb):
@@ -50,7 +50,7 @@ class Paw(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "paw"
-    base_hp = 5
+    base_hp = 3
     size = 1
     amble = 1/3
 
@@ -60,7 +60,7 @@ class Leg(cr.Limb):
     isSurface = True
     appendageRange = (4, 5)
     wears = "animal_leg"
-    base_hp = 10
+    base_hp = 5
     size = 2
 
 class Tail(cr.Limb):

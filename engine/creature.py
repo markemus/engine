@@ -424,7 +424,8 @@ class creature:
         nextRoom = self.location.borders[direction]
 
         if nextRoom:
-            if len(self.subelements[0].limb_check("amble")) >= 1:
+            # if len(self.subelements[0].limb_check("amble")) >= 1:
+            if (self.limb_count("amble") >= 1) or (self.limb_count("flight") >= 1):
                 currentRoom.removeCreature(self)
                 self.location = currentRoom.borders[direction]
                 nextRoom.addCreature(self)

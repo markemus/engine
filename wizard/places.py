@@ -6,7 +6,7 @@ import assets.furniture as fur
 
 import wizard.furniture
 
-from wizard.rat import GiantRat
+from wizard.giant_rat import GiantRat
 from wizard.giant_spider import GiantSpider
 from wizard.tunnel_worm import TunnelWorm
 

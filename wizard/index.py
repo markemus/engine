@@ -1,10 +1,10 @@
 from assets import cat
-from assets import human as a_human
 
 from engine import game
 from engine import interface
 
 from wizard import human
+from wizard import giant_bat
 from wizard import spellbook as sb
 from wizard import styles
 from wizard import suits as su
@@ -23,7 +23,8 @@ thisLevel = t_game.level_list[0]
 # TODO check before release that this still puts the cat in the den!
 homeLevel = t_game.level_list[1]
 
-player = human.PlayerHuman(location=thisLevel.start)
+# player = human.PlayerHuman(location=thisLevel.start)
+player = giant_bat.GiantBat(location=thisLevel.start)
 familiar = cat.Cat(location=thisLevel.start)
 familiar.familiar = True
 # player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
@@ -63,9 +64,8 @@ player.spellbook.append(sb.SetHumanity)
 player.humanity = 7
 
 # Give player some mana to start the game with
-# player.subelements[0].equip(su.ManaLocket(color="emerald", texture="in silver"))
-player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
-player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
+# player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
+# player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 
 # thisLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 

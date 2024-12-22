@@ -32,7 +32,7 @@ class CombatAI:
         # print(limbs)
         weapons = [x for x in limbs if hasattr(x, "damage")]
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
-        feet = [x for x in limbs if (hasattr(x, "amble"))]
+        feet = [x for x in limbs if (hasattr(x, "amble") or hasattr(x, "flight"))]
 
         # subelements[0] is always vital
         if target.subelements[0] not in vitals:

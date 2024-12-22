@@ -24,7 +24,6 @@ class Combat:
                     graspHand.grasped = weapon
                     print(f"{BC.CYAN}{actor.name} grabs the {weapon.name} from the {inv.name}!")
 
-    # TODO-DECIDE add enemies falling over (easier to-hit rolls)?
     def fullCombat(self, include_char=True):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
@@ -126,11 +125,11 @@ class Combat:
             if actor.limb_count("see") < 1:
                 # Blind fighting
                 roll = -3 + random.randint(0, 8) + limb.size
-            elif target.limb_count("amble") < 1 and actor.limb_count("amble") >= 1:
+            elif ((target.limb_count("amble") < 1) and (target.limb_count("flight") < 1)) and ((actor.limb_count("amble") >= 1) or actor.limb_count("flight") >= 1):
                 # easier to hit prone enemies
                 print(f"{C.RED}{target.name} is prone!{C.OFF}")
                 roll = 3 + random.randint(0, 2) + limb.size
-            elif target.limb_count("amble") >= 1 and actor.limb_count("amble") < 1:
+            elif ((target.limb_count("amble") >= 1) or (target.limb_count("flight") >= 1)) and ((actor.limb_count("amble") < 1) and (actor.limb_count("flight") < 1)):
                 print(f"{C.RED}{actor.name} is prone!{C.OFF}")
                 roll = -3 + random.randint(0, 8) + limb.size
             else:
@@ -187,7 +186,8 @@ class Combat:
         damage = round(random.random() * damage, 2)
         cutoff = False
         can_amble = defender.limb_count("amble") >= 1
-        
+        can_fly = defender.limb_count("flight") >= 1
+
         limb.hp -= damage
         print(f"It deals {C.RED}{damage}{C.OFF} damage!")
 
@@ -198,9 +198,10 @@ class Combat:
                 print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                 self.throw_limb(defender, limb)
                 # check if target falls over
-                if hasattr(limb, "amble") and can_amble:
-                    if defender.limb_count("amble") < 1:
+                if (hasattr(limb, "amble") and can_amble) or (hasattr(limb, "flight") and can_fly):
+                    if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
                         print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
+
             else:
                 # Just remove the limb, the creature class will handle the rest.
                 defender.remove_limb(limb)
