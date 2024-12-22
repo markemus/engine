@@ -81,6 +81,8 @@ class Torso(cr.Limb):
     size = 2
 
 class GiantRat(cr.creature):
+    """Although much larger than a common rat, this creature still has a well-earned reputation as a creature
+    for children to practice their skills against."""
     classname = "giant rat"
     aggressive = True
     team = "prey"

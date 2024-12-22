@@ -43,3 +43,13 @@ class ServantGoblin(Goblin):
     aggressive = False
     team = "goblinkin"
     suits = [suits.plainsuit]
+
+class ShallowGoblin(cr.creature):
+    """A shallow goblin. These creature are eking out a meager existence near the surface and have only basic equipment."""
+    classname = "shallow goblin"
+    team = "goblinkin"
+    namelist = nm.names["goblin"]
+    baseElem = Torso
+    colors = ["red", "brown", "green", "black", "beige"]
+    textures = ["scaled", "haired", "skinned"]
+    suits = [suits.prisonersuit, suits.copper_weapons]

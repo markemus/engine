@@ -250,6 +250,9 @@ class Axe(i.Item):
     name = "axe"
     damage = 15
 
+class CopperAxe(Axe):
+    damage = 5
+
 class Cleaver(i.Item):
     name = "cleaver"
     damage = 30
@@ -262,9 +265,15 @@ class Spear(i.Item):
     name = "spear"
     damage = 10
 
+class CopperSpear(Spear):
+    damage = 4
+
 class Sword(i.Item):
     name = "sword"
     damage = 20
+
+class CopperSword(Sword):
+    damage = 7
 
 class Knife(i.Item):
     name = "knife"
@@ -390,6 +399,17 @@ weapons = {
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+copper_weapons = {
+    "wears": {},
+    "grasps": {
+        "right hand": (CopperSword, CopperSpear, CopperAxe)},
+    "color": ["shiny", "polished", "gleaming"],
+    "color_scheme": "same",
+    "texture": ["copper"],
     "texture_scheme": "same",
     "full": True,
 }

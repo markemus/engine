@@ -11,10 +11,10 @@ from wizard.giant_bat import GiantBat
 from wizard.giant_spider import GiantSpider
 from wizard.tunnel_worm import TunnelWorm
 
-from assets.goblin import Goblin
+from assets.goblin import Goblin, ShallowGoblin
 
 cc = {
-    "caverns": [(GiantRat, 4), (GiantRat, 4), (Goblin, 2), (None, 2)],
+    "caverns": [(GiantRat, 4), (GiantBat, 4), (ShallowGoblin, 2), (None, 2)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
 }
 
@@ -51,14 +51,14 @@ class CavernEntrance(pl.Place):
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
 
-
+# TODO-DONE goblin equipment is too powerful for l1
 class Cavern(pl.Place):
     name = "cavern"
     sprite = "C"
     count = (3, 7)
     colors = ["gray", "dark", "dripping"]
     textures = ["stone"]
-    creature_classes = [cc["caverns"], cc["caverns"], cc["caverns"], cc["caverns"], cc["caverns"], cc["caverns"]]
+    creature_classes = [cc["caverns"], cc["caverns"], cc["caverns"], cc["caverns"]]
     # creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]

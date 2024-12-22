@@ -160,6 +160,7 @@ class Scroll(Item):
         """Color and texture are accepted but ignored."""
         super().__init__(color="white", texture="parchment")
 
+    # TODO should check "see"
     def use(self, creature):
         if self.spell not in creature.spellbook:
             creature.spellbook.append(self.spell)

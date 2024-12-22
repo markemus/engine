@@ -236,7 +236,7 @@ class Limb:
         if self is limb:
             # This will occur if limb is first element checked.
             # Therefore, always call this method on root element of the creature or you will miss parent element.
-            neighbors = [self, *self.subelements]
+            neighbors = [*self.subelements]
         elif limb in self.subelements:
             neighbors = [self, *[x for x in self.subelements if x is not limb], *limb.subelements]
         else:
@@ -287,6 +287,7 @@ class Weapon(Limb):
 
         return damage, item
 
+# TODO strength tag on arms requires a "find_parents(limb)" search function on creature.
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""

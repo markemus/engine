@@ -1,4 +1,3 @@
-"""A giant flying rat."""
 import engine.creature as cr
 
 import assets.commonlimbs as cl
@@ -55,6 +54,7 @@ class Torso(cr.Limb):
     size = 2
 
 class GiantBat(cr.creature):
+    """A giant flying rat."""
     classname = "giant bat"
     aggressive = True
     team = "prey"

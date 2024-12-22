@@ -4,6 +4,8 @@ import engine.creature as cr
 import engine.spells as sp
 import engine.utils as utils
 
+import assets.dog
+
 import wizard.suits as su
 import wizard.zombie as z
 
@@ -125,10 +127,29 @@ class GrowTreeOfLife(CreationSpell):
         return True
 
 
+class SummonCerberus(CreationSpell):
+    name = "Summon Cerberus"
+    mana_cost = 5
+    humanity_min = 1
+    description = f"Summons a three headed dog to aid you (>{humanity_min}) [{mana_cost}]."
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        """This is useful if you want to test combat magic on an opponent."""
+        cerberus = assets.dog.Cerberus(location=self.target.location)
+        cerberus.mana_cost = self.mana_cost
+        cerberus.team = self.caster.team
+        self.target.location.creatures.append(cerberus)
+        self.caster.companions.append(cerberus)
+        print(f"{BC.MAGENTA}A {C.RED}cerberus{BC.MAGENTA} pops into existence!{BC.OFF}")
+        return True
+
+
 class SummonSpider(CreationSpell):
     name = "Summon Spider"
     mana_cost = 5
-    humanity_min = -5
+    humanity_min = 0
     description = f"Summons an enemy spider (>{humanity_min}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
@@ -144,8 +165,8 @@ class SummonSpider(CreationSpell):
 
 class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
-    mana_cost = 5
-    humanity_min = 7
+    mana_cost = 10
+    humanity_min = 5
     description = f"Summons a friendly tentacle monster (>{humanity_min}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
@@ -382,6 +403,7 @@ class FleshRip(CorruptionSpell):
             return False
 
 
+# TODO set mana cost on creature- how to do it fairly?
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7
@@ -403,7 +425,7 @@ class Enthrall(CorruptionSpell):
         self.target.ai.target = None
         print(f"{BC.MAGENTA}The enthralling wears off and {BC.YELLOW}{self.target.name}{BC.MAGENTA} turns against you again.{BC.OFF}")
 
-
+# TODO should work on friendly targets too
 class Distract(CorruptionSpell):
     name = "Disorient"
     mana_cost = 5

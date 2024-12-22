@@ -3,7 +3,7 @@ import engine.creature as cr
 class Teeth(cr.Weapon):
     name = "teeth"
     subelement_classes = []
-    _damage = 5
+    _damage = 10
     appendageRange = (1, 2)
     wears = "fangs"
     base_hp = 8
