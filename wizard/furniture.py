@@ -65,13 +65,15 @@ class MagicDoor(st.door):
 class Bed(fur.Bed):
     count = (1, 2)
 
-class Chest(pl.DisplayFurniture):
+class L1Chest(pl.DisplayFurniture):
     name = "treasure chest"
     color = ["brown", "black", "gray"]
     texture = ["wood"]
     count = (1, 2)
     # A random weapon or a random scroll, 50/50 odds
-    vis_collections = [((col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2)))]
+    # vis_collections = [((col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2)))]
+    # A random scroll
+    vis_collections = [(wcol.l1_scrolls, (1, 2))]
 
 class Stalactite(pl.Element):
     name = "stalactite"

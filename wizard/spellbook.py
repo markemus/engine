@@ -39,6 +39,29 @@ class CorruptionSpell(sp.Spell):
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({self.humanity_max})!{BC.OFF}")
 
 # Creation
+class Flashbang(CreationSpell):
+    name = "Flashbang"
+    mana_cost = 3
+    humanity_min = -5
+    description = f"Temporarily blind your enemies in the area of effect (>{humanity_min}) [{mana_cost}]."
+    rounds = 5
+    targets = "caster"
+    original_see = {}
+
+    def _cast(self):
+        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
+        for enemy in enemies:
+            for eye in enemy.subelements[0].limb_check("see"):
+                self.original_see[eye] = eye.see
+                eye.see = 0
+                print(f"{BC.YELLOW}{enemy.name}{BC.MAGENTA}'s {BC.CYAN}{eye.name}{BC.MAGENTA} is blinded!{BC.OFF}")
+        return True
+
+    def expire(self):
+        for eye in self.original_see.keys():
+            eye.see = self.original_see[eye]
+            print(f"{BC.CYAN}{eye.name}{BC.MAGENTA} can see again.{BC.OFF}")
+
 class Caltrops(CreationSpell):
     """Area of effect spell that causes enemies to fall down."""
     name = "Caltrops"
@@ -150,7 +173,7 @@ class SummonTentacleMonster(CreationSpell):
 class ArmorOfLight(CreationSpell):
     name = "Light Armor"
     mana_cost = 5
-    humanity_min = -10
+    humanity_min = -5
     description = f"Conjures a set of armor made of light (>{humanity_min}) [{mana_cost}]."
     rounds = 20
     targets = "friendly"
@@ -394,31 +417,7 @@ class Distract(CorruptionSpell):
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is distracted!{BC.OFF}")
 
 
-# class Distract(CorruptionSpell)
-
 # Neither
-class Flashbang(sp.Spell):
-    name = "Flashbang"
-    mana_cost = 3
-    description = f"Temporarily blind your enemies in the area of effect [{mana_cost}]."
-    rounds = 5
-    targets = "caster"
-    original_see = {}
-
-    def _cast(self):
-        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
-        for enemy in enemies:
-            for eye in enemy.subelements[0].limb_check("see"):
-                self.original_see[eye] = eye.see
-                eye.see = 0
-                print(f"{BC.YELLOW}{enemy.name}{BC.MAGENTA}'s {BC.CYAN}{eye.name}{BC.MAGENTA} is blinded!{BC.OFF}")
-        return True
-
-    def expire(self):
-        for eye in self.original_see.keys():
-            eye.see = self.original_see[eye]
-            print(f"{BC.CYAN}{eye.name}{BC.MAGENTA} can see again.{BC.OFF}")
-
 class Scry(sp.Spell):
     name = "Scry"
     mana_cost = 1

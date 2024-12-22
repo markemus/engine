@@ -23,8 +23,8 @@ thisLevel = t_game.level_list[0]
 # TODO check before release that this still puts the cat in the den!
 homeLevel = t_game.level_list[1]
 
-# player = human.PlayerHuman(location=thisLevel.start)
-player = giant_bat.GiantBat(location=thisLevel.start)
+player = human.PlayerHuman(location=thisLevel.start)
+# player = giant_bat.GiantBat(location=thisLevel.start)
 familiar = cat.Cat(location=thisLevel.start)
 familiar.familiar = True
 # player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
@@ -44,15 +44,15 @@ t_game.set_char(player)
 # player.spellbook.append(sb.Shadow)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.SummonSpider)
-player.spellbook.append(sb.SummonTentacleMonster)
-player.spellbook.append(sb.Distract)
+# player.spellbook.append(sb.SummonTentacleMonster)
+# player.spellbook.append(sb.Distract)
 # player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.ReanimateLimb)
 # player.spellbook.append(sb.Caltrops)
 # player.spellbook.append(sb.FleshRip)
 # player.spellbook.append(sb.Enthrall)
 # player.spellbook.append(sb.Flashbang)
-player.spellbook.append(sb.ArmorOfLight)
+# player.spellbook.append(sb.ArmorOfLight)
 # player.spellbook.append(sb.GrowTreeOfLife)
 # player.spellbook.append(sb.GrowBeard)
 player.spellbook.append(sb.AWayHome)
@@ -64,8 +64,8 @@ player.spellbook.append(sb.SetHumanity)
 player.humanity = 7
 
 # Give player some mana to start the game with
-# player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
-# player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
+player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
+player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 
 # thisLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
