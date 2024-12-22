@@ -25,9 +25,33 @@ class Spell:
 
 
     def update(self):
-        """Spells should define an update() method. This is called during every combat round."""
+        """Spells may define an update() method. This is called during every combat round."""
         pass
 
     def expire(self):
-        """Spells should define an expire() method if they need one."""
+        """Spells may define an expire() method if they need one."""
         pass
+
+
+class Effect:
+    # Effects may define a "desc" attribute that will be added to limb.desc()
+    desc = None
+    rounds = None
+    def __init__(self, creature, limb):
+        self.creature = creature
+        self.limb = limb
+
+    def cast(self):
+        """Effects should implement a cast() method. This will be called when the effect is first applied, similar to
+        a spell"""
+        pass
+
+    def update(self):
+        """This works the same way as in Spell()."""
+        pass
+
+    def expire(self):
+        """Effects may implement an _expire() method. It is optional."""
+        if hasattr(self, "_expire"):
+            self._expire()
+        self.limb.active_effects.remove(self)

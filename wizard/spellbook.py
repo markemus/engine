@@ -120,13 +120,12 @@ class Lightning(CreationSpell):
     targets = "enemy"
 
     def _cast(self):
-        # TODO this is very very hacky. But we only need apply_damage(). We could build it into the class definition though.
         # Create a combat controller just for this spell's duration
         # (since we don't have access to the main controller from here)
         import engine.combat
-        # TODO setting char as None is not safe- may autopick options for the player
-        cc = engine.combat.Combat(char=None, cont=None)
-        l_damage = 5
+        # TODO-DONE setting char as None is not safe- may autopick options for the player
+        cc = engine.combat.Combat(char=self.caster, cont=None)
+        l_damage = 4
 
         limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
         utils.dictprint(limbs)
@@ -231,16 +230,12 @@ class SummonTentacleMonster(CreationSpell):
         print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
 
-    # TODO-DECIDE I really want permanent summons. Think of a way to do it that isn't brokenly unbalanced or awful.
-    #  or at least, make them die instead of disappear.
     # def expire(self):
     #     print(f"{BC.MAGENTA}The tentacle monster winks out of existence.{BC.OFF}")
     #     self.caster.companions.remove(self.tm)
     #     self.tm.location.creatures.remove(self.tm)
 
 
-# TODO-DONE bug will occur if creature dies wearing the armor (it'll be available to be picked up).
-#  possible fix- set gear to be deleted by creature.die(). But what if a limb is chopped off?
 class ArmorOfLight(CreationSpell):
     name = "Light Armor"
     mana_cost = 5

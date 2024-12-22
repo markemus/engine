@@ -1,5 +1,4 @@
 import random
-import time
 
 from colorist import Color as C
 from colorist import BrightColor as BC
@@ -30,6 +29,7 @@ class Limb:
         self._elementGen()
         self.equipment = []
         self.covers = []
+        self.active_effects = []
         # self.vis_inv = []
         self.hp = self.base_hp
 
@@ -65,7 +65,12 @@ class Limb:
 
     def desc(self, full=True, offset=0, stats=True):
         """Basic describe function is always called desc."""
-        text = (" "*offset) + f"+ {C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
+        text = (" "*offset) + f"+ "
+        unique_effects = {x.__class__: x for x in self.active_effects}.values()
+        for effect in unique_effects:
+            if effect.desc:
+                text += f"{BC.RED}{effect.desc}{BC.OFF} "
+        text += f"{C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
         if stats:
             text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armor}){C.OFF}"
         if full:
@@ -257,6 +262,17 @@ class Limb:
 
         return False
 
+    def is_subelement(self, limb):
+        """Returns True if limb is in this Limb's subelement hierarchy."""
+        sub = False
+        for subelement in self.subelements:
+            sub = subelement.is_subelement(limb)
+            if sub:
+                break
+        if limb in self.subelements or limb is self:
+            sub = True
+        return sub
+
     @property
     def armor(self):
         armor = self._armor
@@ -272,6 +288,7 @@ class Weapon(Limb):
     """A limb that can deal damage."""
     name = "NO_NAME_WEAPON"
     _damage = 0
+    effects = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -454,7 +471,10 @@ class creature:
 
     def limb_count(self, tag):
         """Counts total of tag value in subelements."""
-        limbs = self.subelements[0].limb_check(tag)
+        if self.subelements:
+            limbs = self.subelements[0].limb_check(tag)
+        else:
+            limbs = []
 
         limb_total = 0
         for limb in limbs:

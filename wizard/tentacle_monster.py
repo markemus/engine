@@ -15,8 +15,10 @@ class Torso(cr.Limb):
     subelement_classes = [Tentacle]
     size = 2
     isSurface = True
+    base_hp = 60
 
 class TentacleMonster(cr.creature):
+    """A giant tentacle monster. This creature cannot move but is extremely dangerous."""
     classname = "tentacle monster"
     namelist = nl.names["eldritch"]
     team = "monster"
@@ -25,6 +27,6 @@ class TentacleMonster(cr.creature):
     textures = ["smooth", "slimy"]
     suits = []
 
-    def leave(self, direction):
-        """Tentacle monsters have amble (so they don't fall over) but they can't actually move."""
-        print(f"{C.RED}{self.name} cannot move.{C.OFF}")
+    # def leave(self, direction):
+    #     """Tentacle monsters have amble (so they don't fall over) but they can't actually move."""
+    #     print(f"{C.RED}{self.name} cannot move.{C.OFF}")

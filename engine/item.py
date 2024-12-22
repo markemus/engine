@@ -28,6 +28,7 @@ class Item:
     # requires = (tag, amount) if needed- eg (grasp, 1)
     requires = None
     level = 1
+    effects = []
 
     def __init__(self, color, texture):
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""

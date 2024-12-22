@@ -1,6 +1,11 @@
 import engine.item as i
 
+import assets.suits as su
 
+import wizard.effectsbook as eff
+
+
+# Light suit
 class LightBoot(i.Item):
     name = "boot of light"
     # canwear[limb_type] governs where the item can be worn by a creature
@@ -91,6 +96,8 @@ class LightHelm(i.Item):
     descends = 2
     cannot_remove = True
 
+
+# Mana gear
 class RingOfMana(i.Item):
     """A ring that stores a small amount of mana."""
     name = "ring of mana"
@@ -114,6 +121,13 @@ class ManaLocket(i.Item):
     mana = base_mana
 
 
+# Magic weapons
+class SwordOfFire(su.Sword):
+    effects = [eff.FireDOT]
+
+
+
+# Suits
 lightsuit = {
     "wears": {
         "head": LightHelm,
@@ -135,3 +149,4 @@ lightsuit = {
     "texture_scheme": "same",
     "full": True,
     }
+

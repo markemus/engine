@@ -199,29 +199,43 @@ class Combat:
         print(f"It deals {C.RED}{damage}{C.OFF} damage!")
 
         if limb.hp <= 0:
-            # core limb needs to be treated differently- it will drop when creature dies and we don't want to duplicate that.
-            if limb is not defender.subelements[0]:
-                defender.remove_limb(limb)
-                print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
-                self.throw_limb(defender, limb)
-                # check if target falls over
-                if (hasattr(limb, "amble") and can_amble) or (hasattr(limb, "flight") and can_fly):
-                    if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
-                        print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
+            # creature may already be dead, in which case we don't need to update defender regardless
+            if defender.subelements:
+                # core limb needs to be treated differently- it will drop when creature dies and we don't want to duplicate that.
+                if limb is not defender.subelements[0]:
+                    # limb may already be detached if damage is DOT
+                    if defender.subelements[0].is_subelement(limb):
+                        defender.remove_limb(limb)
+                        print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
+                        self.throw_limb(defender, limb)
+                        # check if target falls over
+                        if (hasattr(limb, "amble") and can_amble) or (hasattr(limb, "flight") and can_fly):
+                            if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
+                                print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
 
-            else:
-                # Just remove the limb, the creature class will handle the rest.
-                defender.remove_limb(limb)
+                else:
+                    # Just remove the limb, the creature class will handle the rest.
+                    defender.remove_limb(limb)
 
             cutoff = True
 
         return cutoff
+
+    def apply_effects(self, defender, limb, weapon):
+        true_weapon = weapon.damage[1]
+        effects = true_weapon.effects
+        for effect in effects:
+            e = effect(defender, limb)
+            e.cast()
+            self.cont.game.active_spells.append(e)
+            limb.active_effects.append(e)
 
     def attack(self, actor, defender, limb, weapon):
         damage = self.check_damage(weapon, actor, limb)
         # Damage roll
         damage = round(random.random() * damage, 2)
         self.apply_damage(defender, limb, damage)
+        self.apply_effects(defender, limb, weapon)
 
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""

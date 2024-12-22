@@ -1,5 +1,6 @@
 import engine.creature as cr
 
+# TODO-DECIDE store original creature somewhere on limb when it gets removed? Then we could name zombies with class
 class Zombie(cr.creature):
     """A reanimated Limb."""
     classname = "zombie"
