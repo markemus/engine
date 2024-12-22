@@ -26,7 +26,7 @@ class MagicFoyer(pl.Place):
     colors = ["oak", "teak", "mahogany"]
     textures = ["paneled"]
     creature_classes = []
-    furniture_classes = [fur.Carpet]
+    furniture_classes = [fur.Carpet, wizard.furniture.Doormat]
     subelement_classes = [wall, floor, wizard.furniture.MagicDoor]
 
 class PlayerBathroom(assets.places.Bathroom):

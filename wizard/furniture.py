@@ -55,6 +55,7 @@ class TreeOfLife(pl.Furniture):
     count = (1, 2)
     subelement_classes = [Trunk]
 
+
 class MagicDoor(st.door):
     name = "magic door"
     color = ["glowing"]
@@ -63,6 +64,12 @@ class MagicDoor(st.door):
 
 # Bed for wizard's house should only spawn one bed
 class Bed(fur.Bed):
+    count = (1, 2)
+
+class Doormat(pl.Furniture):
+    name = "welcome mat"
+    color = ["'Don't let the cat out"]
+    texture = ["or the monsters in'"]
     count = (1, 2)
 
 class L1Chest(pl.DisplayFurniture):
@@ -74,6 +81,7 @@ class L1Chest(pl.DisplayFurniture):
     # vis_collections = [((col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2)))]
     # A random scroll
     vis_collections = [(wcol.l1_scrolls, (1, 2))]
+
 
 class Stalactite(pl.Element):
     name = "stalactite"
