@@ -139,8 +139,8 @@ class Potion(Item):
     usable = True
     consumable = True
     cont = None
-    def __init__(self, color="gray", texture="murky"):
-        super().__init__(color=color, texture=texture)
+    def __init__(self, color=None, texture=None):
+        super().__init__(color="gray", texture="murky")
 
     def effect(self, creature):
         """Subclasses should define an effect on creature when creature drinks the potion."""

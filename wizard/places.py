@@ -87,7 +87,7 @@ class CavernVillage(CavernOpen):
     """A cavern village with some loot."""
     name = "goblin village"
     sprite = "C"
-    count = (1, 3)
+    count = (1, 4)
     furniture_classes = [wizard.furniture.Mattress, wizard.furniture.Firepit, wizard.furniture.L1Chest]
 
 class GoblinChiefVillage(CavernVillage):

@@ -152,7 +152,7 @@ lightsuit = {
     "full": True,
     }
 
-lightsword = {
+lightsword_ethereal = {
     "grasps": {
         "right hand": SwordOfLight,
     },
@@ -160,6 +160,18 @@ lightsword = {
     "color": ["glowing"],
     "color_scheme": "same",
     "texture": ["ethereal"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+lightsword = {
+    "grasps": {
+        "right hand": SwordOfLight,
+    },
+    "wears": {},
+    "color": ["glowing"],
+    "color_scheme": "same",
+    "texture": ["bronze"],
     "texture_scheme": "same",
     "full": True,
 }

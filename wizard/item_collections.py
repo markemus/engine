@@ -3,10 +3,16 @@ import random
 
 import engine.spells
 import engine.item as it
+import engine.suits_and_collections as sc
+
+import assets.potions
+
+import wizard.spellbook as sb
+import wizard.suits as wsu
+
+from assets.human import Human
 
 from colorist import BrightColor as BC, Color as C
-
-from wizard import spellbook as sb
 
 
 # Assemble a list of all spells in the wizard.spellbook module
@@ -46,6 +52,26 @@ class Plaque(it.Item):
         engraving = input(f"{BC.CYAN}Enter a message to engrave onto the plaque: {BC.OFF}")
         self.color = engraving
 
+potions_col = {
+    "contains": [(assets.potions.PotionOfStoneskin, assets.potions.TentacleGrowthPotion, assets.potions.PotionOfHealing)],
+    "color": ["None"],
+    "color_scheme": "same",
+    "texture": ["None"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+firesword_col = sc.suit_to_collection(wsu.firesword, model=Human)
+lightsword_col = sc.suit_to_collection(wsu.lightsword, model=Human)
+
+mana_items = {
+    "contains": [(wsu.RingOfMana, wsu.ManaLocket)],
+    "color": ["sapphire", "ruby", "emerald", "diamond"],
+    "color_scheme": "unique",
+    "texture": ["in silver", "in gold", "in platinum"],
+    "texture_scheme": "unique",
+    "full": True,
+}
 
 l1_scrolls = {
     "contains": [LevelOneScroll],
@@ -58,9 +84,9 @@ l1_scrolls = {
 
 plaque = {
     "contains": [Plaque],
-    "color": "None",
+    "color": ["None"],
     "color_scheme": "same",
-    "texture": "None",
+    "texture": ["None"],
     "texture_scheme": "same",
     "full": True,
 }

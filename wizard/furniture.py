@@ -90,7 +90,8 @@ class L1Chest(pl.DisplayFurniture):
     # A random weapon or a random scroll, 50/50 odds
     # vis_collections = [((col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2)))]
     # A random scroll
-    vis_collections = [(wcol.l1_scrolls, (1, 2))]
+    vis_collections = [(wcol.l1_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
+    # vis_collections = [((wcol.firesword_col, (1, 2)), (wcol.lightsword_col, (1, 2)))]
 
 
 class Stalactite(pl.Element):
@@ -103,7 +104,7 @@ class Stalagmite(pl.Element):
 
 class Mattress(pl.Furniture):
     name = "mattress"
-    count = (3, 5)
+    count = (3, 6)
     color = ["dirty", "moldy", "ratty", "moth-eaten"]
     texture = ["cloth", "lumpy"]
 
