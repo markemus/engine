@@ -112,7 +112,7 @@ class Webbed(sp.Effect):
         print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} is no longer webbed.{BC.OFF}")
 
 
-# TODO only cast on creatures that can_fear.
+# TODO-DONE only cast on creatures that can_fear.
 class Fear(sp.Effect):
     """A creature with a fear tag on creature.subelements[0] cannot attack."""
     rounds = 5
@@ -134,4 +134,5 @@ class Fear(sp.Effect):
 # TODO bleed- builds up and if it hits a certain level, creature dies
 # TODO poison- same as bleed
 # TODO-DONE webbed effect- can't amble or use as weapon
-# TODO fear effect- on subelements[0], makes creature unable to attack
+# TODO-DONE fear effect- on subelements[0], makes creature unable to attack
+# TODO paralyze

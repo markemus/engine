@@ -81,8 +81,8 @@ class Interface:
             print(f"{BC.CYAN}There are still enemies around.{BC.OFF}")
 
     def magic(self):
-        """Magic casting requires knowledge of the combat state."""
         if not (hasattr(self.cont.game.char.subelements[0], "fear") and self.cont.game.char.subelements[0].fear):
+            # Magic casting requires knowledge of the combat state.
             self.cont.cast_magic(self.state)
         else:
             print(f"{C.RED}You cannot cast magic while you are afraid!{C.OFF}")

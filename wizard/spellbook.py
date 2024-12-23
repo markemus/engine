@@ -474,7 +474,7 @@ class GraftLimb(CorruptionSpell):
 class ReanimateLimb(CorruptionSpell):
     name = "Reanimate"
     mana_cost = 5
-    humanity_max = 5
+    humanity_max = -5
     description = f"Reanimates a dead creature as a zombie (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
@@ -499,6 +499,12 @@ class ReanimateLimb(CorruptionSpell):
                 self.caster.location.addCreature(zombie)
                 self.caster.companions.append(zombie)
                 print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
+
+                # Reduces caster's humanity
+                if hasattr(self.caster, "humanity"):
+                    self.caster.humanity -= 1
+                    print(f"{C.RED}{self.caster}'s humanity decreases!{C.OFF}")
+
                 return True
 
 
@@ -561,6 +567,20 @@ class Distract(CorruptionSpell):
     def _cast(self):
         self.target.ai.target = None
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is distracted!{BC.OFF}")
+
+
+class Fear(CorruptionSpell):
+    name = "Fear"
+    mana_cost = 5
+    humanity_max = -7
+    description = f"Terrify an opponent and prevent them from attacking (<{humanity_max}) [{mana_cost}]."
+    rounds = 1
+    targets = "enemy"
+
+    def _cast(self):
+        fear = eff.Fear(creature=self.target, limb=self.target.subelements[0], controller=self.cont)
+        fear.cast()
+        return True
 
 
 # Neither
@@ -684,5 +704,4 @@ class SetHumanity(sp.Spell):
 # TODO potions
 # TODO vampiric bite- steal hp from limb to heal
 # TODO disarm
-# TODO paralyze
 # TODO possession- reduces humanity
