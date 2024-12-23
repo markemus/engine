@@ -4,6 +4,8 @@ import random
 import engine.spells
 import engine.item as it
 
+from colorist import BrightColor as BC, Color as C
+
 from wizard import spellbook as sb
 
 
@@ -31,12 +33,34 @@ class LevelOneScroll(it.Scroll):
         self.spell = random.choice(level_one_spells)
         self.name = f"scroll of {self.spell.name}"
 
+# TODO make this inscription visible in l:desc() in controller.
+class Plaque(it.Item):
+    name = "plaque"
+    usable = True
+    consumable = False
+
+    def __init__(self, color=None, texture=None):
+        super().__init__(color="", texture="")
+
+    def use(self, creature):
+        engraving = input(f"{BC.CYAN}Enter a message to engrave onto the plaque: {BC.OFF}")
+        self.color = engraving
+
 
 l1_scrolls = {
     "contains": [LevelOneScroll],
     "color": ["white"],
     "color_scheme": "same",
     "texture": ["parchment"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+plaque = {
+    "contains": [Plaque],
+    "color": "None",
+    "color_scheme": "same",
+    "texture": "None",
     "texture_scheme": "same",
     "full": True,
 }

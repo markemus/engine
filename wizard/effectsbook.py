@@ -9,7 +9,7 @@ class FireDOT(sp.Effect):
     rounds = 5
 
     def update(self):
-        print(f"{C.RED}{self.creature}'s {self.limb.name} is burning!{C.OFF}")
+        print(f"{C.RED}{self.creature.name}'s {self.limb.name} is burning!{C.OFF}")
         self.cont.combat.apply_damage(defender=self.creature, limb=self.limb, damage=self.damage)
 
     def _expire(self):

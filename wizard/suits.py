@@ -106,7 +106,7 @@ class RingOfMana(i.Item):
     canwear["finger"] = True
     covers["finger"] = True
     level = 2
-    base_mana = 10
+    base_mana = 5
     mana = base_mana
 
 class ManaLocket(i.Item):
@@ -160,6 +160,18 @@ lightsword = {
     "color": ["glowing"],
     "color_scheme": "same",
     "texture": ["ethereal"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+firesword = {
+    "grasps": {
+        "right hand": SwordOfFire,
+    },
+    "wears": {},
+    "color": ["firey"],
+    "color_scheme": "same",
+    "texture": ["bronze"],
     "texture_scheme": "same",
     "full": True,
 }

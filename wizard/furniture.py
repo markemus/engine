@@ -56,6 +56,7 @@ class TreeOfLife(pl.Furniture):
     subelement_classes = [Trunk]
 
 
+# Wizard's home
 class MagicDoor(st.door):
     name = "magic door"
     color = ["glowing"]
@@ -72,6 +73,15 @@ class Doormat(pl.Furniture):
     texture = ["or the monsters in'"]
     count = (1, 2)
 
+class TrophyPlinth(pl.DisplayFurniture):
+    name = "trophy plinth"
+    color = ["black", "marble", "granite"]
+    texture = ["stone"]
+    count = (10, 11)
+    vis_collections = [(wcol.plaque, (1, 2))]
+
+
+# Caverns- level one
 class L1Chest(pl.DisplayFurniture):
     name = "treasure chest"
     color = ["brown", "black", "gray"]
@@ -90,3 +100,15 @@ class Stalactite(pl.Element):
 class Stalagmite(pl.Element):
     name = "stalagmite"
     count = (0, 5)
+
+class Mattress(pl.Furniture):
+    name = "mattress"
+    count = (3, 5)
+    color = ["dirty", "moldy", "ratty", "moth-eaten"]
+    texture = ["cloth", "lumpy"]
+
+class Firepit(pl.Furniture):
+    name = "fire pit"
+    count = (1, 2)
+    color = ["burning", "warm", "cold", "ashen"]
+    texture = ["wood", "charcoal"]

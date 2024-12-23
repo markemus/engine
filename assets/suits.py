@@ -302,8 +302,8 @@ class CopperSword(Sword):
 class BronzeSword(Sword):
     damage = 14
 
-class Knife(i.Item):
-    name = "knife"
+class Quarterstaff(i.Item):
+    name = "quarterstaff"
     damage = 10
 
 # Special
@@ -450,7 +450,7 @@ copper_weapons = {
 basic_weapons = {
     "wears": {},
     "grasps": {
-        "right hand": (Knife)},
+        "right hand": (Quarterstaff)},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],

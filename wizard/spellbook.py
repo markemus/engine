@@ -676,18 +676,12 @@ class SetHumanity(sp.Spell):
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
 
-    # def expire(self):
-    #     print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity returns to its normal value.{BC.OFF}")
-    #     self.caster.humanity = self.original_humanity
-
 
 # TODO fireball- DOT
 # TODO-DONE transform yourself into a monster temporarily (or permanently)
-# TODO-DONE summon an ethereal hand with a glowing sword
-# TODO-DONE lightning- damages a few neighboring limbs and has a chance to jump to another enemy
 # TODO conjure flaming sword for yourself
 # TODO powerful sword hand- permanent
-# TODO-DONE weapon effects (inherit from spells)
-# TODO-DONE store maintenance costs for summoned creatures in a tag on the creature themselves.
-# TODO-DONE tunnel to random spot on next level
 # TODO potions
+# TODO vampiric bite- steal hp from limb to heal
+# TODO disarm
+# TODO paralyze

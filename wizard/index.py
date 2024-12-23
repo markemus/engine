@@ -19,22 +19,23 @@ os.system("color")
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
 # Generate the Home level. This is needed for the A Way Home spell- the level should not be in t_game.level_list.
-homeLevel = t_game.levelGenerator.levelGen("Pocket Home", styles.Home)
+homeLevel = t_game.level_list[-1]
 firstLevel = t_game.level_list[0]
-# TODO check before release that this still puts the cat in the den!
 # homeLevel = t_game.level_list[1]
 
 player = human.PlayerHuman(location=firstLevel.start)
 # player = giant_bat.GiantBat(location=thisLevel.start)
-familiar = cat.Cat(location=thisLevel.start)
-familiar.familiar = True
+firstLevel.start.creatures.append(player)
+familiar = cat.Cat(location=homeLevel.end)
+# TODO check before release that this still puts the cat in the den!
+homeLevel.end.creatures.append(familiar)
+# familiar.familiar = True
 # player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 # familiar.name = input(f"{BC.CYAN}Enter the name of your familiar: {BC.OFF}")
 player.name = "Adam"
 familiar.name = "Cozy"
 player.home = homeLevel
-homeLevel.end.creatures.append(familiar)
-firstLevel.start.creatures.append(player)
+
 # thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
@@ -43,7 +44,7 @@ t_game.set_char(player)
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
 # player.spellbook.append(sb.Shadow)
-player.spellbook.append(sb.Trapdoor)
+# player.spellbook.append(sb.Trapdoor)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
 # player.spellbook.append(sb.SummonSpider)
@@ -72,8 +73,8 @@ player.humanity = 7
 
 # Give player some mana to start the game with
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
-player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
-player.subelements[0].subelements[1].subelements[0].grasped = su.SwordOfFire(color="bright", texture="steel")
+# player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
+# player.subelements[0].subelements[1].subelements[0].grasped = su.SwordOfFire(color="bright", texture="steel")
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
@@ -81,4 +82,3 @@ i = interface.Interface(t_game)
 while True:
     i.command()
 
-# TODO put head into a jar, add a hand to another
