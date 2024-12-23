@@ -11,8 +11,6 @@ class FireDOT(sp.Effect):
     def __init__(self, creature, limb):
         super().__init__(creature=creature, limb=limb)
         self.cc = co.Combat(char=None, cont=None)
-    # def cast(self):
-    #     self.update()
 
     def update(self):
         print(f"{C.RED}{self.limb.name} is burning!{C.OFF}")
@@ -21,7 +19,37 @@ class FireDOT(sp.Effect):
     def _expire(self):
         print(f"{BC.RED}The fire on {C.RED}{self.limb.name}{BC.RED} goes out.{C.OFF}")
 
+
+class Light(sp.Effect):
+    """The limb is surrounded by a halo, making it easier to hit."""
+    desc = "luminous"
+    rounds = 10
+    original_size = None
+
+    def _cast(self):
+        self.original_size = self.limb.size
+        if self.limb.size < 3:
+            self.limb.size += 1
+
+    def _expire(self):
+        self.limb.size = self.original_size
+
+
+class Shadow(sp.Effect):
+    """The limb is surrounded by a shadow, making it harder to hit."""
+    desc = "shadowy"
+    rounds = 10
+    original_size = None
+
+    def _cast(self):
+        self.original_size = self.limb.size
+        if self.limb.size > 1:
+            self.limb.size -= 1
+
+    def _expire(self):
+        self.limb.size = self.original_size
+
 # TODO bleed- builds up and if it hits a certain level, creature dies
 # TODO poison- same as bleed
 # TODO shatter- lowers armor
-# TODO light, shadow effects
+# TODO-DONE light, shadow effects

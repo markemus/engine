@@ -316,7 +316,7 @@ class Weapon(Limb):
 
         return damage, item
 
-# TODO strength tag on arms requires a "find_parents(limb)" search function on creature.
+# TODO-DONE strength tag on arms requires a "find_parents(limb)" search function on creature.
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""

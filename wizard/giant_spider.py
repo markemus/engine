@@ -48,7 +48,7 @@ class Leg(cr.Limb):
     appendageRange = (8, 9)
     wears = "animal_leg"
     base_hp = 10
-    size = 3
+    size = 2
     amble = 1/4
 
 class Torso(cr.Limb):

@@ -6,11 +6,13 @@ import engine.utils as utils
 
 import assets.dog
 
+import wizard.effectsbook as eff
 import wizard.suits as su
 import wizard.zombie as z
 
 from wizard import giant_spider
 from wizard import tentacle_monster
+
 
 from colorist import BrightColor as BC, Color as C
 # If we run into trouble with circular imports, import within the function instead of on module level.
@@ -59,7 +61,7 @@ class Flashbang(CreationSpell):
                 print(f"{BC.YELLOW}{enemy.name}{BC.MAGENTA}'s {BC.CYAN}{eye.name}{BC.MAGENTA} is blinded!{BC.OFF}")
         return True
 
-    def expire(self):
+    def _expire(self):
         for eye in self.original_see.keys():
             eye.see = self.original_see[eye]
             print(f"{BC.CYAN}{eye.name}{BC.MAGENTA} can see again.{BC.OFF}")
@@ -106,7 +108,7 @@ class Caltrops(CreationSpell):
                     self.legs[leg] = leg.amble
                     leg.amble = 0
 
-    def expire(self):
+    def _expire(self):
         self._fix_legs()
 
 
@@ -267,7 +269,7 @@ class ArmorOfLight(CreationSpell):
         print(f"{BC.MAGENTA}A glowing suit of armor envelops {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
         return True
 
-    def expire(self):
+    def _expire(self):
         for limb in self.equipped.keys():
             for gear in self.equipped[limb]:
                 limb.unequip(gear, force_off=True)
@@ -275,7 +277,7 @@ class ArmorOfLight(CreationSpell):
 
 
 # Corruption
-# TODO convert Light and Shadow to effects
+# TODO-DONE convert Light and Shadow to effects
 class Light(CorruptionSpell):
     name = "Light"
     mana_cost = 3
@@ -288,18 +290,20 @@ class Light(CorruptionSpell):
         self.original_colors = {}
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            self.original_colors[limb] = limb.color
-            limb.color = f"luminous {limb.color}"
-            limb.size += 1
+            halo = eff.Light(creature=self.target, limb=limb, controller=self.cont)
+            halo.cast()
+
         print(f"{BC.MAGENTA}A luminous glow surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
         return True
 
-    def expire(self):
+    def _expire(self):
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            if limb in self.original_colors.keys():
-                limb.color = self.original_colors[limb]
-                limb.size -= 1
+            effect = [x for x in limb.active_effects if isinstance(x, eff.Light)]
+            if effect:
+                effect = effect[0]
+                effect.expire()
+
         print(f"{BC.MAGENTA}The glow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
 class Shadow(CorruptionSpell):
@@ -317,20 +321,20 @@ class Shadow(CorruptionSpell):
         self.original_sizes = {}
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            self.original_colors[limb] = limb.color
-            self.original_sizes[limb] = limb.size
-            limb.color = f"shadowy {limb.color}"
-            if limb.size > 1:
-                limb.size -= 1
+            shadow = eff.Shadow(creature=self.target, limb=limb, controller=self.cont)
+            shadow.cast()
+
         print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
         return True
 
-    def expire(self):
+    def _expire(self):
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            if limb in self.original_colors.keys():
-                limb.color = self.original_colors[limb]
-                limb.size = self.original_sizes[limb]
+            effect = [x for x in limb.active_effects if isinstance(x, eff.Shadow)]
+            if effect:
+                effect = effect[0]
+                effect.expire()
+
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
 
@@ -367,7 +371,7 @@ class TransformSpider(CorruptionSpell):
             print(f"{BC.YELLOW}{self.old_char.name}{BC.MAGENTA} transforms into a {C.RED}giant spider{BC.MAGENTA}!{BC.OFF}")
             return True
 
-    def expire(self):
+    def _expire(self):
         self.old_char.humanity = self.cont.game.char.humanity
         spider = self.cont.game.char
         self.cont.game.char = self.old_char
@@ -489,7 +493,7 @@ class Enthrall(CorruptionSpell):
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} turns around to fight for your team!{BC.OFF}")
         return True
 
-    def expire(self):
+    def _expire(self):
         self.target.team = self.old_team
         self.target.ai.target = None
         print(f"{BC.MAGENTA}The enthralling wears off and {BC.YELLOW}{self.target.name}{BC.MAGENTA} turns against you again.{BC.OFF}")

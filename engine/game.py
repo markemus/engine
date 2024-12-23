@@ -71,4 +71,3 @@ class Game(object):
                 spell.rounds -= 1
                 if spell.rounds <= 0:
                     spell.expire()
-                    self.active_spells.remove(spell)

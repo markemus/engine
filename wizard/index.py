@@ -41,7 +41,7 @@ t_game.set_char(player)
 # Character setup
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
-# player.spellbook.append(sb.Shadow)
+player.spellbook.append(sb.Shadow)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
 # player.spellbook.append(sb.SummonSpider)

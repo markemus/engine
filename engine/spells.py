@@ -1,9 +1,12 @@
 from colorist import BrightColor as BC, Color as C
 
 
+# TODO Spell.expire() should remove spell from self.cont.game.active_spells, just like Effect.expire() does.
 class Spell:
     name = "spell"
     rounds = None
+    mana_cost = None
+
     def __init__(self, caster, target, controller):
         self.caster = caster
         self.target = target
@@ -31,21 +34,28 @@ class Spell:
 
     def expire(self):
         """Spells may define an expire() method if they need one."""
-        pass
+        if hasattr(self, "_expire"):
+            self._expire()
+        self.cont.game.active_spells.remove(self)
 
 
 class Effect:
     # Effects may define a "desc" attribute that will be added to limb.desc()
     desc = None
     rounds = None
-    def __init__(self, creature, limb):
+
+    def __init__(self, creature, limb, controller):
         self.creature = creature
         self.limb = limb
+        self.cont = controller
 
+    # TODO no duplicate copies of effect on limb
     def cast(self):
-        """Effects should implement a cast() method. This will be called when the effect is first applied, similar to
-        a spell"""
-        pass
+        """Effects should implement a _cast() method. This will be called when the effect is first applied, similar to
+        a spell."""
+        self._cast()
+        self.limb.active_effects.append(self)
+        self.cont.game.active_spells.append(self)
 
     def update(self):
         """This works the same way as in Spell()."""
@@ -56,3 +66,4 @@ class Effect:
         if hasattr(self, "_expire"):
             self._expire()
         self.limb.active_effects.remove(self)
+        self.cont.game.active_spells.remove(self)
