@@ -32,7 +32,7 @@ LevelStyle.register(Cavern)
 
 class Wizard:
     # levels will spawn in this order
-    levelorder = [Cavern, Home]
+    levelorder = [Cavern]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
     # TODO connect level 0 to level 2 (skip home)
     links = []

@@ -2,6 +2,7 @@ import random
 
 import engine.creature as cr
 import engine.spells as sp
+import engine.styles
 import engine.utils as utils
 
 import assets.dog
@@ -250,10 +251,42 @@ class SummonTentacleMonster(CreationSpell):
         print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
 
-    # def expire(self):
-    #     print(f"{BC.MAGENTA}The tentacle monster winks out of existence.{BC.OFF}")
-    #     self.caster.companions.remove(self.tm)
-    #     self.tm.location.creatures.remove(self.tm)
+
+class Trapdoor(CreationSpell):
+    name = "Trapdoor"
+    mana_cost = 10
+    humanity_min = 0
+    description = f"Creates a trapdoor to descend downward into the depths (>{humanity_min}) [{mana_cost}]."
+    rounds = 1
+    targets = "caster"
+
+    # TODO should use a staircase not a door. Change for level generation as well.
+    def _cast(self):
+        level_index = self.cont.game.level_list.index(self.cont.game.current_level)
+        if len(self.cont.game.level_list) < level_index + 1:
+            next_level = self.cont.game.level_list[level_index + 1]
+
+            next_level_rooms = list(next_level.roomLocations.keys())
+            next_level_rooms.remove(next_level.start)
+            next_level_rooms.remove(next_level.end)
+
+            next_room = random.choice(next_level_rooms)
+            if not self.caster.location.borders[">"]:
+                door = engine.styles.door(color="brown", texture="wood")
+                door.addBorder(self.caster.location)
+                door.addBorder(next_room)
+                self.caster.location.addElement(door)
+                next_room.addElement(door)
+                self.caster.location.get_borders()
+                next_room.get_borders()
+                print(f"{BC.MAGENTA}A doorway appears leading down into the depths!{BC.OFF}")
+                return True
+            else:
+                print(f"{BC.MAGENTA}There is no space for a doorway here.{BC.OFF}")
+                return False
+        else:
+            print(f"{BC.MAGENTA}You have reached rock bottom already.{BC.OFF}")
+            return False
 
 
 class ArmorOfLight(CreationSpell):
@@ -649,10 +682,12 @@ class SetHumanity(sp.Spell):
 
 
 # TODO fireball- DOT
-# TODO transform yourself into a monster temporarily (or permanently)
-# TODO summon an ethereal hand with a glowing sword
+# TODO-DONE transform yourself into a monster temporarily (or permanently)
+# TODO-DONE summon an ethereal hand with a glowing sword
 # TODO-DONE lightning- damages a few neighboring limbs and has a chance to jump to another enemy
 # TODO conjure flaming sword for yourself
-# TODO sword hands
+# TODO powerful sword hand- permanent
 # TODO-DONE weapon effects (inherit from spells)
 # TODO-DONE store maintenance costs for summoned creatures in a tag on the creature themselves.
+# TODO-DONE tunnel to random spot on next level
+# TODO potions

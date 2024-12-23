@@ -4,7 +4,6 @@ from engine import game
 from engine import interface
 
 from wizard import human
-from wizard import giant_bat
 from wizard import spellbook as sb
 from wizard import styles
 from wizard import suits as su
@@ -19,11 +18,13 @@ os.system("color")
 # Main
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
-thisLevel = t_game.level_list[0]
+# Generate the Home level. This is needed for the A Way Home spell- the level should not be in t_game.level_list.
+homeLevel = t_game.levelGenerator.levelGen("Pocket Home", styles.Home)
+firstLevel = t_game.level_list[0]
 # TODO check before release that this still puts the cat in the den!
-homeLevel = t_game.level_list[1]
+# homeLevel = t_game.level_list[1]
 
-player = human.PlayerHuman(location=thisLevel.start)
+player = human.PlayerHuman(location=firstLevel.start)
 # player = giant_bat.GiantBat(location=thisLevel.start)
 familiar = cat.Cat(location=thisLevel.start)
 familiar.familiar = True
@@ -33,7 +34,7 @@ player.name = "Adam"
 familiar.name = "Cozy"
 player.home = homeLevel
 homeLevel.end.creatures.append(familiar)
-thisLevel.start.creatures.append(player)
+firstLevel.start.creatures.append(player)
 # thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
@@ -41,12 +42,13 @@ t_game.set_char(player)
 # Character setup
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
-player.spellbook.append(sb.Shadow)
+# player.spellbook.append(sb.Shadow)
+player.spellbook.append(sb.Trapdoor)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
-player.spellbook.append(sb.SummonSpider)
+# player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.SummonCerberus)
-player.spellbook.append(sb.SummonEtherealHand)
+# player.spellbook.append(sb.SummonEtherealHand)
 # player.spellbook.append(sb.TransformSpider)
 # player.spellbook.append(sb.SummonTentacleMonster)
 # player.spellbook.append(sb.Distract)
@@ -72,7 +74,7 @@ player.humanity = 7
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].grasped = su.SwordOfFire(color="bright", texture="steel")
-# thisLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
+# firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
