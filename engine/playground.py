@@ -2,10 +2,48 @@ import collections
 import random
 from colorist import Color as C, BrightColor as BC
 
-d = collections.defaultdict(lambda x: False)
-d["head"] = True
-d["body"] = True
-d.items()
+
+
+class ChangingPassword(object):
+    def __init__(self, username, password):
+        """use _ for change to read only type(protected)."""
+        self.username = username
+        self._password = password
+
+    def username(self):
+        return self.username
+
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, new_password: int):
+        if isinstance(new_password, int):
+            if self._password != new_password:
+                self._password = new_password
+            else:
+                raise ValueError('Enter different value!')
+        else:
+            raise ValueError("Wrong type! Must be int.")
+
+class StringPassword(ChangingPassword):
+    password = "hello"
+
+user01 = ChangingPassword('Herment', 1321)
+print(user01.password)
+user01.password = 6301
+print(user01.password)
+user01.password = "hello"
+print(user01.password)
+
+user02 = StringPassword("Herment", 1234)
+user02.password = "hello"
+
+# d = collections.defaultdict(lambda x: False)
+# d["head"] = True
+# d["body"] = True
+# d.items()
 
 
 

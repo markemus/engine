@@ -73,7 +73,15 @@ class Shadow(sp.Effect):
     def _expire(self):
         self.limb.size = self.original_size
 
+# TODO should not be usable as weapon or blocker
+# class Webbed(sp.Effect):
+#     """If this effect is on a limb, limb will return amble=0."""
+#     desc = "webbed"
+#     rounds = 5
+#     webbed = True
+
 # TODO bleed- builds up and if it hits a certain level, creature dies
 # TODO poison- same as bleed
 # TODO shatter- lowers armor
-# TODO-DONE light, shadow effects
+# TODO webbed effect- can't amble or use as weapon
+# TODO fear effect- on subelements[0], makes creature unable to attack

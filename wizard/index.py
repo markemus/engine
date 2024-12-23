@@ -9,6 +9,8 @@ from wizard import spellbook as sb
 from wizard import styles
 from wizard import suits as su
 
+from assets import effectsbook as eff
+
 from colorist import BrightColor as BC, Color as C
 
 # Enable color on windows
@@ -80,6 +82,9 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
+
+# web = eff.Webbed(creature=player, limb=player.subelements[0].subelements[-1].subelements[0], controller=i.cont)
+# web.cast()
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()

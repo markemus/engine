@@ -283,6 +283,19 @@ class Limb:
 
         return armor
 
+    # These tags are affected by effects, so we need getters and setters
+    # @property
+    # def amble(self):
+    #     if not sum([hasattr(eff, "webbed") and eff.webbed for eff in self.active_effects]):
+    #         return self._amble
+    #     else:
+    #         return 0
+
+    # @amble.setter
+    # def amble(self, _amble):
+    #     raise ValueError("Setting amble!")
+    #     self._amble = _amble
+
 
 class Weapon(Limb):
     """A limb that can deal damage."""
@@ -308,11 +321,6 @@ class Weapon(Limb):
                 if _item.damage > damage:
                     damage = _item.damage
                     item = _item
-
-        # eg swords
-        # if self.grasped self.grasped.damage > damage:
-        #     damage = self.grasped.damage
-        #     item = self.grasped
 
         return damage, item
 
@@ -445,6 +453,7 @@ class creature:
 
         return text
 
+    # TODO-DONE if nextRoom has a ">" connected room, print "there is an exit here" (for labyrinth levels).
     # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
         """Move to a new Place. Accepts a str input."""
@@ -463,6 +472,8 @@ class creature:
                 for companion in self.companions:
                     if companion.location == currentRoom:
                         companion.leave(direction=direction)
+                if nextRoom.borders[">"]:
+                    print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
             else:
                 print(f"{C.RED}{self.name} is unable to move.{C.OFF}")
         else:

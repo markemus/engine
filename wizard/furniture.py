@@ -87,11 +87,8 @@ class L1Chest(pl.DisplayFurniture):
     color = ["brown", "black", "gray"]
     texture = ["wood"]
     count = (1, 2)
-    # A random weapon or a random scroll, 50/50 odds
-    # vis_collections = [((col.weapons_c, (1, 2)), (wcol.scrolls, (1, 2)))]
-    # A random scroll
+    # A random scroll, or a potion/mana item
     vis_collections = [(wcol.l1_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
-    # vis_collections = [((wcol.firesword_col, (1, 2)), (wcol.lightsword_col, (1, 2)))]
 
 
 class Stalactite(pl.Element):

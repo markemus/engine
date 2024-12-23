@@ -341,6 +341,7 @@ class Controller:
         return blocker
 
     # TODO companions (but not zombies) should heal on rest
+    # TODO can_rest tags on creatures, can_heal tags on limbs. Defaults True.
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
 

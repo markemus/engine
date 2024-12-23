@@ -10,9 +10,10 @@ from colorist import BrightColor as BC, Color as C
 
 
 
-# TODO-DONE put cat in apartment den.
-# TODO add trophy room
-# TODO-DONE add "dont let the cat out or the monsters in" welcome mat to foyer
+
+# TODO add trophy room.
+# TODO level 2- goblins and dark elf scouts fighting
+# TODO level 3- dark elf home caverns (with spider-human hybrid creatures in secondary rooms)
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen]

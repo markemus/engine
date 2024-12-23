@@ -31,7 +31,7 @@ class CreationSpell(sp.Spell):
         else:
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({self.humanity_min}){BC.OFF}")
 
-
+# TODO automatically print humanity and mana costs instead of building it into description attribute
 class CorruptionSpell(sp.Spell):
     """A spell that requires corruptive powers and therefore requires a low humanity to cast.
     Subclasses must set humanity_max."""
@@ -617,7 +617,7 @@ class AWayHome(sp.Spell):
         else:
             print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
 
-
+# TODO beard should have mana pool (5)
 class GrowBeard(sp.Spell):
     name = "Grow Long Beard"
     mana_cost = 5
@@ -685,3 +685,4 @@ class SetHumanity(sp.Spell):
 # TODO vampiric bite- steal hp from limb to heal
 # TODO disarm
 # TODO paralyze
+# TODO possession- reduces humanity
