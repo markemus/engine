@@ -283,18 +283,6 @@ class Limb:
 
         return armor
 
-    # These tags are affected by effects, so we need getters and setters
-    # @property
-    # def amble(self):
-    #     if not sum([hasattr(eff, "webbed") and eff.webbed for eff in self.active_effects]):
-    #         return self._amble
-    #     else:
-    #         return 0
-
-    # @amble.setter
-    # def amble(self, _amble):
-    #     raise ValueError("Setting amble!")
-    #     self._amble = _amble
 
 
 class Weapon(Limb):

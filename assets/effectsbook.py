@@ -5,21 +5,23 @@ from colorist import BrightColor as BC, Color as C
 
 class Stoneskin(sp.Effect):
     rounds = 10
-    original_color = None
-    original_texture = None
+    set_color = False
+    set_texture = False
+    # original_color = None
+    # original_texture = None
 
     def _cast(self):
-        # print(f"{BC.CYAN}{self.creature.name}'s skin turns to stone.{BC.OFF}")
-
-        # TODO store original_color and original_texture on limbs on instantiation
+        # TODO-DONE store original_color and original_texture on limbs
         #  so that they can always be referenced accurately with no danger of being overwritten.
-        if self.limb.texture != "stony":
-            self.limb.base_hp *= 3
-            self.limb.hp *= 3
-            self.original_color = self.limb.color
-            self.original_texture = self.limb.texture
-            self.limb.color = "gray"
-            self.limb.texture = "stony"
+        if not hasattr(self.limb, "orig_color"):
+            self.limb.orig_color = self.limb.color
+        if not hasattr(self.limb, "orig_texture"):
+            self.limb.orig_texture = self.limb.texture
+        self.limb.base_hp *= 3
+        self.limb.hp *= 3
+
+        self.limb.color = "gray"
+        self.limb.texture = "stony"
 
     def _expire(self):
         # print(f"{BC.CYAN}{self.limb.name}'s skin returns to normal.{BC.OFF}")
@@ -27,8 +29,8 @@ class Stoneskin(sp.Effect):
         if self.limb.texture == "stony":
             self.limb.base_hp /= 3
             self.limb.hp /= 3
-            self.limb.color = self.original_color
-            self.limb.texture = self.original_texture
+            self.limb.color = self.limb.orig_color
+            self.limb.texture = self.limb.orig_texture
 
 
 class FireDOT(sp.Effect):
@@ -74,11 +76,11 @@ class Shadow(sp.Effect):
         self.limb.size = self.original_size
 
 # TODO should not be usable as weapon or blocker
-# class Webbed(sp.Effect):
-#     """If this effect is on a limb, limb will return amble=0."""
-#     desc = "webbed"
-#     rounds = 5
-#     webbed = True
+class Webbed(sp.Effect):
+    """If this effect is on a limb, limb will return amble=0."""
+    desc = "webbed"
+    rounds = 5
+    webbed = True
 
 # TODO bleed- builds up and if it hits a certain level, creature dies
 # TODO poison- same as bleed
