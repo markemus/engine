@@ -10,6 +10,7 @@ import wizard.effectsbook as eff
 import wizard.suits as su
 import wizard.zombie as z
 
+from wizard import ethereal_hand
 from wizard import giant_spider
 from wizard import tentacle_monster
 
@@ -187,7 +188,7 @@ class SummonCerberus(CreationSpell):
     targets = "caster"
 
     def _cast(self):
-        """This is useful if you want to test combat magic on an opponent."""
+        """A giant friendly dog with three heads."""
         cerberus = assets.dog.Cerberus(location=self.target.location)
         cerberus.mana_cost = self.mana_cost
         cerberus.team = self.caster.team
@@ -213,6 +214,23 @@ class SummonSpider(CreationSpell):
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
 
+class SummonEtherealHand(CreationSpell):
+    name = "Summon Ethereal Hand"
+    mana_cost = 5
+    humanity_min = 3
+    description = f"Summons a flying hand holding a shining blade (>{humanity_min}) [{mana_cost}]."
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        """A giant friendly dog with three heads."""
+        hand = ethereal_hand.EtherealHand(location=self.target.location)
+        hand.mana_cost = self.mana_cost
+        hand.team = self.caster.team
+        self.target.location.creatures.append(hand)
+        self.caster.companions.append(hand)
+        print(f"{BC.MAGENTA}A flying {C.RED}ethereal hand{BC.MAGENTA} pops into existence!{BC.OFF}")
+        return True
 
 class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"

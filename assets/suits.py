@@ -48,11 +48,13 @@ Items are objects used by creatures or just stored in rooms to add character.
     # How far down the Limb hierarchy to check for the Limbs in self.covers .
     descends = 1
 """
+import copy
+
 import engine.item as i
 
 
 # Armor
-class Boot(i.Item):
+class IronBoot(i.Item):
     name = "boot"
     # canwear[limb_type] governs where the item can be worn by a creature
     # covers[limb_type] governs which limbs will be protected by the worn item.
@@ -65,7 +67,7 @@ class Boot(i.Item):
     level = 3
     descends = 0
 
-class Bracer(i.Item):
+class IronBracer(i.Item):
     name = "bracer"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
@@ -75,7 +77,7 @@ class Bracer(i.Item):
     level = 3
     descends = 0
 
-class Chainmail(i.Item):
+class IronChainmail(i.Item):
     name = "chainmail"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
@@ -85,7 +87,7 @@ class Chainmail(i.Item):
     level = 3
     descends = 0
 
-class Gauntlet(i.Item):
+class IronGauntlet(i.Item):
     name = "gauntlet"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
@@ -99,7 +101,7 @@ class Gauntlet(i.Item):
     level = 3
     descends = 1
 
-class Greave(i.Item):
+class IronGreave(i.Item):
     name = "greave"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
@@ -109,7 +111,7 @@ class Greave(i.Item):
     level = 3
     descends = 0
 
-class Helm(i.Item):
+class IronHelm(i.Item):
     name = "helm"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
@@ -125,7 +127,7 @@ class Helm(i.Item):
     level = 3
     descends = 2
 
-class Shield(i.Item):
+class IronShield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
@@ -138,6 +140,28 @@ class Shield(i.Item):
     armor = 2
     level = 4
     descends = 1
+
+class BronzeBoot(IronBoot):
+    armor = 1
+
+class BronzeBracer(IronBracer):
+    armor = 1
+
+class BronzePlatemail(IronChainmail):
+    name = "platemail"
+    armor = 1
+
+class BronzeGauntlet(IronGauntlet):
+    armor = 1
+
+class BronzeGreave(IronGreave):
+    armor = 1
+
+class BronzeHelm(IronHelm):
+    armor = 1
+
+class BronzeShield(IronShield):
+    armor = 1
 
 # Clothing
 class Backpack(i.Holder):
@@ -275,6 +299,9 @@ class Sword(i.Item):
 class CopperSword(Sword):
     damage = 7
 
+class BronzeSword(Sword):
+    damage = 14
+
 class Knife(i.Item):
     name = "knife"
     damage = 10
@@ -360,13 +387,13 @@ prisonersuit = {
 
 armorsuit = {
     "wears": {
-        "head": Helm,
-        "body": Chainmail,
-        "arm": Bracer,
-        "left hand": [Gauntlet, Shield],
-        "right hand": Gauntlet,
-        "leg": Greave,
-        "foot": Boot},
+        "head": IronHelm,
+        "body": IronChainmail,
+        "arm": IronBracer,
+        "left hand": [IronGauntlet, IronShield],
+        "right hand": IronGauntlet,
+        "leg": IronGreave,
+        "foot": IronBoot},
     "grasps": {},
     "color": ["shiny", "rusty", "matte"],
     "color_scheme": "same",
@@ -375,22 +402,28 @@ armorsuit = {
     "full": True,
     }
 
-partial_armorsuit = {
+partial_armorsuit = copy.deepcopy(armorsuit)
+partial_armorsuit["full"] = False
+
+bronze_armorsuit = {
     "wears": {
-        "head": Helm,
-        "body": Chainmail,
-        "arm": Bracer,
-        "left hand": [Gauntlet, Shield],
-        "right hand": Gauntlet,
-        "leg": Greave,
-        "foot": Boot},
+        "head": BronzeHelm,
+        "body": BronzePlatemail,
+        "arm": BronzeBracer,
+        "left hand": [BronzeGauntlet, BronzeShield],
+        "right hand": BronzeGauntlet,
+        "leg": BronzeGreave,
+        "foot": BronzeBoot},
     "grasps": {},
-    "color": ["shiny", "rusty", "matte"],
+    "color": ["shiny", "polished", "green"],
     "color_scheme": "same",
-    "texture": ["steel"],
+    "texture": ["bronze"],
     "texture_scheme": "same",
-    "full": False,
-    }
+    "full": True,
+}
+
+partial_bronze_armorsuit = copy.deepcopy(bronze_armorsuit)
+partial_bronze_armorsuit["full"] = False
 
 weapons = {
     "wears": {},

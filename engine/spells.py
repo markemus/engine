@@ -57,6 +57,9 @@ class Effect:
         self.limb.active_effects.append(self)
         self.cont.game.active_spells.append(self)
 
+    def _cast(self):
+        pass
+
     def update(self):
         """This works the same way as in Spell()."""
         pass

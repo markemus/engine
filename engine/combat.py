@@ -222,13 +222,14 @@ class Combat:
         return cutoff
 
     def apply_effects(self, defender, limb, weapon):
+        """Applies weapon effects to the limb."""
         true_weapon = weapon.damage[1]
         effects = true_weapon.effects
         for effect in effects:
-            e = effect(defender, limb)
+            e = effect(defender, limb, self.cont)
             e.cast()
-            self.cont.game.active_spells.append(e)
-            limb.active_effects.append(e)
+            # self.cont.game.active_spells.append(e)
+            # limb.active_effects.append(e)
 
     def attack(self, actor, defender, limb, weapon):
         damage = self.check_damage(weapon, actor, limb)

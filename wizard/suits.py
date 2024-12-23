@@ -122,9 +122,11 @@ class ManaLocket(i.Item):
 
 
 # Magic weapons
-class SwordOfFire(su.Sword):
+class SwordOfFire(su.BronzeSword):
     effects = [eff.FireDOT]
 
+class SwordOfLight(su.BronzeSword):
+    effects = [eff.Light]
 
 
 # Suits
@@ -150,3 +152,14 @@ lightsuit = {
     "full": True,
     }
 
+lightsword = {
+    "grasps": {
+        "right hand": SwordOfLight,
+    },
+    "wears": {},
+    "color": ["glowing"],
+    "color_scheme": "same",
+    "texture": ["ethereal"],
+    "texture_scheme": "same",
+    "full": True,
+}
