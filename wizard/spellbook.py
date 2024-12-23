@@ -7,7 +7,7 @@ import engine.utils as utils
 
 import assets.dog
 
-import assets.effectsbook as eff
+import engine.effectsbook as eff
 import wizard.suits as su
 import wizard.zombie as z
 

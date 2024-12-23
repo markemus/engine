@@ -2,7 +2,7 @@ import engine.item as i
 
 import assets.suits as su
 
-import assets.effectsbook as eff
+import engine.effectsbook as eff
 
 
 # Light suit

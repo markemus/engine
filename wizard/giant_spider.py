@@ -2,7 +2,7 @@
 import engine.creature as cr
 
 import assets.commonlimbs as cl
-import assets.effectsbook as eff
+import engine.effectsbook as eff
 import assets.namelists as nl
 
 

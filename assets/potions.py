@@ -2,8 +2,7 @@
 import random
 
 from assets import commonlimbs as cl
-from assets import effectsbook as eff
-from engine import item as I
+from engine import item as I, effectsbook as eff
 
 from colorist import BrightColor as BC, Color as C
 

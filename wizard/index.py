@@ -1,5 +1,4 @@
 from assets import cat
-from assets import potions
 
 from engine import game
 from engine import interface
@@ -8,10 +7,6 @@ from wizard import human
 from wizard import spellbook as sb
 from wizard import styles
 from wizard import suits as su
-
-from assets import effectsbook as eff
-
-from colorist import BrightColor as BC, Color as C
 
 # Enable color on windows
 import os
