@@ -2,6 +2,7 @@ from assets import cat
 
 from engine import game
 from engine import interface
+from engine import effectsbook as eff
 
 from wizard import human
 from wizard import spellbook as sb
@@ -77,8 +78,8 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 i = interface.Interface(t_game)
-
-# web = eff.Webbed(creature=player, limb=player.subelements[0].subelements[-1].subelements[0], controller=i.cont)
+# player.can_fear = False
+# web = eff.Fear(creature=player, limb=player.subelements[0], controller=i.cont)
 # web.cast()
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:

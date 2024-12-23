@@ -19,6 +19,7 @@ class Stoneskin(sp.Effect):
         self.limb.hp *= 3
         self.limb.color = "gray"
         self.limb.texture = "stony"
+        return True
 
     def _expire(self):
         if self.limb.texture == "stony":
@@ -52,6 +53,7 @@ class Light(sp.Effect):
             self.limb.orig_size = self.limb.size
         if self.limb.orig_size < 3:
             self.limb.size = self.limb.orig_size + 1
+        return True
 
     def update(self):
         """This is needed in case another effect overrode this one but expired."""
@@ -73,6 +75,7 @@ class Shadow(sp.Effect):
             self.limb.orig_size = self.limb.size
         if self.limb.orig_size > 1:
             self.limb.size = self.limb.orig_size - 1
+        return True
 
     def update(self):
         """This is needed in case another effect overrode this one but expired."""
@@ -95,6 +98,7 @@ class Webbed(sp.Effect):
             self.limb.amble = 0
         self.limb.webbed = True
         print(f"{C.RED}{self.creature.name}'s {self.limb.name} is webbed!{C.OFF}")
+        return True
 
     def update(self):
         if hasattr(self.limb, "amble"):
@@ -108,8 +112,26 @@ class Webbed(sp.Effect):
         print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} is no longer webbed.{BC.OFF}")
 
 
+# TODO only cast on creatures that can_fear.
+class Fear(sp.Effect):
+    """A creature with a fear tag on creature.subelements[0] cannot attack."""
+    rounds = 5
+
+    def _cast(self):
+        if self.creature.can_fear:
+            self.creature.subelements[0].fear = True
+            print(f"{C.RED}{self.creature.name} cowers in fear!{C.OFF}")
+            return True
+
+    def update(self):
+        self.creature.subelements[0].fear = True
+
+    def _expire(self):
+        del self.creature.subelements[0].fear
+        print(f"{BC.CYAN}{self.creature.name} is no longer terrified.{C.OFF}")
+
+
 # TODO bleed- builds up and if it hits a certain level, creature dies
 # TODO poison- same as bleed
-# TODO shatter- lowers armor
 # TODO-DONE webbed effect- can't amble or use as weapon
 # TODO fear effect- on subelements[0], makes creature unable to attack

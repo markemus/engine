@@ -33,3 +33,4 @@ class Beholder(cr.creature):
     colors = ["gray", "off-white"]
     textures = ["slimy", "sheeny"]
     suits = []
+    can_fear = False

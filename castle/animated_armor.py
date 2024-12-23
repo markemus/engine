@@ -118,3 +118,4 @@ class AnimatedArmor(cr.creature):
     colors = ["ethereal"]
     textures = ["mist"]
     suits = [suits.armorsuit, suits.weapons]
+    can_fear = False

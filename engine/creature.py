@@ -326,6 +326,7 @@ class creature:
     aggressive = True
     dead = False
     can_transform = True
+    can_fear = True
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)

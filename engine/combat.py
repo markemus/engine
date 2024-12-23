@@ -42,7 +42,7 @@ class Combat:
             if actor is self.char and not include_char:
                 # Skip player round if for some reason they're not supposed to get one.
                 continue
-            if not actor.dead:
+            if not actor.dead and not (hasattr(actor.subelements[0], "fear") and actor.subelements[0].fear):
                 # select best weapon
                 if actor is not self.char:
                     # Check the room for a better weapon

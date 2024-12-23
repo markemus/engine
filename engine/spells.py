@@ -53,12 +53,12 @@ class Effect:
     def cast(self):
         """Effects should implement a _cast() method. This will be called when the effect is first applied, similar to
         a spell."""
-        self._cast()
-        self.limb.active_effects.append(self)
-        self.cont.game.active_spells.append(self)
+        if self._cast():
+            self.limb.active_effects.append(self)
+            self.cont.game.active_spells.append(self)
 
     def _cast(self):
-        pass
+        return True
 
     def update(self):
         """This works the same way as in Spell()."""
