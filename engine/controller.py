@@ -340,6 +340,7 @@ class Controller:
 
         return blocker
 
+    # TODO companions (but not zombies) should heal on rest
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
 
@@ -386,7 +387,8 @@ class Controller:
             if j in usables.keys() and j != "x":
                 usable = usables[j]
                 # print(f"{BC.CYAN}{self.game.char.name} consumes the {food.name}{BC.OFF}.")
-                usable.use(self.game.char)
+                # TODO-DECIDE can we refactor potions, spells and effects so that they don't need the controller? It's all because of game.active_spells.
+                usable.use(self.game.char, self)
                 if usable.consumable:
                     invs[i].vis_inv.remove(usable)
 

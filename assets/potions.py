@@ -1,7 +1,8 @@
 """Potions have a one time use permanent effect. The effect needs to be scripted."""
 import random
 
-from castle import commonlimbs as cl
+from assets import commonlimbs as cl
+from assets import effectsbook as eff
 from engine import item as I
 
 from colorist import BrightColor as BC, Color as C
@@ -13,11 +14,8 @@ class PotionOfStoneskin(I.Potion):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
-            if limb.texture != "stony":
-                limb.base_hp *= 3
-                limb.hp *= 3
-                limb.color = "gray"
-                limb.texture = "stony"
+            stoniness = eff.Stoneskin(creature, limb, controller=self.cont)
+            stoniness.cast()
 
 class ArmGrowthPotion(I.Potion):
     """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""

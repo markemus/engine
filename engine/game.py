@@ -64,7 +64,9 @@ class Game(object):
 
     def update_spells(self):
         """Spells should be updated every combat round."""
-        for spell in self.active_spells:
+        # since self.active_spells.remove() will be called, it's not safe to loop over.
+        spells = self.active_spells.copy()
+        for spell in spells:
             spell.update()
 
             if spell.rounds != "forever":

@@ -138,6 +138,7 @@ class Potion(Item):
     name = "potion"
     usable = True
     consumable = True
+    cont = None
     def __init__(self, color="gray", texture="murky"):
         super().__init__(color=color, texture=texture)
 
@@ -145,7 +146,8 @@ class Potion(Item):
         """Subclasses should define an effect on creature when creature drinks the potion."""
         print(f"{BC.CYAN}The {self.name} has no effect.{BC.OFF}")
 
-    def use(self, creature):
+    def use(self, creature, controller):
+        self.cont = controller
         if creature.limb_count("eats") >= 1:
             print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
@@ -162,7 +164,7 @@ class Scroll(Item):
         super().__init__(color="white", texture="parchment")
 
     # TODO-DONE should check "see"
-    def use(self, creature):
+    def use(self, creature, controller=None):
         if creature.limb_count("see") >= 1:
             if self.spell not in creature.spellbook:
                 creature.spellbook.append(self.spell)

@@ -3,6 +3,34 @@ from engine import spells as sp
 from colorist import BrightColor as BC, Color as C
 
 
+class Stoneskin(sp.Effect):
+    rounds = 10
+    original_color = None
+    original_texture = None
+
+    def _cast(self):
+        # print(f"{BC.CYAN}{self.creature.name}'s skin turns to stone.{BC.OFF}")
+
+        # TODO store original_color and original_texture on limbs on instantiation
+        #  so that they can always be referenced accurately with no danger of being overwritten.
+        if self.limb.texture != "stony":
+            self.limb.base_hp *= 3
+            self.limb.hp *= 3
+            self.original_color = self.limb.color
+            self.original_texture = self.limb.texture
+            self.limb.color = "gray"
+            self.limb.texture = "stony"
+
+    def _expire(self):
+        # print(f"{BC.CYAN}{self.limb.name}'s skin returns to normal.{BC.OFF}")
+
+        if self.limb.texture == "stony":
+            self.limb.base_hp /= 3
+            self.limb.hp /= 3
+            self.limb.color = self.original_color
+            self.limb.texture = self.original_texture
+
+
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = 1
