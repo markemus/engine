@@ -153,12 +153,18 @@ class Combat:
 
     def get_weapons(self, actor):
         """Any limb that can cause damage directly or wield a weapon."""
+        # TODO probably shouldn't return grasp if limb doesn't have damage attribute. Test.
         claws = actor.subelements[0].limb_check("damage")
         hands = actor.subelements[0].limb_check("grasp")
 
         weapons = list(set(claws + hands))
 
-        return weapons
+        unwebbed_weapons = []
+        for weapon in weapons:
+            if not (hasattr(weapon, "webbed") and weapon.webbed):
+                unwebbed_weapons.append(weapon)
+
+        return unwebbed_weapons
 
     # TODO-DONE strength tag as a damage multiplier- limb needs a trace_parents(limb) function that returns all higher limbs
     #  in the hierarchy (run search on subelements[0])
@@ -240,7 +246,7 @@ class Combat:
 
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
-        blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker]
+        blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker and not (hasattr(x, "webbed") and x.webbed)]
         return blockers
 
     def throw_limb(self, amputee, limb):

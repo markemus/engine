@@ -2,6 +2,7 @@
 import engine.creature as cr
 
 import assets.commonlimbs as cl
+import assets.effectsbook as eff
 import assets.namelists as nl
 
 
@@ -20,6 +21,7 @@ class Eye(cr.Limb):
 class Fangs(cl.Teeth):
     name = "fangs"
     _damage = 10
+    effects = [eff.Webbed]
 
 class Jaw(cr.Limb):
     name = "jaw"
