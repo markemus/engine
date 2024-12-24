@@ -583,6 +583,28 @@ class Fear(CorruptionSpell):
         return True
 
 
+class Might(CorruptionSpell):
+    name = "Might"
+    mana_cost = 5
+    humanity_max = 3
+    description = f"Make an ally stronger (<{humanity_max}) [{mana_cost}]."
+    rounds = 1
+    targets = "friendly"
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}{self.target.name} grows stronger before your eyes!{BC.MAGENTA}")
+        limbs = self.target.subelements[0].limb_check("wears")
+        for limb in limbs:
+            # print(limb.name)
+            # limb_wears = [k for k in limb.wears.keys() if limb.wears[k]]
+            # if set(limb_wears).intersection({"arm", "animal_leg"}):
+            if limb.wears in ["arm", "animal_leg"]:
+                might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
+                might.cast()
+
+        return True
+
+
 # Neither
 class Scry(sp.Spell):
     name = "Scry"

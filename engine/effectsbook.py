@@ -131,6 +131,34 @@ class Fear(sp.Effect):
         print(f"{BC.CYAN}{self.creature.name} is no longer terrified.{C.OFF}")
 
 
+class Might(sp.Effect):
+    rounds = 10
+
+    def _cast(self):
+        if not hasattr(self.limb, "orig_strength") and hasattr(self.limb, "strength"):
+            self.limb.orig_strength = self.limb.strength
+
+        if hasattr(self.limb, "strength"):
+            self.limb.strength = self.limb.orig_strength + .5
+        else:
+            self.limb.strength = 1.5
+        print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} bulges and swells!{BC.OFF}")
+        return True
+
+    def update(self):
+        if hasattr(self.limb, "orig_strength"):
+            self.limb.strength = self.limb.orig_strength + .5
+        else:
+            self.limb.strength = 1.5
+
+    def _expire(self):
+        if hasattr(self.limb, "orig_strength"):
+            self.limb.strength = self.limb.orig_strength
+        else:
+            del self.limb.strength
+        print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} shrinks back down to its normal size.{BC.OFF}")
+
+
 # TODO bleed- builds up and if it hits a certain level, creature dies
 # TODO poison- same as bleed
 # TODO-DONE webbed effect- can't amble or use as weapon

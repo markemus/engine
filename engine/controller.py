@@ -277,7 +277,6 @@ class Controller:
 
     def pick_weapon(self, weapons):
         weapons = self.listtodict(weapons)
-        # self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name} {y.damage[0]}){C.OFF}" if y != "Cancel" else x)
         self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name}) {C.RED}({y.damage[0]}){C.OFF}")
 
         i = None

@@ -56,7 +56,8 @@ player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.ReanimateLimb)
 # player.spellbook.append(sb.Caltrops)
 # player.spellbook.append(sb.FleshRip)
-player.spellbook.append(sb.Fear)
+# player.spellbook.append(sb.Fear)
+player.spellbook.append(sb.Might)
 # player.spellbook.append(sb.Enthrall)
 # player.spellbook.append(sb.Flashbang)
 # player.spellbook.append(sb.ArmorOfLight)
@@ -80,8 +81,8 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 
 i = interface.Interface(t_game)
 # player.can_fear = False
-# web = eff.Fear(creature=player, limb=player.subelements[0], controller=i.cont)
-# web.cast()
+# might = eff.Might(creature=player, limb=player.subelements[0].subelements[1], controller=i.cont)
+# might.cast()
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()
