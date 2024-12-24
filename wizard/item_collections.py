@@ -22,8 +22,8 @@ for x in dir(sb):
     if inspect.isclass(variable) and issubclass(variable, engine.spells.Spell) and variable not in [sb.CreationSpell, sb.CorruptionSpell]:
         all_spells.append(variable)
 
-level_one_spells = [sb.Caltrops, sb.Scry, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard]
-level_two_spells = [sb.GrowTreeOfLife, sb.SummonSpider, sb.ArmorOfLight, sb.Lightning, sb.Distract, sb.FleshRip]
+level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might]
+level_two_spells = [sb.GrowTreeOfLife, sb.SummonSpider, sb.ArmorOfLight, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.SummonEtherealHand, sb.Trapdoor, sb.TransformSpider]
 level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.ReanimateLimb]
 
 class RandomScroll(it.Scroll):
@@ -38,6 +38,13 @@ class LevelOneScroll(it.Scroll):
         super().__init__()
         self.spell = random.choice(level_one_spells)
         self.name = f"scroll of {self.spell.name}"
+
+class LevelTwoScroll(it.Scroll):
+    def __init__(self, color=None, texture=None):
+        super().__init__()
+        self.spell = random.choice(level_two_spells)
+        self.name = f"scroll of {self.spell.name}"
+
 
 # TODO make this inscription visible in l:desc() in controller.
 class Plaque(it.Item):
@@ -75,6 +82,15 @@ mana_items = {
 
 l1_scrolls = {
     "contains": [LevelOneScroll],
+    "color": ["white"],
+    "color_scheme": "same",
+    "texture": ["parchment"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+l2_scrolls = {
+    "contains": [LevelTwoScroll],
     "color": ["white"],
     "color_scheme": "same",
     "texture": ["parchment"],

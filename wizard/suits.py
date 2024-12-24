@@ -128,8 +128,25 @@ class SwordOfFire(su.BronzeSword):
 class SwordOfLight(su.BronzeSword):
     effects = [eff.Light]
 
+class PoisonedScimitar(su.BronzeSword):
+    effects = [eff.Poison]
+
 
 # Suits
+darkelfsuit = {
+"wears": {
+        "body": su.Tunic,
+        "leg": su.Hose,
+        "foot": (su.Slipper, su.Shoe)},
+    "grasps": {},
+    "color": ["black"],
+    "color_scheme": "distinct",
+    "texture": ["spider silk"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+
 lightsuit = {
     "wears": {
         "head": LightHelm,
@@ -182,6 +199,18 @@ firesword = {
     },
     "wears": {},
     "color": ["firey"],
+    "color_scheme": "same",
+    "texture": ["bronze"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+poisonsword = {
+    "grasps": {
+        "right hand": PoisonedScimitar,
+    },
+    "wears": {},
+    "color": ["burnished", "shiny", "orange", "greenish"],
     "color_scheme": "same",
     "texture": ["bronze"],
     "texture_scheme": "same",

@@ -195,10 +195,3 @@ class Poison(sp.Effect):
             print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
             self.creature.die()
         return True
-
-
-# TODO-DONE bleed- builds up and if it hits a certain level, creature dies
-# TODO-DONE poison- same as bleed
-# TODO-DONE webbed effect- can't amble or use as weapon
-# TODO-DONE fear effect- on subelements[0], makes creature unable to attack
-# TODO paralyze

@@ -90,6 +90,14 @@ class L1Chest(pl.DisplayFurniture):
     # A random scroll, or a potion/mana item
     vis_collections = [(wcol.l1_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
 
+class L2Chest(pl.DisplayFurniture):
+    name = "treasure chest"
+    color = ["brown", "black", "gray"]
+    texture = ["wood"]
+    count = (1, 2)
+    # A random scroll, or a potion/mana item
+    vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
+
 
 class Stalactite(pl.Element):
     name = "stalactite"
@@ -101,7 +109,7 @@ class Stalagmite(pl.Element):
 
 class Mattress(pl.Furniture):
     name = "mattress"
-    count = (3, 6)
+    count = (5, 10)
     color = ["dirty", "moldy", "ratty", "moth-eaten"]
     texture = ["cloth", "lumpy"]
 
@@ -110,3 +118,10 @@ class Firepit(pl.Furniture):
     count = (1, 2)
     color = ["burning", "warm", "cold", "ashen"]
     texture = ["wood", "charcoal"]
+
+class PupTent(pl.Furniture):
+    """A dark elf scout's tent."""
+    name = "pup tent"
+    count = (3, 6)
+    color = ["black"]
+    texture = ["silk"]

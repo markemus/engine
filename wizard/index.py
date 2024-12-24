@@ -48,7 +48,7 @@ t_game.set_char(player)
 # player.spellbook.append(sb.Trapdoor)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
-player.spellbook.append(sb.SummonSpider)
+# player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.SummonEtherealHand)
 # player.spellbook.append(sb.TransformSpider)
@@ -83,8 +83,8 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 
 i = interface.Interface(t_game)
 # player.can_fear = False
-might = eff.Poison(creature=player, limb=player.subelements[0].subelements[1], controller=i.cont)
-might.cast()
+# might = eff.Poison(creature=player, limb=player.subelements[0].subelements[1], controller=i.cont)
+# might.cast()
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()

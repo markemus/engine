@@ -8,15 +8,19 @@ import wizard.furniture
 
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
+from wizard.elf import DarkElfScout
 from wizard.giant_spider import GiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
 from wizard.tunnel_worm import TunnelWorm
 
 from assets.goblin import Goblin, ShallowGoblin
-from assets.dog import Dog
+
 
 cc = {
-    "caverns": [(GiantRat, 3), (GiantBat, 3), (ShallowGoblin, 4), (None, 2)],
+    "caverns_1": [(GiantRat, 3), (GiantBat, 3), (ShallowGoblin, 4), (None, 2)],
+    "caverns_2": [(GiantSpider, 1), (DarkElfScout, 4), (ShallowGoblin, 4), (None, 2)],
+    "caverns_2_gobs": [(ShallowGoblin, 4), (None, 1)],
+    "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
 }
 
@@ -50,7 +54,7 @@ class TrophyRoom(pl.Place):
     furniture_classes = [fur.Carpet, wizard.furniture.TrophyPlinth]
     subelement_classes = [wall, floor]
 
-# Cavern rooms
+# Cavern L1 rooms
 class CavernEntrance(pl.Place):
     name = "cavern"
     sprite = "E"
@@ -61,14 +65,13 @@ class CavernEntrance(pl.Place):
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
 
-# TODO-DONE goblin equipment is too powerful for l1
 class CavernOpen(pl.Place):
     name = "cavern"
     sprite = "C"
     count = (3, 7)
     colors = ["gray", "dark", "dripping"]
     textures = ["stone"]
-    creature_classes = [cc["caverns"], cc["caverns"], cc["caverns"], cc["caverns"]]
+    creature_classes = [cc["caverns_1"], cc["caverns_1"], cc["caverns_1"], cc["caverns_1"]]
     # creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
@@ -83,20 +86,34 @@ class Tunnel(pl.Place):
     furniture_classes = []
     subelement_classes = [wall, floor]
 
-class CavernVillage(CavernOpen):
-    """A cavern village with some loot."""
+class GoblinCavernVillage(CavernOpen):
+    """A goblin village in a cavern with some loot."""
     name = "goblin village"
-    sprite = "C"
+    sprite = "G"
     count = (1, 4)
     furniture_classes = [wizard.furniture.Mattress, wizard.furniture.Firepit, wizard.furniture.L1Chest]
 
-class GoblinChiefVillage(CavernVillage):
+class GoblinChiefVillage(GoblinCavernVillage):
     """Village where the goblin chief resides."""
     name = "goblin chief village"
-    sprite = "G"
+    sprite = "K"
     count = (1, 2)
     creature_classes = [[(ShallowGoblin, 1)], [(ShallowGoblin, 1)], [(ShallowGoblinChief, 1)], [(GoblinPetDog, 1)]]
 
-# TODO add potions to Caverns loot
-# TODO add mana gear to Caverns loot
-# TODO loot drops on every room, or available for every room.
+# Cavern L2 rooms
+class CavernOpenL2(CavernOpen):
+    """An open cavern."""
+    creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
+
+class GoblinCavernVillageL2(GoblinCavernVillage):
+    creature_classes = [cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"]]
+
+class DarkElfOutpost(CavernOpen):
+    """A forward scouting base of the dark elves."""
+    sprite = "D"
+    count = (1, 4)
+    creature_classes = [cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"]]
+    furniture_classes = [wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
+
+# TODO-DONE add potions to Caverns loot
+# TODO-DONE add mana gear to Caverns loot
