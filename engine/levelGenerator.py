@@ -78,14 +78,24 @@ class levelGenerator:
                 doorx = int((x1 + x2) / 2)
                 doory = int((y1 + y2) / 2)
                 gennedLevel.addDoor(doorx, doory, door)
+                # print("door")
 
             # Do only if this isn't last room.
             # Prevents error if this is last room and roomNum is perfect square (so no available slots).
             if newRoom != roomNum - 1:
                 # Find a spot on the map for the room.
-                x, y, lastRoomNum = self.find_slot(gennedLevel, x, y, previousRoomList)
-                previousRoomList.append((x, y))
-                lastRoomNum = lastRoomNum + 2
+                if (not hasattr(levelstyle, "algorithm")) or (levelstyle.algorithm == "linear"):
+                    x, y, lastRoomNum = self.find_slot_linear(gennedLevel, x, y, previousRoomList)
+                    previousRoomList.append((x, y))
+                    lastRoomNum = lastRoomNum + 2
+                elif levelstyle.algorithm == "labyrinth":
+                    x, y, lastRoomNum = self.find_slot_labyrinth(gennedLevel, x, y, previousRoomList)
+                    previousRoomList.append((x, y))
+
+                    # if lastRoomNum < 0:
+                    #     raise ValueError(f"LastRoomNum < 0! {lastRoomNum}")
+                    lastRoomNum = lastRoomNum + 2
+                    print(lastRoomNum, x, y)
 
             # Set end room
             gennedLevel.end = roomList[-1]
@@ -107,8 +117,72 @@ class levelGenerator:
 
         return roomcounts
 
-    def find_slot(self, gennedLevel, x, y, previousRoomList):
-        """Choose next room location."""
+    def find_slot_labyrinth(self, gennedLevel, x, y, previousRoomList):
+        """Choose next room location. Floor layout will be labyrinthine."""
+        # First we need a shift, which must be (2,0),(-2,0),(0,2),(0,-2).
+        delta = [(2, 0), (-2, 0), (0, 2), (0, -2)]
+        # min and max stop us from checking the same shift twice
+        deltaMin = 0
+        # Our x,y are for current room- we are calculating next room,
+        # and we are saving last room in case we are at a dead end.
+        lastRoomNum = len(previousRoomList) - 2
+
+        # Can't backtrack if on first room.
+        if not random.randint(0, 3) and len(previousRoomList) > 2:
+            # Backtrack to a random location and start a new path from there.
+            lastRoomNum = random.randrange(1, len(previousRoomList))
+            previousRoom = previousRoomList[lastRoomNum]
+            x = previousRoom[0]
+            y = previousRoom[1]
+
+            # deltaMin = 0
+            lastRoomNum = lastRoomNum - 1
+            print("randomizing")
+
+        while True:
+            deltaIndex = random.randrange(deltaMin, len(delta))
+            our_delta = delta[deltaIndex]
+
+            # Now ensure that the room slot is empty
+            testx = x + our_delta[0]
+            testy = y + our_delta[1]
+            testIndex = gennedLevel.checkIndex(testx, testy)
+
+            # Python allows negative indices to wrap around- we don't want that.
+            # In this outcome, our room slot is available, so we assign it
+            # we save the last room's indices in case we need to backtrack
+            # we reset lastRoomNum in case we backtracked
+            if testIndex == '.' and testx >= 0 and testy >= 0:
+                (x, y) = (testx, testy)
+                # print("done")
+                break
+
+            # In this outcome, our room slot is not available, so we try the next adjacency
+            else:
+                # Swap current into lowest available slot, and check higher only
+                delta[deltaMin], delta[deltaIndex] = delta[deltaIndex], delta[deltaMin]
+                deltaMin += 1
+
+            # In this outcome, no adjacent room slots are available, so we backtrack
+            # We negatively iterate lastRoomNum in case we have to do so again
+            if deltaMin == len(delta):
+                print("out of deltas")
+                if (lastRoomNum < 2) and len(previousRoomList) > 3:
+                    # This empirically solves a bug where function settles on first_room
+                    # and puts the next room randomly on the grid. I do not know how else
+                    # to solve it so leave it be.
+                    lastRoomNum = len(previousRoomList) - 1
+                previousRoom = previousRoomList[lastRoomNum]
+                x = previousRoom[0]
+                y = previousRoom[1]
+
+                deltaMin = 0
+                lastRoomNum = lastRoomNum - 1
+
+        return x, y, lastRoomNum
+
+    def find_slot_linear(self, gennedLevel, x, y, previousRoomList):
+        """Choose next room location. Floor layout will be very linear."""
         # First we need a shift, which must be (2,0),(-2,0),(0,2),(0,-2).
         delta = [(2, 0), (-2, 0), (0, 2), (0, -2)]
         # min and max stop us from checking the same shift twice

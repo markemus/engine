@@ -28,6 +28,7 @@ class Cavern:
     room_classes = [wizard.places.CavernOpen, wizard.places.CavernVillage, wizard.places.Tunnel]
     start_room = wizard.places.CavernEntrance
     end_room = wizard.places.GoblinChiefVillage
+    algorithm = "labyrinth"
     creature_classes = []
 
 LevelStyle.register(Cavern)

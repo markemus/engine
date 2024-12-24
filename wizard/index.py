@@ -35,6 +35,8 @@ player.name = "Adam"
 familiar.name = "Cozy"
 player.home = homeLevel
 
+# player.team = "neutral"
+
 # thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
@@ -57,7 +59,7 @@ player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.Caltrops)
 # player.spellbook.append(sb.FleshRip)
 # player.spellbook.append(sb.Fear)
-player.spellbook.append(sb.Might)
+# player.spellbook.append(sb.Might)
 # player.spellbook.append(sb.Enthrall)
 # player.spellbook.append(sb.Flashbang)
 # player.spellbook.append(sb.ArmorOfLight)

@@ -721,7 +721,7 @@ class SetHumanity(sp.Spell):
 
 # TODO fireball- DOT
 # TODO-DONE transform yourself into a monster temporarily (or permanently)
-# TODO conjure flaming sword for yourself
+# TODO conjure flaming sword for yourself- permanent (creation)
 # TODO powerful sword hand- permanent
 # TODO vampiric bite- steal hp from limb to heal
 # TODO disarm

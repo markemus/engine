@@ -53,7 +53,7 @@ class TrophyRoom(pl.Place):
 # Cavern rooms
 class CavernEntrance(pl.Place):
     name = "cavern"
-    sprite = "C"
+    sprite = "E"
     count = (1, 2)
     colors = ["gray", "dark", "dripping"]
     textures = ["stone"]
