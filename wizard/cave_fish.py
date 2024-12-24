@@ -23,6 +23,7 @@ class Jaw(cr.Limb):
     size = 1
     eats = 1
     _armor = 2
+    strength = 1
 
 class Head(cr.Limb):
     name = "head"

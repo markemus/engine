@@ -17,7 +17,7 @@ class Maw(cr.Limb):
     appendageRange = (1, 2)
     base_hp = 10
     size = 2
-    vital = True
+    strength = 1
 
 class Tube(cr.Limb):
     name = "tube"

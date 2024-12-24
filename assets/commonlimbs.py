@@ -126,6 +126,7 @@ class Jaw(cr.Limb):
     base_hp = 3
     size = 1
     eats = 1
+    strength = 1
 
 class Nose(cr.Limb):
     name = "nose"
@@ -200,6 +201,7 @@ class RArm(cr.Limb):
     blocker = True
     base_hp = 30
     size = 2
+    strength = 1
 
 class LArm(cr.Limb):
     name = "arm"
@@ -210,6 +212,7 @@ class LArm(cr.Limb):
     blocker = True
     base_hp = 30
     size = 2
+    strength = 1
 
 # Legs
 class Foot(cr.Limb):
@@ -243,6 +246,7 @@ class Tentacle(cr.Weapon):
     t_grasp = 1
     base_hp = 5
     size = 2
+    strength = 1
 
 # Small limbs- for smaller creatures
 class SmallRHand(RHand):

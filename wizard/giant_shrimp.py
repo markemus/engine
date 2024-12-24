@@ -54,6 +54,7 @@ class Arm(cr.Limb):
     base_hp = 25
     size = 2
     _armor = 2
+    strength = 1
 
 class Torso(cr.Limb):
     name = "carapace"

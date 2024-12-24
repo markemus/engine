@@ -32,6 +32,7 @@ class Jaw(cr.Limb):
     base_hp = 3
     size = 1
     eats = 1
+    strength = 1
 
 class Head(cr.Limb):
     name = "head"

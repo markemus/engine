@@ -24,6 +24,7 @@ class Snout(cr.Limb):
     base_hp = 1
     size = 1
     eats = 1
+    strength = 1
 
 class Head(cr.Limb):
     name = "head"
@@ -62,6 +63,7 @@ class Leg(cr.Limb):
     wears = "animal_leg"
     base_hp = 10
     size = 2
+    strength = 1
 
 class Tail(cr.Limb):
     name = "tail"

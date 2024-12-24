@@ -15,6 +15,7 @@ class FlyingHand(cl.RHand):
     flight = 1
     see = 1
     base_hp = 30
+    strength = 1
 
 class EtherealHand(cr.creature):
     """A flying ethereal hand, gripping a glowing sword."""
