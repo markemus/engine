@@ -6,6 +6,7 @@ from engine import game
 from engine import interface
 from engine import effectsbook as eff
 
+from wizard import cheats
 from wizard import human
 from wizard import item_collections as ic
 from wizard import spellbook as sb
@@ -85,6 +86,9 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # player.subelements[0].find_invs()[0].vis_inv.append(potions.PotionOfStoneskin())
 # player.subelements[0].subelements[1].subelements[0].grasped = su.SwordOfFire(color="bright", texture="steel")
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
+
+# TODO disable cheats before release
+cheats.skip_level_one(player, t_game)
 
 i = interface.Interface(t_game)
 # player.can_fear = False
