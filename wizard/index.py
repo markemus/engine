@@ -35,7 +35,7 @@ player.name = "Adam"
 familiar.name = "Cozy"
 player.home = homeLevel
 
-# player.team = "neutral"
+player.team = "neutral"
 
 # thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)

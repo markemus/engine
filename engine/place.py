@@ -36,7 +36,7 @@ class Place:
         text = (" "*offset) + "# " + f"{C.RED}{self.name}{C.OFF}"
 
         for creature in self.creatures:
-            text += "\n" + creature.desc(full=full, offset=offset + 1)
+            text += "\n" + creature.desc(full=False, offset=offset + 1)
         for elem in self.elements:
             if elem.visible:
                 text += "\n" + elem.desc(full=full, offset=offset + 1)
@@ -57,24 +57,25 @@ class Place:
             if type(elemclass) == tuple:
                 elemclass = random.choice(elemclass)
 
-            # Furniture should have their own colors, while room elements should match the room.
-            if issubclass(elemclass, Furniture):
-                color = random.choice(elemclass.color)
-                texture = random.choice(elemclass.texture)
-            else:
-                color = random.choice(self.colors)
-                texture = random.choice(self.textures)
+            if elemclass is not None:
+                # Furniture should have their own colors, while room elements should match the room.
+                if issubclass(elemclass, Furniture):
+                    color = random.choice(elemclass.color)
+                    texture = random.choice(elemclass.texture)
+                else:
+                    color = random.choice(self.colors)
+                    texture = random.choice(self.textures)
 
-            # Count
-            try:
-                potentialRange = elemclass.count
-            except AttributeError:
-                raise AttributeError("'{0}' : {1} object has no attribute 'count'".format(elemclass.name, elemclass))
-            countRange = random.randrange(potentialRange[0], potentialRange[1])
-            # Create
-            for count in range(countRange):
-                elem = elemclass(color, texture)
-                self.elements.append(elem)
+                # Count
+                try:
+                    potentialRange = elemclass.count
+                except AttributeError:
+                    raise AttributeError("'{0}' : {1} object has no attribute 'count'".format(elemclass.name, elemclass))
+                countRange = random.randrange(potentialRange[0], potentialRange[1])
+                # Create
+                for count in range(countRange):
+                    elem = elemclass(color, texture)
+                    self.elements.append(elem)
 
     def _populate(self, extra_creatures=None):
         """Creates one creature per creature_class. extra_creatures allows creatures that are
@@ -182,17 +183,20 @@ class Element:
         self.subelements = []      # subelements
         if self.subelement_classes:
             for subelement_class in self.subelement_classes:
-                if hasattr(subelement_class, "color"):
-                    color = random.choice(subelement_class.color)
-                else:
-                    color = self.color
-                if hasattr(subelement_class, "texture"):
-                    texture = random.choice(subelement_class.texture)
-                else:
-                    texture = self.texture
-                for i in range(random.randrange(*subelement_class.count)):
-                    subelem = subelement_class(color=color, texture=texture)
-                    self.subelements.append(subelem)
+                if isinstance(subelement_class, tuple):
+                    subelement_class = random.choice(subelement_class)
+                if subelement_class is not None:
+                    if hasattr(subelement_class, "color"):
+                        color = random.choice(subelement_class.color)
+                    else:
+                        color = self.color
+                    if hasattr(subelement_class, "texture"):
+                        texture = random.choice(subelement_class.texture)
+                    else:
+                        texture = self.texture
+                    for i in range(random.randrange(*subelement_class.count)):
+                        subelem = subelement_class(color=color, texture=texture)
+                        self.subelements.append(subelem)
 
     def desc(self, full=True, offset=0):
         """Basic describe function is always called desc."""

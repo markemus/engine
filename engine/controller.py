@@ -69,7 +69,7 @@ class Controller:
     def desc(self):
         # Sight check
         if self.game.char.limb_count("see") >= 1:
-            self.display_long_text(self.game.char.location.desc(full=False))
+            self.display_long_text(self.game.char.location.desc(full=True))
         else:
             print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
 

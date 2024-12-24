@@ -43,7 +43,7 @@ class Branch(pl.DisplayFurniture):
     color = ["green", "orange", "red"]
     texture = ["leafy"]
     vis_collections = [(fruit, (1, 2))]
-class Trunk(pl.Furniture):
+class TreeTrunk(pl.Furniture):
     name = "trunk"
     count = (1, 2)
     subelement_classes = [Branch]
@@ -53,8 +53,40 @@ class TreeOfLife(pl.Furniture):
     color = ["brown", "gray", "white"]
     texture = ["wood"]
     count = (1, 2)
-    subelement_classes = [Trunk]
+    subelement_classes = [TreeTrunk]
 
+class Hammock(pl.Furniture):
+    """A dark elf's hammock."""
+    name = "hammock"
+    count = (1, 2)
+    color = ["black"]
+    texture = ["silk"]
+
+class MushroomCap(pl.Furniture):
+    name = "cap"
+    count = (1, 2)
+
+class MushroomCapWithHammock(MushroomCap):
+    subelement_classes = [(Hammock, None, None)]
+
+class MushroomStalk(pl.Furniture):
+    name = "stalk"
+    count = (1, 2)
+    subelement_classes = [MushroomCap]
+
+class MushroomStalkWithHammock(MushroomStalk):
+    subelement_classes = [MushroomCapWithHammock]
+
+class GiantMushroom(pl.Furniture):
+    name = "giant mushroom"
+    color = ["purple", "cyan", "magenta"]
+    texture = ["blotchy", "spotted", "streaked"]
+    count = (2, 7)
+    subelement_classes = [MushroomStalk]
+
+class GiantMushroomWithHammock(GiantMushroom):
+    """A giant mushroom that sometimes has a nice relaxing hammock hanging from its cap."""
+    subelement_classes = [MushroomStalkWithHammock]
 
 # Wizard's home
 class MagicDoor(st.door):
@@ -81,7 +113,7 @@ class TrophyPlinth(pl.DisplayFurniture):
     vis_collections = [(wcol.plaque, (1, 2))]
 
 
-# Caverns- level one
+# Caverns
 class L1Chest(pl.DisplayFurniture):
     name = "treasure chest"
     color = ["brown", "black", "gray"]
