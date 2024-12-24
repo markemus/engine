@@ -723,7 +723,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE transform yourself into a monster temporarily (or permanently)
 # TODO conjure flaming sword for yourself
 # TODO powerful sword hand- permanent
-# TODO potions
 # TODO vampiric bite- steal hp from limb to heal
 # TODO disarm
 # TODO possession- reduces humanity

@@ -6,6 +6,7 @@ from engine import item as I, effectsbook as eff
 
 from colorist import BrightColor as BC, Color as C
 
+
 class PotionOfStoneskin(I.Potion):
     """Creature's skin turns to stone, granting extra HP."""
     name = "Potion of Stoneskin"
@@ -15,6 +16,7 @@ class PotionOfStoneskin(I.Potion):
         for limb in limbs:
             stoniness = eff.Stoneskin(creature, limb, controller=self.cont)
             stoniness.cast()
+
 
 class ArmGrowthPotion(I.Potion):
     """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""
@@ -83,6 +85,7 @@ class TentacleGrowthPotion(I.Potion):
         else:
             print(f"{C.RED}The potion has no effect.{C.OFF}")
 
+
 class PotionOfHealing(I.Potion):
     """Heals a certain amount of HP on random limbs."""
     name = "Potion of Healing"
@@ -100,6 +103,7 @@ class PotionOfHealing(I.Potion):
                 print(f"{BC.CYAN}{limb.name}{BC.OFF} gains {C.RED}({to_heal}/{limb.base_hp}){C.OFF} hp.")
             if total_heal <= 0:
                 break
+
 
 class PotionOfMana(I.Potion):
     name = "Potion of Mana"
@@ -120,5 +124,5 @@ class PotionOfMana(I.Potion):
                 mana_equipment.mana += missing_mana
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
-
+# TODO more potions
 # TODO potion of Might
