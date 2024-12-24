@@ -654,9 +654,11 @@ class creature:
     def check_siphon_tag(self, tag, amount):
         """Check whether it will be possible to siphon this amount of the tag from equipment."""
         tag_equipment = self.get_tagged_equipment(tag)
+        # limb_check will return limbs with items on them if item has tag
+        tag_limbs = [l for l in self.subelements[0].limb_check(tag) if hasattr(l, tag)]
         # Amount of tag that will be left after we siphon some off
         after_siphon = {}
-        for gear in tag_equipment:
+        for gear in tag_equipment + tag_limbs:
             max_siphon = getattr(gear, tag)
             if amount <= max_siphon:
                 amount_to_siphon = amount
@@ -679,9 +681,11 @@ class creature:
     def siphon_tag(self, tag, amount):
         """Reduce value of this tag on equipment with this tag by a certain amount in total."""
         tag_equipment = self.get_tagged_equipment(tag)
+        # limb_check will return limbs with items on them if item has tag
+        tag_limbs = [l for l in self.subelements[0].limb_check(tag) if hasattr(l, tag)]
         # Amount of tag that will be left after we siphon some off
         after_siphon = {}
-        for gear in tag_equipment:
+        for gear in tag_equipment + tag_limbs:
             max_siphon = getattr(gear, tag)
             if amount <= max_siphon:
                 amount_to_siphon = amount

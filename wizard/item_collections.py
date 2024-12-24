@@ -22,8 +22,8 @@ for x in dir(sb):
     if inspect.isclass(variable) and issubclass(variable, engine.spells.Spell) and variable not in [sb.CreationSpell, sb.CorruptionSpell]:
         all_spells.append(variable)
 
-level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might]
-level_two_spells = [sb.GrowTreeOfLife, sb.SummonSpider, sb.ArmorOfLight, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.SummonEtherealHand, sb.Trapdoor, sb.TransformSpider]
+level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.SummonEtherealHand, sb.SummonCerberus]
+level_two_spells = [sb.GrowTreeOfLife, sb.SummonSpider, sb.ArmorOfLight, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.TransformSpider]
 level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.ReanimateLimb]
 
 class RandomScroll(it.Scroll):

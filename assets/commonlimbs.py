@@ -44,6 +44,7 @@ class Hair(cr.Limb):
     colors = ["black", "red", "brown", "blonde"]
     textures = ["haired"]
 
+# TODO beards should give mana
 class Beard(cr.Limb):
     name = "beard"
     subelement_classes = []
@@ -54,6 +55,12 @@ class Beard(cr.Limb):
     size = 1
     colors = ["black", "red", "brown", "blonde"]
     textures = ["haired"]
+
+class WizardBeard(Beard):
+    base_mana = 5
+    mana = 5
+    colors = ["white"]
+    textures = ["luxuriant"]
 
 class Ear(cr.Limb):
     name = "ear"

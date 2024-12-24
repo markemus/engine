@@ -345,13 +345,14 @@ class Controller:
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
 
         # Dispel all active spells
-        for spell in self.game.active_spells:
+        # TODO-DONE active effects don't seem to expire? Not sure why.
+        for spell in self.game.active_spells.copy():
             spell.expire()
         self.game.active_spells = []
 
         # All equipment recovers full mana, except that used for creating/summoning minions
         minion_mana = sum([x.mana_cost for x in self.game.char.get_companions()])
-        for mana_equipment in self.game.char.get_tagged_equipment("mana"):
+        for mana_equipment in self.game.char.get_tagged_equipment("mana") + [x for x in self.game.char.subelements[0].limb_check("mana") if hasattr(x, "mana")]:
             missing_mana = mana_equipment.base_mana - mana_equipment.mana
             if missing_mana >= minion_mana:
                 missing_mana -= minion_mana
@@ -364,19 +365,9 @@ class Controller:
                 mana_equipment.mana += missing_mana
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
-        # TODO can_rest tag on creature
+        # TODO can_rest tag on creature (zombies, constructs can't rest)
         for creature in [self.game.char] + self.game.char.get_companions():
             creature.rest()
-        #     # Reset status effects
-        #     creature.bled = 0
-        #     creature.poisoned = 0
-        #
-        # # char heals a bit
-        # for limb in self.game.char.subelements[0].limb_check(tag="hp"):
-        #     if limb.hp < limb.base_hp:
-        #         hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)
-        #         limb.hp += hp_diff
-        #         print(f"{C.RED}{self.game.char.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
     def use(self):
         invs = self.game.char.subelements[0].find_invs()
@@ -541,7 +532,7 @@ class Controller:
     def cast_magic(self, state):
         spellbook = self.game.char.spellbook
         spell_list = []
-        mana_equipment = self.game.char.get_tagged_equipment("mana")
+        mana_equipment = self.game.char.get_tagged_equipment("mana") + [x for x in self.game.char.subelements[0].limb_check("mana") if hasattr(x, "mana")]
         mana = sum([x.mana for x in mana_equipment])
         max_mana = sum([x.base_mana for x in mana_equipment])
         print(f"{C.RED}----------Known Spells----------{C.OFF}")

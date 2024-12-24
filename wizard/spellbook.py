@@ -183,7 +183,7 @@ class GrowTreeOfLife(CreationSpell):
 class SummonCerberus(CreationSpell):
     name = "Summon Cerberus"
     mana_cost = 7
-    humanity_min = 1
+    humanity_min = 5
     description = f"Summons a three headed dog to aid you (>{humanity_min}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
@@ -201,9 +201,9 @@ class SummonCerberus(CreationSpell):
 
 class SummonSpider(CreationSpell):
     name = "Summon Spider"
-    mana_cost = 5
+    mana_cost = 8
     humanity_min = 0
-    description = f"Summons an enemy spider (>{humanity_min}) [{mana_cost}]."
+    description = f"Summons a giant friendly spider (>{humanity_min}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
 
@@ -211,13 +211,15 @@ class SummonSpider(CreationSpell):
         """This is useful if you want to test combat magic on an opponent."""
         spider = giant_spider.GiantSpider(location=self.target.location)
         spider.mana_cost = self.mana_cost
+        spider.team = self.caster.team
         self.target.location.creatures.append(spider)
+        self.caster.companions.append(spider)
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
 
 class SummonEtherealHand(CreationSpell):
     name = "Summon Ethereal Hand"
-    mana_cost = 5
+    mana_cost = 8
     humanity_min = 3
     description = f"Summons a flying hand holding a shining blade (>{humanity_min}) [{mana_cost}]."
     rounds = 1
@@ -236,7 +238,7 @@ class SummonEtherealHand(CreationSpell):
 class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
     mana_cost = 12
-    humanity_min = 5
+    humanity_min = 7
     description = f"Summons a friendly tentacle monster (>{humanity_min}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
@@ -432,12 +434,10 @@ class TransformSpider(CorruptionSpell):
         print(f"{C.RED}{self.old_char.name}{BC.MAGENTA} transforms back into a {C.RED}{self.old_char.classname}{BC.MAGENTA}.{BC.OFF}")
 
 
-
-
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
-    humanity_max = 1
+    humanity_max = 5
     description = f"Graft a disembodied limb onto a friendly creature (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "friendly"
@@ -667,9 +667,14 @@ class AWayHome(sp.Spell):
 class GrowBeard(sp.Spell):
     name = "Grow Long Beard"
     mana_cost = 5
-    description = f"Grow a long flowing beard worthy of a powerful wizard[{mana_cost}]."
+    description = f"Grow a long flowing beard worthy of a powerful wizard [{mana_cost}]."
     rounds = 1
     targets = "caster"
+
+    def no_beard(self, head):
+        beards = [x for x in head.subelements if x.name == "beard"]
+        if not beards:
+            return True
 
     def _cast(self):
         import assets.commonlimbs as cl
@@ -679,13 +684,19 @@ class GrowBeard(sp.Spell):
         if heads:
             # We want a random head, not the first one each time
             random.shuffle(heads)
+            # Ideally we want a head with no beard but we can replace an existing beard with a big white one in a pinch.
+            unbearded_heads = [x for x in heads if self.no_beard(x)]
+            if unbearded_heads:
+                heads = unbearded_heads
             head = heads[0]
+
             existing_beards = [x for x in head.subelements if x.name == "beard"]
             if existing_beards:
                 # Cut existing beard(s) (should be max one but we'll be thorough)
                 for beard in existing_beards:
                     head.remove_limb(beard)
-            head.subelements.append(cl.Beard(color="white", texture="luxuriant"))
+                    print(f"{BC.MAGENTA}{self.target.name}'s old beard hairs fall out of their face.{BC.OFF}")
+            head.subelements.append(cl.WizardBeard(color="white", texture="luxuriant"))
             print(f"{BC.MAGENTA}A long flowing beard erupts from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s face!{BC.OFF}")
 
 

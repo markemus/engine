@@ -23,4 +23,4 @@ class EtherealHand(cr.creature):
     baseElem = FlyingHand
     colors = ["glowing"]
     textures = ["ethereal"]
-    suits = [su.bronze_lightsword]
+    suits = [su.bronze_lightsword, su.lightsuit]

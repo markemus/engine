@@ -46,6 +46,7 @@ t_game.set_char(player)
 # TODO select starting spells for release
 # Character setup
 player.spellbook.append(random.choice(ic.level_one_spells))
+player.spellbook.append(random.choice([sb.SummonCerberus, sb.SummonSpider, sb.SummonEtherealHand]))
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
 # player.spellbook.append(sb.Shadow)
@@ -53,13 +54,13 @@ player.spellbook.append(random.choice(ic.level_one_spells))
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
 # player.spellbook.append(sb.SummonSpider)
-player.spellbook.append(sb.SummonCerberus)
+# player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.SummonEtherealHand)
-# player.spellbook.append(sb.TransformSpider)
 # player.spellbook.append(sb.SummonTentacleMonster)
 # player.spellbook.append(sb.Distract)
 # player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.ReanimateLimb)
+# player.spellbook.append(sb.TransformSpider)
 # player.spellbook.append(sb.Caltrops)
 # player.spellbook.append(sb.FleshRip)
 # player.spellbook.append(sb.Fear)
@@ -75,7 +76,7 @@ player.spellbook.append(sb.SetHumanity)
 
 # TODO player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
-player.humanity = 1
+player.humanity = 5
 # player.humanity = -5
 
 # Give player some mana to start the game with
