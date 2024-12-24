@@ -272,3 +272,9 @@ class SmallLeg(Leg):
 
 class SmallHead(Head):
     base_hp = int(Head.base_hp / 2)
+
+class PTentacle(Tentacle):
+    """This creature only has a small number of tentacles- no big deal."""
+    appendageRange = (1, 3)
+    colors = ["green"]
+    textures = ["slimy"]

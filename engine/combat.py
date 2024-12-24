@@ -187,7 +187,7 @@ class Combat:
             # damage = (damage - target.armor) if damage > target.armor else 0
             damage = (damage / target.armor)
 
-        # TODO create some creatures with strength
+        # TODO create some creatures with high strength (trolls)
         # Adjust for strength.
         # This attribute on a parent limb can modify damage positively or negatively (troll vs hobbit eg).
         parent_strength = [p.strength for p in actor.get_parents(weapon) if hasattr(p, "strength")]
