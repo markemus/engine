@@ -21,7 +21,7 @@ class Eye(cr.Limb):
 class Fangs(cl.Teeth):
     name = "fangs"
     _damage = 10
-    effects = [eff.Webbed]
+    effects = [eff.Webbed, eff.Poison]
 
 class Jaw(cr.Limb):
     name = "jaw"

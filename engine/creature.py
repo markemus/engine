@@ -1,8 +1,9 @@
 import random
 
+from engine import ai
+
 from colorist import Color as C
 from colorist import BrightColor as BC
-from engine import ai
 
 # End of Loading Zone
 class Limb:
@@ -327,6 +328,8 @@ class creature:
     dead = False
     can_transform = True
     can_fear = True
+    bled = 0
+    poisoned = 0
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)
@@ -685,3 +688,19 @@ class creature:
         else:
             # Don't siphon, and tell caller there isn't enough.
             return False
+
+    @property
+    def blood(self):
+        """The amount of blood a creature has is proportional to its size."""
+        limbs = self.subelements[0].limb_check("name")
+        total_blood = sum([x.size for x in limbs])
+
+        return total_blood
+
+    @property
+    def poison_resist(self):
+        """The amount of poison a creature can resist is proportional to its size."""
+        limbs = self.subelements[0].limb_check("name")
+        total_pr = sum([x.size for x in limbs])
+
+        return total_pr

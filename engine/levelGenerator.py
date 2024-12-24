@@ -13,6 +13,7 @@ class levelGenerator:
     def __init__(self):
         pass
 
+    # TODO can get stuck in infinite loop with "labyrinth" algorithm.
     def levelGen(self, levelname, levelstyle):
         """Generates a level. """
         roomList = []
@@ -95,7 +96,7 @@ class levelGenerator:
                     # if lastRoomNum < 0:
                     #     raise ValueError(f"LastRoomNum < 0! {lastRoomNum}")
                     lastRoomNum = lastRoomNum + 2
-                    print(lastRoomNum, x, y)
+                    # print(lastRoomNum, x, y)
 
             # Set end room
             gennedLevel.end = roomList[-1]
@@ -137,7 +138,7 @@ class levelGenerator:
 
             # deltaMin = 0
             lastRoomNum = lastRoomNum - 1
-            print("randomizing")
+            # print("randomizing")
 
         while True:
             deltaIndex = random.randrange(deltaMin, len(delta))
@@ -166,7 +167,7 @@ class levelGenerator:
             # In this outcome, no adjacent room slots are available, so we backtrack
             # We negatively iterate lastRoomNum in case we have to do so again
             if deltaMin == len(delta):
-                print("out of deltas")
+                # print("out of deltas")
                 if (lastRoomNum < 2) and len(previousRoomList) > 3:
                     # This empirically solves a bug where function settles on first_room
                     # and puts the next room randomly on the grid. I do not know how else

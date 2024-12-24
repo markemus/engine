@@ -159,8 +159,46 @@ class Might(sp.Effect):
         print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} shrinks back down to its normal size.{BC.OFF}")
 
 
-# TODO bleed- builds up and if it hits a certain level, creature dies
-# TODO poison- same as bleed
+class Bleed(sp.Effect):
+    def __init__(self, creature, limb, controller, amount):
+        super().__init__(creature, limb, controller)
+        self.amount = amount
+        # More bleeding lasts for longer
+        self.rounds = amount
+
+    def _cast(self):
+        self.update()
+        return True
+
+    def update(self):
+        self.creature.bled += self.amount
+        print(f"{C.RED}Blood drips from {self.creature.name}'s {self.limb.name}.{C.OFF}")
+        if self.creature.bled > self.creature.blood / 2:
+            print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
+        if self.creature.bled >= self.creature.blood:
+            self.creature.die()
+
+    def _expire(self):
+        print(f"{BC.CYAN}The wound on {self.creature.name}'s {self.limb.name} stops bleeding.{BC.OFF}")
+
+
+class Poison(sp.Effect):
+    rounds = 1
+    amount = 2
+
+    def _cast(self):
+        self.creature.poisoned += self.amount
+        print(f"{C.RED}{self.creature.name} absorbs {self.amount} points of poison!{C.OFF}")
+        if self.creature.poisoned > self.creature.poison_resist / 2:
+            print(f"{C.RED}{self.creature.name}{C.OFF} looks green.")
+        if self.creature.poisoned >= self.creature.poison_resist:
+            print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
+            self.creature.die()
+        return True
+
+
+# TODO-DONE bleed- builds up and if it hits a certain level, creature dies
+# TODO-DONE poison- same as bleed
 # TODO-DONE webbed effect- can't amble or use as weapon
 # TODO-DONE fear effect- on subelements[0], makes creature unable to attack
 # TODO paralyze

@@ -364,6 +364,11 @@ class Controller:
                 mana_equipment.mana += missing_mana
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
+        for creature in [self.game.char] + self.game.char.companions:
+            # Reset status effects
+            creature.bled = 0
+            creature.poisoned = 0
+
         # char heals a bit
         for limb in self.game.char.subelements[0].limb_check(tag="hp"):
             if limb.hp < limb.base_hp:

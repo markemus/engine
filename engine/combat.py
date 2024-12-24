@@ -1,7 +1,10 @@
 import random
 
+import engine.effectsbook as eff
+
 from colorist import BrightColor as BC, Color as C
 from engine import item
+
 
 class Combat:
     def __init__(self, char, cont):
@@ -211,6 +214,10 @@ class Combat:
                 if limb is not defender.subelements[0]:
                     # limb may already be detached if damage is DOT
                     if defender.subelements[0].is_subelement(limb):
+                        # Apply a bleed to the parent limb
+                        parent_limb = defender.get_parents(limb)[-2]
+                        bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=limb.size*2)
+                        bleed.cast()
                         defender.remove_limb(limb)
                         print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                         self.throw_limb(defender, limb)
@@ -220,7 +227,7 @@ class Combat:
                                 print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
 
                 else:
-                    # Just remove the limb, the creature class will handle the rest.
+                    # Just remove the core limb, the creature class will handle the rest.
                     defender.remove_limb(limb)
 
             cutoff = True

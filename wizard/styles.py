@@ -24,7 +24,7 @@ class Home:
 LevelStyle.register(Home)
 
 class Cavern:
-    level_text = f"""{BC.BLUE}The caves stretch before you, beckoning you on towards your first big adventure. You seek the burial chamber of the great dwarven king, Naarumsin, who lies deep underground somewhere beneath your feet. Legend has it that he was buried with an immense treasure, and his tomb has never been found. Many dangers lie before you, but fame and fortune will yours, if you can rise to the challenge. Into the depths!"""
+    level_text = f"""{BC.BLUE}The caves stretch before you, beckoning you on towards your first big adventure. You seek the burial chamber of the great dwarven king, Naarumsin, who lies deep underground somewhere beneath your feet. Legend has it that he was buried with an immense treasure, and his tomb has never been found. Many dangers lie before you, but fame and fortune will be yours, if you can rise to the challenge. Into the depths!"""
     room_classes = [wizard.places.CavernOpen, wizard.places.CavernVillage, wizard.places.Tunnel]
     start_room = wizard.places.CavernEntrance
     end_room = wizard.places.GoblinChiefVillage
