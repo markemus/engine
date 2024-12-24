@@ -1,13 +1,15 @@
 import assets.places
 import engine.place as pl
-from engine.styles import wall, floor, pillar, door
+from engine.styles import wall, floor, water, pillar, door
 
 import assets.furniture as fur
 
 import wizard.furniture
 
+from wizard.cave_fish import BlindCaveFish
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
+from wizard.giant_shrimp import BlindCaveShrimp
 from wizard.elf import DarkElfScout
 from wizard.giant_spider import GiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
@@ -21,6 +23,7 @@ cc = {
     "caverns_2": [(GiantSpider, 1), (DarkElfScout, 4), (ShallowGoblin, 4), (None, 2)],
     "caverns_2_gobs": [(ShallowGoblin, 4), (None, 1)],
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
+    "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
 }
 
@@ -101,18 +104,18 @@ class GoblinChiefVillage(GoblinCavernVillage):
     creature_classes = [[(ShallowGoblin, 1)], [(ShallowGoblin, 1)], [(ShallowGoblinChief, 1)], [(GoblinPetDog, 1)]]
 
 # Cavern L2 rooms
-# TODO giant mushrooms
-# TODO gravesites
+# TODO-DONE giant mushrooms
+# TODO-DONE gravesites
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
     creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
-    furniture_classes = [wizard.furniture.GiantMushroom] + CavernOpen.furniture_classes.copy()
+    furniture_classes = [wizard.furniture.GiantMushroom] + [(wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave)] + CavernOpen.furniture_classes.copy()
 
 class GoblinCavernVillageL2(GoblinCavernVillage):
     creature_classes = [cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"]]
     furniture_classes = [wizard.furniture.GiantMushroom] + GoblinCavernVillage.furniture_classes.copy()
 
-# TODO hammocks hanging from mushrooms
+# TODO-DONE hammocks hanging from mushrooms
 class DarkElfOutpost(CavernOpen):
     """A forward scouting base of the dark elves."""
     sprite = "D"
@@ -121,3 +124,13 @@ class DarkElfOutpost(CavernOpen):
     furniture_classes = [wizard.furniture.GiantMushroomWithHammock, wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
 
 # TODO lake with giant blind fish and shrimp
+class CavernLake(pl.Place):
+    name = "cave lake"
+    sprite = "L"
+    count = (1, 5)
+    colors = ["slate", "black", "wet"]
+    textures = ["dark"]
+    creature_classes = [cc["fish"], cc["fish"], cc["fish"], cc["fish"]]
+    # creature_classes = []
+    furniture_classes = []
+    subelement_classes = [wall, water, wizard.furniture.Stalactite]

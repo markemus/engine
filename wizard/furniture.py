@@ -6,7 +6,9 @@ import engine.styles as st
 import assets.asset_collections as col
 import assets.furniture as fur
 
+import wizard.elf
 import wizard.item_collections as wcol
+import wizard.goblin
 
 from colorist import BrightColor as BC, Color as C
 
@@ -130,6 +132,19 @@ class L2Chest(pl.DisplayFurniture):
     # A random scroll, or a potion/mana item
     vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
 
+class GoblinGrave(pl.DisplayFurniture):
+    name = "goblin grave"
+    color = ["stone"]
+    texture = ["mound"]
+    count = (0, 2)
+    vis_collections = [(wizard.goblin.goblin_corpse_col, (1, 2))]
+
+class DarkElfGrave(pl.DisplayFurniture):
+    name = "dark elf grave"
+    color = ["dirt"]
+    texture = ["mound"]
+    count = (0, 2)
+    vis_collections = [(wizard.elf.dark_elf_corpse_col, (1, 2))]
 
 class Stalactite(pl.Element):
     name = "stalactite"

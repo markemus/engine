@@ -23,7 +23,7 @@ def suit_to_collection(suit, model):
 
     return collection
 
-def limbs_to_collection(limbs, model, color_scheme="distinct", texture_scheme="distinct", full=True):
+def limbs_to_collection(limbs, model, color_scheme="same", texture_scheme="same", full=True):
     """Converts a list of Limbs into a Collection of Limbs (for display in an Item or Furniture).
     Limbs will have colors and textures taken from the model, so you probably want Limbs from
     that same Creature class."""

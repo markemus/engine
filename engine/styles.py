@@ -39,7 +39,12 @@ class floor(pl.Platform):
     count = (1, 2)
     canCatch = True
 
-# TODO doors should have their own colors when generated (like furniture)
+class water(pl.Platform):
+    name = "water"
+    count = (1, 2)
+    canCatch = True
+
+# TODO-DONE doors should have their own colors when generated (like furniture)
 class door(pl.Element):
     name = "door"
     sprite = "O"

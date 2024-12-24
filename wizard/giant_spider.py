@@ -64,7 +64,7 @@ class Torso(cr.Limb):
 
 class GiantSpider(cr.creature):
     classname = "giant spider"
-    team = "monster"
+    team = "dark elf"
     namelist = nl.names["spider"]
     baseElem = Torso
     colors = ["black", "brindled", "spotted", "brown", "rust"]

@@ -145,7 +145,7 @@ potions_suit = {
 }
 
 # Kitchen
-arms_and_legs = sc.limbs_to_collection(limbs=[(cl.RArm, cl.LArm, cl.Leg, cl.Tentacle)], model=human.Human)
+arms_and_legs = sc.limbs_to_collection(limbs=[(cl.RArm, cl.LArm, cl.Leg, cl.Tentacle)], model=human.Human, color_scheme="distinct", texture_scheme="distinct")
 
 class KitchenKnife(it.Item):
     name = "kitchen knife"
