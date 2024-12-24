@@ -41,7 +41,7 @@ class Wing(cr.Limb):
     appendageRange = (2, 3)
     wears = "wing"
     base_hp = 5
-    size = 1
+    size = 2
     flight = 1/2
 
 class Torso(cr.Limb):
