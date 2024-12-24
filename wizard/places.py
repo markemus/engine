@@ -20,6 +20,7 @@ from assets.goblin import Goblin, ShallowGoblin
 
 cc = {
     "caverns_1": [(GiantRat, 3), (GiantBat, 3), (ShallowGoblin, 4), (None, 2)],
+    "caverns_1_gobs": [(ShallowGoblin, 4), (None, 1)],
     "caverns_2": [(GiantSpider, 1), (DarkElfScout, 4), (ShallowGoblin, 4), (None, 2)],
     "caverns_2_gobs": [(ShallowGoblin, 4), (None, 1)],
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
@@ -95,6 +96,7 @@ class GoblinCavernVillage(CavernOpen):
     sprite = "G"
     count = (1, 4)
     furniture_classes = [wizard.furniture.Mattress, wizard.furniture.Firepit, wizard.furniture.L1Chest]
+    creature_classes = [cc["caverns_1_gobs"], cc["caverns_1_gobs"], cc["caverns_1_gobs"]]
 
 class GoblinChiefVillage(GoblinCavernVillage):
     """Village where the goblin chief resides."""
@@ -109,7 +111,7 @@ class GoblinChiefVillage(GoblinCavernVillage):
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
     creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
-    furniture_classes = [wizard.furniture.GiantMushroom] + [(wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave)] + CavernOpen.furniture_classes.copy()
+    furniture_classes = [wizard.furniture.GiantMushroom, (wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave)] + CavernOpen.furniture_classes.copy()
 
 class GoblinCavernVillageL2(GoblinCavernVillage):
     creature_classes = [cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"]]

@@ -8,7 +8,7 @@ import wizard.suits as wsu
 
 class ShallowGoblinChief(assets.goblin.ShallowGoblin):
     classname = "goblin chief"
-    suits = [asu.plainsuit, wsu.firesword]
+    suits = [asu.plainsuit, (wsu.bronze_firesword, wsu.bronze_lightsword, wsu.bleedflail)]
 
 class GoblinPetDog(assets.dog.Dog):
     team = "goblinkin"

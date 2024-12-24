@@ -220,6 +220,7 @@ class Combat:
                         print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                         self.throw_limb(defender, limb)
                         if not defender.dead:
+                            # TODO bleed should use limb.orig_size if it exists (shouldn't synergize with Light and Shadow)
                             bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=limb.size * 2)
                             bleed.cast()
 

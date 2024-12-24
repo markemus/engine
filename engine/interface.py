@@ -20,6 +20,7 @@ class Interface:
             "e": self.cont.examine,
             "D": self.cont.details,
             "i": self.cont.inventory,
+            # TODO P put_on allies, T take_off allies, G hand to allies
             "p": self.cont.put_on,
             "t": self.cont.take_off,
             "g": self.cont.grasp,

@@ -68,8 +68,8 @@ potions_col = {
     "full": True,
 }
 
-firesword_col = sc.suit_to_collection(wsu.firesword, model=Human)
-lightsword_col = sc.suit_to_collection(wsu.lightsword, model=Human)
+firesword_col = sc.suit_to_collection(wsu.bronze_firesword, model=Human)
+lightsword_col = sc.suit_to_collection(wsu.bronze_lightsword, model=Human)
 
 mana_items = {
     "contains": [(wsu.RingOfMana, wsu.ManaLocket)],

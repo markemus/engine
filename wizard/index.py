@@ -1,3 +1,5 @@
+import random
+
 from assets import cat
 
 from engine import game
@@ -5,6 +7,7 @@ from engine import interface
 from engine import effectsbook as eff
 
 from wizard import human
+from wizard import item_collections as ic
 from wizard import spellbook as sb
 from wizard import styles
 from wizard import suits as su
@@ -42,19 +45,20 @@ t_game.set_char(player)
 
 # TODO select starting spells for release
 # Character setup
+player.spellbook.append(random.choice(ic.level_one_spells))
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
 # player.spellbook.append(sb.Shadow)
 # player.spellbook.append(sb.Trapdoor)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
-player.spellbook.append(sb.SummonSpider)
+# player.spellbook.append(sb.SummonSpider)
 player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.SummonEtherealHand)
 # player.spellbook.append(sb.TransformSpider)
 # player.spellbook.append(sb.SummonTentacleMonster)
 # player.spellbook.append(sb.Distract)
-player.spellbook.append(sb.GraftLimb)
+# player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.ReanimateLimb)
 # player.spellbook.append(sb.Caltrops)
 # player.spellbook.append(sb.FleshRip)

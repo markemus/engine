@@ -11,6 +11,6 @@ class DarkElf(assets.elf.Elf):
     suits = [wsu.darkelfsuit]
 
 class DarkElfScout(DarkElf):
-    suits = [wsu.darkelfsuit, asu.partial_bronze_armorsuit, wsu.poisonsword]
+    suits = [wsu.darkelfsuit, asu.partial_bronze_armorsuit, wsu.bronze_poisonsword]
 
 dark_elf_corpse_col = sc.limbs_to_collection(limbs=[assets.elf.Torso], model=DarkElfScout)

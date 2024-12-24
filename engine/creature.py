@@ -628,6 +628,14 @@ class creature:
     def get_team(self):
         return self.team
 
+    def get_companions(self):
+        # Get rid of dead companions
+        for companion in self.companions.copy():
+            if companion.dead:
+                self.companions.remove(companion)
+
+        return self.companions
+
     def get_tagged_equipment(self, tag):
         """Returns all equipment that has a certain tag. EG mana."""
         equipment_lists = self.subelements[0].find_equipped()
@@ -695,6 +703,19 @@ class creature:
         else:
             # Don't siphon, and tell caller there isn't enough.
             return False
+
+     # TODO can_rest tag on creature, can_heal tag on limbs
+    def rest(self):
+        """Rest, recover HP, and clear status effects."""
+        self.bled = 0
+        self.poisoned = 0
+
+        for limb in self.subelements[0].limb_check(tag="hp"):
+            if limb.hp < limb.base_hp:
+                hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)
+                limb.hp += hp_diff
+                print(f"{C.RED}{self.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
+
 
     @property
     def blood(self):

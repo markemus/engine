@@ -110,7 +110,7 @@ class PotionOfMana(I.Potion):
 
     def effect(self, creature):
         # All equipment recovers full mana, except that used for creating/summoning minions
-        minion_mana = sum([x.mana_cost for x in creature.companions])
+        minion_mana = sum([x.mana_cost for x in creature.get_companions()])
         for mana_equipment in creature.get_tagged_equipment("mana"):
             missing_mana = mana_equipment.base_mana - mana_equipment.mana
             if missing_mana >= minion_mana:

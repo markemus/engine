@@ -10,8 +10,8 @@ class Zombie(cr.creature):
     def __init__(self, limb, location):
         super().__init__(location=location)
         self.subelements = [limb]
-        # The animating energy resides in the core limb
-        limb.vital = True
+        # Heal the limb a bit, since it will have negative hp otherwise
+        limb.hp = int(limb.base_hp / 2)
         self.name = f"zombie {limb.name}"
 
     def _elementGen(self):

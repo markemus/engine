@@ -122,15 +122,19 @@ class ManaLocket(i.Item):
 
 
 # Magic weapons
-class SwordOfFire(su.BronzeSword):
+class BronzeSwordOfFire(su.BronzeSword):
     effects = [eff.FireDOT]
 
-class SwordOfLight(su.BronzeSword):
+class BronzeSwordOfLight(su.BronzeSword):
     effects = [eff.Light]
 
-class PoisonedScimitar(su.BronzeSword):
+class BronzePoisonedScimitar(su.BronzeSword):
     effects = [eff.Poison]
 
+class BronzeFlail(i.Item):
+    name = "flail"
+    damage = 12
+    effects = [eff.Bleed]
 
 # Suits
 darkelfsuit = {
@@ -171,7 +175,7 @@ lightsuit = {
 
 lightsword_ethereal = {
     "grasps": {
-        "right hand": SwordOfLight,
+        "right hand": BronzeSwordOfLight,
     },
     "wears": {},
     "color": ["glowing"],
@@ -181,9 +185,9 @@ lightsword_ethereal = {
     "full": True,
 }
 
-lightsword = {
+bronze_lightsword = {
     "grasps": {
-        "right hand": SwordOfLight,
+        "right hand": BronzeSwordOfLight,
     },
     "wears": {},
     "color": ["glowing"],
@@ -193,9 +197,9 @@ lightsword = {
     "full": True,
 }
 
-firesword = {
+bronze_firesword = {
     "grasps": {
-        "right hand": SwordOfFire,
+        "right hand": BronzeSwordOfFire,
     },
     "wears": {},
     "color": ["firey"],
@@ -205,9 +209,21 @@ firesword = {
     "full": True,
 }
 
-poisonsword = {
+bronze_poisonsword = {
     "grasps": {
-        "right hand": PoisonedScimitar,
+        "right hand": BronzePoisonedScimitar,
+    },
+    "wears": {},
+    "color": ["burnished", "shiny", "orange", "greenish"],
+    "color_scheme": "same",
+    "texture": ["bronze"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+bleedflail = {
+    "grasps": {
+        "right hand": BronzeFlail,
     },
     "wears": {},
     "color": ["burnished", "shiny", "orange", "greenish"],

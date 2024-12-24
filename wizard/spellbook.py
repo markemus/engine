@@ -182,7 +182,7 @@ class GrowTreeOfLife(CreationSpell):
 
 class SummonCerberus(CreationSpell):
     name = "Summon Cerberus"
-    mana_cost = 5
+    mana_cost = 7
     humanity_min = 1
     description = f"Summons a three headed dog to aid you (>{humanity_min}) [{mana_cost}]."
     rounds = 1
@@ -235,7 +235,7 @@ class SummonEtherealHand(CreationSpell):
 
 class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
-    mana_cost = 10
+    mana_cost = 12
     humanity_min = 5
     description = f"Summons a friendly tentacle monster (>{humanity_min}) [{mana_cost}]."
     rounds = 1
@@ -697,7 +697,7 @@ class ReleaseMinion(sp.Spell):
     targets = "caster"
 
     def _cast(self):
-        minions = utils.listtodict([x for x in self.caster.companions if not hasattr(x, "familiar")], add_x=True)
+        minions = utils.listtodict(self.caster.get_companions(), add_x=True)
         utils.dictprint(minions)
         i = input(f"{BC.MAGENTA}Select a minion to release from your mental control: {BC.OFF}")
         if i in minions.keys() and i != "x":
