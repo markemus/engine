@@ -10,7 +10,7 @@ class Teeth(cr.Weapon):
     _damage = 3
     appendageRange = (1, 2)
     wears = "fangs"
-    base_hp = 3
+    base_hp = 5
     size = 1
     colors = ["yellow"]
     textures = ["enameled"]

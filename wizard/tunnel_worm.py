@@ -23,7 +23,7 @@ class Tube(cr.Limb):
     name = "tube"
     subelement_classes = [Maw]
     appendageRange = (1, 2)
-    base_hp = 15
+    base_hp = 20
     size = 3
     amble = 1
 
