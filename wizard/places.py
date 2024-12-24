@@ -123,7 +123,7 @@ class DarkElfOutpost(CavernOpen):
     creature_classes = [cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"]]
     furniture_classes = [wizard.furniture.GiantMushroomWithHammock, wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
 
-# TODO lake with giant blind fish and shrimp
+# TODO-DONE lake with giant blind fish and shrimp
 class CavernLake(pl.Place):
     name = "cave lake"
     sprite = "L"

@@ -68,9 +68,9 @@ class Game(object):
         spells = self.active_spells.copy()
         for spell in spells:
             if spell.rounds != "forever":
-                spell.rounds -= 1
                 if spell.rounds <= 0:
                     spell.expire()
+                spell.rounds -= 1
 
         for spell in self.active_spells:
             # print(spell.rounds)

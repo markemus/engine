@@ -5,8 +5,6 @@ from colorist import BrightColor as BC, Color as C
 
 class Stoneskin(sp.Effect):
     rounds = 10
-    set_color = False
-    set_texture = False
 
     def _cast(self):
         # TODO-DONE store original_color and original_texture on limbs
@@ -160,19 +158,23 @@ class Might(sp.Effect):
 
 
 class Bleed(sp.Effect):
+    expire_on_removal = True
     def __init__(self, creature, limb, controller, amount):
         super().__init__(creature, limb, controller)
         self.amount = amount
         # More bleeding lasts for longer
         self.rounds = amount
 
-    def _cast(self):
-        self.update()
-        return True
-
     def update(self):
         self.creature.bled += self.amount
-        print(f"{C.RED}Blood drips from {self.creature.name}'s {self.limb.name}.{C.OFF}")
+        if self.amount <= 2:
+            desc = "oozes"
+        elif self.amount == 4:
+            desc = "drips"
+        elif self.amount >= 6:
+            desc = "spurts"
+
+        print(f"{C.RED}Blood {desc} from {self.creature.name}'s {self.limb.name}.{C.OFF}")
         if self.creature.bled > self.creature.blood / 2:
             print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
         if self.creature.bled >= self.creature.blood:
@@ -185,6 +187,7 @@ class Bleed(sp.Effect):
 class Poison(sp.Effect):
     rounds = 1
     amount = 2
+    expire_on_removal = True
 
     def _cast(self):
         self.creature.poisoned += self.amount

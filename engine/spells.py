@@ -39,17 +39,19 @@ class Spell:
         self.cont.game.active_spells.remove(self)
 
 
+# TODO-DECIDE what to do for effects in a room once you leave it? Expire?
 class Effect:
     # Effects may define a "desc" attribute that will be added to limb.desc()
     desc = None
     rounds = None
+    expire_on_removal = False
+    # TODO allow_duplicates
 
     def __init__(self, creature, limb, controller):
         self.creature = creature
         self.limb = limb
         self.cont = controller
 
-    # TODO no duplicate copies of effect on limb
     def cast(self):
         """Effects should implement a _cast() method. This will be called when the effect is first applied, similar to
         a spell."""

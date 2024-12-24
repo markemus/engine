@@ -216,15 +216,24 @@ class Combat:
                     if defender.subelements[0].is_subelement(limb):
                         # Apply a bleed to the parent limb
                         parent_limb = defender.get_parents(limb)[-2]
-                        bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=limb.size*2)
-                        bleed.cast()
                         defender.remove_limb(limb)
                         print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                         self.throw_limb(defender, limb)
+                        if not defender.dead:
+                            bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=limb.size * 2)
+                            bleed.cast()
+
+                        # Expire limb effects
+                        for effect in limb.active_effects:
+                            if effect.expire_on_removal:
+                                effect.expire()
+
                         # check if target falls over
-                        if (hasattr(limb, "amble") and can_amble) or (hasattr(limb, "flight") and can_fly):
-                            if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
-                                print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
+                        if not defender.dead:
+                            # TODO doesn't work if subelement has amble instead. use limb_count() instead
+                            if (hasattr(limb, "amble") and can_amble) or (hasattr(limb, "flight") and can_fly):
+                                if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
+                                    print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
 
                 else:
                     # Just remove the core limb, the creature class will handle the rest.

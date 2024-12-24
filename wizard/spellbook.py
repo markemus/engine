@@ -443,7 +443,9 @@ class GraftLimb(CorruptionSpell):
     targets = "friendly"
 
     def _cast(self):
-        invs = self.caster.location.find_invs()
+        # TODO test finds creature invs
+        # TODO allow you to cut off a limb (from a corpse)
+        invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
         invs = utils.listtodict(invs, add_x=True)
         utils.dictprint(invs)
         i = input(f"\n{BC.GREEN}Which inventory would you like to graft from?{BC.OFF} ")
@@ -462,11 +464,13 @@ class GraftLimb(CorruptionSpell):
                 if k in target_limbs.keys() and k != "x":
                     target_limb = target_limbs[k]
                     target_limb.subelements.append(graft_limb)
+                    # TODO-DONE test limb is removed
+                    invs[i].vis_inv.remove(graft_limb)
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                     # Lowers humanity, if target is appropriate
                     if hasattr(self.target, "humanity"):
                         self.target.humanity -= 1
-                        print(f"{C.RED}{self.target}'s humanity decreases!{C.OFF}")
+                        print(f"{C.RED}{self.target.name}'s humanity decreases!{C.OFF}")
                     return True
         return False
 
@@ -503,7 +507,7 @@ class ReanimateLimb(CorruptionSpell):
                 # Reduces caster's humanity
                 if hasattr(self.caster, "humanity"):
                     self.caster.humanity -= 1
-                    print(f"{C.RED}{self.caster}'s humanity decreases!{C.OFF}")
+                    print(f"{C.RED}{self.caster.name}'s humanity decreases!{C.OFF}")
 
                 return True
 

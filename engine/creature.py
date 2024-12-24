@@ -555,6 +555,7 @@ class creature:
     def get_neighbors(self, limb):
         return self.subelements[0].get_neighbors(limb)
 
+    # TODO-DECIDE require parent limb to have strength for attack? Would stop grafting teeth onto torsos.
     def get_parents(self, limb):
         """Returns the line of descent through the limb tree down to the limb."""
         parents = self.subelements[0].get_parents(limb)
@@ -602,6 +603,12 @@ class creature:
                 x = grasper.grasped
                 grasper.grasped = None
                 room.drop_item(x)
+
+        # End appropriate effects
+        for limb in self.subelements[0].limb_check("name"):
+            for effect in limb.active_effects:
+                if effect.expire_on_removal:
+                    effect.expire()
 
         # Then die
         room.removeCreature(self)
