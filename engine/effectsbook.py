@@ -30,7 +30,7 @@ class Stoneskin(sp.Effect):
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = 1
-    rounds = 5
+    rounds = 4
 
     def update(self):
         print(f"{C.RED}{self.creature.name}'s {self.limb.name} is burning!{C.OFF}")

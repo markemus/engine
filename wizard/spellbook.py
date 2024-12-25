@@ -128,7 +128,8 @@ class Lightning(CreationSpell):
         # (since we don't have access to the main controller from here)
         import engine.combat
         # TODO-DONE setting char as None is not safe- may autopick options for the player
-        cc = engine.combat.Combat(char=self.caster, cont=None)
+        # cc = engine.combat.Combat(char=self.caster, cont=None)
+        cc = self.cont.combat
         l_damage = 4
 
         limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
@@ -161,6 +162,23 @@ class Lightning(CreationSpell):
                     cc.apply_damage(ot, r_limb, l_damage)
             print(f"{BC.MAGENTA}The lightning goes out, leaving a searing afterimage.{BC.OFF}")
             return True
+
+
+class Fireball(CreationSpell):
+    """Lightning strikes an enemy and has a chance to jump to other enemies."""
+    name = "Fireball"
+    mana_cost = 5
+    humanity_min = -5
+    description = f"A fireball lights an enemy on fire (>{humanity_min}) [{mana_cost}]."
+    rounds = 1
+    targets = "enemy"
+
+    def _cast(self):
+        limbs = self.target.subelements[0].limb_check("isSurface")
+        for limb in limbs:
+            fire = eff.FireDOT(creature=self.target, limb=limb, controller=self.cont)
+            fire.cast()
+        print(f"{BC.MAGENTA}A gigantic fireball flies across the room and explodes on {self.target.name}!{BC.OFF}")
 
 
 class GrowTreeOfLife(CreationSpell):
@@ -391,10 +409,11 @@ class Shadow(CorruptionSpell):
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
 
-class GrowFangs(sp.Spell):
+class GrowFangs(CorruptionSpell):
     name = "Grow Vampiric Fangs"
     mana_cost = 5
-    description = f"Turn your teeth into powerful weapons [{mana_cost}]."
+    humanity_max = -5
+    description = f"Turn your teeth into powerful weapons (<{humanity_max}) [{mana_cost}]."
     rounds = 1
     targets = "caster"
 
@@ -433,7 +452,6 @@ class GrowFangs(sp.Spell):
                 print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
             else:
                 print(f"{BC.MAGENTA}{self.target.name} has no jaws.")
-
 
 
 class TransformSpider(CorruptionSpell):
@@ -783,6 +801,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE transform yourself into a monster temporarily (or permanently)
 # TODO conjure flaming sword for yourself- permanent (creation)
 # TODO powerful sword hand- permanent
-# TODO vampiric bite- steal hp from limb to heal
-# TODO disarm
-# TODO possession- reduces humanity
+# TODO-DONE vampiric bite- steal hp from limb to heal
+# TODO-DECIDE disarm?
+# TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
