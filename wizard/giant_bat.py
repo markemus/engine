@@ -1,10 +1,11 @@
 import engine.creature as cr
+import engine.effectsbook as eff
 
 import assets.commonlimbs as cl
 
 
-class Teeth(cr.Weapon):
-    name = "teeth"
+class Fangs(cr.Weapon):
+    name = "fangs"
     subelement_classes = []
     _damage = 3
     appendageRange = (1, 2)
@@ -16,7 +17,7 @@ class Teeth(cr.Weapon):
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [Teeth, cl.Tongue]
+    subelement_classes = [Fangs, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
@@ -55,7 +56,7 @@ class Torso(cr.Limb):
     size = 2
 
 class GiantBat(cr.creature):
-    """A giant flying rat."""
+    """A giant flying rat. Its bite drains its enemy's blood and heals it."""
     classname = "giant bat"
     aggressive = True
     team = "prey"
@@ -64,3 +65,12 @@ class GiantBat(cr.creature):
     colors = ["gray", "black", "brown"]
     textures = ["furred"]
     suits = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Vampire bat
+        fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fangs"][0]
+        class CVampirism(eff.Vampirism):
+            vampire = self
+            amount = 1.5
+        fangs.effects = [CVampirism]
