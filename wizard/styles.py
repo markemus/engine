@@ -11,9 +11,10 @@ from colorist import BrightColor as BC, Color as C
 
 
 
-# TODO add trophy room.
+# TODO-DONE add trophy room.
 # TODO level 2- goblins and dark elf scouts fighting
 # TODO level 3- dark elf home caverns (with spider-human hybrid creatures in secondary rooms)
+# TODO mirror fight- fight a mirror image of yourself and your companions.
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen]

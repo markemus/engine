@@ -284,13 +284,16 @@ class DisplayFurniture(Furniture, Platform):
     texture = "NO_TEXTURE"
     elements = []
     vis_collections = None
+    loot_tables = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._fill()
+        self._fill_collections()
+        self._fill_loot_tables()
 
-    def _fill(self):
-        """Put items in furniture upon creation."""
+    def _fill_collections(self):
+        """Put items in furniture upon creation using a Collection. This is useful for things like silverware or armor
+        where you want a correlated set (silver knives + silver forks eg)."""
         if self.vis_collections:
             for col in self.vis_collections:
                 # Allows for choice between collections
@@ -339,3 +342,24 @@ class DisplayFurniture(Furniture, Platform):
                         self.vis_inv.append(item)
                     # Reset seed
                     random.seed()
+
+    def _fill_loot_tables(self):
+        """Put Items from a loot_table into the element. This is useful for loot, where there is no correlation between
+        Items and you just want to select from an uncorrelated set. For things like silverware where you need to fill
+        with a set of correlated items (silver knives + silver forks eg) see self._fill_collections()."""
+        if self.loot_tables:
+            # Pick one loot item per loot_table
+            for loot_table in self.loot_tables:
+                if isinstance(loot_table, tuple):
+                    loot_table = random.choice(loot_table)
+
+                loots, weights = zip(*loot_table)
+                loot_type = random.choices(loots, weights, k=1)[0]
+
+                # Selecting None means no loot is spawned for that loot_table
+                if loot_type is not None:
+                    # For loot tables, color and texture must be present on the Item class
+                    color = random.choice(loot_type.colors)
+                    texture = random.choice(loot_type.textures)
+                    loot = loot_type(color=color, texture=texture)
+                    self.vis_inv.append(loot)

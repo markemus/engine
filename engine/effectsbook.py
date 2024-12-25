@@ -216,3 +216,5 @@ class Vampirism(sp.Effect):
             self.creature.die()
 
         self.vampire.heal(self.amount)
+
+# TODO on hit spawn a little critter (that can't leave room?)

@@ -5,13 +5,23 @@ import engine.styles as st
 
 import assets.asset_collections as col
 import assets.furniture as fur
+import assets.potions as pot
 
 import wizard.elf
 import wizard.item_collections as wcol
 import wizard.goblin
+import wizard.suits as wsu
 
 from colorist import BrightColor as BC, Color as C
 
+
+lt = {
+    "l1_chest_scroll": [(wcol.LevelOneScroll, 1)],
+    "l1_chest_mana": [(wsu.RingOfMana, 2), (wsu.ManaLocket, 1)],
+    # TODO add potion of might
+    "l1_chest_potion": [(pot.PotionOfStoneskin, 1), (pot.TentacleGrowthPotion, 1), (pot.PotionOfHealing, 1)],
+    "l2_chest_scroll": [(wcol.LevelOneScroll, 1)],
+}
 
 class FruitOfLife(it.Potion):
     name = "fruit of life"
@@ -112,7 +122,8 @@ class TrophyPlinth(pl.DisplayFurniture):
     color = ["black", "marble", "granite"]
     texture = ["stone"]
     count = (10, 11)
-    vis_collections = [(wcol.plaque, (1, 2))]
+    # vis_collections = [(wcol.plaque, (1, 2))]
+    loot_tables = [[(wcol.Plaque, 1)]]
 
 
 # Caverns
@@ -122,7 +133,8 @@ class L1Chest(pl.DisplayFurniture):
     texture = ["wood"]
     count = (1, 2)
     # A random scroll, or a potion/mana item
-    vis_collections = [(wcol.l1_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
+    # vis_collections = [(wcol.l1_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
+    loot_tables = [lt["l1_chest_scroll"], (lt["l1_chest_mana"], lt["l1_chest_potion"])]
 
 class L2Chest(pl.DisplayFurniture):
     name = "treasure chest"
@@ -130,7 +142,8 @@ class L2Chest(pl.DisplayFurniture):
     texture = ["wood"]
     count = (1, 2)
     # A random scroll, or a potion/mana item
-    vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
+    # vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
+    loot_tables = [lt["l2_chest_scroll"], (lt["l1_chest_mana"], lt["l1_chest_potion"])]
 
 class GoblinGrave(pl.DisplayFurniture):
     name = "goblin grave"

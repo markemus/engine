@@ -159,6 +159,8 @@ class Scroll(Item):
     spell = None
     usable = True
     consumable = False
+    colors = ["white"]
+    textures = ["parchment"]
     def __init__(self, color=None, texture=None):
         """Color and texture are accepted but ignored."""
         super().__init__(color="white", texture="parchment")

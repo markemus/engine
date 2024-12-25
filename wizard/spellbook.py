@@ -797,10 +797,12 @@ class SetHumanity(sp.Spell):
         return True
 
 
-# TODO fireball- DOT
+# TODO-DONE fireball- DOT
 # TODO-DONE transform yourself into a monster temporarily (or permanently)
 # TODO conjure flaming sword for yourself- permanent (creation)
 # TODO powerful sword hand- permanent
 # TODO-DONE vampiric bite- steal hp from limb to heal
 # TODO-DECIDE disarm?
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
+# TODO grow wings
+# TODO companion that heals you

@@ -108,6 +108,8 @@ class RingOfMana(i.Item):
     level = 2
     base_mana = 5
     mana = base_mana
+    colors = ["sapphire", "ruby", "emerald", "diamond"]
+    textures = ["in silver", "in gold", "in platinum"]
 
 class ManaLocket(i.Item):
     """A locket that stores a moderate amount of mana."""
@@ -119,6 +121,8 @@ class ManaLocket(i.Item):
     level = 2
     base_mana = 30
     mana = base_mana
+    colors = ["sapphire", "ruby", "emerald", "diamond"]
+    textures = ["in silver", "in gold", "in platinum"]
 
 
 # Magic weapons

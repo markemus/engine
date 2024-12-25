@@ -17,7 +17,7 @@ from wizard.tunnel_worm import TunnelWorm
 
 from assets.goblin import Goblin, ShallowGoblin
 
-
+# TODO-DONE loot table- in addition to viz_collections, same format as creature_classes but with items.
 cc = {
     "caverns_1": [(GiantRat, 3), (GiantBat, 3), (ShallowGoblin, 4), (None, 2)],
     "caverns_1_gobs": [(ShallowGoblin, 4), (None, 1)],

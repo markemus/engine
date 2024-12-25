@@ -3,18 +3,11 @@ Sick of playing the same rogue-like over and over? Now you can make your own! In
 
 EverRogue is free and open source.
 
-# TO INSTALL
-Install python 3. If you're on Windows, do this by typing `python3` in Powershell and installing the app it brings up in a pop-up.  
-Next, run: `pip3 install colorist`
+# Escape From Castle Black (game built in EverRogue)
+Download from here: https://github.com/markemus/engine/releases/tag/efcb_v1.0
 
-That's it! The game itself will work without being installed, but you need python and the colorist package to run it.
+Builds are included for both Windows and Linux. To build a game of your own design, use pyinstaller.
 
-# TO RUN
-The castle package is a game called "Escape From Castle Black" that you can play through. If you're on Windows, use cmd instead of Powershell so the colors work.   
-
-From the root directory, run: `python3 -i -m castle.index`
-
-# Escape From Castle Black
 You are a prisoner in the dungeons of an evil king. Every day you hear the screams when the king's servants torture the prisoners. Today it's finally your turn.
 
 You knew this day would come, and luckily you prepared for it. You have a sharpened shiv you managed to make while you were waiting, and a friend smuggled you in a potion of stoneskin. But ready or not, it's your time.
@@ -63,6 +56,3 @@ blocker: can be used to block attacks.
 
 # Creating a Game
 **Potions** are a special kind of item with a scripted effect. This is the only scripting required to create a game- otherwise it's similar to creating a bunch of configuration files. Feel free to script other things if you want to though! It's all code, not configs, so you can really be creative with Python properties or custom methods on your objects. Feel free to make your own tags and functionality! And the engine is open source, so you can modify it to your heart's content.
-
-# Cheating
-Cheating is fun! It's a single player game, so why worry about it? Stuck against a hard opponent and looking for a better weapon? Want to spawn a few enemies to increase the challenge? How about modifying the level layout? It's Python, you can edit the source code during runtime! Just CTRL-C out of the game at any time and code away on the command line, then simply type `while True: i.command()` to get right back into the game, exactly where you left off, but with your changes.

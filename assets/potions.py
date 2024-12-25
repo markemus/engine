@@ -10,6 +10,8 @@ from colorist import BrightColor as BC, Color as C
 class PotionOfStoneskin(I.Potion):
     """Creature's skin turns to stone, granting extra HP."""
     name = "Potion of Stoneskin"
+    colors = ["silver"]
+    textures = ["murky"]
     def effect(self, creature):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
@@ -21,6 +23,8 @@ class PotionOfStoneskin(I.Potion):
 class ArmGrowthPotion(I.Potion):
     """Creature grows an extra arm. Will only work if the creature has a recognizable torso."""
     name = "Potion of Arm Growth"
+    colors = ["brown"]
+    textures = ["murky"]
 
     def effect(self, creature):
         # First we find a torso to sprout from.
@@ -44,6 +48,8 @@ class ArmGrowthPotion(I.Potion):
 class LegGrowthPotion(I.Potion):
     """Creature grows an extra leg. Will only work if the creature has a recognizable torso."""
     name = "Potion of Leg Growth"
+    colors = ["gray"]
+    textures = ["murky"]
 
     def effect(self, creature):
         # First we find a torso to sprout from.
@@ -68,6 +74,8 @@ class LegGrowthPotion(I.Potion):
 class TentacleGrowthPotion(I.Potion):
     """Creature grows tentacles out of their face. Useful!"""
     name = "Potion of Tentacle Growth"
+    colors = ["green"]
+    textures = ["murky"]
 
     def effect(self, creature):
         wears = creature.subelements[0].limb_check("wears")
@@ -89,6 +97,8 @@ class TentacleGrowthPotion(I.Potion):
 class PotionOfHealing(I.Potion):
     """Heals a certain amount of HP on random limbs."""
     name = "Potion of Healing"
+    colors = ["red"]
+    textures = ["murky"]
 
     def effect(self, creature):
         limbs = creature.subelements[0].limb_check("name")
@@ -107,6 +117,8 @@ class PotionOfHealing(I.Potion):
 
 class PotionOfMana(I.Potion):
     name = "Potion of Mana"
+    colors = ["blue"]
+    textures = ["murky"]
 
     def effect(self, creature):
         # All equipment recovers full mana, except that used for creating/summoning minions

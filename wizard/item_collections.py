@@ -1,3 +1,4 @@
+"""Items and collections."""
 import inspect
 import random
 
@@ -51,6 +52,8 @@ class Plaque(it.Item):
     name = "plaque"
     usable = True
     consumable = False
+    colors = ["None"]
+    textures = ["None"]
 
     def __init__(self, color=None, texture=None):
         super().__init__(color="", texture="")
@@ -59,50 +62,50 @@ class Plaque(it.Item):
         engraving = input(f"{BC.CYAN}Enter a message to engrave onto the plaque: {BC.OFF}")
         self.color = engraving
 
-potions_col = {
-    "contains": [(assets.potions.PotionOfStoneskin, assets.potions.TentacleGrowthPotion, assets.potions.PotionOfHealing)],
-    "color": ["None"],
-    "color_scheme": "same",
-    "texture": ["None"],
-    "texture_scheme": "same",
-    "full": True,
-}
+# potions_col = {
+#     "contains": [(assets.potions.PotionOfStoneskin, assets.potions.TentacleGrowthPotion, assets.potions.PotionOfHealing)],
+#     "color": ["None"],
+#     "color_scheme": "same",
+#     "texture": ["None"],
+#     "texture_scheme": "same",
+#     "full": True,
+# }
 
-firesword_col = sc.suit_to_collection(wsu.bronze_firesword, model=Human)
-lightsword_col = sc.suit_to_collection(wsu.bronze_lightsword, model=Human)
+# firesword_col = sc.suit_to_collection(wsu.bronze_firesword, model=Human)
+# lightsword_col = sc.suit_to_collection(wsu.bronze_lightsword, model=Human)
 
-mana_items = {
-    "contains": [(wsu.RingOfMana, wsu.ManaLocket)],
-    "color": ["sapphire", "ruby", "emerald", "diamond"],
-    "color_scheme": "unique",
-    "texture": ["in silver", "in gold", "in platinum"],
-    "texture_scheme": "unique",
-    "full": True,
-}
+# mana_items = {
+#     "contains": [(wsu.RingOfMana, wsu.ManaLocket)],
+#     "color": ["sapphire", "ruby", "emerald", "diamond"],
+#     "color_scheme": "unique",
+#     "texture": ["in silver", "in gold", "in platinum"],
+#     "texture_scheme": "unique",
+#     "full": True,
+# }
 
-l1_scrolls = {
-    "contains": [LevelOneScroll],
-    "color": ["white"],
-    "color_scheme": "same",
-    "texture": ["parchment"],
-    "texture_scheme": "same",
-    "full": True,
-}
+# l1_scrolls = {
+#     "contains": [LevelOneScroll],
+#     "color": ["white"],
+#     "color_scheme": "same",
+#     "texture": ["parchment"],
+#     "texture_scheme": "same",
+#     "full": True,
+# }
 
-l2_scrolls = {
-    "contains": [LevelTwoScroll],
-    "color": ["white"],
-    "color_scheme": "same",
-    "texture": ["parchment"],
-    "texture_scheme": "same",
-    "full": True,
-}
+# l2_scrolls = {
+#     "contains": [LevelTwoScroll],
+#     "color": ["white"],
+#     "color_scheme": "same",
+#     "texture": ["parchment"],
+#     "texture_scheme": "same",
+#     "full": True,
+# }
 
-plaque = {
-    "contains": [Plaque],
-    "color": ["None"],
-    "color_scheme": "same",
-    "texture": ["None"],
-    "texture_scheme": "same",
-    "full": True,
-}
+# plaque = {
+#     "contains": [Plaque],
+#     "color": ["None"],
+#     "color_scheme": "same",
+#     "texture": ["None"],
+#     "texture_scheme": "same",
+#     "full": True,
+# }
