@@ -391,6 +391,51 @@ class Shadow(CorruptionSpell):
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
 
+class GrowFangs(sp.Spell):
+    name = "Grow Vampiric Fangs"
+    mana_cost = 5
+    description = f"Turn your teeth into powerful weapons [{mana_cost}]."
+    rounds = 1
+    targets = "caster"
+
+    def no_fangs(self, head):
+        fangs = [x for x in head.subelements if x.name == "fangs"]
+        if not fangs:
+            return True
+
+    def _cast(self):
+        import assets.commonlimbs as cl
+
+        limbs = self.target.subelements[0].limb_check("name")
+        jaws = [x for x in limbs if x.name in ["jaw", "mouth", "maw", "snout"]]
+        if jaws:
+            # We want a random head, not the first one each time
+            random.shuffle(jaws)
+            # We need a jaw with no fangs (teeth are fine)
+            fangless_jaws = [x for x in jaws if self.no_fangs(x)]
+            if fangless_jaws:
+                jaw = fangless_jaws[0]
+
+                existing_teeth = [x for x in jaw.subelements if x.name == "teeth"]
+                if existing_teeth:
+                    # existing teeth fall out
+                    for teeth in existing_teeth:
+                        jaw.remove_limb(teeth)
+                        print(f"{BC.MAGENTA}{self.target.name}'s old teeth fall out of their mouth.{BC.OFF}")
+
+                # We need to define a subclass for the caster
+                class CVampirism(eff.Vampirism):
+                    vampire = self.caster
+                class CVampireFangs(cl.VampireFangs):
+                    effects = [CVampirism]
+
+                jaw.subelements.append(CVampireFangs(color="sharp", texture="white"))
+                print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
+            else:
+                print(f"{BC.MAGENTA}{self.target.name} has no jaws.")
+
+
+
 class TransformSpider(CorruptionSpell):
     name = "Become Spider"
     mana_cost = 10
@@ -663,7 +708,7 @@ class AWayHome(sp.Spell):
         else:
             print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
 
-# TODO beard should have mana pool (5)
+# TODO-DONE beard should have mana pool (5)
 class GrowBeard(sp.Spell):
     name = "Grow Long Beard"
     mana_cost = 5

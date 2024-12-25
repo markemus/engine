@@ -59,6 +59,7 @@ player.spellbook.append(random.choice([sb.SummonCerberus, sb.SummonSpider, sb.Su
 # player.spellbook.append(sb.SummonEtherealHand)
 # player.spellbook.append(sb.SummonTentacleMonster)
 # player.spellbook.append(sb.Distract)
+player.spellbook.append(sb.GrowFangs)
 # player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.ReanimateLimb)
 # player.spellbook.append(sb.TransformSpider)

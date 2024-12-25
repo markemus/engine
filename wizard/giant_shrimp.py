@@ -34,7 +34,7 @@ class Leg(cr.Limb):
     amble = 1/4
     _armor = 2
 
-class Claw(cr.Limb):
+class Claw(cr.Weapon):
     name = "claw"
     subelement_classes = []
     isSurface = True

@@ -708,7 +708,7 @@ class creature:
             # Don't siphon, and tell caller there isn't enough.
             return False
 
-     # TODO can_rest tag on creature, can_heal tag on limbs
+     # TODO can_rest tag on creature, can_heal tag on limbs. Apply to heal() as well.
     def rest(self):
         """Rest, recover HP, and clear status effects."""
         self.bled = 0
@@ -720,6 +720,15 @@ class creature:
                 limb.hp += hp_diff
                 print(f"{C.RED}{self.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
+    def heal(self, amount):
+        for limb in self.subelements[0].limb_check(tag="hp"):
+            if limb.hp < limb.base_hp:
+                hp_diff = amount if (limb.base_hp - limb.hp >= amount) else (limb.base_hp - limb.hp)
+                limb.hp += hp_diff
+                amount -= hp_diff
+                print(f"{C.RED}{self.name}{C.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} heals for {BC.RED}{hp_diff}: ({limb.hp}/{limb.base_hp}){BC.OFF}.")
+                if not amount:
+                    break
 
     @property
     def blood(self):

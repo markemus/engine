@@ -198,3 +198,21 @@ class Poison(sp.Effect):
             print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
             self.creature.die()
         return True
+
+class Vampirism(sp.Effect):
+    """Suck the lifeforce out of a creature."""
+    # You need to overwrite this attribute in your subclass
+    vampire = None
+    amount = 5
+    rounds = 1
+    expire_on_removal = True
+
+    def _cast(self):
+        self.creature.bled += self.amount
+        print(f"{C.RED}{self.vampire.name} drinks {self.creature.name}'s blood!{C.OFF}")
+        if self.creature.bled > self.creature.blood / 2:
+            print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
+        if self.creature.bled >= self.creature.blood:
+            self.creature.die()
+
+        self.vampire.heal(self.amount)

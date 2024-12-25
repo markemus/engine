@@ -273,8 +273,16 @@ class SmallLeg(Leg):
 class SmallHead(Head):
     base_hp = int(Head.base_hp / 2)
 
+# Special limbs
+# Tentacles created by a potion or spell
 class PTentacle(Tentacle):
     """This creature only has a small number of tentacles- no big deal."""
     appendageRange = (1, 3)
     colors = ["green"]
     textures = ["slimy"]
+
+# Vampire fangs
+class VampireFangs(Teeth):
+    name = "fangs"
+    _damage = 5
+    # Don't forget to set effects=[eff.Vampirism] <- needs to be a subclass created for the vampire

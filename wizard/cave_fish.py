@@ -2,7 +2,7 @@
 import engine.creature as cr
 import assets.commonlimbs as cl
 
-class Teeth(cr.Limb):
+class Teeth(cr.Weapon):
     name = "teeth"
     subelement_classes = []
     _damage = 15
