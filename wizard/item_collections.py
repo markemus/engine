@@ -47,7 +47,7 @@ class LevelTwoScroll(it.Scroll):
         self.name = f"scroll of {self.spell.name}"
 
 
-# TODO make this inscription visible in l:desc() in controller.
+# TODO-DONE make this inscription visible in l:desc() in controller.
 class Plaque(it.Item):
     name = "plaque"
     usable = True
@@ -58,7 +58,7 @@ class Plaque(it.Item):
     def __init__(self, color=None, texture=None):
         super().__init__(color="", texture="")
 
-    def use(self, creature):
+    def use(self, creature, cont):
         engraving = input(f"{BC.CYAN}Enter a message to engrave onto the plaque: {BC.OFF}")
         self.color = engraving
 
