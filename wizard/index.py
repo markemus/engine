@@ -1,6 +1,7 @@
 import random
 
 from assets import cat
+from assets import potions
 
 from engine import game
 from engine import interface
@@ -85,12 +86,12 @@ player.humanity = 5
 # Give player some mana to start the game with
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
-# player.subelements[0].find_invs()[0].vis_inv.append(potions.PotionOfStoneskin())
+player.subelements[0].find_invs()[0].vis_inv.append(potions.PotionOfMight())
 # player.subelements[0].subelements[1].subelements[0].grasped = su.SwordOfFire(color="bright", texture="steel")
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 # TODO disable cheats before release
-# cheats.skip_level_one(player, t_game)
+cheats.skip_level_one(player, t_game)
 
 i = interface.Interface(t_game)
 # player.can_fear = False

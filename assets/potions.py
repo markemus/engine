@@ -12,12 +12,25 @@ class PotionOfStoneskin(I.Potion):
     name = "Potion of Stoneskin"
     colors = ["silver"]
     textures = ["murky"]
+
     def effect(self, creature):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
             stoniness = eff.Stoneskin(creature, limb, controller=self.cont)
             stoniness.cast()
+
+class PotionOfMight(I.Potion):
+    name = "Potion of Might"
+    colors = ["gold"]
+    textures = ["murky"]
+
+    def effect(self, creature):
+        print(f"{BC.CYAN}{creature.name} grows stronger!{BC.OFF}")
+        limbs = creature.subelements[0].limb_check("strength")
+        for limb in limbs:
+            strength = eff.Might(creature, limb, controller=self.cont)
+            strength.cast()
 
 
 class ArmGrowthPotion(I.Potion):
@@ -135,4 +148,4 @@ class PotionOfMana(I.Potion):
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
 # TODO more potions
-# TODO potion of Might
+# TODO-DONE potion of Might
