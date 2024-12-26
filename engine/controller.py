@@ -339,13 +339,12 @@ class Controller:
 
         return blocker
 
-    # TODO companions (but not zombies) should heal on rest
+    # TODO-DONE companions (but not zombies) should heal on rest
     # TODO can_rest tags on creatures, can_heal tags on limbs. Defaults True.
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
 
         # Dispel all active spells
-        # TODO-DONE active effects don't seem to expire? Not sure why.
         for spell in self.game.active_spells.copy():
             spell.expire()
         self.game.active_spells = []
@@ -365,7 +364,6 @@ class Controller:
                 mana_equipment.mana += missing_mana
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
-        # TODO can_rest tag on creature (zombies, constructs can't rest)
         for creature in [self.game.char] + self.game.char.get_companions():
             creature.rest()
 
@@ -384,8 +382,6 @@ class Controller:
 
             if j in usables.keys() and j != "x":
                 usable = usables[j]
-                # print(f"{BC.CYAN}{self.game.char.name} consumes the {food.name}{BC.OFF}.")
-                # TODO-DECIDE can we refactor potions, spells and effects so that they don't need the controller? It's all because of game.active_spells.
                 usable.use(self.game.char, self)
                 if usable.consumable:
                     invs[i].vis_inv.remove(usable)

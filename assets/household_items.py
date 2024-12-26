@@ -114,8 +114,6 @@ tools = {
     "full": False,
 }
 
-# TODO-DECIDE collections should have a no color option so objects can keep their default colors?
-
 # Goblins will carry some of this stuff around to feed to prisoner
 
 class KitchenKnife(it.Item):

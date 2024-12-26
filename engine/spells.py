@@ -1,7 +1,6 @@
 from colorist import BrightColor as BC, Color as C
 
 
-# TODO-DONE Spell.expire() should remove spell from self.cont.game.active_spells, just like Effect.expire() does.
 class Spell:
     name = "spell"
     rounds = None
@@ -45,7 +44,7 @@ class Effect:
     desc = None
     rounds = None
     expire_on_removal = False
-    # TODO allow_duplicates
+    # TODO allow_duplicates. For spells as well.
 
     def __init__(self, creature, limb, controller):
         self.creature = creature

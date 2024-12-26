@@ -17,7 +17,7 @@ from wizard import suits as su
 import os
 os.system("color")
 
-# TODO creatures should die of losing too much hp, or bleed to death, or something that doesn't require them losing their heads.
+# TODO-DONE creatures should die of losing too much hp, or bleed to death, or something that doesn't require them losing their heads.
 # Main
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)

@@ -34,7 +34,6 @@ class Cell(pl.Place):
     furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
     subelement_classes = [wall, floor]
 
-# TODO-DONE den should have a bookcase, not a cabinet
 class Den(pl.Place):
     name = "den"
     sprite = "D"

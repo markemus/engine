@@ -121,7 +121,6 @@ tools = {
     "full": False,
 }
 
-# TODO-DECIDE collections should have a no color option so objects can keep their default colors?
 medicine = {
     "contains": [potions.ArmGrowthPotion, potions.LegGrowthPotion, potions.PotionOfHealing],
     "color": ["gray"],
@@ -206,7 +205,6 @@ cooking_tools = {
     "full": True,
 }
 
-# TODO-DECIDE we need a way to coordinate chairs, place settings, and serving utensils. Right? A meta random roll.
 serving_utensils = {
     "contains": [ServingBowl],
     "color": ["shiny"],

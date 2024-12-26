@@ -106,8 +106,6 @@ class GoblinChiefVillage(GoblinCavernVillage):
     creature_classes = [[(ShallowGoblin, 1)], [(ShallowGoblin, 1)], [(ShallowGoblinChief, 1)], [(GoblinPetDog, 1)]]
 
 # Cavern L2 rooms
-# TODO-DONE giant mushrooms
-# TODO-DONE gravesites
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
     creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
@@ -117,7 +115,6 @@ class GoblinCavernVillageL2(GoblinCavernVillage):
     creature_classes = [cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"]]
     furniture_classes = [wizard.furniture.GiantMushroom] + GoblinCavernVillage.furniture_classes.copy()
 
-# TODO-DONE hammocks hanging from mushrooms
 class DarkElfOutpost(CavernOpen):
     """A forward scouting base of the dark elves."""
     sprite = "D"
@@ -125,7 +122,7 @@ class DarkElfOutpost(CavernOpen):
     creature_classes = [cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"]]
     furniture_classes = [wizard.furniture.GiantMushroomWithHammock, wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
 
-# TODO-DONE lake with giant blind fish and shrimp
+
 class CavernLake(pl.Place):
     name = "cave lake"
     sprite = "L"

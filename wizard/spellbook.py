@@ -124,11 +124,6 @@ class Lightning(CreationSpell):
     targets = "enemy"
 
     def _cast(self):
-        # Create a combat controller just for this spell's duration
-        # (since we don't have access to the main controller from here)
-        import engine.combat
-        # TODO-DONE setting char as None is not safe- may autopick options for the player
-        # cc = engine.combat.Combat(char=self.caster, cont=None)
         cc = self.cont.combat
         l_damage = 4
 
@@ -348,7 +343,6 @@ class ArmorOfLight(CreationSpell):
 
 
 # Corruption
-# TODO-DONE convert Light and Shadow to effects
 class Light(CorruptionSpell):
     name = "Light"
     mana_cost = 3
@@ -454,6 +448,8 @@ class GrowFangs(CorruptionSpell):
                 print(f"{BC.MAGENTA}{self.target.name} has no jaws.")
 
 
+# TODO-DECIDE is there a way to be missing limbs if original creature is missing limbs? Use a model?
+# TODO-DECIDE create a model and count limbs- subtract number of missing limbs from target creature? But what if they've grown extra?
 class TransformSpider(CorruptionSpell):
     name = "Become Spider"
     mana_cost = 10
@@ -463,7 +459,6 @@ class TransformSpider(CorruptionSpell):
     targets = "caster"
     old_char = None
 
-    # TODO-DONE need way for spells to access game- through controller?
     def _cast(self):
         if self.caster.can_transform:
             spider = giant_spider.GiantSpider(location=self.caster.location)
@@ -483,7 +478,7 @@ class TransformSpider(CorruptionSpell):
             self.old_char.location.creatures.append(spider)
             self.old_char.location.creatures.remove(self.old_char)
 
-            # TODO remove all effects from self.old_char (including bleed?)
+            # TODO remove/pause all effects from self.old_char (including bleed?)
             print(f"{BC.YELLOW}{self.old_char.name}{BC.MAGENTA} transforms into a {C.RED}giant spider{BC.MAGENTA}!{BC.OFF}")
             return True
 
@@ -527,7 +522,6 @@ class GraftLimb(CorruptionSpell):
                 if k in target_limbs.keys() and k != "x":
                     target_limb = target_limbs[k]
                     target_limb.subelements.append(graft_limb)
-                    # TODO-DONE test limb is removed
                     invs[i].vis_inv.remove(graft_limb)
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                     # Lowers humanity, if target is appropriate
@@ -726,7 +720,7 @@ class AWayHome(sp.Spell):
         else:
             print(f"{BC.MAGENTA}You cannot cast that spell here.{BC.OFF}")
 
-# TODO-DONE beard should have mana pool (5)
+
 class GrowBeard(sp.Spell):
     name = "Grow Long Beard"
     mana_cost = 5
@@ -797,12 +791,11 @@ class SetHumanity(sp.Spell):
         return True
 
 
-# TODO-DONE fireball- DOT
-# TODO-DONE transform yourself into a monster temporarily (or permanently)
+# TODO transform yourself into a monster temporarily (or permanently). More options.
 # TODO conjure flaming sword for yourself- permanent (creation)
 # TODO powerful sword hand- permanent
-# TODO-DONE vampiric bite- steal hp from limb to heal
-# TODO-DECIDE disarm?
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO grow wings
-# TODO companion that heals you
+# TODO (small) companion that heals you
+# TODO poison gas
+# TODO bees- small creatures that can't be targeted and die when they attack.

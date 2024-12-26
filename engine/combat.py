@@ -169,8 +169,6 @@ class Combat:
 
         return unwebbed_weapons
 
-    # TODO-DONE strength tag as a damage multiplier- limb needs a trace_parents(limb) function that returns all higher limbs
-    #  in the hierarchy (run search on subelements[0])
     def check_damage(self, weapon, actor, target):
         # No weapon
         if not weapon:
@@ -220,7 +218,7 @@ class Combat:
                         print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                         self.throw_limb(defender, limb)
                         if not defender.dead:
-                            # TODO bleed should use limb.orig_size if it exists (shouldn't synergize with Light and Shadow)
+                            # TODO-DONE bleed should use limb.orig_size if it exists (shouldn't synergize with Light and Shadow)
                             size = limb.size if not hasattr(limb, "orig_size") else limb.orig_size
                             bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
                             bleed.cast()
@@ -232,7 +230,7 @@ class Combat:
 
                         # check if target falls over
                         if not defender.dead:
-                            # TODO doesn't work if subelement has amble instead. use limb_count() instead
+                            # TODO test- didn't work if subelement has amble instead. use limb_count() instead
                             if (limb.limb_count("amble") and can_amble) or (limb.limb_count("flight") and can_fly):
                                 if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
                                     print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")

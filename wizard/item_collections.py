@@ -47,7 +47,6 @@ class LevelTwoScroll(it.Scroll):
         self.name = f"scroll of {self.spell.name}"
 
 
-# TODO-DONE make this inscription visible in l:desc() in controller.
 class Plaque(it.Item):
     name = "plaque"
     usable = True

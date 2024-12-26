@@ -44,7 +44,7 @@ class Fin(cr.Limb):
     wears = "fin"
     base_hp = 7
     size = 1
-    flight = 1/3
+    flight = 1/2
 
 class Tail(cr.Limb):
     name = "tail"
@@ -54,7 +54,7 @@ class Tail(cr.Limb):
     wears = "tail"
     base_hp = 7
     size = 1
-    flight = 1/3
+    flight = 1
 
 class Torso(cr.Limb):
     name = "body"

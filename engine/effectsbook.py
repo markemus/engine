@@ -7,8 +7,6 @@ class Stoneskin(sp.Effect):
     rounds = 10
 
     def _cast(self):
-        # TODO-DONE store original_color and original_texture on limbs
-        #  so that they can always be referenced accurately with no danger of being overwritten.
         if not hasattr(self.limb, "orig_color"):
             self.limb.orig_color = self.limb.color
         if not hasattr(self.limb, "orig_texture"):
@@ -83,7 +81,7 @@ class Shadow(sp.Effect):
     def _expire(self):
         self.limb.size = self.limb.orig_size
 
-# TODO should not be usable as weapon or blocker
+# TODO-DONE should not be usable as weapon or blocker
 class Webbed(sp.Effect):
     """If this effect is on a limb, that limb cannot be used as an attacker or a blocker."""
     desc = "webbed"
@@ -110,7 +108,6 @@ class Webbed(sp.Effect):
         print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} is no longer webbed.{BC.OFF}")
 
 
-# TODO-DONE only cast on creatures that can_fear.
 class Fear(sp.Effect):
     """A creature with a fear tag on creature.subelements[0] cannot attack."""
     rounds = 5

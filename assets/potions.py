@@ -69,8 +69,6 @@ class LegGrowthPotion(I.Potion):
             print(f"{C.RED}The potion has no effect.{C.OFF}")
 
 
-# TODO-DONE add to loot. Do loot in general.
-# TODO-DONE armor and better equipment in mainfloor level
 class TentacleGrowthPotion(I.Potion):
     """Creature grows tentacles out of their face. Useful!"""
     name = "Potion of Tentacle Growth"
