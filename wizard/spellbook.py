@@ -290,7 +290,6 @@ class SummonFairy(CreationSpell):
         return True
 
 
-
 class Trapdoor(CreationSpell):
     name = "Trapdoor"
     mana_cost = 10
@@ -858,6 +857,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE powerful sword hand- permanent
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO grow wings
-# TODO (small) companion that heals you (fairy). Also drops items (potions?)
+# TODO-DONE (small) companion that heals you (fairy).
 # TODO poison gas
 # TODO casts effects on creature's weapons
