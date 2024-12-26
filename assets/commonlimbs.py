@@ -284,5 +284,18 @@ class PTentacle(Tentacle):
 # Vampire fangs
 class VampireFangs(Teeth):
     name = "fangs"
-    _damage = 5
+    _damage = 10
     # Don't forget to set effects=[eff.Vampirism] <- needs to be a subclass created for the vampire
+
+class SwordHand(cr.Weapon):
+    """A powerful sword hand to replace your hand."""
+    name = "sword hand"
+    subelement_classes = []
+    blocker = True
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "right hand"
+    _damage = 40
+    base_hp = 20
+    size = 2
+    armor = 3

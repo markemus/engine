@@ -5,6 +5,7 @@ import engine.spells as sp
 import engine.styles
 import engine.utils as utils
 
+import assets.commonlimbs as cl
 import assets.dog
 
 import engine.effectsbook as eff
@@ -50,7 +51,7 @@ class Flashbang(CreationSpell):
     name = "Flashbang"
     mana_cost = 3
     humanity_min = -5
-    description = f"Temporarily blind your enemies in the area of effect (>{humanity_min}) [{mana_cost}]."
+    description = f"Temporarily blind your enemies in the area of effect. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 5
     targets = "caster"
     original_see = {}
@@ -74,7 +75,7 @@ class Caltrops(CreationSpell):
     name = "Caltrops"
     mana_cost = 5
     humanity_min = -10
-    description = f"Causes enemies to fall (>{humanity_min}) [{mana_cost}]."
+    description = f"Causes enemies to fall. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 5
     targets = "caster"
 
@@ -120,7 +121,7 @@ class Lightning(CreationSpell):
     name = "Lightning"
     mana_cost = 5
     humanity_min = -5
-    description = f"Lightning strikes an enemy and jumps to other enemies (>{humanity_min}) [{mana_cost}]."
+    description = f"Lightning strikes an enemy and jumps to other enemies. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -165,7 +166,7 @@ class Fireball(CreationSpell):
     name = "Fireball"
     mana_cost = 5
     humanity_min = -5
-    description = f"A fireball lights an enemy on fire (>{humanity_min}) [{mana_cost}]."
+    description = f"A fireball lights an enemy on fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -182,7 +183,7 @@ class GrowTreeOfLife(CreationSpell):
     name = "Grow Tree of Life"
     mana_cost = 10
     humanity_min = 2
-    description = f"A tree with healing fruit grows from the floor (>{humanity_min}) [{mana_cost}]."
+    description = f"A tree with healing fruit grows from the floor. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -199,7 +200,7 @@ class SummonCerberus(CreationSpell):
     name = "Summon Cerberus"
     mana_cost = 7
     humanity_min = 5
-    description = f"Summons a three headed dog to aid you (>{humanity_min}) [{mana_cost}]."
+    description = f"Summons a three headed dog to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -218,7 +219,7 @@ class SummonSpider(CreationSpell):
     name = "Summon Spider"
     mana_cost = 8
     humanity_min = 0
-    description = f"Summons a giant friendly spider (>{humanity_min}) [{mana_cost}]."
+    description = f"Summons a giant friendly spider. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -236,7 +237,7 @@ class SummonEtherealHand(CreationSpell):
     name = "Summon Ethereal Hand"
     mana_cost = 8
     humanity_min = 3
-    description = f"Summons a flying hand holding a shining blade (>{humanity_min}) [{mana_cost}]."
+    description = f"Summons a flying hand holding a shining blade. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -254,7 +255,7 @@ class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
     mana_cost = 12
     humanity_min = 7
-    description = f"Summons a friendly tentacle monster (>{humanity_min}) [{mana_cost}]."
+    description = f"Summons a friendly tentacle monster. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -273,7 +274,7 @@ class Trapdoor(CreationSpell):
     name = "Trapdoor"
     mana_cost = 10
     humanity_min = 0
-    description = f"Creates a trapdoor to descend downward into the depths (>{humanity_min}) [{mana_cost}]."
+    description = f"Creates a trapdoor to descend downward into the depths. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -310,7 +311,7 @@ class ArmorOfLight(CreationSpell):
     name = "Light Armor"
     mana_cost = 5
     humanity_min = -5
-    description = f"Conjures a set of armor made of light (>{humanity_min}) [{mana_cost}]."
+    description = f"Conjures a set of armor made of light. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 20
     targets = "friendly"
     equipped = {}
@@ -349,7 +350,7 @@ class Light(CorruptionSpell):
     name = "Light"
     mana_cost = 3
     humanity_max = 10
-    description = f"A glow surrounds a creature, making it easier to hit (<{humanity_max}) [{mana_cost}]."
+    description = f"A glow surrounds a creature, making it easier to hit. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 10
     targets = "enemy"
 
@@ -377,7 +378,7 @@ class Shadow(CorruptionSpell):
     name = "Shadow"
     mana_cost = 3
     humanity_max = 10
-    description = f"A shadow surrounds a creature, making it harder to hit (<{humanity_max}) [{mana_cost}]."
+    description = f"A shadow surrounds a creature, making it harder to hit. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 10
     targets = "friendly"
     original_colors = None
@@ -409,7 +410,7 @@ class GrowFangs(CorruptionSpell):
     name = "Grow Vampiric Fangs"
     mana_cost = 5
     humanity_max = -5
-    description = f"Turn your teeth into powerful weapons (<{humanity_max}) [{mana_cost}]."
+    description = f"Turn your teeth into powerful vampiric weapons. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -451,13 +452,49 @@ class GrowFangs(CorruptionSpell):
                 print(f"{BC.MAGENTA}{self.target.name} has no jaws.")
 
 
+class SwordHand(CorruptionSpell):
+    name = "Sword Hand"
+    mana_cost = 15
+    humanity_max = -8
+    description = f"Transform one of your hands into a gigantic sword. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        hands = utils.listtodict([h for h in self.target.subelements[0].limb_check("wears") if h.wears == "right hand" or h.wears == "left hand"], add_x=True)
+        utils.dictprint(hands)
+        i = input("Select a hand to transform: ")
+        if i in hands.keys() and i != "x":
+            hand = hands[i]
+            # Drop grasped and equipment to the floor
+            if hand.grasped:
+                self.target.location.drop_item(hand.grasped)
+                hand.grasped = None
+            # Get equipment for all fingers and drop that too
+            for limb in hand.limb_check("name"):
+                for gear in limb.equipment:
+                    if limb.unequip(gear):
+                        self.target.location.drop_item(gear)
+            # Check we still have enough mana for the spell after removing gear
+            enough_mana = self.caster.check_siphon_tag("mana", self.mana_cost)
+            if enough_mana:
+                arm = self.target.subelements[0].get_parents(hand)[-2]
+                self.target.remove_limb(hand)
+                swordhand = cl.SwordHand(color="white", texture="bone")
+                arm.subelements.append(swordhand)
+                print(f"{BC.MAGENTA}{self.target.name}'s {hand.name} transforms into a magnificent {swordhand.name}!{BC.OFF}")
+                return True
+            else:
+                print(f"{BC.MAGENTA}Not enough mana! The spell fizzles.{BC.OFF}")
+
+
 # TODO-DECIDE is there a way to be missing limbs if original creature is missing limbs? Use a model?
 # TODO-DECIDE create a model and count limbs- subtract number of missing limbs from target creature? But what if they've grown extra?
 class TransformSpider(CorruptionSpell):
     name = "Become Spider"
     mana_cost = 10
     humanity_max = -5
-    description = f"Transform yourself into a giant spider (<{humanity_max}) [{mana_cost}]."
+    description = f"Transform yourself into a giant spider. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 20
     targets = "caster"
     old_char = None
@@ -499,7 +536,7 @@ class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
     humanity_max = 5
-    description = f"Graft a disembodied limb onto a friendly creature (<{humanity_max}) [{mana_cost}]."
+    description = f"Graft a disembodied limb onto a friendly creature. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
 
@@ -539,7 +576,7 @@ class ReanimateLimb(CorruptionSpell):
     name = "Reanimate"
     mana_cost = 5
     humanity_max = -5
-    description = f"Reanimates a dead creature as a zombie (<{humanity_max}) [{mana_cost}]."
+    description = f"Reanimates a dead creature as a zombie. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -575,7 +612,7 @@ class FleshRip(CorruptionSpell):
     name = "Flesh Rip"
     mana_cost = 5
     humanity_max = -2
-    description = f"Rip a small limb off of an enemy (<{humanity_max}) [{mana_cost}]."
+    description = f"Rip a small limb off of an enemy. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -602,7 +639,7 @@ class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7
     humanity_max = -5
-    description = f"Force an enemy to fight for you for a little while (<{humanity_max}) [{mana_cost}]."
+    description = f"Force an enemy to fight for you for a little while. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 15
     targets = "enemy"
     old_team = None
@@ -624,7 +661,7 @@ class Distract(CorruptionSpell):
     name = "Disorient"
     mana_cost = 5
     humanity_max = 7
-    description = f"Confuse an enemy and focus them on a new target (<{humanity_max}) [{mana_cost}]."
+    description = f"Confuse an enemy and focus them on a new target. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -638,7 +675,7 @@ class Fear(CorruptionSpell):
     name = "Fear"
     mana_cost = 5
     humanity_max = -7
-    description = f"Terrify an opponent and prevent them from attacking (<{humanity_max}) [{mana_cost}]."
+    description = f"Terrify an opponent and prevent them from attacking. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -652,7 +689,7 @@ class Might(CorruptionSpell):
     name = "Might"
     mana_cost = 5
     humanity_max = 3
-    description = f"Make an ally stronger (<{humanity_max}) [{mana_cost}]."
+    description = f"Make an ally stronger. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
 
@@ -673,7 +710,7 @@ class Might(CorruptionSpell):
 class Scry(sp.Spell):
     name = "Scry"
     mana_cost = 1
-    description = f"See what is happening in a nearby room [{mana_cost}]."
+    description = f"See what is happening in a nearby room. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -691,7 +728,7 @@ class Scry(sp.Spell):
 class AWayHome(sp.Spell):
     name = "A Way Home"
     mana_cost = 5
-    description = f"Manifests the door to your home. [{mana_cost}]"
+    description = f"Manifests the door to your home. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -727,7 +764,7 @@ class AWayHome(sp.Spell):
 class GrowBeard(sp.Spell):
     name = "Grow Long Beard"
     mana_cost = 5
-    description = f"Grow a long flowing beard worthy of a powerful wizard [{mana_cost}]."
+    description = f"Grow a long flowing beard worthy of a powerful wizard. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -764,7 +801,7 @@ class GrowBeard(sp.Spell):
 class ReleaseMinion(sp.Spell):
     name = "Release Minion"
     mana_cost = 0
-    description = "Release one of your minions from your mental control."
+    description = f"Release one of your minions from your mental control. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -784,7 +821,7 @@ class ReleaseMinion(sp.Spell):
 class SetHumanity(sp.Spell):
     name = "Set Humanity"
     mana_cost = 0
-    description = f"Cheat and set your humanity to whatever you want [{mana_cost}]."
+    description = f"Cheat and set your humanity to whatever you want. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
     original_humanity = None
@@ -797,9 +834,10 @@ class SetHumanity(sp.Spell):
 
 # TODO transform yourself into a monster temporarily (or permanently). More options.
 # TODO conjure flaming sword for yourself- permanent (creation)
-# TODO powerful sword hand- permanent
+# TODO-DONE powerful sword hand- permanent
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO grow wings
 # TODO (small) companion that heals you (fairy)
 # TODO poison gas
 # TODO casts effects on creature's weapons
+# TODO utility companion- drops items (potions?)

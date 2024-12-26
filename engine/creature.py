@@ -533,8 +533,6 @@ class creature:
         hands = self.subelements[0].limb_check("grasp")
 
         for hand in hands:
-            # if item in hand.equipment:
-            #     hand.equipment.remove(item)
             if hand.grasped == item:
                 hand.grasped = None
                 ungrasped = True
