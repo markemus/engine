@@ -1,8 +1,7 @@
 # EverRogue
 Sick of playing the same rogue-like over and over? Now you can make your own! Inspired by Kyle's Quest and Dwarf Fortress, EverRogue is a game engine that generates endless rogue-like games for you and your friends to play.
 
-EverRogue is free and open source. To donate, please use this qr code: 
-![donate png](qrcode.png "donate")
+EverRogue is free and open source.
 
 # Escape From Castle Black (game built in EverRogue)
 Download from here: https://github.com/markemus/engine/releases/tag/efcb_v1.0
@@ -57,3 +56,7 @@ blocker: can be used to block attacks.
 
 # Creating a Game
 **Potions** are a special kind of item with a scripted effect. This, along with magic, is the only scripting required to create a game- otherwise it's similar to creating a bunch of configuration files. Feel free to script other things if you want to though! It's all code, not configs, so you can really be creative with Python properties or custom methods on your objects. Feel free to make your own tags and functionality! And the engine is open source, so you can modify it to your heart's content.
+
+# Donate
+EverRogue is free and open source. To donate, please use this qr code:	 
+![donate png](qrcode.png "donate")
