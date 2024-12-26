@@ -273,6 +273,38 @@ class SmallLeg(Leg):
 class SmallHead(Head):
     base_hp = int(Head.base_hp / 2)
 
+# Tiny limbs- for tiny creatures
+class TinyRHand(RHand):
+    base_hp = int(RHand.base_hp / 3)
+    size = 1
+
+class TinyRArm(RArm):
+    subelement_classes = [TinyRHand]
+    base_hp = int(RArm.base_hp / 3)
+    size = 1
+
+class TinyLHand(LHand):
+    base_hp = int(LHand.base_hp / 3)
+    size = 1
+
+class TinyLArm(LArm):
+    subelement_classes = [TinyLHand]
+    base_hp = int(LArm.base_hp / 2)
+    size = 1
+
+class TinyFoot(Foot):
+    base_hp = int(Foot.base_hp / 2)
+    size = 1
+
+class TinyLeg(Leg):
+    subelement_classes = [TinyFoot]
+    base_hp = int(Leg.base_hp / 2)
+    size = 1
+
+class TinyHead(Head):
+    base_hp = int(Head.base_hp / 2)
+    size = 1
+
 # Special limbs
 # Tentacles created by a potion or spell
 class PTentacle(Tentacle):

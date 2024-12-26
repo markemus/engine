@@ -214,4 +214,13 @@ class Vampirism(sp.Effect):
 
         self.vampire.heal(self.amount)
 
-# TODO on hit spawn a little critter (that can't leave room?)
+class HealAllies(sp.Effect):
+    """Heals allies for a small amount every turn. This is an aura that resides on a creature, such as a fairy."""
+    amount = 2
+    rounds = "forever"
+    expire_on_removal = True
+
+    def update(self):
+        allies = [c for c in self.creature.location.creatures if c.team == self.creature.team]
+        for ally in allies:
+            ally.heal(self.amount)

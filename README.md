@@ -55,4 +55,4 @@ damage: the amount of damage the limb can deal in combat.
 blocker: can be used to block attacks.  
 
 # Creating a Game
-**Potions** are a special kind of item with a scripted effect. This is the only scripting required to create a game- otherwise it's similar to creating a bunch of configuration files. Feel free to script other things if you want to though! It's all code, not configs, so you can really be creative with Python properties or custom methods on your objects. Feel free to make your own tags and functionality! And the engine is open source, so you can modify it to your heart's content.
+**Potions** are a special kind of item with a scripted effect. This, along with magic, is the only scripting required to create a game- otherwise it's similar to creating a bunch of configuration files. Feel free to script other things if you want to though! It's all code, not configs, so you can really be creative with Python properties or custom methods on your objects. Feel free to make your own tags and functionality! And the engine is open source, so you can modify it to your heart's content.

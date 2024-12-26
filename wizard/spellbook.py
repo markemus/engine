@@ -14,6 +14,7 @@ import wizard.zombie as z
 
 from wizard import ethereal_hand
 from wizard import giant_spider
+from wizard import fairy
 from wizard import tentacle_monster
 
 
@@ -224,7 +225,6 @@ class SummonSpider(CreationSpell):
     targets = "caster"
 
     def _cast(self):
-        """This is useful if you want to test combat magic on an opponent."""
         spider = giant_spider.GiantSpider(location=self.target.location)
         spider.mana_cost = self.mana_cost
         spider.team = self.caster.team
@@ -268,6 +268,27 @@ class SummonTentacleMonster(CreationSpell):
         self.caster.companions.append(tm)
         print(f"{BC.MAGENTA}A {C.RED}giant tentacle monster{BC.MAGENTA} pops into existence!{BC.OFF}")
         return True
+
+
+class SummonFairy(CreationSpell):
+    name = "Summon Fairy"
+    mana_cost = 5
+    humanity_min = 5
+    description = f"Summons a tiny fairy to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        f = fairy.Fairy(location=self.target.location)
+        f.mana_cost = self.mana_cost
+        f.team = self.caster.team
+        aura = eff.HealAllies(creature=f, limb=f.subelements[0], controller=self.cont)
+        aura.cast()
+        self.target.location.creatures.append(f)
+        self.caster.companions.append(f)
+        print(f"{BC.MAGENTA}A tiny {C.RED}fairy{BC.MAGENTA} pops into existence!{BC.OFF}")
+        return True
+
 
 
 class Trapdoor(CreationSpell):

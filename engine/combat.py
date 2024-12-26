@@ -30,8 +30,9 @@ class Combat:
     def fullCombat(self, include_char=True):
         """Full combat round for all creatures."""
         creatures = self.char.location.get_creatures()
-        # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player)
-        creatures = [creature for creature in creatures if creature.team != "neutral"]
+        # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player).
+        # Non-aggressive creatures will not attack but can still be attacked.
+        creatures = [creature for creature in creatures if (creature.team != "neutral")]
         # if self.char.team == "neutral":
         #     print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
 
@@ -45,7 +46,7 @@ class Combat:
             if actor is self.char and not include_char:
                 # Skip player round if for some reason they're not supposed to get one.
                 continue
-            if not actor.dead and not (hasattr(actor.subelements[0], "fear") and actor.subelements[0].fear):
+            if actor.aggressive and not actor.dead and not ((hasattr(actor.subelements[0], "fear") and actor.subelements[0].fear)):
                 # select best weapon
                 if actor is not self.char:
                     # Check the room for a better weapon

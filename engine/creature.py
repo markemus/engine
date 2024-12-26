@@ -12,6 +12,7 @@ class Limb:
     Limbs are procedurally generated from the class template; limbs of the same class may still be
     very different objects."""
     name = "NO_NAME_LIMB"
+    # Subelement classes are limbs that will be spawned attached to this limb
     subelement_classes = None
     wears = None
     base_hp = 10

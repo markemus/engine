@@ -210,7 +210,6 @@ darkelfsuit = {
     "full": True,
 }
 
-
 lightsuit = {
     "wears": {
         "head": LightHelm,
@@ -243,6 +242,30 @@ spider_bronze_suit = {
     "color": ["burnished", "shiny", "orange", "greenish"],
     "color_scheme": "unique",
     "texture": ["bronze"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+summoned_fairysuit = {
+    "wears": {
+        "body": su.Dress,
+        "foot": su.Slipper},
+    "grasps": {},
+    "color": ["green"],
+    "color_scheme": "same",
+    "texture": ["leafy"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+darkelf_fairysuit = {
+    "wears": {
+        "body": su.Dress,
+        "foot": su.Slipper},
+    "grasps": {},
+    "color": ["black"],
+    "color_scheme": "same",
+    "texture": ["spider silk"],
     "texture_scheme": "same",
     "full": True,
 }

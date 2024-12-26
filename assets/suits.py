@@ -228,6 +228,17 @@ class Tunic(i.Item):
     level = 1
     descends = 1
 
+class Dress(i.Item):
+    name = "dress"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["body"] = True
+    covers["body"] = True
+    covers["arm"] = True
+    covers["leg"] = True
+    level = 1
+    descends = 1
+
 class Clout(i.Item):
     name = "clout"
     canwear = i.Item.canwear.copy()
