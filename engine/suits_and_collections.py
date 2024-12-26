@@ -23,6 +23,7 @@ def suit_to_collection(suit, model):
 
     return collection
 
+# TODO make it possible to put a suit on the limbs (subclass limbs with vis_collection?)
 def limbs_to_collection(limbs, model, color_scheme="same", texture_scheme="same", full=True):
     """Converts a list of Limbs into a Collection of Limbs (for display in an Item or Furniture).
     Limbs will have colors and textures taken from the model, so you probably want Limbs from

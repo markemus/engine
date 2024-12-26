@@ -34,6 +34,7 @@ class CavernL2:
     level_text = f"""{BC.BLUE}The goblin chieftain defeated, you descend further into the caverns. Here the goblins and the dark elves battle for supremacy, dark elf raiding parties headed towards the surface and goblin raiders headed into the deep. You seem to have stumbled into the middle of an endless battle.{BC.OFF}"""
     room_classes = [wizard.places.CavernOpenL2, wizard.places.GoblinCavernVillageL2, wizard.places.DarkElfOutpost, wizard.places.CavernLake]
     start_room = wizard.places.CavernEntrance
+    end_room = wizard.places.DarkElfGuardtower
     algorithm = "labyrinth"
     creature_classes = []
 

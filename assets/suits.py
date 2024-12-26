@@ -292,14 +292,14 @@ class Spear(i.Item):
 class CopperSpear(Spear):
     damage = 4
 
-class Sword(i.Item):
+class IronSword(i.Item):
     name = "sword"
     damage = 20
 
-class CopperSword(Sword):
+class CopperSword(IronSword):
     damage = 7
 
-class BronzeSword(Sword):
+class BronzeSword(IronSword):
     damage = 14
 
 class Quarterstaff(i.Item):
@@ -425,10 +425,14 @@ bronze_armorsuit = {
 partial_bronze_armorsuit = copy.deepcopy(bronze_armorsuit)
 partial_bronze_armorsuit["full"] = False
 
+# for creatures with two swords- remove shield
+bronze_duelists_armorsuit = copy.deepcopy(bronze_armorsuit)
+del bronze_duelists_armorsuit["wears"]["left hand"][1]
+
 weapons = {
     "wears": {},
     "grasps": {
-        "right hand": (Sword, Spear, Axe)},
+        "right hand": (IronSword, Spear, Axe)},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],
@@ -450,7 +454,7 @@ copper_weapons = {
 basic_weapons = {
     "wears": {},
     "grasps": {
-        "right hand": (Quarterstaff)},
+        "right hand": Quarterstaff},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],

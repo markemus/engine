@@ -5,6 +5,8 @@ import assets.commonlimbs as cl
 import engine.effectsbook as eff
 import assets.namelists as nl
 
+import wizard.suits as wsu
+
 
 class Eye(cr.Limb):
     name = "eye"
@@ -20,6 +22,7 @@ class Eye(cr.Limb):
 
 class Fangs(cl.Teeth):
     name = "fangs"
+    wears = "fangs"
     _damage = 10
     effects = [eff.Webbed, eff.Poison]
 
@@ -39,7 +42,7 @@ class Head(cr.Limb):
     subelement_classes = [Eye, Jaw]
     isSurface = True
     appendageRange = (1, 2)
-    wears = "animal_head"
+    wears = "spider_head"
     vital = True
     base_hp = 20
     size = 2
@@ -49,7 +52,7 @@ class Leg(cr.Limb):
     subelement_classes = []
     isSurface = True
     appendageRange = (8, 9)
-    wears = "animal_leg"
+    wears = "spider_leg"
     base_hp = 10
     size = 2
     amble = 1/4
@@ -59,7 +62,7 @@ class Torso(cr.Limb):
     subelement_classes = [Head, Leg]
     isSurface = True
     appendageRange = (1, 2)
-    wears = "animal_body"
+    wears = "spider_body"
     base_hp = 30
     size = 3
 
@@ -71,3 +74,7 @@ class GiantSpider(cr.creature):
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
     suits = []
+
+class ArmoredGiantSpider(GiantSpider):
+    classname = "armored spider"
+    suits = [wsu.spider_bronze_suit]

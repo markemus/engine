@@ -42,6 +42,8 @@ class LightBreastplate(i.Item):
     covers["body"] = True
     canwear["animal_body"] = True
     covers["animal_body"] = True
+    canwear["spider_body"] = True
+    covers["spider_body"] = True
     armor = 2
     level = 3
     descends = 0
@@ -70,6 +72,8 @@ class LightGreave(i.Item):
     covers["leg"] = True
     canwear["animal_leg"] = True
     covers["animal_leg"] = True
+    canwear["spider_leg"] = True
+    covers["spider_leg"] = True
     armor = 2
     level = 3
     descends = 0
@@ -81,6 +85,7 @@ class LightHelm(i.Item):
     covers = i.Item.covers.copy()
     canwear["head"] = True
     canwear["animal_head"] = True
+    canwear["spider_head"] = True
     covers["head"] = True
     covers["eye"] = True
     covers["ear"] = True
@@ -89,12 +94,48 @@ class LightHelm(i.Item):
     covers["teeth"] = True
     covers["tongue"] = True
     covers["animal_head"] = True
+    covers["spider_head"] = True
     covers["snout"] = True
     covers["fangs"] = True
     armor = 2
     level = 3
     descends = 2
     cannot_remove = True
+
+# Spider armor for dark elf companions
+class SpiderBronzeBreastplate(i.Item):
+    name = "spider breastplate"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["spider_body"] = True
+    covers["spider_body"] = True
+    descends = 0
+    level = 3
+    armor = 1
+
+class SpiderBronzeHelm(i.Item):
+    name = "spider helm"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["spider_head"] = True
+    covers["spider_head"] = True
+    covers["spider_head"] = True
+    covers["eye"] = True
+    covers["mouth"] = True
+    covers["fangs"] = True
+    descends = 2
+    level = 3
+    armor = 1
+
+class SpiderBronzeGreave(i.Item):
+    name = "spider greave"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["spider_leg"] = True
+    covers["spider_leg"] = True
+    descends = 0
+    level = 3
+    armor = 1
 
 
 # Mana gear
@@ -135,9 +176,24 @@ class BronzeSwordOfLight(su.BronzeSword):
 class BronzePoisonedScimitar(su.BronzeSword):
     effects = [eff.Poison]
 
+class IronSwordOfFire(su.IronSword):
+    effects = [eff.FireDOT]
+
+class IronSwordOfLight(su.IronSword):
+    effects = [eff.Light]
+
+class IronPoisonedScimitar(su.IronSword):
+    effects = [eff.Poison]
+
+
 class BronzeFlail(i.Item):
     name = "flail"
     damage = 12
+    effects = [eff.Bleed]
+
+class IronFlail(i.Item):
+    name = "flail"
+    damage = 17
     effects = [eff.Bleed]
 
 # Suits
@@ -176,6 +232,20 @@ lightsuit = {
     "texture_scheme": "same",
     "full": True,
     }
+
+spider_bronze_suit = {
+    "wears": {
+        "spider_head": SpiderBronzeHelm,
+        "spider_body": SpiderBronzeBreastplate,
+        "spider_leg": SpiderBronzeGreave,
+    },
+    "grasps": {},
+    "color": ["burnished", "shiny", "orange", "greenish"],
+    "color_scheme": "unique",
+    "texture": ["bronze"],
+    "texture_scheme": "same",
+    "full": True,
+}
 
 lightsword_ethereal = {
     "grasps": {
@@ -233,6 +303,19 @@ bleedflail = {
     "color": ["burnished", "shiny", "orange", "greenish"],
     "color_scheme": "same",
     "texture": ["bronze"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+double_iron_poisonsword = {
+    "grasps": {
+        "right hand": IronPoisonedScimitar,
+        "left hand": IronPoisonedScimitar,
+    },
+    "wears": {},
+    "color": ["burnished", "shiny", "orange", "greenish"],
+    "color_scheme": "unique",
+    "texture": ["iron"],
     "texture_scheme": "same",
     "full": True,
 }

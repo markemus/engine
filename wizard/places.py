@@ -10,8 +10,8 @@ from wizard.cave_fish import BlindCaveFish
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
 from wizard.giant_shrimp import BlindCaveShrimp
-from wizard.elf import DarkElfScout
-from wizard.giant_spider import GiantSpider
+from wizard.elf import DarkElfScout, DarkElfChampion
+from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
 from wizard.tunnel_worm import TunnelWorm
 
@@ -109,14 +109,15 @@ class GoblinChiefVillage(GoblinCavernVillage):
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
     creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
-    furniture_classes = [wizard.furniture.GiantMushroom, (wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave)] + CavernOpen.furniture_classes.copy()
+    furniture_classes = [wizard.furniture.GiantMushroom, (wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave, None, None)] + CavernOpen.furniture_classes.copy()
 
 class GoblinCavernVillageL2(GoblinCavernVillage):
     creature_classes = [cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"]]
     furniture_classes = [wizard.furniture.GiantMushroom] + GoblinCavernVillage.furniture_classes.copy()
 
-class DarkElfOutpost(CavernOpen):
+class DarkElfOutpost(CavernOpenL2):
     """A forward scouting base of the dark elves."""
+    name = "dark elf outpost"
     sprite = "D"
     count = (1, 4)
     creature_classes = [cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"]]
@@ -133,3 +134,14 @@ class CavernLake(pl.Place):
     # creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, water, wizard.furniture.Stalactite]
+
+
+class DarkElfGuardtower(pl.Place):
+    name = "guard tower"
+    sprite = "T"
+    count = (1, 2)
+    colors = ["slate", "dark", "black", "granite"]
+    textures = ["stone"]
+    creature_classes = [[(GiantSpider, 1)], [(DarkElfScout, 1)], [(GiantSpider, 1)], [(DarkElfScout, 1)], [(DarkElfChampion, 1)], [(ArmoredGiantSpider, 1)]]
+    furniture_classes = [wizard.furniture.L2Chest]
+    subelement_classes = [wall, floor]
