@@ -221,23 +221,28 @@ class Controller:
 
     def north(self):
         self.game.char.leave("n")
+        self.cast_prebattle_effects()
         return self.check_safety()
 
     def south(self):
         self.game.char.leave("s")
+        self.cast_prebattle_effects()
         return self.check_safety()
 
     def west(self):
         self.game.char.leave("w")
+        self.cast_prebattle_effects()
         return self.check_safety()
 
     def east(self):
         self.game.char.leave("e")
+        self.cast_prebattle_effects()
         return self.check_safety()
 
     def stairs(self):
         """Stairs cross over between levels."""
         left = self.game.char.leave(">")
+        self.cast_prebattle_effects()
         if left:
             new_level = self.game.char.location.get_level()
             new_level_idx = self.game.level_list.index(new_level)
@@ -257,6 +262,20 @@ class Controller:
             if creature.aggressive and (creature.team != self.game.char.team) and (self.game.char.team != "neutral") and (creature.team != "neutral"):
                 return False
         return True
+
+    # TODO use potions too
+    def cast_prebattle_effects(self):
+        """Casts the prebattle effects that a creature has available to it."""
+        for creature in self.game.char.location.creatures:
+            limbs = creature.subelements[0].limb_check("name")
+            # Cast effects
+            for limb in limbs:
+                if limb.effects:
+                    for Effect in limb.effects:
+                        # Only one copy of the effect- don't cast if already active.
+                        if Effect not in [e.__class__ for e in limb.active_effects]:
+                            eff = Effect(creature=creature, limb=limb, controller=self)
+                            eff.cast()
 
     def pick_target(self):
         enemylist = self.game.char.ai.get_enemy_creatures()

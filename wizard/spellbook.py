@@ -291,8 +291,8 @@ class SummonFairy(CreationSpell):
         f = fairy.Fairy(location=self.target.location)
         f.mana_cost = self.mana_cost
         f.team = self.caster.team
-        aura = eff.HealAllies(creature=f, limb=f.subelements[0], controller=self.cont)
-        aura.cast()
+        # aura = eff.HealAllies(creature=f, limb=f.subelements[0], controller=self.cont)
+        # aura.cast()
         self.target.location.creatures.append(f)
         self.caster.companions.append(f)
         print(f"{BC.MAGENTA}A tiny {C.RED}fairy{BC.MAGENTA} pops into existence!{BC.OFF}")

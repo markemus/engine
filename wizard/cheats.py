@@ -1,7 +1,7 @@
 import random
-import wizard.spellbook as sb
 import wizard.item_collections as wic
 import wizard.suits as wsu
+
 
 def skip_level_one(player, game):
     """Gives equipment that should fairly represent beating level one, and places player at beginning of level 2."""

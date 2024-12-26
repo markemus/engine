@@ -23,6 +23,8 @@ class Limb:
     # Size should be an int between 1 and 3. This affects to-hit chance.
     size = 2
     isSurface = True
+    # Effects will be cast before battle begins (if they aren't already active)
+    effects = None
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color

@@ -34,6 +34,7 @@ class FairyTorso(cr.Limb):
     wears = "body"
     base_hp = 15
     size = 2
+    effects = [eff.HealAllies]
 
 class Fairy(cr.creature):
     classname = "fairy"
