@@ -2,8 +2,9 @@ import random
 import textwrap
 
 from colorist import BrightColor as BC, Color as C
-from . import combat
-from . import creature
+from engine import combat
+from engine import creature
+from engine import utils
 
 
 class Controller:
@@ -11,65 +12,66 @@ class Controller:
         self.game = game
         self.combat = combat.Combat(self.game.char, self)
 
-    def listtodict(self, l, add_x=False):
-        d = {str(i): l[i] for i in range(len(l))}
-        if add_x:
-            d["x"] = "Cancel"
-
-        return d
+    # def listtodict(self, l, add_x=False):
+    #     d = {str(i): l[i] for i in range(len(l))}
+    #     if add_x:
+    #         d["x"] = "Cancel"
+    # 
+    #     return d
 
     # TODO refactor dictprint, listtodict, and display_long_text to use the versions in utils.py
-    def dictprint(self, d, pfunc=None, show_invs=False):
-        """Pretty print a dictionary. Useful for displaying command sets for user input.
-        pfunc amends the final string before printing.
-        show_invs puts a star next to items with inventories."""
-        intkeys = []
-        strkeys = []
-
-        for key in d.keys():
-            if key.isdigit():
-                intkeys.append(key)
-            else:
-                strkeys.append(key)
-
-        intkeys.sort(key=int)
-
-        keys = intkeys + strkeys
-        fullstr = ""
-
-        for key in keys:
-            # Keys should always have the same (brown) color.
-            kval = f"{C.YELLOW}{str(key)}{C.OFF}: "
-            # if function
-            if hasattr(d[key], "__name__"):
-                exstr = kval + d[key].__name__
-            # or object with printcolor
-            elif hasattr(d[key], "printcolor") and hasattr(d[key], "name"):
-                exstr = kval + f"{d[key].printcolor}{d[key].name}{C.OFF}"
-            # elif other objects
-            elif hasattr(d[key], "name"):
-                exstr = kval + f"{d[key].name}"
-            # we don't want to ever see this, but we'd rather have it than an exception, I think.
-            # This seems to be what happens when key is an int.
-            else:
-                exstr = kval + str(d[key])
-
-            # pfunc processes d[key] and returns a string for printing.
-            if pfunc:
-                exstr = pfunc(exstr, d[key])
-
-            if show_invs:
-                # Add star if item has inv or subelements
-                if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
-                    exstr = exstr + " *"
-
-            fullstr = fullstr + "\n" + exstr
-        self.display_long_text(fullstr)
+    # TODO should print colors and textures as well. Refactor first.
+    # def dictprint(self, d, pfunc=None, show_invs=False):
+    #     """Pretty print a dictionary. Useful for displaying command sets for user input.
+    #     pfunc amends the final string before printing.
+    #     show_invs puts a star next to items with inventories."""
+    #     intkeys = []
+    #     strkeys = []
+    # 
+    #     for key in d.keys():
+    #         if key.isdigit():
+    #             intkeys.append(key)
+    #         else:
+    #             strkeys.append(key)
+    # 
+    #     intkeys.sort(key=int)
+    # 
+    #     keys = intkeys + strkeys
+    #     fullstr = ""
+    # 
+    #     for key in keys:
+    #         # Keys should always have the same (brown) color.
+    #         kval = f"{C.YELLOW}{str(key)}{C.OFF}: "
+    #         # if function
+    #         if hasattr(d[key], "__name__"):
+    #             exstr = kval + d[key].__name__
+    #         # or object with printcolor
+    #         elif hasattr(d[key], "printcolor") and hasattr(d[key], "name"):
+    #             exstr = kval + f"{d[key].printcolor}{d[key].name}{C.OFF}"
+    #         # elif other objects
+    #         elif hasattr(d[key], "name"):
+    #             exstr = kval + f"{d[key].name}"
+    #         # we don't want to ever see this, but we'd rather have it than an exception, I think.
+    #         # This seems to be what happens when key is an int.
+    #         else:
+    #             exstr = kval + str(d[key])
+    # 
+    #         # pfunc processes d[key] and returns a string for printing.
+    #         if pfunc:
+    #             exstr = pfunc(exstr, d[key])
+    # 
+    #         if show_invs:
+    #             # Add star if item has inv or subelements
+    #             if (hasattr(d[key], "vis_inv") and d[key].vis_inv) or (hasattr(d[key], "equipment") and d[key].equipment):
+    #                 exstr = exstr + " *"
+    # 
+    #         fullstr = fullstr + "\n" + exstr
+    #     utils.display_long_text(fullstr)
 
     def desc(self):
         # Sight check
         if self.game.char.limb_count("see") >= 1:
-            self.display_long_text(self.game.char.location.desc(full=True))
+            utils.display_long_text(self.game.char.location.desc(full=True))
         else:
             print(f"{C.RED}You cannot see well enough to see the room well.{C.OFF}")
 
@@ -95,17 +97,17 @@ class Controller:
              f"\n{C.RED}Inventories{C.OFF}\n" \
              f"{inventory}\n" \
              f"{self.game.char.desc(stats=True)}"
-        self.display_long_text(cs)
+        utils.display_long_text(cs)
 
     def examine(self):
         """Desc for a particular creature or element in the room."""
         # Sight check
         if self.game.char.limb_count("see") >= 1:
-            examine_dict = self.listtodict(self.game.char.location.creatures + self.game.char.location.elements, add_x=True)
-            self.dictprint(examine_dict)
+            examine_dict = utils.listtodict(self.game.char.location.creatures + self.game.char.location.elements, add_x=True)
+            utils.dictprint(examine_dict)
             i = input(f"{BC.GREEN}\nWho/what are you examining?{BC.OFF} ")
             if i in examine_dict.keys() and i != "x":
-                self.display_long_text(examine_dict[i].desc(full=True))
+                utils.display_long_text(examine_dict[i].desc(full=True))
             else:
                 print(f"{BC.CYAN}You look away.{BC.OFF}")
         else:
@@ -139,14 +141,14 @@ class Controller:
 
     def details(self):
         """Detailed view of an item in inventory."""
-        inventories = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
-        self.dictprint(inventories)
+        inventories = utils.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+        utils.dictprint(inventories)
         i = input(f"Which inventory contains the {BC.CYAN}item{BC.OFF} you want to examine (x to cancel)? ")
 
         # Select item
         if i in inventories.keys() and i != "x":
-            inv_items = self.listtodict(inventories[i].vis_inv, add_x=True)
-            self.dictprint(inv_items)
+            inv_items = utils.listtodict(inventories[i].vis_inv, add_x=True)
+            utils.dictprint(inv_items)
             j = input(f"Which {BC.CYAN}item{BC.OFF} would you like to examine (x to cancel)?")
             if j in inv_items.keys() and j != "x":
                 self.detailed_view(inv_items[j])
@@ -160,7 +162,7 @@ class Controller:
             room_inventories = self.game.char.location.find_invs()
             your_inventories = self.game.char.subelements[0].find_invs()
             all_inventories = your_inventories + room_inventories
-            inventory_dict = self.listtodict(all_inventories)
+            inventory_dict = utils.listtodict(all_inventories)
             inventory_dict["x"] = "look away"
             def pfunc(str, invobj):
                 ex_str = ""
@@ -171,7 +173,7 @@ class Controller:
                 # if hasattr(invobj, "grasped") and invobj.grasped:
                 #     ex_str += f" ({invobj.grasped.name})"
                 return str + ex_str
-            self.dictprint(inventory_dict, pfunc=pfunc)
+            utils.dictprint(inventory_dict, pfunc=pfunc)
 
             i = input(f"\n{BC.GREEN}First, which inventory would you like to take from (x to cancel)?{BC.OFF} ")
             if i != "x" and i in inventory_dict.keys():
@@ -189,7 +191,7 @@ class Controller:
                         target_inv = target_inv.vis_inv
                     elif hasattr(target_inv, "equipment"):
                         target_inv = target_inv.equipment
-                    self.dictprint(self.listtodict(origin_inv))
+                    utils.dictprint(utils.listtodict(origin_inv))
                     k = input(f"\n{BC.GREEN}Which item would you like to transfer (x to cancel)?{BC.OFF} ")
                     if k != "x" and 0 <= int(k) < len(origin_inv):
                         origin_inv[int(k)].transfer(self.game.char, origin_inv, target_inv)
@@ -254,7 +256,7 @@ class Controller:
 
     def pick_target(self):
         enemylist = self.game.char.ai.get_enemy_creatures()
-        targets = self.listtodict(enemylist)
+        targets = utils.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
 
         def pfunc(x, y):
@@ -263,7 +265,7 @@ class Controller:
             else:
                 return x
 
-        self.dictprint(targets, pfunc=pfunc)
+        utils.dictprint(targets, pfunc=pfunc)
 
         i = input(f"{BC.GREEN}\nWho are you attacking {C.YELLOW}(x for none){BC.GREEN}?{BC.OFF} ")
 
@@ -276,8 +278,8 @@ class Controller:
         return defender
 
     def pick_weapon(self, weapons):
-        weapons = self.listtodict(weapons)
-        self.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name}) {C.RED}({y.damage[0]}){C.OFF}")
+        weapons = utils.listtodict(weapons)
+        utils.dictprint(weapons, pfunc=lambda x, y: x + f" {C.BLUE}({y.damage[1].name}) {C.RED}({y.damage[0]}){C.OFF}")
 
         i = None
         while i not in weapons.keys():
@@ -291,7 +293,7 @@ class Controller:
     def pick_limb(self, defender):
         # limblist = combat.get_target_limbs(defender)
         limblist = defender.subelements[0].limb_check("isSurface")
-        limbs = self.listtodict(limblist)
+        limbs = utils.listtodict(limblist)
         limbs["x"] = "Withhold your blow."
 
         def a_pfunc(str, obj):
@@ -302,7 +304,7 @@ class Controller:
             if hasattr(obj, "armor"):
                 str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
             return str
-        self.dictprint(limbs, pfunc=a_pfunc)
+        utils.dictprint(limbs, pfunc=a_pfunc)
 
         i = input(f"\n{BC.GREEN}Which limb are you targeting {C.YELLOW}(x for none){C.OFF}{BC.GREEN}? {BC.OFF}")
 
@@ -315,7 +317,7 @@ class Controller:
 
     def pick_blocker(self, blockers):
         if self.game.char.limb_count("see") >= 1:
-            blockers = self.listtodict(blockers)
+            blockers = utils.listtodict(blockers)
             blockers["x"] = "Accept the blow."
 
             def a_pfunc(str, obj):
@@ -325,7 +327,7 @@ class Controller:
                     str = f"{str} {C.RED}({obj.hp}){C.OFF}"
                 return str
 
-            self.dictprint(blockers, pfunc=a_pfunc)
+            utils.dictprint(blockers, pfunc=a_pfunc)
 
             i = input(f"\n{BC.GREEN}Which {BC.CYAN}limb{BC.GREEN} would you like to block with {C.YELLOW}(x for none){BC.GREEN}?{C.OFF} ")
 
@@ -371,13 +373,13 @@ class Controller:
         invs = self.game.char.subelements[0].find_invs()
         # Drop equipment
         invs = [inv for inv in invs if hasattr(inv, "vis_inv")]
-        invs = self.listtodict(invs, add_x=True)
-        self.dictprint(invs)
+        invs = utils.listtodict(invs, add_x=True)
+        utils.dictprint(invs)
         i = input(f"\n{BC.GREEN}Which inventory would you like to use item from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            usables = self.listtodict([item for item in invs[i].vis_inv if hasattr(item, "usable") and item.usable], add_x=True)
-            self.dictprint(usables)
+            usables = utils.listtodict([item for item in invs[i].vis_inv if hasattr(item, "usable") and item.usable], add_x=True)
+            utils.dictprint(usables)
             j = input(f"\n{BC.GREEN}Select an item to use:{BC.OFF} ")
 
             if j in usables.keys() and j != "x":
@@ -390,20 +392,20 @@ class Controller:
         invs = self.game.char.subelements[0].find_invs()
         # drop equipment
         invs = [x for x in invs if hasattr(x, "vis_inv")]
-        invs = self.listtodict(invs, add_x=True)
-        self.dictprint(invs)
+        invs = utils.listtodict(invs, add_x=True)
+        utils.dictprint(invs)
         i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            inventory = self.listtodict(invs[i].vis_inv, add_x=True)
-            self.dictprint(inventory)
+            inventory = utils.listtodict(invs[i].vis_inv, add_x=True)
+            utils.dictprint(inventory)
             j = input(f"\n{BC.GREEN}Select an item to equip:{BC.OFF} ")
 
             if j in inventory.keys() and j != "x":
                 gear = inventory[j]
-                limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
-                # self.dictprint(limbs)
-                self.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
+                limbs = utils.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
+                # utils.dictprint(limbs)
+                utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
                 k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
 
                 if k in limbs.keys() and k != "x":
@@ -417,7 +419,7 @@ class Controller:
         """Remove equipment from a limb."""
         h = input(f"{BC.GREEN}Remove equipment from one of your limbs (y) or a disembodied limb (o) {C.YELLOW}(y/o){BC.GREEN}?{BC.OFF} ")
         if h == "y":
-            limbs = self.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
+            limbs = utils.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
         elif h == "o":
             room_limbs = []
             for inv in self.game.char.location.find_invs():
@@ -429,24 +431,24 @@ class Controller:
                 for x in inv.vis_inv:
                     if isinstance(x, creature.Limb):
                         pocket_limbs.extend(x.find_equipped())
-            limbs = self.listtodict([*room_limbs, *pocket_limbs], add_x=True)
+            limbs = utils.listtodict([*room_limbs, *pocket_limbs], add_x=True)
         else:
             print(f"{C.RED}Input not recognized.{C.OFF}")
             return
 
-        self.dictprint(limbs, pfunc=lambda x,y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
+        utils.dictprint(limbs, pfunc=lambda x,y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
         i = input(f"\n{BC.GREEN}Which limb would you like to unequip from?{BC.OFF} ")
 
         if i in limbs.keys() and i != "x":
             limb = limbs[i]
-            equipment = self.listtodict(limb.equipment, add_x=True)
-            self.dictprint(equipment)
+            equipment = utils.listtodict(limb.equipment, add_x=True)
+            utils.dictprint(equipment)
             j = input(f"\n{BC.GREEN}Select the gear you would like to remove:{BC.OFF} ")
 
             if j in equipment.keys() and j != "x":
                 gear = equipment[j]
-                invs = self.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
-                self.dictprint(invs)
+                invs = utils.listtodict(self.game.char.subelements[0].find_invs(), add_x=True)
+                utils.dictprint(invs)
                 k = input(f"\n{BC.GREEN}Select an inventory to put the gear into:{BC.OFF} ")
 
                 if k in invs.keys() and k != "x":
@@ -464,20 +466,20 @@ class Controller:
         room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
         your_inventories = self.game.char.subelements[0].find_invs()
         all_inventories = your_inventories + room_inventories
-        inventory_dict = self.listtodict(all_inventories, add_x=True)
-        self.dictprint(inventory_dict)
-        i = input(f"\n{BC.GREEN}Select an inventory to take something from:{BC.OFF} ")
+        inventory_dict = utils.listtodict(all_inventories, add_x=True)
+        utils.dictprint(inventory_dict)
+        i = input(f"\n{BC.GREEN}Select an inventory to grasp something from:{BC.OFF} ")
 
         if i in inventory_dict.keys() and i != "x":
             target_inv = inventory_dict[i]
-            inventory = self.listtodict(target_inv.vis_inv, add_x=True)
-            self.dictprint(inventory)
-            j = input(f"\n{BC.GREEN}Select an item to pick up:{BC.OFF} ")
+            inventory = utils.listtodict(target_inv.vis_inv, add_x=True)
+            utils.dictprint(inventory)
+            j = input(f"\n{BC.GREEN}Select an item to grasp:{BC.OFF} ")
 
             if j in inventory.keys() and j != "x":
                 wielded = target_inv.vis_inv[int(j)]
-                hands = self.listtodict(self.game.char.subelements[0].limb_check("grasp"))
-                self.dictprint(hands, pfunc=lambda x, y: x + f": {C.RED}({y.grasped.name if y.grasped else None}){C.OFF}")
+                hands = utils.listtodict(self.game.char.subelements[0].limb_check("grasp"))
+                utils.dictprint(hands, pfunc=lambda x, y: x + f": {C.RED}({y.grasped.name if y.grasped else None}){C.OFF}")
                 k = input(f"\n{BC.GREEN}Choose a hand to grasp the {wielded.name} with {C.YELLOW}(x to cancel){BC.GREEN}:{BC.OFF} ")
 
                 if k in hands.keys() and k != "x":
@@ -504,8 +506,8 @@ class Controller:
 
     def ungrasp(self):
         graspers = self.game.char.subelements[0].limb_check("grasp")
-        graspers_desc = self.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped], add_x=True)
-        self.dictprint(graspers_desc)
+        graspers_desc = utils.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped], add_x=True)
+        utils.dictprint(graspers_desc)
         i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF} ")
 
         if i in graspers_desc.keys() and i != "x":
@@ -513,8 +515,8 @@ class Controller:
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
             your_inventories = self.game.char.subelements[0].find_invs()
             all_inventories = your_inventories + room_inventories
-            inventory_dict = self.listtodict(all_inventories, add_x=True)
-            self.dictprint(inventory_dict)
+            inventory_dict = utils.listtodict(all_inventories, add_x=True)
+            utils.dictprint(inventory_dict)
             j = input(f"\n{BC.GREEN}Which inventory would you like to place the {hand.grasped.name} into?{BC.OFF} ")
 
             if j in inventory_dict.keys() and j != "x":
@@ -536,8 +538,8 @@ class Controller:
         if spellbook:
             for spell in spellbook:
                 spell_list.append(f"{BC.CYAN}{spell.name}{BC.OFF}: {BC.MAGENTA}{spell.description}{BC.OFF}")
-            spell_dict = self.listtodict(spell_list, add_x=True)
-            self.dictprint(spell_dict)
+            spell_dict = utils.listtodict(spell_list, add_x=True)
+            utils.dictprint(spell_dict)
             i = input(f"{BC.GREEN}Which spell would you like to cast? {BC.OFF}")
             if i in spell_dict.keys() and i != "x":
                 if spellbook[int(i)].targets == "friendly":
@@ -548,8 +550,8 @@ class Controller:
                     target_list = self.game.char.ai.get_enemy_creatures()
                 else:
                     raise ValueError(f"Spell target must be friendly, enemy or caster: {spellbook[int(i)]}")
-                targets = self.listtodict(target_list, add_x=True)
-                self.dictprint(targets)
+                targets = utils.listtodict(target_list, add_x=True)
+                utils.dictprint(targets)
                 j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
                 if j in targets.keys() and j != "x":
                     spell = spellbook[int(i)](self.game.char, targets[j], controller=self)

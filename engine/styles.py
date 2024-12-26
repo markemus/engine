@@ -39,8 +39,12 @@ class floor(pl.Platform):
     count = (1, 2)
     canCatch = True
 
-class water(pl.Platform):
+class water(pl.Element):
     name = "water"
+    count = (1, 2)
+
+class lakebed(pl.Platform):
+    name = "lakebed"
     count = (1, 2)
     canCatch = True
 

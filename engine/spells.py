@@ -26,7 +26,6 @@ class Spell:
             print(f"{BC.MAGENTA}Not enough mana! The spell fizzles.{BC.OFF}")
             return False
 
-
     def update(self):
         """Spells may define an update() method. This is called during every combat round."""
         pass

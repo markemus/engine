@@ -31,7 +31,7 @@ class CreationSpell(sp.Spell):
         else:
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({self.humanity_min}){BC.OFF}")
 
-# TODO automatically print humanity and mana costs instead of building it into description attribute
+
 class CorruptionSpell(sp.Spell):
     """A spell that requires corruptive powers and therefore requires a low humanity to cast.
     Subclasses must set humanity_max."""
@@ -43,6 +43,7 @@ class CorruptionSpell(sp.Spell):
             # return self._cast()
         else:
             print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({self.humanity_max})!{BC.OFF}")
+
 
 # Creation
 class Flashbang(CreationSpell):
@@ -799,6 +800,6 @@ class SetHumanity(sp.Spell):
 # TODO powerful sword hand- permanent
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO grow wings
-# TODO (small) companion that heals you
+# TODO (small) companion that heals you (fairy)
 # TODO poison gas
-# TODO bees- small creatures that can't be targeted and die when they attack.
+# TODO casts effects on creature's weapons

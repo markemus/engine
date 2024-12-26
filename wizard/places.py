@@ -1,6 +1,6 @@
 import assets.places
 import engine.place as pl
-from engine.styles import wall, floor, water, pillar, door
+from engine.styles import wall, floor, water, lakebed, pillar, door
 
 import assets.furniture as fur
 
@@ -134,7 +134,7 @@ class CavernLake(pl.Place):
     creature_classes = [cc["fish"], cc["fish"], cc["fish"], cc["fish"]]
     # creature_classes = []
     furniture_classes = []
-    subelement_classes = [wall, water, wizard.furniture.Stalactite]
+    subelement_classes = [wall, water, lakebed, wizard.furniture.Stalactite]
 
 
 class DarkElfGuardtower(pl.Place):
@@ -143,6 +143,6 @@ class DarkElfGuardtower(pl.Place):
     count = (1, 2)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [[(GiantSpider, 1)], [(DarkElfScout, 1)], [(GiantSpider, 1)], [(DarkElfScout, 1)], [(DarkElfChampion, 1)], [(ArmoredGiantSpider, 1)]]
+    creature_classes = [[(DarkElfChampion, 1)], [(ArmoredGiantSpider, 1)], [(DarkElfChampion, 1)], [(ArmoredGiantSpider, 1)]]
     furniture_classes = [wizard.furniture.L2Chest]
     subelement_classes = [wall, floor]

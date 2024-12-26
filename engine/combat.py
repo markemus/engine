@@ -124,19 +124,22 @@ class Combat:
             else:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} cannot see the blow coming.")
 
+            # Masters have a higher to-hit roll
+            mastery = actor.mastery if hasattr(actor, "mastery") else 0
+
             # To hit roll- smaller limbs are harder to hit
             if actor.limb_count("see") < 1:
                 # Blind fighting
-                roll = -3 + random.randint(0, 8) + limb.size
+                roll = -3 + random.randint(0, 8) + limb.size + mastery
             elif ((target.limb_count("amble") < 1) and (target.limb_count("flight") < 1)) and ((actor.limb_count("amble") >= 1) or actor.limb_count("flight") >= 1):
                 # easier to hit prone enemies
                 print(f"{C.RED}{target.name} is prone!{C.OFF}")
-                roll = 3 + random.randint(0, 2) + limb.size
+                roll = 3 + random.randint(0, 2) + limb.size + mastery
             elif ((target.limb_count("amble") >= 1) or (target.limb_count("flight") >= 1)) and ((actor.limb_count("amble") < 1) and (actor.limb_count("flight") < 1)):
                 print(f"{C.RED}{actor.name} is prone!{C.OFF}")
-                roll = -3 + random.randint(0, 8) + limb.size
+                roll = -3 + random.randint(0, 8) + limb.size + mastery
             else:
-                roll = random.randint(0, 5) + limb.size
+                roll = random.randint(0, 5) + limb.size + mastery
 
             if roll >= 5:
                 limb = limb

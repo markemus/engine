@@ -47,12 +47,17 @@ def dictprint(d, pfunc=None, show_invs=False):
     for key in keys:
         # Keys should always have the same (brown) color.
         kval = f"{C.YELLOW}{str(key)}{C.OFF}: "
+
+        # Use printcolor, if it exists
+        if hasattr(d[key], "printcolor"):
+            kval = kval + f"{d[key].printcolor}"
+
         # if function
         if hasattr(d[key], "__name__"):
             exstr = kval + d[key].__name__
         # or object with printcolor
-        elif hasattr(d[key], "printcolor") and hasattr(d[key], "name"):
-            exstr = kval + f"{d[key].printcolor}{d[key].name}{C.OFF}"
+        elif hasattr(d[key], "color") and hasattr(d[key], "texture") and hasattr(d[key], "name"):
+            exstr = kval + f"{d[key].color} {d[key].texture} {d[key].name}"
         # elif other objects
         elif hasattr(d[key], "name"):
             exstr = kval + f"{d[key].name}"
@@ -60,6 +65,9 @@ def dictprint(d, pfunc=None, show_invs=False):
         # This seems to be what happens when key is an int.
         else:
             exstr = kval + str(d[key])
+
+        # Disable printcolor in cast it was enabled.
+        exstr = exstr + f"{C.OFF}"
 
         # pfunc processes d[key] and returns a string for printing.
         if pfunc:
