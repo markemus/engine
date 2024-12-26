@@ -31,7 +31,6 @@ class Limb:
         self.equipment = []
         self.covers = []
         self.active_effects = []
-        # self.vis_inv = []
         self.hp = self.base_hp
 
     def _elementGen(self):

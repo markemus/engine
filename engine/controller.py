@@ -127,7 +127,7 @@ class Controller:
                 if v == True:
                     dstr += "\n" + "|" + f"{k}".center(25) + "|"
 
-        if hasattr(item, "covers") and True in item.covers.values():
+        if hasattr(item, "covers") and (isinstance(item.covers, dict)) and True in item.covers.values():
             dstr += "\n|" + " "*25 + "|"
             dstr += "\n" + "|" + f"Covers:".center(25) + "|"
             for k,v in item.covers.items():

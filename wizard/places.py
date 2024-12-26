@@ -124,6 +124,7 @@ class DarkElfOutpost(CavernOpenL2):
     furniture_classes = [wizard.furniture.GiantMushroomWithHammock, wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
 
 
+# TODO fire effects should not work here
 class CavernLake(pl.Place):
     name = "cave lake"
     sprite = "L"

@@ -174,6 +174,7 @@ class Fireball(CreationSpell):
             fire = eff.FireDOT(creature=self.target, limb=limb, controller=self.cont)
             fire.cast()
         print(f"{BC.MAGENTA}A gigantic fireball flies across the room and explodes on {self.target.name}!{BC.OFF}")
+        return True
 
 
 class GrowTreeOfLife(CreationSpell):
@@ -444,6 +445,7 @@ class GrowFangs(CorruptionSpell):
 
                 jaw.subelements.append(CVampireFangs(color="sharp", texture="white"))
                 print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
+                return True
             else:
                 print(f"{BC.MAGENTA}{self.target.name} has no jaws.")
 
@@ -565,7 +567,6 @@ class ReanimateLimb(CorruptionSpell):
                 if hasattr(self.caster, "humanity"):
                     self.caster.humanity -= 1
                     print(f"{C.RED}{self.caster.name}'s humanity decreases!{C.OFF}")
-
                 return True
 
 
@@ -595,6 +596,7 @@ class FleshRip(CorruptionSpell):
 
 
 # TODO set mana cost on creature- how to do it fairly?
+# TODO should not expire but should be cancelable.
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7
@@ -628,6 +630,7 @@ class Distract(CorruptionSpell):
     def _cast(self):
         self.target.ai.target = None
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} is distracted!{BC.OFF}")
+        return True
 
 
 class Fear(CorruptionSpell):
@@ -662,7 +665,6 @@ class Might(CorruptionSpell):
             if limb.wears in ["arm", "animal_leg"]:
                 might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
                 might.cast()
-
         return True
 
 
@@ -755,6 +757,7 @@ class GrowBeard(sp.Spell):
                     print(f"{BC.MAGENTA}{self.target.name}'s old beard hairs fall out of their face.{BC.OFF}")
             head.subelements.append(cl.WizardBeard(color="white", texture="luxuriant"))
             print(f"{BC.MAGENTA}A long flowing beard erupts from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s face!{BC.OFF}")
+            return True
 
 
 class ReleaseMinion(sp.Spell):

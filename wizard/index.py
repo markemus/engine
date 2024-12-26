@@ -55,7 +55,7 @@ player.spellbook.append(random.choice([sb.SummonCerberus, sb.SummonSpider, sb.Su
 # player.spellbook.append(sb.Trapdoor)
 # player.spellbook.append(sb.Innocence)
 # player.spellbook.append(sb.Lightning)
-player.spellbook.append(sb.Fireball)
+# player.spellbook.append(sb.Fireball)
 # player.spellbook.append(sb.SummonSpider)
 # player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.SummonEtherealHand)
