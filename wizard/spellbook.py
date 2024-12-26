@@ -837,7 +837,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE powerful sword hand- permanent
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO grow wings
-# TODO (small) companion that heals you (fairy)
+# TODO (small) companion that heals you (fairy). Also drops items (potions?)
 # TODO poison gas
 # TODO casts effects on creature's weapons
-# TODO utility companion- drops items (potions?)
