@@ -732,7 +732,7 @@ class creature:
     def blood(self):
         """The amount of blood a creature has is proportional to its size."""
         limbs = self.subelements[0].limb_check("name")
-        total_blood = sum([x.size for x in limbs])
+        total_blood = sum([x.size if not hasattr(x, "orig_size") else x.orig_size for x in limbs])
 
         return total_blood
 
@@ -740,6 +740,6 @@ class creature:
     def poison_resist(self):
         """The amount of poison a creature can resist is proportional to its size."""
         limbs = self.subelements[0].limb_check("name")
-        total_pr = sum([x.size for x in limbs])
+        total_pr = sum([x.size if not hasattr(x, "orig_size") else x.orig_size for x in limbs])
 
         return total_pr

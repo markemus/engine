@@ -49,6 +49,7 @@ class Combat:
             if actor.aggressive and not actor.dead and not ((hasattr(actor.subelements[0], "fear") and actor.subelements[0].fear)):
                 # select best weapon
                 if actor is not self.char:
+                    # TODO this should run before creature attacks instead of before combat round (so char can't always grab it up first)
                     # Check the room for a better weapon
                     self.grab_weapon(actor)
 
@@ -105,6 +106,7 @@ class Combat:
 
             # Blocking
             if target.limb_count("see") >= 1:
+                # TODO shouldn't block if blocker would be same as limb.
                 blockers = self.blockers[target].copy()
                 if target is self.char:
                     blocker = self.cont.pick_blocker(blockers)

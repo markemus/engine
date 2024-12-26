@@ -200,7 +200,7 @@ class GrowTreeOfLife(CreationSpell):
 class SummonCerberus(CreationSpell):
     name = "Summon Cerberus"
     mana_cost = 7
-    humanity_min = 5
+    humanity_min = -3
     description = f"Summons a three headed dog to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
@@ -213,6 +213,9 @@ class SummonCerberus(CreationSpell):
         self.target.location.creatures.append(cerberus)
         self.caster.companions.append(cerberus)
         print(f"{BC.MAGENTA}A {C.RED}cerberus{BC.MAGENTA} pops into existence!{BC.OFF}")
+        if hasattr(self.target, "humanity"):
+            self.target.humanity += 1
+            print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
 
 
@@ -231,6 +234,9 @@ class SummonSpider(CreationSpell):
         self.target.location.creatures.append(spider)
         self.caster.companions.append(spider)
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} pops into existence!{BC.OFF}")
+        if hasattr(self.target, "humanity"):
+            self.target.humanity += 1
+            print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
 
 class SummonEtherealHand(CreationSpell):
@@ -249,6 +255,9 @@ class SummonEtherealHand(CreationSpell):
         self.target.location.creatures.append(hand)
         self.caster.companions.append(hand)
         print(f"{BC.MAGENTA}A flying {C.RED}ethereal hand{BC.MAGENTA} pops into existence!{BC.OFF}")
+        if hasattr(self.target, "humanity"):
+            self.target.humanity += 1
+            print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
 
 class SummonTentacleMonster(CreationSpell):
@@ -287,6 +296,9 @@ class SummonFairy(CreationSpell):
         self.target.location.creatures.append(f)
         self.caster.companions.append(f)
         print(f"{BC.MAGENTA}A tiny {C.RED}fairy{BC.MAGENTA} pops into existence!{BC.OFF}")
+        if hasattr(self.target, "humanity"):
+            self.target.humanity += 1
+            print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
 
 
@@ -467,6 +479,9 @@ class GrowFangs(CorruptionSpell):
 
                 jaw.subelements.append(CVampireFangs(color="sharp", texture="white"))
                 print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
+                if hasattr(self.target, "humanity"):
+                    self.target.humanity -= 1
+                    print(f"{C.RED}{self.target.name}'s humanity decreases!{C.OFF}")
                 return True
             else:
                 print(f"{BC.MAGENTA}{self.target.name} has no jaws.")
@@ -503,6 +518,9 @@ class SwordHand(CorruptionSpell):
                 swordhand = cl.SwordHand(color="white", texture="bone")
                 arm.subelements.append(swordhand)
                 print(f"{BC.MAGENTA}{self.target.name}'s {hand.name} transforms into a magnificent {swordhand.name}!{BC.OFF}")
+                if hasattr(self.target, "humanity"):
+                    self.target.humanity -= 1
+                    print(f"{C.RED}{self.target.name}'s humanity decreases!{C.OFF}")
                 return True
             else:
                 print(f"{BC.MAGENTA}Not enough mana! The spell fizzles.{BC.OFF}")
@@ -708,7 +726,7 @@ class Fear(CorruptionSpell):
 class Might(CorruptionSpell):
     name = "Might"
     mana_cost = 5
-    humanity_max = 3
+    humanity_max = 7
     description = f"Make an ally stronger. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
@@ -860,3 +878,4 @@ class SetHumanity(sp.Spell):
 # TODO-DONE (small) companion that heals you (fairy).
 # TODO poison gas
 # TODO casts effects on creature's weapons
+# TODO buffs should be creation spells, debuffs corruption

@@ -21,7 +21,7 @@ class Snout(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
-    base_hp = 1
+    base_hp = 5
     size = 1
     eats = 1
     strength = 1

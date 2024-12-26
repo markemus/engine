@@ -127,13 +127,14 @@ class IronHelm(i.Item):
     level = 3
     descends = 2
 
+# TODO make shields wielded in left hand
 class IronShield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
-    canwear["back"] = True
+    # canwear["back"] = True
     canwear["left hand"] = True
-    covers["back"] = True
+    # covers["back"] = True
     covers["left hand"] = True
     covers["finger"] = True
     covers["thumb"] = True

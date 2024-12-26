@@ -51,7 +51,7 @@ class Effect:
         self.cont = controller
 
     def cast(self):
-        """Effects should implement a _cast() method. This will be called when the effect is first applied, similar to
+        """Effects can implement a _cast() method. This will be called when the effect is first applied, similar to
         a spell."""
         if self._cast():
             self.limb.active_effects.append(self)

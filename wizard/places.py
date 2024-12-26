@@ -135,6 +135,8 @@ class CavernLake(pl.Place):
     # creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, water, lakebed, wizard.furniture.Stalactite]
+    # Fire spells will fail here
+    wet = True
 
 
 class DarkElfGuardtower(pl.Place):

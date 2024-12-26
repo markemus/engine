@@ -90,12 +90,16 @@ class Controller:
                 inv_elements = '\n  '.join([x.name for x in subelement.grasped.vis_inv])
                 inventory = inventory + f"{subelement.grasped.name}:\n  {BC.CYAN}{inv_elements}{BC.OFF}\n"
 
+        # Print character sheet
         cs = f"\n{C.RED}Character Sheet{C.OFF}\n" \
              f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
              f"\n{C.RED}Weapons{C.OFF}\n" \
-             f"{''.join(weapons)}" \
-             f"\n{C.RED}Inventories{C.OFF}\n" \
+             f"{''.join(weapons)}"
+        if hasattr(self.game.char, "humanity"):
+            cs += f"\n{C.RED}Humanity:{C.OFF} {self.game.char.humanity}\n"
+        cs+= f"\n{C.RED}Inventories{C.OFF}\n" \
              f"{inventory}\n" \
+             f"\n{C.RED}Limbs{C.OFF}\n" \
              f"{self.game.char.desc(stats=True)}"
         utils.display_long_text(cs)
 
@@ -350,7 +354,7 @@ class Controller:
         for spell in self.game.active_spells.copy():
             if spell.rounds != "forever":
                 spell.expire()
-                self.game.active_spells.remove(spell)
+                # self.game.active_spells.remove(spell)
         # self.game.active_spells = []
 
         # All equipment recovers full mana, except that used for creating/summoning minions

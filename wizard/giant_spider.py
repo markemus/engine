@@ -32,7 +32,7 @@ class Jaw(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "mouth"
-    base_hp = 3
+    base_hp = 5
     size = 1
     eats = 1
     strength = 1

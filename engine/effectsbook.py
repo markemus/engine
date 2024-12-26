@@ -30,6 +30,10 @@ class FireDOT(sp.Effect):
     damage = 1
     rounds = 4
 
+    def _cast(self):
+        if not(hasattr(self.creature.location, "wet") or not self.creature.location.wet):
+            return True
+
     def update(self):
         print(f"{C.RED}{self.creature.name}'s {self.limb.name} is burning!{C.OFF}")
         self.cont.combat.apply_damage(defender=self.creature, limb=self.limb, damage=self.damage)
@@ -156,7 +160,7 @@ class Might(sp.Effect):
 
 class Bleed(sp.Effect):
     expire_on_removal = True
-    def __init__(self, creature, limb, controller, amount):
+    def __init__(self, creature, limb, controller, amount=2):
         super().__init__(creature, limb, controller)
         self.amount = amount
         # More bleeding lasts for longer
