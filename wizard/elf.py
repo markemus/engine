@@ -22,4 +22,9 @@ class DarkElfChampion(DarkElf):
     # masters have a higher to-hit chance
     mastery = 2
 
+
+class DarkElfGuard(DarkElf):
+    classname = "dark elf guard"
+    suits = [wsu.darkelfsuit, asu.bronze_armorsuit, wsu.iron_poisonsword]
+
 dark_elf_corpse_col = sc.limbs_to_collection(limbs=[assets.elf.Torso], model=DarkElfScout)

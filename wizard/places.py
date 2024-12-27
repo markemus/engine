@@ -10,7 +10,7 @@ from wizard.cave_fish import BlindCaveFish
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
 from wizard.giant_shrimp import BlindCaveShrimp
-from wizard.elf import DarkElfScout, DarkElfChampion
+from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
 from wizard.tunnel_worm import TunnelWorm
@@ -26,6 +26,7 @@ cc = {
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
+    "dehome_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3)],
 }
 
 # Player apartment rooms
@@ -148,3 +149,13 @@ class DarkElfGuardtower(pl.Place):
     creature_classes = [[(DarkElfChampion, 1)], [(ArmoredGiantSpider, 1)], [(DarkElfChampion, 1)], [(ArmoredGiantSpider, 1)]]
     furniture_classes = [wizard.furniture.L2Chest]
     subelement_classes = [wall, floor]
+
+class DarkElfRoad(pl.Place):
+    name = "highway"
+    sprite = "R"
+    count = (1, 2)
+    colors = ["slate", "dark", "black", "granite"]
+    textures = ["stone"]
+    creature_classes = [cc["dehome_guards"], cc["dehome_guards"], cc["dehome_guards"]]
+    furniture_classes = []
+    subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]

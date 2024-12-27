@@ -160,7 +160,7 @@ class ManaLocket(i.Item):
     canwear["body"] = True
     covers["body"] = True
     level = 2
-    base_mana = 30
+    base_mana = 10
     mana = base_mana
     colors = ["sapphire", "ruby", "emerald", "diamond"]
     textures = ["in silver", "in gold", "in platinum"]
@@ -329,13 +329,25 @@ bleedflail = {
     "full": True,
 }
 
+iron_poisonsword = {
+    "grasps": {
+        "right hand": IronPoisonedScimitar,
+    },
+    "wears": {},
+    "color": ["burnished", "shiny", "rusty", "matte"],
+    "color_scheme": "unique",
+    "texture": ["iron"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
 double_iron_poisonsword = {
     "grasps": {
         "right hand": IronPoisonedScimitar,
         "left hand": IronPoisonedScimitar,
     },
     "wears": {},
-    "color": ["burnished", "shiny", "orange", "greenish"],
+    "color": ["burnished", "shiny", "rusty", "matte"],
     "color_scheme": "unique",
     "texture": ["iron"],
     "texture_scheme": "same",

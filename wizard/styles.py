@@ -40,11 +40,20 @@ class CavernL2:
 
 LevelStyle.register(CavernL2)
 
+# TODO algorithm hallway and populate DarkElfL3 with the city
+class DarkElfL3:
+    level_text = f"""{BC.BLUE}You break into the guard tower and defeat the dark elf champion. Before you lies the gate of Albolobereth, a city of the dark elves that has sprung up above the ruins of the old dwarven city. You will have to fight your way through if you want to reach the fabled hoard.{BC.OFF}"""
+    room_classes = [wizard.places.DarkElfRoad]
+    start_room = wizard.places.DarkElfRoad
+    hallway_room = wizard.places.DarkElfRoad
+    # algorithm = "hallway"
+    creature_classes = []
+
 class Wizard:
     # levels will spawn in this order
-    levelorder = [CavernL1, CavernL2, Home]
+    levelorder = [CavernL1, CavernL2, DarkElfL3, Home]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
-    links = [(0, 1)]
+    links = [(0, 1), (1, 2)]
     start_splash = f"""
     ------------------------
     |       {C.RED}The Tomb{C.OFF}       |

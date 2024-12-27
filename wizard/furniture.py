@@ -26,6 +26,9 @@ lt = {
 class FruitOfLife(it.Potion):
     name = "fruit of life"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(color="red", texture="shiny")
+
     def effect(self, creature):
         limbs = creature.subelements[0].limb_check("name")
         total_heal = 30
