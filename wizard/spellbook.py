@@ -747,28 +747,25 @@ class FleshRip(CorruptionSpell):
             return False
 
 
-# TODO set mana cost on creature- how to do it fairly?
-# TODO should not expire but should be cancelable.
+# TODO-DONE set mana cost on creature- how to do it fairly?
+# TODO-DONE should not expire but should be cancelable.
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7
     humanity_max = -5
     description = f"Force an enemy to fight for you for a little while. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 15
+    rounds = 1
     targets = "enemy"
-    old_team = None
 
     def _cast(self):
-        self.old_team = self.target.team
+        self.target.orig_team = self.target.team
         self.target.team = self.caster.team
+        self.target.mana_cost = self.mana_cost
         self.target.ai.target = None
+        self.caster.companions.append(self.target)
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} turns around to fight for your team!{BC.OFF}")
         return True
 
-    def _expire(self):
-        self.target.team = self.old_team
-        self.target.ai.target = None
-        print(f"{BC.MAGENTA}The enthralling wears off and {BC.YELLOW}{self.target.name}{BC.MAGENTA} turns against you again.{BC.OFF}")
 
 # TODO should work on friendly targets too
 class Distract(CorruptionSpell):
@@ -926,7 +923,10 @@ class ReleaseMinion(sp.Spell):
         i = input(f"{BC.MAGENTA}Select a minion to release from your mental control: {BC.OFF}")
         if i in minions.keys() and i != "x":
             minion = minions[i]
-            minion.team = "neutral"
+            if hasattr(minion, "orig_team"):
+                minion.team = minion.orig_team
+            else:
+                minion.team = "neutral"
             self.caster.companions.remove(minion)
             print(f"{BC.YELLOW}{minion.name}{BC.MAGENTA} stops following you.{BC.OFF}")
             return True
@@ -952,6 +952,6 @@ class SetHumanity(sp.Spell):
 # TODO-DONE powerful sword hand- permanent
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO-DONE (small) companion that heals you (fairy).
-# TODO poison gas
+# TODO-DONE poison gas
 # TODO-DONE casts effects on creature's weapons
 # TODO-DONE buffs should be creation spells, debuffs corruption
