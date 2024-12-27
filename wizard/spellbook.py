@@ -799,6 +799,28 @@ class Fear(CorruptionSpell):
         return True
 
 
+# TODO only enemies that breathe should take damage from poison gas
+class PoisonGas(CorruptionSpell):
+    name = "Poison Gas"
+    mana_cost = 10
+    humanity_max = -7
+    description = f"Fill the room with magical poison gas. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 5
+    targets = "caster"
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}A magical cloud of poison gas fills the room!{BC.OFF}")
+        return True
+
+    def update(self):
+        for enemy in [c for c in self.caster.location.creatures if c.team != self.caster.team and c.team != "neutral"]:
+            print(f"{BC.MAGENTA}{enemy.name} chokes on the poison gas!{BC.OFF}")
+            gas_attack = eff.Poison(creature=enemy, limb=enemy.subelements[0], controller=self.cont)
+            gas_attack.cast()
+
+    def _expire(self):
+        print(f"{BC.MAGENTA}The cloud of gas dissipates and disappears.{BC.OFF}")
+
 # Neither
 class Scry(sp.Spell):
     name = "Scry"
@@ -931,5 +953,5 @@ class SetHumanity(sp.Spell):
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO-DONE (small) companion that heals you (fairy).
 # TODO poison gas
-# TODO casts effects on creature's weapons
+# TODO-DONE casts effects on creature's weapons
 # TODO-DONE buffs should be creation spells, debuffs corruption
