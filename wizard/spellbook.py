@@ -753,7 +753,7 @@ class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7
     humanity_max = -5
-    description = f"Force an enemy to fight for you for a little while. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Force an enemy to fight for you. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -764,6 +764,59 @@ class Enthrall(CorruptionSpell):
         self.target.ai.target = None
         self.caster.companions.append(self.target)
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} turns around to fight for your team!{BC.OFF}")
+        return True
+
+
+class Possess(CorruptionSpell):
+    name = "Possess"
+    mana_cost = 10
+    humanity_max = -10
+    description = f"Take over an enemy's body. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "enemy"
+
+    def _cast(self):
+        if hasattr(self.caster, "orig_char"):
+            print(f"{BC.MAGENTA}You must return to your body before you can do that!{BC.OFF}")
+            return False
+        else:
+            self.target.orig_team = self.target.team
+            self.target.team = self.caster.team
+            self.target.orig_char = self.caster
+            self.target.spellbook = self.caster.spellbook.copy()
+            self.target.companions = self.caster.companions.copy()
+            self.target.companions.append(self.caster)
+            self.target.humanity = self.caster.humanity
+            self.target.orig_char.mana_cost = self.mana_cost
+            self.target.spellbook.append(Unpossess)
+
+            self.cont.game.char = self.target
+            self.cont.combat.char = self.target
+            print(f"{BC.MAGENTA}{self.caster.name}'s soul flies out of their body and enters {self.target.name}!{BC.OFF}")
+            return True
+
+
+class Unpossess(sp.Spell):
+    name = "Unpossess"
+    mana_cost = 0
+    description = f"Return to your own body. {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        char = self.caster.orig_char
+        self.caster.team = self.caster.orig_team
+        self.caster.companions.remove(char)
+        char.companions = self.caster.companions.copy()
+        char.spellbook = self.caster.spellbook.copy()
+        char.humanity = self.caster.humanity
+
+        # Remove Unpossess spell from spellbook
+        char.spellbook.remove(self.__class__)
+
+        self.cont.game.char = char
+        self.cont.combat.char = char
+        print(f"{BC.MAGENTA}{char.name}'s soul returns to their body.{BC.OFF}")
         return True
 
 
@@ -950,7 +1003,7 @@ class SetHumanity(sp.Spell):
 # TODO transform yourself into a monster temporarily (or permanently). More options.
 # TODO conjure flaming sword for yourself- permanent (creation)
 # TODO-DONE powerful sword hand- permanent
-# TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
+# TODO-DONE possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
 # TODO-DONE (small) companion that heals you (fairy).
 # TODO-DONE poison gas
 # TODO-DONE casts effects on creature's weapons
