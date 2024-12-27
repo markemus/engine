@@ -168,33 +168,32 @@ class ManaLocket(i.Item):
 
 # Magic weapons
 class BronzeSwordOfFire(su.BronzeSword):
-    effects = [eff.FireDOT]
+    # weapon effects are applied when the weapon strikes
+    weapon_effects = [eff.FireDOT]
 
 class BronzeSwordOfLight(su.BronzeSword):
-    effects = [eff.Light]
+    weapon_effects = [eff.Light]
 
 class BronzePoisonedScimitar(su.BronzeSword):
-    effects = [eff.Poison]
+    weapon_effects = [eff.Poison]
 
 class IronSwordOfFire(su.IronSword):
-    effects = [eff.FireDOT]
+    weapon_effects = [eff.FireDOT]
 
 class IronSwordOfLight(su.IronSword):
-    effects = [eff.Light]
+    weapon_effects = [eff.Light]
 
 class IronPoisonedScimitar(su.IronSword):
-    effects = [eff.Poison]
+    weapon_effects = [eff.Poison]
 
 
 class BronzeFlail(i.Item):
     name = "flail"
     damage = 12
-    effects = [eff.Bleed]
+    weapon_effects = [eff.Bleed]
 
-class IronFlail(i.Item):
-    name = "flail"
+class IronFlail(BronzeFlail):
     damage = 17
-    effects = [eff.Bleed]
 
 # Suits
 darkelfsuit = {

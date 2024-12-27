@@ -270,8 +270,8 @@ class Controller:
             limbs = creature.subelements[0].limb_check("name")
             # Cast effects
             for limb in limbs:
-                if limb.effects:
-                    for Effect in limb.effects:
+                if limb.passive_effects:
+                    for Effect in limb.passive_effects:
                         # Only one copy of the effect- don't cast if already active.
                         if Effect not in [e.__class__ for e in limb.active_effects]:
                             eff = Effect(creature=creature, limb=limb, controller=self)

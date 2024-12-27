@@ -252,9 +252,9 @@ class Combat:
     def apply_effects(self, defender, limb, weapon):
         """Applies weapon effects to the limb."""
         true_weapon = weapon.damage[1]
-        effects = true_weapon.effects
-        for effect in effects:
-            e = effect(defender, limb, self.cont)
+        effects = true_weapon.weapon_effects
+        for Effect in effects:
+            e = Effect(defender, limb, self.cont)
             e.cast()
             # self.cont.game.active_spells.append(e)
             # limb.active_effects.append(e)

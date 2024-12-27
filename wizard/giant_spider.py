@@ -24,7 +24,8 @@ class Fangs(cl.Teeth):
     name = "fangs"
     wears = "fangs"
     _damage = 10
-    effects = [eff.Webbed, eff.Poison]
+    # weapon effects are applied when the weapon strikes
+    weapon_effects = [eff.Webbed, eff.Poison]
 
 class Jaw(cr.Limb):
     name = "jaw"

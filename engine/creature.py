@@ -24,7 +24,7 @@ class Limb:
     size = 2
     isSurface = True
     # Effects will be cast before battle begins (if they aren't already active)
-    effects = None
+    passive_effects = None
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -292,7 +292,7 @@ class Weapon(Limb):
     """A limb that can deal damage."""
     name = "NO_NAME_WEAPON"
     _damage = 0
-    effects = []
+    weapon_effects = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
