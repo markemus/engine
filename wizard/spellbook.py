@@ -106,7 +106,7 @@ class FlamingWeapons(CreationSpell):
     mana_cost = 5
     humanity_min = -3
     description = f"Wreath a creature's weapons in magical fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 2
+    rounds = 10
     targets = "friendly"
     weapons = []
 
@@ -114,19 +114,45 @@ class FlamingWeapons(CreationSpell):
         weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
         for weapon in weapons:
             weapon = weapon.damage[1]
-            print(weapon)
+            # print(weapon)
             if eff.FireDOT not in weapon.weapon_effects:
                 weapon.weapon_effects.append(eff.FireDOT)
                 self.weapons.append(weapon)
                 print(f"{BC.MAGENTA}Magical flames spring out on {self.target.name}'s {weapon.name}!{BC.OFF}")
-            else:
-                print("nope")
+
         return True
 
     def _expire(self):
         for weapon in self.weapons:
             weapon.weapon_effects.remove(eff.FireDOT)
             print(f"{BC.MAGENTA}The magical flames on {weapon.name} go out.{BC.OFF}")
+
+
+class PoisonedWeapons(CreationSpell):
+    name = "Poisoned Weapons"
+    mana_cost = 5
+    humanity_min = -3
+    description = f"Cover a creature's weapons in magical poison. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 10
+    targets = "friendly"
+    weapons = []
+
+    def _cast(self):
+        weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
+        for weapon in weapons:
+            weapon = weapon.damage[1]
+            # print(weapon)
+            if eff.Poison not in weapon.weapon_effects:
+                weapon.weapon_effects.append(eff.Poison)
+                self.weapons.append(weapon)
+                print(f"{BC.MAGENTA}Green poison spreads across {self.target.name}'s {weapon.name}!{BC.OFF}")
+        return True
+
+    def _expire(self):
+        for weapon in self.weapons:
+            weapon.weapon_effects.remove(eff.Poison)
+            print(f"{BC.MAGENTA}The poison on {weapon.name} dries up and disappears.{BC.OFF}")
+
 
 
 class Flashbang(CreationSpell):
