@@ -1001,4 +1001,5 @@ class SetHumanity(sp.Spell):
 
 
 # TODO transform yourself into a monster temporarily (or permanently). More options.
-# TODO conjure flaming sword for yourself- permanent (creation)
+# TODO summon a flaming sword for yourself- permanent (creation)
+# TODO Stun

@@ -413,6 +413,7 @@ class Controller:
                 if usable.consumable:
                     invs[i].vis_inv.remove(usable)
 
+     # TODO require grasp check
     def put_on(self):
         invs = self.game.char.subelements[0].find_invs()
         # drop equipment
@@ -440,6 +441,7 @@ class Controller:
                         invs[i].vis_inv.remove(gear)
                         print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on their {limb.name}.{BC.OFF}")
 
+    # TODO require grasp check
     def take_off(self):
         """Remove equipment from a limb."""
         h = input(f"{BC.GREEN}Remove equipment from one of your limbs (y) or a disembodied limb (o) {C.YELLOW}(y/o){BC.GREEN}?{BC.OFF} ")

@@ -86,7 +86,7 @@ class Shadow(sp.Effect):
     def _expire(self):
         self.limb.size = self.limb.orig_size
 
-# TODO-DONE should not be usable as weapon or blocker
+
 class Webbed(sp.Effect):
     """If this effect is on a limb, that limb cannot be used as an attacker or a blocker."""
     desc = "webbed"
