@@ -1002,9 +1002,3 @@ class SetHumanity(sp.Spell):
 
 # TODO transform yourself into a monster temporarily (or permanently). More options.
 # TODO conjure flaming sword for yourself- permanent (creation)
-# TODO-DONE powerful sword hand- permanent
-# TODO-DONE possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
-# TODO-DONE (small) companion that heals you (fairy).
-# TODO-DONE poison gas
-# TODO-DONE casts effects on creature's weapons
-# TODO-DONE buffs should be creation spells, debuffs corruption
