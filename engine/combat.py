@@ -160,7 +160,7 @@ class Combat:
 
         return used
 
-    def get_weapons(self, actor):
+    def get_weapons(self, actor, include_webbed=False):
         """Any limb that can cause damage directly or wield a weapon."""
         # TODO probably shouldn't return grasp if limb doesn't have damage attribute. Test.
         claws = actor.subelements[0].limb_check("damage")
@@ -170,7 +170,7 @@ class Combat:
 
         unwebbed_weapons = []
         for weapon in weapons:
-            if not (hasattr(weapon, "webbed") and weapon.webbed):
+            if (not (hasattr(weapon, "webbed") and weapon.webbed)) or include_webbed:
                 unwebbed_weapons.append(weapon)
 
         return unwebbed_weapons

@@ -48,6 +48,87 @@ class CorruptionSpell(sp.Spell):
 
 
 # Creation
+class Shadow(CreationSpell):
+    name = "Shadow"
+    mana_cost = 3
+    humanity_min = -5
+    description = f"A shadow surrounds a creature, making it harder to hit. {C.RED}(<{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 10
+    targets = "friendly"
+    original_colors = None
+    original_sizes = None
+
+    def _cast(self):
+        self.original_colors = {}
+        self.original_sizes = {}
+        limbs = self.target.subelements[0].limb_check("isSurface")
+        for limb in limbs:
+            shadow = eff.Shadow(creature=self.target, limb=limb, controller=self.cont)
+            shadow.cast()
+
+        print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
+        return True
+
+    def _expire(self):
+        limbs = self.target.subelements[0].limb_check("isSurface")
+        for limb in limbs:
+            effect = [x for x in limb.active_effects if isinstance(x, eff.Shadow)]
+            if effect:
+                effect = effect[0]
+                effect.expire()
+
+        print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
+
+
+class Might(CreationSpell):
+    name = "Might"
+    mana_cost = 5
+    humanity_min = -3
+    description = f"Make an ally stronger. {C.RED}(<{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "friendly"
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}{self.target.name} grows stronger before your eyes!{BC.MAGENTA}")
+        limbs = self.target.subelements[0].limb_check("wears")
+        for limb in limbs:
+            # print(limb.name)
+            # limb_wears = [k for k in limb.wears.keys() if limb.wears[k]]
+            # if set(limb_wears).intersection({"arm", "animal_leg"}):
+            if limb.wears in ["arm", "animal_leg"]:
+                might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
+                might.cast()
+        return True
+
+
+class FlamingWeapons(CreationSpell):
+    name = "Flaming Weapons"
+    mana_cost = 5
+    humanity_min = -3
+    description = f"Wreath a creature's weapons in magical fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 2
+    targets = "friendly"
+    weapons = []
+
+    def _cast(self):
+        weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
+        for weapon in weapons:
+            weapon = weapon.damage[1]
+            print(weapon)
+            if eff.FireDOT not in weapon.weapon_effects:
+                weapon.weapon_effects.append(eff.FireDOT)
+                self.weapons.append(weapon)
+                print(f"{BC.MAGENTA}Magical flames spring out on {self.target.name}'s {weapon.name}!{BC.OFF}")
+            else:
+                print("nope")
+        return True
+
+    def _expire(self):
+        for weapon in self.weapons:
+            weapon.weapon_effects.remove(eff.FireDOT)
+            print(f"{BC.MAGENTA}The magical flames on {weapon.name} go out.{BC.OFF}")
+
+
 class Flashbang(CreationSpell):
     name = "Flashbang"
     mana_cost = 3
@@ -406,37 +487,6 @@ class Light(CorruptionSpell):
 
         print(f"{BC.MAGENTA}The glow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
-class Shadow(CorruptionSpell):
-    name = "Shadow"
-    mana_cost = 3
-    humanity_max = 10
-    description = f"A shadow surrounds a creature, making it harder to hit. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 10
-    targets = "friendly"
-    original_colors = None
-    original_sizes = None
-
-    def _cast(self):
-        self.original_colors = {}
-        self.original_sizes = {}
-        limbs = self.target.subelements[0].limb_check("isSurface")
-        for limb in limbs:
-            shadow = eff.Shadow(creature=self.target, limb=limb, controller=self.cont)
-            shadow.cast()
-
-        print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
-        return True
-
-    def _expire(self):
-        limbs = self.target.subelements[0].limb_check("isSurface")
-        for limb in limbs:
-            effect = [x for x in limb.active_effects if isinstance(x, eff.Shadow)]
-            if effect:
-                effect = effect[0]
-                effect.expire()
-
-        print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
-
 
 class GrowFangs(CorruptionSpell):
     name = "Grow Vampiric Fangs"
@@ -723,27 +773,6 @@ class Fear(CorruptionSpell):
         return True
 
 
-class Might(CorruptionSpell):
-    name = "Might"
-    mana_cost = 5
-    humanity_max = 7
-    description = f"Make an ally stronger. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 1
-    targets = "friendly"
-
-    def _cast(self):
-        print(f"{BC.MAGENTA}{self.target.name} grows stronger before your eyes!{BC.MAGENTA}")
-        limbs = self.target.subelements[0].limb_check("wears")
-        for limb in limbs:
-            # print(limb.name)
-            # limb_wears = [k for k in limb.wears.keys() if limb.wears[k]]
-            # if set(limb_wears).intersection({"arm", "animal_leg"}):
-            if limb.wears in ["arm", "animal_leg"]:
-                might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
-                might.cast()
-        return True
-
-
 # Neither
 class Scry(sp.Spell):
     name = "Scry"
@@ -874,8 +903,7 @@ class SetHumanity(sp.Spell):
 # TODO conjure flaming sword for yourself- permanent (creation)
 # TODO-DONE powerful sword hand- permanent
 # TODO possession- reduces humanity. Allow strong_will creature tag to prevent. Should also prevent enthrall.
-# TODO grow wings
 # TODO-DONE (small) companion that heals you (fairy).
 # TODO poison gas
 # TODO casts effects on creature's weapons
-# TODO buffs should be creation spells, debuffs corruption
+# TODO-DONE buffs should be creation spells, debuffs corruption

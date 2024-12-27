@@ -28,8 +28,8 @@ class Stoneskin(sp.Effect):
 # TODO burns shouldn't bleed
 class FireDOT(sp.Effect):
     desc = "burning"
-    damage = 1
-    rounds = 4
+    damage = .5
+    rounds = 8
 
     def _cast(self):
         if (not hasattr(self.creature.location, "wet")) or (not self.creature.location.wet):
@@ -180,7 +180,7 @@ class Bleed(sp.Effect):
         if self.creature.bled > self.creature.blood / 2:
             print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
         if self.creature.bled >= self.creature.blood:
-            # TODO creatures seem to die more than once sometimes
+            # TODO-DONE creatures seem to die more than once sometimes
             self.creature.die()
 
     def _expire(self):

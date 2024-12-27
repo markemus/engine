@@ -24,7 +24,7 @@ class Limb:
     size = 2
     isSurface = True
     # Effects will be cast before battle begins (if they aren't already active)
-    passive_effects = None
+    passive_effects = []
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -34,6 +34,7 @@ class Limb:
         self.equipment = []
         self.covers = []
         self.active_effects = []
+        self.passive_effects = self.passive_effects.copy()
         self.hp = self.base_hp
 
     def _elementGen(self):
@@ -296,6 +297,7 @@ class Weapon(Limb):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.weapon_effects = self.weapon_effects.copy()
 
     @property
     def damage(self):
@@ -606,7 +608,7 @@ class creature:
 
         # End appropriate effects
         for limb in self.subelements[0].limb_check("name"):
-            for effect in limb.active_effects:
+            for effect in limb.active_effects.copy():
                 if effect.expire_on_removal:
                     effect.expire()
 
