@@ -551,7 +551,7 @@ class GrowFangs(CorruptionSpell):
                 class CVampirism(eff.Vampirism):
                     vampire = self.caster
                 class CVampireFangs(cl.VampireFangs):
-                    effects = [CVampirism]
+                    weapon_effects = [CVampirism]
 
                 jaw.subelements.append(CVampireFangs(color="sharp", texture="white"))
                 print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
@@ -747,8 +747,6 @@ class FleshRip(CorruptionSpell):
             return False
 
 
-# TODO-DONE set mana cost on creature- how to do it fairly?
-# TODO-DONE should not expire but should be cancelable.
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
     mana_cost = 7

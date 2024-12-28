@@ -73,4 +73,4 @@ class GiantBat(cr.creature):
         class CVampirism(eff.Vampirism):
             vampire = self
             amount = 1.5
-        fangs.effects = [CVampirism]
+        fangs.weapon_effects = [CVampirism]

@@ -223,8 +223,9 @@ class Combat:
                         defender.remove_limb(limb)
                         print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                         self.throw_limb(defender, limb)
-                        if not defender.dead:
-                            # TODO-DONE bleed should use limb.orig_size if it exists (shouldn't synergize with Light and Shadow)
+
+                        # Cauterizing works
+                        if not defender.dead and eff.FireDOT not in [x.__class__ for x in (limb.active_effects + parent_limb.active_effects)]:
                             size = limb.size if not hasattr(limb, "orig_size") else limb.orig_size
                             bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
                             bleed.cast()
@@ -266,6 +267,7 @@ class Combat:
         self.apply_damage(defender, limb, damage)
         self.apply_effects(defender, limb, weapon)
 
+    # TODO webbed should remove the limb from blockers? Currently doesn't update until the next combat cycle.
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
         blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker and not (hasattr(x, "webbed") and x.webbed)]
