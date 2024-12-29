@@ -148,6 +148,14 @@ class L2Chest(pl.DisplayFurniture):
     # vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
     loot_tables = [lt["l2_chest_scroll"], (lt["l1_chest_mana"], lt["l1_chest_potion"])]
 
+# TODO L3chest loot
+class L3Chest(pl.DisplayFurniture):
+    name = "treasure chest"
+    color = ["brown", "black", "gray"]
+    texture = ["wood"]
+    count = (1, 2)
+    vis_collections = [(wcol.c_spider_suit, (1, 2))]
+
 class GoblinGrave(pl.DisplayFurniture):
     name = "goblin grave"
     color = ["stone"]

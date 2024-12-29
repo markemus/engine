@@ -156,6 +156,7 @@ class DarkElfRoad(pl.Place):
     count = (1, 2)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [cc["dehome_guards"], cc["dehome_guards"], cc["dehome_guards"]]
-    furniture_classes = []
+    # creature_classes = [cc["dehome_guards"], cc["dehome_guards"], cc["dehome_guards"]]
+    creature_classes = []
+    furniture_classes = [wizard.furniture.L3Chest]
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]

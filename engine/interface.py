@@ -21,11 +21,13 @@ class Interface:
             "e": self.cont.examine,
             "D": self.cont.details,
             "i": self.cont.inventory,
-            # TODO P put_on allies, T take_off allies, G hand to allies
+            # TODO P put_on allies, T take_off allies, G hand to allies, U ungrasp allies
             "p": self.cont.put_on,
             "t": self.cont.take_off,
             "g": self.cont.grasp,
             "u": self.cont.ungrasp,
+            "P": self.cont.put_on_ally,
+            "T": self.cont.take_off_ally,
             "m": self.cont.map,
             "w": self.cont.north,
             "s": self.cont.south,
