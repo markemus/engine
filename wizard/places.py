@@ -150,13 +150,22 @@ class DarkElfGuardtower(pl.Place):
     furniture_classes = [wizard.furniture.L2Chest]
     subelement_classes = [wall, floor]
 
+
+class DarkElfHollowedStalagmite(pl.Place):
+    name = "stalagmite home"
+    sprite = "S"
+    count = (5, 10)
+    colors = ["slate", "dark", "black", "granite"]
+    textures = ["stone"]
+
+
 class DarkElfRoad(pl.Place):
     name = "highway"
     sprite = "R"
     count = (1, 2)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    # creature_classes = [cc["dehome_guards"], cc["dehome_guards"], cc["dehome_guards"]]
-    creature_classes = []
-    furniture_classes = [wizard.furniture.L3Chest]
+    creature_classes = [cc["dehome_guards"], cc["dehome_guards"], cc["dehome_guards"]]
+    # creature_classes = []
+    furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]

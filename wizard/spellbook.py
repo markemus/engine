@@ -1040,9 +1040,3 @@ class SetHumanity(sp.Spell):
         self.original_humanity = self.caster.humanity
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
-
-
-# TODO summon a flaming sword for yourself- permanent (creation)
-# TODO Stun
-# TODO-DONE the floor is lava- fire covered floor damages limbs with amble
-# TODO-DONE mastery buff (+2)
