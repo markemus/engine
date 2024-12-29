@@ -52,7 +52,7 @@ class Shadow(CreationSpell):
     name = "Shadow"
     mana_cost = 3
     humanity_min = -5
-    description = f"A shadow surrounds a creature, making it harder to hit. {C.RED}(<{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"A shadow surrounds a creature, making it harder to hit. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 10
     targets = "friendly"
     original_colors = None
@@ -84,7 +84,7 @@ class Might(CreationSpell):
     name = "Might"
     mana_cost = 5
     humanity_min = -3
-    description = f"Make an ally stronger. {C.RED}(<{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Make an ally stronger. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
 
@@ -99,6 +99,22 @@ class Might(CreationSpell):
                 might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
                 might.cast()
         return True
+
+
+class Mastery(CreationSpell):
+    name = "Mastery"
+    mana_cost = 7
+    humanity_min = 5
+    description = f"Make an ally fight better. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "friendly"
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}{self.caster.name} lays their thrumming hands on {self.target.name}.{BC.MAGENTA}")
+        mastery = eff.Mastery(creature=self.target, limb=self.target.subelements[0], controller=self.cont)
+        mastery.cast()
+        return True
+
 
 
 class FlamingWeapons(CreationSpell):
@@ -1029,4 +1045,4 @@ class SetHumanity(sp.Spell):
 # TODO summon a flaming sword for yourself- permanent (creation)
 # TODO Stun
 # TODO-DONE the floor is lava- fire covered floor damages limbs with amble
-# TODO mastery buff (+2)
+# TODO-DONE mastery buff (+2)

@@ -158,6 +158,35 @@ class Might(sp.Effect):
         print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} shrinks back down to its normal size.{BC.OFF}")
 
 
+class Mastery(sp.Effect):
+    """Increases a creature's to-hit chance."""
+    rounds = 15
+
+    def _cast(self):
+        if not hasattr(self.creature, "orig_mastery") and hasattr(self.creature, "mastery"):
+            self.creature.orig_mastery = self.creature.mastery
+
+        if hasattr(self.creature, "mastery"):
+            self.creature.mastery = self.creature.orig_mastery + 2
+        else:
+            self.creature.mastery = 2
+        print(f"{BC.CYAN}A thrumming energy fills {self.creature.name}'s body.{BC.OFF}")
+        return True
+
+    def update(self):
+        if hasattr(self.creature, "orig_mastery"):
+            self.creature.mastery = self.creature.orig_mastery + 2
+        else:
+            self.creature.mastery = 2
+
+    def _expire(self):
+        if hasattr(self.creature, "orig_mastery"):
+            self.creature.mastery = self.creature.orig_mastery
+        else:
+            del self.creature.mastery
+        print(f"{BC.CYAN}{self.creature.name}'s body stops thrumming.{BC.OFF}")
+
+
 class Bleed(sp.Effect):
     expire_on_removal = True
     def __init__(self, creature, limb, controller, amount=2):
