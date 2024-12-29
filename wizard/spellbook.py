@@ -272,7 +272,7 @@ class Lightning(CreationSpell):
 class Fireball(CreationSpell):
     """Lightning strikes an enemy and has a chance to jump to other enemies."""
     name = "Fireball"
-    mana_cost = 5
+    mana_cost = 7
     humanity_min = -5
     description = f"A fireball lights an enemy on fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
@@ -285,6 +285,39 @@ class Fireball(CreationSpell):
             fire.cast()
         print(f"{BC.MAGENTA}A gigantic fireball flies across the room and explodes on {self.target.name}!{BC.OFF}")
         return True
+
+
+class TheFloorIsLava(CreationSpell):
+    name = "The Floor is Lava"
+    mana_cost = 7
+    humanity_min = -5
+    description = f"Set the ground on fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 20
+    targets = "caster"
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}The ground beneath your feet bursts into magical flames!{BC.OFF}")
+        return True
+
+    def update(self):
+        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
+        for enemy in enemies:
+            # Flying enemies are unaffected
+            if enemy.limb_count("flight") >= 1:
+                limbs = []
+            # Standing enemies only have their feet burnt
+            elif enemy.limb_count("amble") >= 1:
+                limbs = enemy.subelements[0].limb_check("amble")
+            # Prone enemies catch fire everywhere.
+            else:
+                limbs = enemy.subelements[0].limb_check("isSurface")
+            for limb in limbs:
+                if eff.FireDOT not in [e.__class__ for e in limb.active_effects]:
+                    fire = eff.FireDOT(creature=enemy, limb=limb, controller=self.cont)
+                    fire.cast()
+
+    def _expire(self):
+        print(f"{BC.MAGENTA}The flames covering the ground go out.{BC.MAGENTA}")
 
 
 class GrowTreeOfLife(CreationSpell):
@@ -995,4 +1028,5 @@ class SetHumanity(sp.Spell):
 
 # TODO summon a flaming sword for yourself- permanent (creation)
 # TODO Stun
-# TODO the floor is lava- fire covered floor damages limbs with amble
+# TODO-DONE the floor is lava- fire covered floor damages limbs with amble
+# TODO mastery buff (+2)
