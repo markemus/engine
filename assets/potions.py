@@ -148,4 +148,3 @@ class PotionOfMana(I.Potion):
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
 
 # TODO more potions
-# TODO-DONE potion of Might

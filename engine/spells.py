@@ -18,7 +18,6 @@ class Spell:
             worked = self._cast()
             if worked:
                 siphoned = self.caster.siphon_tag("mana", self.mana_cost)
-                # TODO-DECIDE once we're convinced this never fails, remove this exception?
                 if not siphoned:
                     raise ValueError("Not enough mana to siphon!")
             return worked
@@ -43,7 +42,6 @@ class Effect:
     desc = None
     rounds = None
     expire_on_removal = False
-    # TODO allow_duplicates. For spells as well.
 
     def __init__(self, creature, limb, controller):
         self.creature = creature

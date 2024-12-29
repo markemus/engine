@@ -162,11 +162,11 @@ class Combat:
 
     def get_weapons(self, actor, include_webbed=False):
         """Any limb that can cause damage directly or wield a weapon."""
-        # TODO probably shouldn't return grasp if limb doesn't have damage attribute. Test.
-        claws = actor.subelements[0].limb_check("damage")
-        hands = actor.subelements[0].limb_check("grasp")
-
-        weapons = list(set(claws + hands))
+        # TODO-DONE probably shouldn't return grasp if limb doesn't have damage attribute. Test.
+        weapons = actor.subelements[0].limb_check("damage")
+        # hands = actor.subelements[0].limb_check("grasp")
+        #
+        # weapons = list(set(claws + hands))
 
         unwebbed_weapons = []
         for weapon in weapons:
@@ -191,7 +191,6 @@ class Combat:
             # damage = (damage - target.armor) if damage > target.armor else 0
             damage = (damage / target.armor)
 
-        # TODO create some creatures with high strength (trolls)
         # Adjust for strength.
         # This attribute on a parent limb can modify damage positively or negatively (troll vs hobbit eg).
         parent_strength = [p.strength for p in actor.get_parents(weapon) if hasattr(p, "strength")]
@@ -237,7 +236,7 @@ class Combat:
 
                         # check if target falls over
                         if not defender.dead:
-                            # TODO test- didn't work if subelement has amble instead. use limb_count() instead
+                            # TODO-DONE test- didn't work if subelement has amble instead. use limb_count() instead
                             if (limb.limb_count("amble") and can_amble) or (limb.limb_count("flight") and can_fly):
                                 if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
                                     print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")

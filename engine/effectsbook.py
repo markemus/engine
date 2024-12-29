@@ -25,7 +25,7 @@ class Stoneskin(sp.Effect):
             self.limb.texture = self.limb.orig_texture
 
 
-# TODO burns shouldn't bleed
+# TODO-DONE burns shouldn't bleed
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = .5
@@ -180,7 +180,6 @@ class Bleed(sp.Effect):
         if self.creature.bled > self.creature.blood / 2:
             print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
         if self.creature.bled >= self.creature.blood:
-            # TODO-DONE creatures seem to die more than once sometimes
             self.creature.die()
 
     def _expire(self):

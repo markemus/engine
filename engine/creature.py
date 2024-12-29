@@ -317,7 +317,7 @@ class Weapon(Limb):
 
         return damage, item
 
-# TODO-DONE strength tag on arms requires a "find_parents(limb)" search function on creature.
+
 class creature:
     """Creatures are procedurally generated from the class template; creatures of the same class may still be very
     different objects."""
@@ -449,7 +449,7 @@ class creature:
 
         return text
 
-    # TODO-DONE if nextRoom has a ">" connected room, print "there is an exit here" (for labyrinth levels).
+
     # Can only move between bordered Places with this function. Should have a failure option.
     def leave(self, direction):
         """Move to a new Place. Accepts a str input."""
@@ -557,7 +557,6 @@ class creature:
     def get_neighbors(self, limb):
         return self.subelements[0].get_neighbors(limb)
 
-    # TODO-DECIDE require parent limb to have strength for attack? Would stop grafting teeth onto torsos.
     def get_parents(self, limb):
         """Returns the line of descent through the limb tree down to the limb."""
         parents = self.subelements[0].get_parents(limb)

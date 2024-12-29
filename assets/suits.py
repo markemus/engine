@@ -127,7 +127,6 @@ class IronHelm(i.Item):
     level = 3
     descends = 2
 
-# TODO make shields wielded in left hand
 class IronShield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()

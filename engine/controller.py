@@ -19,8 +19,8 @@ class Controller:
     # 
     #     return d
 
-    # TODO refactor dictprint, listtodict, and display_long_text to use the versions in utils.py
-    # TODO should print colors and textures as well. Refactor first.
+    # TODO-DONE refactor dictprint, listtodict, and display_long_text to use the versions in utils.py
+    # TODO-DONE should print colors and textures as well. Refactor first.
     # def dictprint(self, d, pfunc=None, show_invs=False):
     #     """Pretty print a dictionary. Useful for displaying command sets for user input.
     #     pfunc amends the final string before printing.

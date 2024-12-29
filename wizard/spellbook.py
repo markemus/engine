@@ -602,48 +602,44 @@ class SwordHand(CorruptionSpell):
                 print(f"{BC.MAGENTA}Not enough mana! The spell fizzles.{BC.OFF}")
 
 
-# TODO-DECIDE is there a way to be missing limbs if original creature is missing limbs? Use a model?
-# TODO-DECIDE create a model and count limbs- subtract number of missing limbs from target creature? But what if they've grown extra?
-class TransformSpider(CorruptionSpell):
-    name = "Become Spider"
-    mana_cost = 10
-    humanity_max = -5
-    description = f"Transform yourself into a giant spider. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 20
-    targets = "caster"
-    old_char = None
-
-    def _cast(self):
-        if self.caster.can_transform:
-            spider = giant_spider.GiantSpider(location=self.caster.location)
-            # Set game character to be the spider
-            self.old_char = self.caster
-            self.cont.game.char = spider
-            # Deliberately same list, not a copy, so companions will stay updated
-            spider.companions = self.old_char.companions
-            spider.name = self.old_char.name
-            spider.team = self.old_char.team
-            spider.humanity = self.old_char.humanity
-            # Reduce humanity for transforming
-            spider.humanity -= 1
-            # Make sure no other transformation overrides this one- will lead to bugs
-            spider.can_transform = False
-            # Remove old char from room and add spider
-            self.old_char.location.creatures.append(spider)
-            self.old_char.location.creatures.remove(self.old_char)
-
-            # TODO remove/pause all effects from self.old_char (including bleed?)
-            print(f"{BC.YELLOW}{self.old_char.name}{BC.MAGENTA} transforms into a {C.RED}giant spider{BC.MAGENTA}!{BC.OFF}")
-            return True
-
-    def _expire(self):
-        self.old_char.humanity = self.cont.game.char.humanity
-        spider = self.cont.game.char
-        self.cont.game.char = self.old_char
-        # TODO drop all spider carried and wielded items onto the floor
-        spider.location.creatures.append(self.old_char)
-        spider.location.creatures.remove(spider)
-        print(f"{C.RED}{self.old_char.name}{BC.MAGENTA} transforms back into a {C.RED}{self.old_char.classname}{BC.MAGENTA}.{BC.OFF}")
+# class TransformSpider(CorruptionSpell):
+#     name = "Become Spider"
+#     mana_cost = 10
+#     humanity_max = -5
+#     description = f"Transform yourself into a giant spider. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+#     rounds = 20
+#     targets = "caster"
+#     old_char = None
+#
+#     def _cast(self):
+#         if self.caster.can_transform:
+#             spider = giant_spider.GiantSpider(location=self.caster.location)
+#             # Set game character to be the spider
+#             self.old_char = self.caster
+#             self.cont.game.char = spider
+#             # Deliberately same list, not a copy, so companions will stay updated
+#             spider.companions = self.old_char.companions
+#             spider.name = self.old_char.name
+#             spider.team = self.old_char.team
+#             spider.humanity = self.old_char.humanity
+#             # Reduce humanity for transforming
+#             spider.humanity -= 1
+#             # Make sure no other transformation overrides this one- will lead to bugs
+#             spider.can_transform = False
+#             # Remove old char from room and add spider
+#             self.old_char.location.creatures.append(spider)
+#             self.old_char.location.creatures.remove(self.old_char)
+#
+#             print(f"{BC.YELLOW}{self.old_char.name}{BC.MAGENTA} transforms into a {C.RED}giant spider{BC.MAGENTA}!{BC.OFF}")
+#             return True
+#
+#     def _expire(self):
+#         self.old_char.humanity = self.cont.game.char.humanity
+#         spider = self.cont.game.char
+#         self.cont.game.char = self.old_char
+#         spider.location.creatures.append(self.old_char)
+#         spider.location.creatures.remove(spider)
+#         print(f"{C.RED}{self.old_char.name}{BC.MAGENTA} transforms back into a {C.RED}{self.old_char.classname}{BC.MAGENTA}.{BC.OFF}")
 
 
 class GraftLimb(CorruptionSpell):
@@ -998,6 +994,5 @@ class SetHumanity(sp.Spell):
         return True
 
 
-# TODO transform yourself into a monster temporarily (or permanently). More options.
 # TODO summon a flaming sword for yourself- permanent (creation)
 # TODO Stun
