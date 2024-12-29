@@ -13,6 +13,11 @@ from colorist import BrightColor as BC, Color as C
 # TODO level 4- underwater lake (wet environmental tag- no fire spells)
 # TODO level 5- necromancer halls (hallway algorithm)
 # TODO mirror fight- fight a mirror image of yourself and your companions.
+
+# TODO add capture_creature spell (put in cell in Home)
+# TODO add bookshelves to den to hold scrolls
+# TODO add empty jars to den table
+# TODO more stuff to do with home
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen]
