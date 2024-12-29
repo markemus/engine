@@ -70,6 +70,7 @@ class BlindCaveShrimp(cr.creature):
     """A big blind shrimp that lives in lakes in caves."""
     classname = "cave shrimp"
     aggressive = True
+    can_breathe = False
     team = "prey"
     namelist = ["cave shrimp"]
     baseElem = Torso

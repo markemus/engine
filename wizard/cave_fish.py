@@ -70,6 +70,7 @@ class BlindCaveFish(cr.creature):
     """A gigantic blind fish that lives in cave lakes deep beneath the surface."""
     classname = "cave fish"
     aggressive = True
+    can_breathe = False
     team = "prey"
     namelist = ["cave fish"]
     baseElem = Torso

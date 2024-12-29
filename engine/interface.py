@@ -92,7 +92,7 @@ class Interface:
     # Commands
     def command(self):
         safe = self.cont.check_safety()
-        if not safe:
+        if not safe and self.state not in ["fight", "dead"]:
             self.fight()
         print(f"Available commands: {BC.BLUE}{''.join(self.commands[self.state].keys())}{C.OFF}")
         x = input(f"{BC.GREEN}Choose a command (h for help): {C.OFF}")

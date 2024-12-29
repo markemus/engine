@@ -31,6 +31,7 @@ class TunnelWorm(cr.creature):
     """A vicious creature that tunnels around looking for food."""
     classname = "tunnel worm"
     aggressive = True
+    can_breathe = False
     team = "monster"
     namelist = ["tunnel worm"]
     baseElem = Tube

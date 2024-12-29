@@ -417,7 +417,6 @@ class Trapdoor(CreationSpell):
     rounds = 1
     targets = "caster"
 
-    # TODO should use a staircase not a door. Change for level generation as well.
     def _cast(self):
         level_index = self.cont.game.level_list.index(self.cont.game.current_level)
         if len(self.cont.game.level_list) < level_index + 1:
@@ -651,7 +650,7 @@ class GraftLimb(CorruptionSpell):
     targets = "friendly"
 
     def _cast(self):
-        # TODO test finds creature invs
+        # TODO-DONE test finds creature invs
         # TODO allow you to cut off a limb (from a corpse)
         invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
         invs = utils.listtodict(invs, add_x=True)
@@ -843,7 +842,7 @@ class Fear(CorruptionSpell):
         return True
 
 
-# TODO only enemies that breathe should take damage from poison gas
+# TODO-DONE only enemies that breathe should take damage from poison gas
 class PoisonGas(CorruptionSpell):
     name = "Poison Gas"
     mana_cost = 10
@@ -857,7 +856,7 @@ class PoisonGas(CorruptionSpell):
         return True
 
     def update(self):
-        for enemy in [c for c in self.caster.location.creatures if c.team != self.caster.team and c.team != "neutral"]:
+        for enemy in [c for c in self.caster.location.creatures if c.team != self.caster.team and c.team != "neutral" and c.can_breathe]:
             print(f"{BC.MAGENTA}{enemy.name} chokes on the poison gas!{BC.OFF}")
             gas_attack = eff.Poison(creature=enemy, limb=enemy.subelements[0], controller=self.cont)
             gas_attack.cast()

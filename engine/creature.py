@@ -334,6 +334,7 @@ class creature:
     can_transform = True
     can_fear = True
     can_rest = True
+    can_breathe = True
     bled = 0
     poisoned = 0
   
