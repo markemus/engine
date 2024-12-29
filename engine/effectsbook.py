@@ -25,7 +25,6 @@ class Stoneskin(sp.Effect):
             self.limb.texture = self.limb.orig_texture
 
 
-# TODO-DONE burns shouldn't bleed
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = .5

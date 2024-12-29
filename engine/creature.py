@@ -12,19 +12,20 @@ class Limb:
     Limbs are procedurally generated from the class template; limbs of the same class may still be
     very different objects."""
     name = "NO_NAME_LIMB"
+    printcolor = C.CYAN
     # Subelement classes are limbs that will be spawned attached to this limb
     subelement_classes = None
     wears = None
     base_hp = 10
     _armor = 1
     blocker = False
-    printcolor = C.CYAN
     grasped = None
     # Size should be an int between 1 and 3. This affects to-hit chance.
     size = 2
     isSurface = True
     # Effects will be cast before battle begins (if they aren't already active)
     passive_effects = []
+    can_heal = True
 
     def __init__(self, color="d_color", texture="d_texture"):
         self.color = color
@@ -332,6 +333,7 @@ class creature:
     dead = False
     can_transform = True
     can_fear = True
+    can_rest = True
     bled = 0
     poisoned = 0
   
@@ -709,21 +711,22 @@ class creature:
             # Don't siphon, and tell caller there isn't enough.
             return False
 
-     # TODO can_rest tag on creature, can_heal tag on limbs. Apply to heal() as well.
+     # TODO-DONE can_rest tag on creature, can_heal tag on limbs. Apply to heal() as well.
     def rest(self):
         """Rest, recover HP, and clear status effects."""
-        self.bled = 0
-        self.poisoned = 0
+        if self.can_rest:
+            self.bled = 0
+            self.poisoned = 0
 
-        for limb in self.subelements[0].limb_check(tag="hp"):
-            if limb.hp < limb.base_hp:
-                hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)
-                limb.hp += hp_diff
-                print(f"{C.RED}{self.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
+            for limb in self.subelements[0].limb_check(tag="hp"):
+                if (limb.hp < limb.base_hp) and limb.can_heal:
+                    hp_diff = 1 if (limb.base_hp - limb.hp >= 1) else (limb.base_hp - limb.hp)
+                    limb.hp += hp_diff
+                    print(f"{C.RED}{self.name}{C.OFF}'s {BC.RED}{limb.name}{BC.OFF} heals a little {BC.RED}({limb.hp}/{limb.base_hp}){BC.OFF}.")
 
     def heal(self, amount):
         for limb in self.subelements[0].limb_check(tag="hp"):
-            if limb.hp < limb.base_hp:
+            if (limb.hp < limb.base_hp) and limb.can_heal:
                 hp_diff = amount if (limb.base_hp - limb.hp >= amount) else (limb.base_hp - limb.hp)
                 limb.hp += hp_diff
                 amount -= hp_diff

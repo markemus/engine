@@ -7,6 +7,8 @@ class Zombie(cr.creature):
     namelist = ["zombie"]
     colors = [None]
     textures = [None]
+    can_rest = False
+
     def __init__(self, limb, location):
         super().__init__(location=location)
         self.subelements = [limb]

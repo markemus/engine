@@ -33,6 +33,7 @@ class Combat:
         # Neutral creatures will not attack (and will be ignored by combat ai, and not available to player).
         # Non-aggressive creatures will not attack but can still be attacked.
         creatures = [creature for creature in creatures if (creature.team != "neutral")]
+        random.shuffle(creatures)
         # if self.char.team == "neutral":
         #     print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
 
@@ -49,7 +50,7 @@ class Combat:
             if actor.aggressive and not actor.dead and not ((hasattr(actor.subelements[0], "fear") and actor.subelements[0].fear)):
                 # select best weapon
                 if actor is not self.char:
-                    # TODO this should run before creature attacks instead of before combat round (so char can't always grab it up first)
+                    # TODO-DONE this should run before creature attacks instead of before combat round (so char can't always grab it up first)
                     # Check the room for a better weapon
                     self.grab_weapon(actor)
 
@@ -106,14 +107,16 @@ class Combat:
 
             # Blocking
             if target.limb_count("see") >= 1:
-                # TODO shouldn't block if blocker would be same as limb.
+                # TODO-DONE shouldn't block if blocker would be same as limb.
                 blockers = self.blockers[target].copy()
+                # Can't block with webbed blocker
+                blockers = [b for b in blockers if eff.Webbed not in [e.__class__ for e in b.active_effects]]
                 if target is self.char:
                     blocker = self.cont.pick_blocker(blockers)
                 else:
                     blocker = actor.ai.block(blockers, limb)
 
-                if blocker:
+                if blocker and limb is not blocker:
                     # 50/50 chance of blocking an attack
                     block_chance = random.randint(0, 1)
                     self.blockers[target].remove(blocker)
@@ -266,10 +269,10 @@ class Combat:
         self.apply_damage(defender, limb, damage)
         self.apply_effects(defender, limb, weapon)
 
-    # TODO webbed should remove the limb from blockers? Currently doesn't update until the next combat cycle.
+    # TODO-DONE webbed should remove the limb from blockers? Currently doesn't update until the next combat cycle.
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
-        blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker and not (hasattr(x, "webbed") and x.webbed)]
+        blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker]
         return blockers
 
     def throw_limb(self, amputee, limb):

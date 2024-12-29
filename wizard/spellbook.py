@@ -996,3 +996,4 @@ class SetHumanity(sp.Spell):
 
 # TODO summon a flaming sword for yourself- permanent (creation)
 # TODO Stun
+# TODO the floor is lava- fire covered floor damages limbs with amble

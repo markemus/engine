@@ -3,8 +3,9 @@ all aspects of playing the game, such as entering or exiting combat, as well as 
 from colorist import Color as C
 from colorist import BrightColor as BC
 
-from . import controller
-from . import save
+from engine import controller
+from engine import save
+from engine import utils
 
 
 class Interface:
@@ -90,6 +91,9 @@ class Interface:
 
     # Commands
     def command(self):
+        safe = self.cont.check_safety()
+        if not safe:
+            self.fight()
         print(f"Available commands: {BC.BLUE}{''.join(self.commands[self.state].keys())}{C.OFF}")
         x = input(f"{BC.GREEN}Choose a command (h for help): {C.OFF}")
         if x in self.commands[self.state].keys():
@@ -104,8 +108,7 @@ class Interface:
 
     def help(self):
         allcoms = self.commands[self.state]
-
-        self.cont.dictprint(allcoms)
+        utils.dictprint(allcoms)
 
     def save(self):
         savepath = input("Please enter the filename for your save:")
