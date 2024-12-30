@@ -237,11 +237,11 @@ class Stun(sp.Effect):
     expire_on_removal = True
 
     def _cast(self):
-        if not self.creature.stunned and self.creature.can_stun:
-            if self.limb.wears in ["head", "animal_head", "spider_head"]:
-                # Rare effect
-                roll = random.randint(0, 5)
-                if not roll:
+        if self.creature.can_stun:
+            head_wears = ["head", "animal_head", "spider_head"]
+            if self.limb.wears in head_wears:
+                other_heads = [x for x in self.creature.subelements[0].limb_check("wears") if x is not self.limb and x.wears in head_wears]
+                if not other_heads:
                     self.creature.stunned = True
                     print(f"{C.RED}{self.creature.name} is stunned!{C.OFF}")
                     return True

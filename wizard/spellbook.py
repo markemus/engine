@@ -915,6 +915,31 @@ class Fear(CorruptionSpell):
         return True
 
 
+class Stun(CorruptionSpell):
+    name = "Stun"
+    mana_cost = 7
+    humanity_max = -3
+    description = f"Stun an opponent and take them out of the fight. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 7
+    targets = "enemy"
+
+    def _cast(self):
+        if self.target.can_stun:
+            self.target.stunned = True
+            print(f"{C.RED}{self.target.name} is stunned!{C.OFF}")
+            return True
+        else:
+            print(f"{C.RED}{self.target.name} cannot be stunned.{C.OFF}")
+
+    def update(self):
+        self.target.stunned = True
+
+    def _expire(self):
+        self.target.stunned = False
+        print(f"{C.RED}{self.target.name} is no longer stunned.{C.OFF}")
+
+
+
 # TODO-DONE only enemies that breathe should take damage from poison gas
 class PoisonGas(CorruptionSpell):
     name = "Poison Gas"
@@ -1066,6 +1091,6 @@ class SetHumanity(sp.Spell):
         return True
 
 
-# TODO more weapon effects- stun.
+# TODO-DONE more weapon effects- stun.
 # TODO Stun spell
 # TODO use controller.combat to allow ai to use magic.

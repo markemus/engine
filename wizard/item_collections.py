@@ -26,7 +26,7 @@ for x in dir(sb):
         all_spells.append(variable)
 
 level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.SummonCerberus, sb.PoisonedWeapons, sb.FlamingWeapons, sb.BleedingWeapons]
-level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.SummonEtherealHand]
+level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.SummonEtherealHand, sb.Stun]
 level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.ReanimateLimb, sb.PoisonGas, sb.Possess, sb.GrowTreeOfLife, sb.SummonFairy, sb.TheFloorIsLava, sb.Mastery]
 
 class RandomScroll(it.Scroll):

@@ -106,8 +106,7 @@ class Combat:
             print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
-            if target.limb_count("see") >= 1:
-                # TODO-DONE shouldn't block if blocker would be same as limb.
+            if (target.limb_count("see") >= 1) and not target.stunned:
                 blockers = self.blockers[target].copy()
                 # Can't block with webbed blocker
                 blockers = [b for b in blockers if eff.Webbed not in [e.__class__ for e in b.active_effects]]

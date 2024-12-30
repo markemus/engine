@@ -73,5 +73,4 @@ class Game(object):
                 spell.rounds -= 1
 
         for spell in self.active_spells:
-            # print(spell.rounds)
             spell.update()
