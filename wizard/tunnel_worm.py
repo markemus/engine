@@ -32,6 +32,7 @@ class TunnelWorm(cr.creature):
     classname = "tunnel worm"
     aggressive = True
     can_breathe = False
+    can_stun = False
     team = "monster"
     namelist = ["tunnel worm"]
     baseElem = Tube

@@ -27,7 +27,7 @@ cc = {
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
-    "de_home_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3)],
+    "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3)],
 }
 
 # Player apartment rooms
@@ -59,6 +59,10 @@ class TrophyRoom(pl.Place):
     textures = ["paneled"]
     furniture_classes = [fur.Carpet, wizard.furniture.TrophyPlinth]
     subelement_classes = [wall, floor]
+
+class PlayerDen(assets.places.Den):
+    furniture_classes = [wizard.furniture.DenTable, fur.Chair, fur.Carpet, fur.Bookcase]
+
 
 # Cavern L1 rooms
 class CavernEntrance(pl.Place):
@@ -153,12 +157,12 @@ class DarkElfGuardtower(pl.Place):
 
 
 class DarkElfHollowedStalagmite(pl.Place):
-    name = "stalagmite home"
-    sprite = "H"
+    name = "stalagmite bastion"
+    sprite = "B"
     count = (5, 10)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [cc["de_home_guards"], cc["de_home_guards"], cc["de_home_guards"]]
+    creature_classes = [cc["de_fortress_guards"], cc["de_fortress_guards"], cc["de_fortress_guards"]]
     subelement_classes = [wizard.furniture.FrescoWall, floor]
     furniture_classes = [fur.Carpet, fur.Bed, fur.DiningTable, fur.DiningChair, fur.Stove]
 
@@ -169,7 +173,7 @@ class DarkElfWorkshop(pl.Place):
     count = (1, 3)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [cc["de_home_guards"], cc["de_home_guards"], [(DarkElfSmith, 1)]]
+    creature_classes = [cc["de_fortress_guards"], cc["de_fortress_guards"], [(DarkElfSmith, 1)]]
     subelement_classes = [wizard.furniture.FrescoWall, floor]
     furniture_classes = [fur.TableWork, fur.Chair, wizard.furniture.L3Chest]
 

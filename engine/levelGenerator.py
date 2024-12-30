@@ -14,6 +14,7 @@ class levelGenerator:
         pass
 
     # TODO can get stuck in infinite loop with "labyrinth" algorithm. This occurs when only spot left open is next to entrance with a perfect square root of roomnums.
+    # TODO hallway algorithm
     def levelGen(self, levelname, levelstyle):
         """Generates a level. """
         roomList = []

@@ -23,6 +23,7 @@ class TentacleMonster(cr.creature):
     namelist = nl.names["eldritch"]
     team = "monster"
     can_breathe = False
+    can_stun = False
     baseElem = Torso
     colors = ["black", "green", "gray"]
     textures = ["smooth", "slimy"]

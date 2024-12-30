@@ -129,6 +129,9 @@ class TrophyPlinth(pl.DisplayFurniture):
     # vis_collections = [(wcol.plaque, (1, 2))]
     loot_tables = [[(wcol.Plaque, 1)]]
 
+class DenTable(fur.Table):
+    loot_tables = [[(wcol.Jar, 1)], [(wcol.Jar, 1)], [(wcol.Jar, 1)]]
+
 
 # Caverns
 class L1Chest(pl.DisplayFurniture):

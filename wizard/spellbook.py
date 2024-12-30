@@ -170,6 +170,30 @@ class PoisonedWeapons(CreationSpell):
             print(f"{BC.MAGENTA}The poison on {weapon.name} dries up and disappears.{BC.OFF}")
 
 
+class BleedingWeapons(CreationSpell):
+    name = "Bleeding Weapons"
+    mana_cost = 5
+    humanity_min = -3
+    description = f"Cover a creature's weapons in an anti-coagulating fluid. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 10
+    targets = "friendly"
+    weapons = []
+
+    def _cast(self):
+        weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
+        for weapon in weapons:
+            weapon = weapon.damage[1]
+            if eff.Bleed not in weapon.weapon_effects:
+                weapon.weapon_effects.append(eff.Bleed)
+                self.weapons.append(weapon)
+                print(f"{BC.MAGENTA}A red liquid spreads across {self.target.name}'s {weapon.name}!{BC.OFF}")
+        return True
+
+    def _expire(self):
+        for weapon in self.weapons:
+            weapon.weapon_effects.remove(eff.Bleed)
+            print(f"{BC.MAGENTA}The red liquid on {weapon.name} dries up and disappears.{BC.OFF}")
+
 
 class Flashbang(CreationSpell):
     name = "Flashbang"
@@ -1040,3 +1064,8 @@ class SetHumanity(sp.Spell):
         self.original_humanity = self.caster.humanity
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
+
+
+# TODO more weapon effects- stun.
+# TODO Stun spell
+# TODO use controller.combat to allow ai to use magic.

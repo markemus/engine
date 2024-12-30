@@ -9,6 +9,7 @@ class Zombie(cr.creature):
     textures = [None]
     can_rest = False
     can_breathe = False
+    can_stun = False
 
     def __init__(self, limb, location):
         super().__init__(location=location)

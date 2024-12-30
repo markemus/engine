@@ -335,8 +335,11 @@ class creature:
     can_fear = True
     can_rest = True
     can_breathe = True
+    can_stun = True
     bled = 0
     poisoned = 0
+    afraid = False
+    stunned = False
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)

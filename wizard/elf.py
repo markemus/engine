@@ -13,6 +13,7 @@ class DarkElf(assets.elf.Elf):
 
 
 class DarkElfScout(DarkElf):
+    classname = "dark elf scout"
     suits = [wsu.darkelfsuit, asu.partial_bronze_armorsuit, wsu.bronze_poisonsword]
 
 

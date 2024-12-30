@@ -51,6 +51,7 @@ Items are objects used by creatures or just stored in rooms to add character.
 import copy
 
 import engine.item as i
+import engine.effectsbook as eff
 
 
 # Armor
@@ -316,6 +317,7 @@ class BronzeSword(IronSword):
 class IronHammer(i.Item):
     name = "hammer"
     damage = 20
+    weapon_effects = [eff.Stun]
 
 class Quarterstaff(i.Item):
     name = "quarterstaff"

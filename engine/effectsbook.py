@@ -1,3 +1,5 @@
+import random
+
 from engine import spells as sp
 
 from colorist import BrightColor as BC, Color as C
@@ -118,15 +120,15 @@ class Fear(sp.Effect):
 
     def _cast(self):
         if self.creature.can_fear:
-            self.creature.subelements[0].fear = True
+            self.creature.afraid = True
             print(f"{C.RED}{self.creature.name} cowers in fear!{C.OFF}")
             return True
 
     def update(self):
-        self.creature.subelements[0].fear = True
+        self.creature.afraid = True
 
     def _expire(self):
-        del self.creature.subelements[0].fear
+        self.creature.afraid = False
         print(f"{BC.CYAN}{self.creature.name} is no longer terrified.{C.OFF}")
 
 
@@ -228,6 +230,29 @@ class Poison(sp.Effect):
             print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
             self.creature.die()
         return True
+
+
+class Stun(sp.Effect):
+    rounds = 5
+    expire_on_removal = True
+
+    def _cast(self):
+        if not self.creature.stunned and self.creature.can_stun:
+            if self.limb.wears in ["head", "animal_head", "spider_head"]:
+                # Rare effect
+                roll = random.randint(0, 5)
+                if not roll:
+                    self.creature.stunned = True
+                    print(f"{C.RED}{self.creature.name} is stunned!{C.OFF}")
+                    return True
+
+    def update(self):
+        self.creature.stunned = True
+
+    def _expire(self):
+        self.creature.stunned = False
+        print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
+
 
 class Vampirism(sp.Effect):
     """Suck the lifeforce out of a creature."""

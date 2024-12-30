@@ -47,7 +47,7 @@ class Combat:
             if actor is self.char and not include_char:
                 # Skip player round if for some reason they're not supposed to get one.
                 continue
-            if actor.aggressive and not actor.dead and not ((hasattr(actor.subelements[0], "fear") and actor.subelements[0].fear)):
+            if actor.aggressive and not actor.dead and not actor.afraid and not actor.stunned:
                 # select best weapon
                 if actor is not self.char:
                     # TODO-DONE this should run before creature attacks instead of before combat round (so char can't always grab it up first)

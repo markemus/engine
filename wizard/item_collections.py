@@ -25,8 +25,8 @@ for x in dir(sb):
     if inspect.isclass(variable) and issubclass(variable, engine.spells.Spell) and variable not in [sb.CreationSpell, sb.CorruptionSpell]:
         all_spells.append(variable)
 
-level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.SummonEtherealHand, sb.SummonCerberus, sb.PoisonedWeapons, sb.FlamingWeapons]
-level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor]
+level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.SummonCerberus, sb.PoisonedWeapons, sb.FlamingWeapons, sb.BleedingWeapons]
+level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.SummonEtherealHand]
 level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.ReanimateLimb, sb.PoisonGas, sb.Possess, sb.GrowTreeOfLife, sb.SummonFairy, sb.TheFloorIsLava, sb.Mastery]
 
 class RandomScroll(it.Scroll):
@@ -70,6 +70,13 @@ class Plaque(it.Item):
     def use(self, creature, cont):
         engraving = input(f"{BC.CYAN}Enter a message to engrave onto the plaque: {BC.OFF}")
         self.color = engraving
+
+
+class Jar(it.Holder):
+    name = "glass jar"
+    colors = ["clear"]
+    textures = ["glass"]
+
 
 c_spider_suit = sc.suit_to_collection(suit=wsu.spider_bronze_suit, model=giant_spider.GiantSpider)
 rat_cooked = sc.limbs_to_collection(limbs=[giant_rat.Leg, giant_rat.Leg, giant_rat.Head], model=giant_rat.GiantRatCooked, full=False)
