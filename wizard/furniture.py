@@ -184,11 +184,12 @@ class Mattress(pl.Furniture):
     color = ["dirty", "moldy", "ratty", "moth-eaten"]
     texture = ["cloth", "lumpy"]
 
-class Firepit(pl.Furniture):
+class Firepit(pl.DisplayFurniture):
     name = "fire pit"
     count = (1, 2)
     color = ["burning", "warm", "cold", "ashen"]
     texture = ["wood", "charcoal"]
+    vis_collections = [(wsu.bronze_spit, (1, 2)), (wcol.rat_cooked, (0, 2))]
 
 class PupTent(pl.Furniture):
     """A dark elf scout's tent."""

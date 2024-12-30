@@ -281,6 +281,15 @@ lightsword_ethereal = {
     "full": True,
 }
 
+bronze_spit = {
+    "contains": [su.CopperSpear],
+    "color": ["blackened", "ash-smeared", "charred"],
+    "color_scheme": "same",
+    "texture": ["copper"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
 bronze_lightsword = {
     "grasps": {
         "right hand": BronzeSwordOfLight,

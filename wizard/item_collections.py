@@ -13,6 +13,7 @@ import wizard.suits as wsu
 
 from assets.human import Human
 from wizard import giant_spider
+from wizard import giant_rat
 
 from colorist import BrightColor as BC, Color as C
 
@@ -63,3 +64,4 @@ class Plaque(it.Item):
         self.color = engraving
 
 c_spider_suit = sc.suit_to_collection(suit=wsu.spider_bronze_suit, model=giant_spider.GiantSpider)
+rat_cooked = sc.limbs_to_collection(limbs=[giant_rat.Leg, giant_rat.Leg, giant_rat.Head], model=giant_rat.GiantRatCooked, full=False)
