@@ -313,6 +313,10 @@ class CopperSword(IronSword):
 class BronzeSword(IronSword):
     damage = 14
 
+class IronHammer(i.Item):
+    name = "hammer"
+    damage = 20
+
 class Quarterstaff(i.Item):
     name = "quarterstaff"
     damage = 10

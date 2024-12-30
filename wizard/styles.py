@@ -8,7 +8,7 @@ import wizard.places
 from colorist import BrightColor as BC, Color as C
 
 
-# TODO level 2- goblins and dark elf scouts fighting
+# TODO-DONE level 2- goblins and dark elf scouts fighting
 # TODO level 3- dark elf home caverns (with spider-human hybrid creatures in secondary rooms) (hallway algorithm)
 # TODO level 4- underwater lake (wet environmental tag- no fire spells)
 # TODO level 5- necromancer halls (hallway algorithm)
@@ -48,7 +48,7 @@ LevelStyle.register(CavernL2)
 # TODO algorithm hallway and populate DarkElfL3 with the city
 class DarkElfL3:
     level_text = f"""{BC.BLUE}You break into the guard tower and defeat the dark elf champion. Before you lies the gate of Albolobereth, a city of the dark elves that has sprung up above the ruins of the old dwarven city. You will have to fight your way through if you want to reach the fabled hoard.{BC.OFF}"""
-    room_classes = [wizard.places.DarkElfRoad]
+    room_classes = [wizard.places.DarkElfHollowedStalagmite, wizard.places.DarkElfWorkshop, wizard.places.ArachneNest]
     start_room = wizard.places.DarkElfRoad
     hallway_room = wizard.places.DarkElfRoad
     # algorithm = "hallway"

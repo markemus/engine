@@ -6,11 +6,12 @@ import assets.furniture as fur
 
 import wizard.furniture
 
+from wizard.arachne import Arachne
 from wizard.cave_fish import BlindCaveFish
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
 from wizard.giant_shrimp import BlindCaveShrimp
-from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard
+from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
 from wizard.tunnel_worm import TunnelWorm
@@ -26,7 +27,7 @@ cc = {
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
-    "dehome_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3)],
+    "de_home_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3)],
 }
 
 # Player apartment rooms
@@ -153,10 +154,35 @@ class DarkElfGuardtower(pl.Place):
 
 class DarkElfHollowedStalagmite(pl.Place):
     name = "stalagmite home"
-    sprite = "S"
+    sprite = "H"
     count = (5, 10)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
+    creature_classes = [cc["de_home_guards"], cc["de_home_guards"], cc["de_home_guards"]]
+    subelement_classes = [wizard.furniture.FrescoWall, floor]
+    furniture_classes = [fur.Carpet, fur.Bed, fur.DiningTable, fur.DiningChair, fur.Stove]
+
+
+class DarkElfWorkshop(pl.Place):
+    name = "workshop"
+    sprite = "W"
+    count = (1, 3)
+    colors = ["slate", "dark", "black", "granite"]
+    textures = ["stone"]
+    creature_classes = [cc["de_home_guards"], cc["de_home_guards"], [(DarkElfSmith, 1)]]
+    subelement_classes = [wizard.furniture.FrescoWall, floor]
+    furniture_classes = [fur.TableWork, fur.Chair, wizard.furniture.L3Chest]
+
+
+class ArachneNest(pl.Place):
+    name = "nest"
+    sprite = "N"
+    count = (1, 3)
+    colors = ["cobwebbed", "silken", "woven"]
+    textures = ["white", "gray"]
+    subelement_classes = [wall, floor]
+    furniture_classes = []
+    creature_classes = [[(Arachne, 1)], [(Arachne, 1)]]
 
 
 class DarkElfRoad(pl.Place):
@@ -165,7 +191,6 @@ class DarkElfRoad(pl.Place):
     count = (1, 2)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [cc["dehome_guards"], cc["dehome_guards"], cc["dehome_guards"]]
-    # creature_classes = []
+    creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]

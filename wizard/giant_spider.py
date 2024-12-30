@@ -59,7 +59,7 @@ class Leg(cr.Limb):
     amble = 1/4
 
 class Torso(cr.Limb):
-    name = "torso"
+    name = "body"
     subelement_classes = [Head, Leg]
     isSurface = True
     appendageRange = (1, 2)

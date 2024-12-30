@@ -42,10 +42,18 @@ class LevelOneScroll(it.Scroll):
         self.spell = random.choice(level_one_spells)
         self.name = f"scroll of {self.spell.name}"
 
+
 class LevelTwoScroll(it.Scroll):
     def __init__(self, color=None, texture=None):
         super().__init__()
         self.spell = random.choice(level_two_spells)
+        self.name = f"scroll of {self.spell.name}"
+
+
+class LevelThreeScroll(it.Scroll):
+    def __init__(self, color=None, texture=None):
+        super().__init__()
+        self.spell = random.choice(level_three_spells)
         self.name = f"scroll of {self.spell.name}"
 
 

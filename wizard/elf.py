@@ -25,6 +25,13 @@ class DarkElfChampion(DarkElf):
 
 class DarkElfGuard(DarkElf):
     classname = "dark elf guard"
-    suits = [wsu.darkelfsuit, asu.bronze_armorsuit, wsu.iron_poisonsword]
+    suits = [wsu.darkelfsuit, asu.partial_bronze_armorsuit, wsu.iron_poisonsword]
+
+
+class DarkElfSmith(DarkElf):
+    classname = "dark elf smith"
+    suits = [wsu.darkelfsuit, wsu.leather_apron, wsu.iron_hammer]
+    mastery = 1
+
 
 dark_elf_corpse_col = sc.limbs_to_collection(limbs=[assets.elf.Torso], model=DarkElfScout)

@@ -1,3 +1,5 @@
+import copy
+
 import engine.item as i
 
 import assets.suits as su
@@ -137,6 +139,15 @@ class SpiderBronzeGreave(i.Item):
     level = 3
     armor = 1
 
+class SpiderIronBreastplate(SpiderBronzeBreastplate):
+    armor = 2
+
+class SpiderIronGreave(SpiderBronzeGreave):
+    armor = 2
+
+class SpiderIronHelm(SpiderBronzeHelm):
+    armor = 2
+
 
 # Mana gear
 class RingOfMana(i.Item):
@@ -241,6 +252,23 @@ spider_bronze_suit = {
     "color": ["burnished", "shiny", "orange", "greenish"],
     "color_scheme": "unique",
     "texture": ["bronze"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+partial_spider_bronze_suit = copy.deepcopy(spider_bronze_suit)
+partial_spider_bronze_suit["full"] = False
+
+spider_iron_suit = {
+    "wears": {
+        "spider_head": SpiderIronHelm,
+        "spider_body": SpiderIronBreastplate,
+        "spider_leg": SpiderIronGreave,
+    },
+    "grasps": {},
+    "color": ["burnished", "shiny", "matte", "gray"],
+    "color_scheme": "unique",
+    "texture": ["iron"],
     "texture_scheme": "same",
     "full": True,
 }
@@ -358,6 +386,30 @@ double_iron_poisonsword = {
     "wears": {},
     "color": ["burnished", "shiny", "rusty", "matte"],
     "color_scheme": "unique",
+    "texture": ["iron"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+leather_apron = {
+    "grasps": {},
+    "wears": {
+        "body": su.Apron,
+    },
+    "color": ["brown", "grayish", "tanned"],
+    "color_scheme": "same",
+    "texture": ["leather"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+iron_hammer = {
+    "grasps": {
+        "right hand": su.IronHammer,
+    },
+    "wears": {},
+    "color": ["rusty", "matte", "blackened"],
+    "color_scheme": "same",
     "texture": ["iron"],
     "texture_scheme": "same",
     "full": True,

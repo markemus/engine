@@ -20,7 +20,8 @@ lt = {
     "l1_chest_mana": [(wsu.RingOfMana, 2), (wsu.ManaLocket, 1)],
     # TODO-DONE add potion of might
     "l1_chest_potion": [(pot.PotionOfStoneskin, 1), (pot.TentacleGrowthPotion, 1), (pot.PotionOfHealing, 1), (pot.PotionOfMight, 1)],
-    "l2_chest_scroll": [(wcol.LevelOneScroll, 1)],
+    "l2_chest_scroll": [(wcol.LevelTwoScroll, 1)],
+    "l3_chest_scroll": [(wcol.LevelThreeScroll, 1)],
 }
 
 class FruitOfLife(it.Potion):
@@ -148,13 +149,13 @@ class L2Chest(pl.DisplayFurniture):
     # vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
     loot_tables = [lt["l2_chest_scroll"], (lt["l1_chest_mana"], lt["l1_chest_potion"])]
 
-# TODO L3chest loot
+# TODO-DONE L3chest loot
 class L3Chest(pl.DisplayFurniture):
     name = "treasure chest"
     color = ["brown", "black", "gray"]
     texture = ["wood"]
     count = (1, 2)
-    vis_collections = [(wcol.c_spider_suit, (1, 2))]
+    loot_tables = [lt["l3_chest_scroll"], lt["l1_chest_potion"]]
 
 class GoblinGrave(pl.DisplayFurniture):
     name = "goblin grave"
@@ -197,3 +198,20 @@ class PupTent(pl.Furniture):
     count = (3, 6)
     color = ["black"]
     texture = ["silk"]
+
+class Fresco(pl.Element):
+    name = ""
+    color = ["a glowing purple fresco of", "a glowing green fresco of", "a glowing blue fresco of"]
+    texture = ["a spider eating a dwarf", "dark elves making poisons", "a spider eating an adventurer",
+               "dark elves fighting dwarves", "a dark elf ritual", "a spider sitting on its web",
+               "a dark elf armorer working", "dark elf soldiers fighting goblins", "a spider eating a goblin"]
+    count = (1, 2)
+
+class FrescoWall(st.wall):
+    subelement_classes = [Fresco]
+
+class Anvil(pl.Furniture):
+    name = "anvil"
+    count = (1, 2)
+    color = ["black", "matte"]
+    texture = ["steel", "iron"]
