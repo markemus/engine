@@ -149,6 +149,7 @@ class Limb:
 
         return equipped
 
+     # TODO remove covers for items that are on parent limbs
     def remove_limb(self, limb):
         # Losing a grasping limb should make the creature drop the associated weapon
         if limb in self.subelements:

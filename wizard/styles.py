@@ -11,11 +11,11 @@ from colorist import BrightColor as BC, Color as C
 # TODO-DONE level 2- goblins and dark elf scouts fighting
 # TODO level 3- dark elf home caverns (with spider-human hybrid creatures in secondary rooms)- queen arachne fight
 # TODO level 4- underwater lake (wet environmental tag- no fire spells)
-# TODO level 5- necromancer halls
-# TODO level 6- goblin town
+# TODO level 5- goblin town
+# TODO level 6- necromancer halls
+# TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king)
 # TODO mirror fight- fight a mirror image of yourself and your companions.
 
-# TODO add capture_creature spell (put in cell in Home)
 # TODO-DONE add bookshelves to den to hold scrolls
 # TODO-DONE add empty jars to den table
 # TODO more stuff to do with home
@@ -53,7 +53,8 @@ LevelStyle.register(CavernL2)
 class DarkElfL3:
     level_text = f"""{BC.BLUE}You break into the guard tower and defeat the dark elf champion. Before you lies the gate of Albolobereth, a fortress of the dark elves built above the ruins of the old dwarven city. You will have to fight your way through if you want to reach the fabled hoard.{BC.OFF}"""
     room_classes = [wizard.places.DarkElfHollowedStalagmite, wizard.places.DarkElfWorkshop, wizard.places.ArachneNest]
-    start_room = wizard.places.DarkElfRoad
+    start_room = wizard.places.DarkElfEntrance
+    end_room = wizard.places.QueensNest
     creature_classes = []
 
 

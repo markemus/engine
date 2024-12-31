@@ -8,6 +8,6 @@ names = {
     "hobbit": ["Mumpto", "Hamlin", "Gooby", "Grint", "Smit", "Rag", "Pap", "Hamwit"],
     "human": ["Emen", "Rami", "Sagden", "Merind", "Hom", "Shriv", "Smith", "Rimtin", "Arthe"],
     "troll": ["Arggh", "Grargh", "Erff", "Smurr", "Urd", "Marg", "Sharm", "Plumb"],
-    "eldritch": ["Krrzt", "Mnuthe", "Ftubh", "Mrzath", "Kbul", "Rathe", "Fzzrth"],
-    "spider": ["Adonimala", "Septisibula", "Mandicopol", "Sebetina", "Marcopistimun", "Hanadisima", "Samhedin", "Menisthanine"]
+    "eldritch": ["Krrzt", "Mnuthe", "Ftubh", "Mrzath", "Kbul", "Rathe", "Fzzrth", "Amrrsh", "Gzntch", "Ftaghn"],
+    "spider": ["Adonimala", "Septisibula", "Mandicopol", "Sebetina", "Marcopistimun", "Hanadisima", "Samhedin", "Menisthanine", "Hornimustula", "Arathinese", "Aranisteni", "Corpusula", "Araanthiros", "Horistanese"]
 }

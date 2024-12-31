@@ -674,34 +674,37 @@ class Controller:
             print(f"{C.RED}{self.game.char.name} has no free hands!{C.OFF}")
 
     def cast_magic(self, state):
-        spellbook = self.game.char.spellbook
-        spell_list = []
-        mana_equipment = self.game.char.get_tagged_equipment("mana") + [x for x in self.game.char.subelements[0].limb_check("mana") if hasattr(x, "mana")]
-        mana = sum([x.mana for x in mana_equipment])
-        max_mana = sum([x.base_mana for x in mana_equipment])
-        print(f"{C.RED}----------Known Spells----------{C.OFF}")
-        print(f"{BC.CYAN}----------Mana ({mana}/{max_mana})----------{BC.OFF}")
-        if spellbook:
-            for spell in spellbook:
-                spell_list.append(f"{BC.CYAN}{spell.name}{BC.OFF}: {BC.MAGENTA}{spell.description}{BC.OFF}")
-            spell_dict = utils.listtodict(spell_list, add_x=True)
-            utils.dictprint(spell_dict)
-            i = input(f"{BC.GREEN}Which spell would you like to cast? {BC.OFF}")
-            if i in spell_dict.keys() and i != "x":
-                if spellbook[int(i)].targets == "friendly":
-                    target_list = self.game.char.ai.get_friendly_creatures()
-                elif spellbook[int(i)].targets == "caster":
-                    target_list = [self.game.char]
-                elif spellbook[int(i)].targets == "enemy":
-                    target_list = self.game.char.ai.get_enemy_creatures()
-                else:
-                    raise ValueError(f"Spell target must be friendly, enemy or caster: {spellbook[int(i)]}")
-                targets = utils.listtodict(target_list, add_x=True)
-                utils.dictprint(targets)
-                j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
-                if j in targets.keys() and j != "x":
-                    spell = spellbook[int(i)](self.game.char, targets[j], controller=self)
-                    if spell.cast():
-                        self.game.active_spells.append(spell)
-                        if state == "fight":
-                            self.attack(include_char=False)
+        if not self.game.char.stunned:
+            spellbook = self.game.char.spellbook
+            spell_list = []
+            mana_equipment = self.game.char.get_tagged_equipment("mana") + [x for x in self.game.char.subelements[0].limb_check("mana") if hasattr(x, "mana")]
+            mana = sum([x.mana for x in mana_equipment])
+            max_mana = sum([x.base_mana for x in mana_equipment])
+            print(f"{C.RED}----------Known Spells----------{C.OFF}")
+            print(f"{BC.CYAN}----------Mana ({mana}/{max_mana})----------{BC.OFF}")
+            if spellbook:
+                for spell in spellbook:
+                    spell_list.append(f"{BC.CYAN}{spell.name}{BC.OFF}: {BC.MAGENTA}{spell.description}{BC.OFF}")
+                spell_dict = utils.listtodict(spell_list, add_x=True)
+                utils.dictprint(spell_dict)
+                i = input(f"{BC.GREEN}Which spell would you like to cast? {BC.OFF}")
+                if i in spell_dict.keys() and i != "x":
+                    if spellbook[int(i)].targets == "friendly":
+                        target_list = self.game.char.ai.get_friendly_creatures()
+                    elif spellbook[int(i)].targets == "caster":
+                        target_list = [self.game.char]
+                    elif spellbook[int(i)].targets == "enemy":
+                        target_list = self.game.char.ai.get_enemy_creatures()
+                    else:
+                        raise ValueError(f"Spell target must be friendly, enemy or caster: {spellbook[int(i)]}")
+                    targets = utils.listtodict(target_list, add_x=True)
+                    utils.dictprint(targets)
+                    j = input(f"{BC.GREEN}Which creature do you want to target? {BC.OFF}")
+                    if j in targets.keys() and j != "x":
+                        spell = spellbook[int(i)](self.game.char, targets[j], controller=self)
+                        if spell.cast():
+                            self.game.active_spells.append(spell)
+                            if state == "fight":
+                                self.attack(include_char=False)
+        else:
+            print(f"{C.RED}{self.game.char} is stunned and cannot cast magic.{C.OFF}")

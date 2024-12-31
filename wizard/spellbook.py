@@ -717,7 +717,7 @@ class SwordHand(CorruptionSpell):
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
-    humanity_max = 5
+    humanity_max = 10
     description = f"Graft a disembodied limb onto a friendly creature. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
@@ -1092,5 +1092,6 @@ class SetHumanity(sp.Spell):
 
 
 # TODO-DONE more weapon effects- stun.
-# TODO Stun spell
+# TODO-DONE Stun spell
 # TODO use controller.combat to allow ai to use magic.
+# TODO higher level summons

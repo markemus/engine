@@ -21,6 +21,9 @@ os.system("color")
 
 
 # Main
+starter_spell = random.choice(ic.level_one_spells)
+ic.level_one_spells.remove(starter_spell)
+
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
 # Generate the Home level. This is needed for the A Way Home spell- the level should not be in t_game.level_list.
@@ -48,7 +51,7 @@ t_game.set_char(player)
 
 # TODO select starting spells for release
 # Character setup
-player.spellbook.append(random.choice(ic.level_one_spells))
+player.spellbook.append(starter_spell)
 player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)

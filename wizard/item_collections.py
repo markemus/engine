@@ -25,9 +25,10 @@ for x in dir(sb):
     if inspect.isclass(variable) and issubclass(variable, engine.spells.Spell) and variable not in [sb.CreationSpell, sb.CorruptionSpell]:
         all_spells.append(variable)
 
-level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.SummonCerberus, sb.PoisonedWeapons, sb.FlamingWeapons, sb.BleedingWeapons]
-level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.SummonEtherealHand, sb.Stun]
-level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.ReanimateLimb, sb.PoisonGas, sb.Possess, sb.GrowTreeOfLife, sb.SummonFairy, sb.TheFloorIsLava, sb.Mastery]
+level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.GraftLimb, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.PoisonedWeapons, sb.FlamingWeapons, sb.BleedingWeapons]
+level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.SummonEtherealHand, sb.Stun, sb.ReanimateLimb]
+level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.PoisonGas, sb.Possess, sb.GrowTreeOfLife, sb.SummonFairy, sb.TheFloorIsLava, sb.Mastery]
+
 
 class RandomScroll(it.Scroll):
     def __init__(self, color=None, texture=None):
@@ -35,11 +36,14 @@ class RandomScroll(it.Scroll):
         self.spell = random.choice(all_spells)
         self.name = f"scroll of {self.spell.name}"
 
+
 class LevelOneScroll(it.Scroll):
     """A scroll with a beginner spell."""
     def __init__(self, color=None, texture=None):
         super().__init__()
         self.spell = random.choice(level_one_spells)
+        # We don't want duplicates
+        level_one_spells.remove(self.spell)
         self.name = f"scroll of {self.spell.name}"
 
 
@@ -47,6 +51,8 @@ class LevelTwoScroll(it.Scroll):
     def __init__(self, color=None, texture=None):
         super().__init__()
         self.spell = random.choice(level_two_spells)
+        # We don't want duplicates
+        level_two_spells.remove(self.spell)
         self.name = f"scroll of {self.spell.name}"
 
 
@@ -54,6 +60,8 @@ class LevelThreeScroll(it.Scroll):
     def __init__(self, color=None, texture=None):
         super().__init__()
         self.spell = random.choice(level_three_spells)
+        # We don't want duplicates
+        level_three_spells.remove(self.spell)
         self.name = f"scroll of {self.spell.name}"
 
 

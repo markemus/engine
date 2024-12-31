@@ -56,4 +56,9 @@ class Arachne(cr.creature):
     baseElem = SpiderTorso
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
-    suits = [wsu.partial_spider_bronze_suit, asu.partial_bronze_armorsuit, wsu.double_iron_poisonsword]
+    suits = [wsu.partial_spider_bronze_suit, asu.partial_bronze_armorsuit, wsu.iron_poisonsword]
+
+class ArachneQueen(Arachne):
+    classname = "queen arachne"
+    suits = [wsu.spider_iron_suit, asu.bronze_armorsuit, wsu.double_iron_poisonsword]
+    mastery = 2

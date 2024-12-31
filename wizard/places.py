@@ -6,7 +6,7 @@ import assets.furniture as fur
 
 import wizard.furniture
 
-from wizard.arachne import Arachne
+from wizard.arachne import Arachne, ArachneQueen
 from wizard.cave_fish import BlindCaveFish
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
@@ -16,7 +16,7 @@ from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
 from wizard.tunnel_worm import TunnelWorm
 
-from assets.goblin import Goblin, ShallowGoblin
+from assets.goblin import ShallowGoblin
 
 
 cc = {
@@ -27,7 +27,7 @@ cc = {
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
-    "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3)],
+    "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (None, 1)],
 }
 
 # Player apartment rooms
@@ -75,6 +75,7 @@ class CavernEntrance(pl.Place):
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
 
+
 class CavernOpen(pl.Place):
     name = "cavern"
     sprite = "C"
@@ -86,6 +87,7 @@ class CavernOpen(pl.Place):
     furniture_classes = []
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
 
+
 class Tunnel(pl.Place):
     name = "tunnel"
     sprite = "T"
@@ -96,6 +98,7 @@ class Tunnel(pl.Place):
     furniture_classes = []
     subelement_classes = [wall, floor]
 
+
 class GoblinCavernVillage(CavernOpen):
     """A goblin village in a cavern with some loot."""
     name = "goblin village"
@@ -104,6 +107,7 @@ class GoblinCavernVillage(CavernOpen):
     furniture_classes = [wizard.furniture.Mattress, wizard.furniture.Firepit, wizard.furniture.L1Chest]
     creature_classes = [cc["caverns_1_gobs"], cc["caverns_1_gobs"], cc["caverns_1_gobs"]]
 
+
 class GoblinChiefVillage(GoblinCavernVillage):
     """Village where the goblin chief resides."""
     name = "goblin chief village"
@@ -111,15 +115,18 @@ class GoblinChiefVillage(GoblinCavernVillage):
     count = (1, 2)
     creature_classes = [[(ShallowGoblin, 1)], [(ShallowGoblin, 1)], [(ShallowGoblinChief, 1)], [(GoblinPetDog, 1)]]
 
+
 # Cavern L2 rooms
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
     creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
     furniture_classes = [wizard.furniture.GiantMushroom, (wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave, None, None)] + CavernOpen.furniture_classes.copy()
 
+
 class GoblinCavernVillageL2(GoblinCavernVillage):
     creature_classes = [cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"], cc["caverns_2_gobs"]]
     furniture_classes = [wizard.furniture.GiantMushroom] + GoblinCavernVillage.furniture_classes.copy()
+
 
 class DarkElfOutpost(CavernOpenL2):
     """A forward scouting base of the dark elves."""
@@ -157,12 +164,12 @@ class DarkElfGuardtower(pl.Place):
 
 
 class DarkElfHollowedStalagmite(pl.Place):
-    name = "stalagmite bastion"
-    sprite = "B"
+    name = "stalagmite quarters"
+    sprite = "S"
     count = (5, 10)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [cc["de_fortress_guards"], cc["de_fortress_guards"], cc["de_fortress_guards"]]
+    creature_classes = [cc["de_fortress_guards"], cc["de_fortress_guards"], cc["de_fortress_guards"], cc["de_fortress_guards"]]
     subelement_classes = [wizard.furniture.FrescoWall, floor]
     furniture_classes = [fur.Carpet, fur.Bed, fur.DiningTable, fur.DiningChair, fur.Stove]
 
@@ -173,7 +180,7 @@ class DarkElfWorkshop(pl.Place):
     count = (1, 3)
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
-    creature_classes = [cc["de_fortress_guards"], cc["de_fortress_guards"], [(DarkElfSmith, 1)]]
+    creature_classes = [cc["de_fortress_guards"], cc["de_fortress_guards"], cc["de_fortress_guards"], [(DarkElfSmith, 1)]]
     subelement_classes = [wizard.furniture.FrescoWall, floor]
     furniture_classes = [fur.TableWork, fur.Chair, wizard.furniture.L3Chest]
 
@@ -184,17 +191,26 @@ class ArachneNest(pl.Place):
     count = (1, 3)
     colors = ["cobwebbed", "silken", "woven"]
     textures = ["white", "gray"]
-    subelement_classes = [wall, floor]
+    subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     furniture_classes = []
     creature_classes = [[(Arachne, 1)], [(Arachne, 1)]]
 
 
-class DarkElfRoad(pl.Place):
-    name = "highway"
-    sprite = "R"
-    count = (1, 2)
+class DarkElfEntrance(pl.Place):
+    name = "Entryway"
+    sprite = "E"
     colors = ["slate", "dark", "black", "granite"]
     textures = ["stone"]
+    subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     creature_classes = []
     furniture_classes = []
+
+class QueensNest(pl.Place):
+    name = "queen's lair"
+    sprite = "Q"
+    count = (1, 2)
+    colors = ["cobwebbed", "silken", "woven"]
+    textures = ["white", "gray"]
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
+    furniture_classes = [wizard.furniture.L3Chest]
+    creature_classes = [[(ArachneQueen, 1)], [(DarkElfChampion, 1)], [(Arachne, 1)], [(Arachne, 1)]]
