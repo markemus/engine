@@ -45,3 +45,7 @@ class Fairy(cr.creature):
     colors = ["pale"]
     textures = ["skinned"]
     suits = [wsu.summoned_fairysuit]
+
+class DarkElfFairy(Fairy):
+    team = "dark elf"
+    suits = [wsu.darkelf_fairysuit]

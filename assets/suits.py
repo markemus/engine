@@ -478,3 +478,5 @@ basic_weapons = {
     "texture_scheme": "same",
     "full": True,
 }
+
+# TODO add dog armor to first levels (goblin chief's dog)

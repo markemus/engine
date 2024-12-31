@@ -89,7 +89,7 @@ player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.GrowBeard)
 player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
-player.spellbook.append(sb.SetHumanity)
+# player.spellbook.append(sb.SetHumanity)
 
 # TODO player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
@@ -104,8 +104,8 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 # TODO disable cheats before release
-cheats.skip_level_one(player, t_game)
-cheats.skip_level_two(player, t_game)
+# cheats.skip_level_one(player, t_game)
+# cheats.skip_level_two(player, t_game)
 
 i = interface.Interface(t_game)
 # player.can_fear = False

@@ -163,6 +163,8 @@ class Controller:
         else:
             print("You cannot see well enough to read the map.")
 
+    # TODO dispel all spells in room when leaving the room (not on companions or char though)
+    # TODO print "there is an exit here" message if there is a staircase
     def north(self):
         self.game.char.leave("n")
         self.cast_prebattle_effects()

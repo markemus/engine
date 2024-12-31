@@ -11,9 +11,10 @@ from wizard.cave_fish import BlindCaveFish
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
 from wizard.giant_shrimp import BlindCaveShrimp
-from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
+from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
+from wizard.fairy import DarkElfFairy
 from wizard.tunnel_worm import TunnelWorm
 
 from assets.goblin import ShallowGoblin
@@ -27,7 +28,7 @@ cc = {
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
-    "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (None, 1)],
+    "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (DarkElfFairy, 1), (None, 1)],
 }
 
 # Player apartment rooms
@@ -213,4 +214,4 @@ class QueensNest(pl.Place):
     textures = ["white", "gray"]
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     furniture_classes = [wizard.furniture.L3Chest]
-    creature_classes = [[(ArachneQueen, 1)], [(DarkElfChampion, 1)], [(Arachne, 1)], [(Arachne, 1)]]
+    creature_classes = [[(ArachneQueen, 1)], [(DarkElfChampion, 1)], [(Arachne, 1)], [(DarkElfFairy, 1)]]

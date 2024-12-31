@@ -12,6 +12,8 @@ class Combat:
         self.cont = cont
         self.blockers = None
 
+    # TODO add vision check to grab_weapon()
+    # TODO should only grab if it's better than their current weapon
     def grab_weapon(self, actor):
         """AI creatures should grab weapons up off the floor if they have a spare hand."""
         # Search the room for weapons

@@ -475,8 +475,8 @@ class creature:
                 for companion in self.companions:
                     if companion.location == currentRoom:
                         companion.leave(direction=direction)
-                if nextRoom.borders[">"]:
-                    print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
+                # if nextRoom.borders[">"]:
+                #     print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
             else:
                 print(f"{C.RED}{self.name} is unable to move.{C.OFF}")
         else:

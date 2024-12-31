@@ -72,5 +72,5 @@ class GiantBat(cr.creature):
         fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fangs"][0]
         class CVampirism(eff.Vampirism):
             vampire = self
-            amount = 1.5
+            amount = 2
         fangs.weapon_effects = [CVampirism]
