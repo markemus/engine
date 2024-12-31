@@ -16,6 +16,16 @@ class PointyEar(cr.Limb):
     base_hp = 3
     size = 1
 
+class FairyWings(cr.Limb):
+    name = "wing"
+    subelement_classes = []
+    appendageRange = (2, 3)
+    base_hp = 5
+    size = 1
+    flight = 1/2
+    colors = ["translucent", "white"]
+    textures = ["lacy", "airy", "light"]
+
 class TinyHead(cr.Limb):
     name = "head"
     subelement_classes = [PointyEar, cl.Eye, cl.Nose, cl.Jaw]
@@ -28,7 +38,7 @@ class TinyHead(cr.Limb):
 
 class FairyTorso(cr.Limb):
     name = "torso"
-    subelement_classes = [TinyHead, cl.TinyRArm, cl.TinyLArm, cl.TinyLeg]
+    subelement_classes = [TinyHead, FairyWings, cl.TinyRArm, cl.TinyLArm, cl.TinyLeg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

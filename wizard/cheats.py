@@ -9,7 +9,9 @@ import wizard.suits as wsu
 def skip_level_one(player, game):
     """Gives equipment that should fairly represent beating level one, and places player at beginning of level 2."""
     # Cheat
-    player.spellbook.extend(random.sample(wic.level_one_spells, k=2))
+    l1_spells = random.sample(wic.level_one_spells, k=2)
+    [wic.level_one_spells.remove(s) for s in l1_spells]
+    player.spellbook.extend(l1_spells)
     player.subelements[0].subelements[1].subelements[0].grasped = random.choice([wsu.BronzeSwordOfFire("firey", "bronze"), wsu.BronzeSwordOfLight("shining", "bronze"), wsu.BronzeFlail("menacing", "bronze")])
     player.subelements[0].subelements[1].subelements[0].subelements[2].equip(wsu.RingOfMana(color="lapiz", texture="in silver"))
     player.subelements[0].subelements[1].subelements[0].subelements[3].equip(wsu.RingOfMana(color="lapiz", texture="in silver"))
@@ -23,8 +25,12 @@ def skip_level_one(player, game):
 def skip_level_two(player, game):
     """Gives equipment that should fairly represent beating level two, and places player at beginning of level 3."""
     # Cheat
-    player.spellbook.extend(random.sample(wic.level_one_spells, k=2))
-    player.spellbook.extend(random.sample(wic.level_two_spells, k=3))
+    l1_spells = random.sample(wic.level_one_spells, k=2)
+    [wic.level_one_spells.remove(s) for s in l1_spells]
+    l2_spells = random.sample(wic.level_two_spells, k=3)
+    [wic.level_two_spells.remove(s) for s in l2_spells]
+    player.spellbook.extend(l1_spells)
+    player.spellbook.extend(l2_spells)
     player.subelements[0].subelements[1].subelements[0].subelements[4].equip(wsu.RingOfMana(color="lapiz", texture="in silver"))
     player.subelements[0].equip(wsu.ManaLocket(color="lapiz", texture="in silver"))
 

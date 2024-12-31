@@ -739,6 +739,18 @@ class creature:
                 if not amount:
                     break
 
+    def heal_blood(self, amount):
+        if self.bled < amount:
+            amount = self.bled
+        self.bled -= amount
+        print(f"{C.RED}{self.name}{C.OFF} recovers {BC.RED}{amount}{BC.OFF} points of blood.")
+
+    def heal_poison(self, amount):
+        if self.poisoned < amount:
+            amount = self.poisoned
+        self.poisoned -= amount
+        print(f"{C.RED}{self.name}{C.OFF} recovers from {BC.RED}{amount}{BC.OFF} points of poisoning.")
+
     @property
     def blood(self):
         """The amount of blood a creature has is proportional to its size."""

@@ -282,3 +282,7 @@ class HealAllies(sp.Effect):
         allies = [c for c in self.creature.location.creatures if c.team == self.creature.team]
         for ally in allies:
             ally.heal(self.amount)
+            if ally.bled:
+                ally.heal_blood(1)
+            if ally.poisoned:
+                ally.heal_poison(1)
