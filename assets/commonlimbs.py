@@ -288,20 +288,20 @@ class TinyLHand(LHand):
 
 class TinyLArm(LArm):
     subelement_classes = [TinyLHand]
-    base_hp = int(LArm.base_hp / 2)
+    base_hp = int(LArm.base_hp / 3)
     size = 1
 
 class TinyFoot(Foot):
-    base_hp = int(Foot.base_hp / 2)
+    base_hp = int(Foot.base_hp / 3)
     size = 1
 
 class TinyLeg(Leg):
     subelement_classes = [TinyFoot]
-    base_hp = int(Leg.base_hp / 2)
+    base_hp = int(Leg.base_hp / 3)
     size = 1
 
 class TinyHead(Head):
-    base_hp = int(Head.base_hp / 2)
+    base_hp = int(Head.base_hp / 3)
     size = 1
 
 # Special limbs

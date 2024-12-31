@@ -272,6 +272,7 @@ class Vampirism(sp.Effect):
 
         self.vampire.heal(self.amount)
 
+
 class HealAllies(sp.Effect):
     """Heals allies for a small amount every turn. This is an aura that resides on a creature, such as a fairy."""
     amount = 2
