@@ -287,3 +287,6 @@ class HealAllies(sp.Effect):
                 ally.heal_blood(1)
             if ally.poisoned:
                 ally.heal_poison(1)
+
+
+# TODO entangle- neither casting limb nor target limb can attack until the effect expires (eg tentacles, vines)

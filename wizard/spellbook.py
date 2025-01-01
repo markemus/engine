@@ -717,7 +717,7 @@ class SwordHand(CorruptionSpell):
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
-    humanity_max = 10
+    humanity_max = 5
     description = f"Graft a disembodied limb onto a friendly creature. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
@@ -747,9 +747,9 @@ class GraftLimb(CorruptionSpell):
                     invs[i].vis_inv.remove(graft_limb)
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                     # Lowers humanity, if target is appropriate
-                    if hasattr(self.target, "humanity"):
-                        self.target.humanity -= 1
-                        print(f"{C.RED}{self.target.name}'s humanity decreases!{C.OFF}")
+                    if hasattr(self.caster, "humanity"):
+                        self.caster.humanity -= 1
+                        print(f"{C.RED}{self.caster.name}'s humanity decreases!{C.OFF}")
                     return True
         return False
 

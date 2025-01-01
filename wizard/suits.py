@@ -414,3 +414,6 @@ iron_hammer = {
     "texture_scheme": "same",
     "full": True,
 }
+
+# TODO armor that gains .1 armor every time you get hit (also changes color)
+# TODO enchantment gems- use() them on a piece of equipment to enchant it (like subelements)

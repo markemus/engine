@@ -53,6 +53,7 @@ t_game.set_char(player)
 # Character setup
 player.spellbook.append(starter_spell)
 player.spellbook.append(sb.SummonCerberus)
+player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
 # player.spellbook.append(sb.FlamingWeapons)
@@ -68,7 +69,7 @@ player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.SummonCerberus)
 # player.spellbook.append(sb.SummonEtherealHand)
 # player.spellbook.append(sb.SummonTentacleMonster)
-player.spellbook.append(sb.SummonFairy)
+# player.spellbook.append(sb.SummonFairy)
 # player.spellbook.append(sb.Stun)
 # player.spellbook.append(sb.Distract)
 # player.spellbook.append(sb.GrowFangs)
@@ -104,8 +105,8 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 # TODO disable cheats before release
-cheats.skip_level_one(player, t_game)
-cheats.skip_level_two(player, t_game)
+# cheats.skip_level_one(player, t_game)
+# cheats.skip_level_two(player, t_game)
 
 i = interface.Interface(t_game)
 # player.can_fear = False

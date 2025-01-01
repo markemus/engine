@@ -9,10 +9,11 @@ from colorist import BrightColor as BC, Color as C
 
 
 # TODO-DONE level 2- goblins and dark elf scouts fighting
-# TODO level 3- dark elf home caverns (with spider-human hybrid creatures in secondary rooms)- queen arachne fight
-# TODO level 4- underwater lake (wet environmental tag- no fire spells)
+# TODO-DONE level 3- dark elf home caverns (with spider-human hybrid creatures in secondary rooms)- queen arachne fight
+# TODO level 4- underwater lake (wet environmental tag- no fire spells). Giant mosquitos. Plants that entangle.
+#  hive fish? Octopi with shell shields and rock weapons and ink. Tentacle monsters. Mer-octopi.
 # TODO level 5- goblin town
-# TODO level 6- necromancer halls
+# TODO level 6- necromancer halls. zombies, death knights, enemies that explode on death
 # TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king)
 # TODO mirror fight- fight a mirror image of yourself and your companions.
 

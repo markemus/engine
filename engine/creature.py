@@ -6,6 +6,7 @@ from colorist import Color as C
 from colorist import BrightColor as BC
 
 # End of Loading Zone
+# TODO add can_resurrect? tag so zombies can't come back over and over
 class Limb:
     """Body parts for Creatures. Store in a list in Creature object.
 
