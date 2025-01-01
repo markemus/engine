@@ -42,3 +42,16 @@ def skip_level_two(player, game):
     player.location = game.level_list[2].start
     game.set_current_level(2)
     player.location.creatures.append(player)
+
+def skip_level_three(player, game):
+    # Cheat
+    l3_spells = random.sample(wic.level_three_spells, k=3)
+    [wic.level_three_spells.remove(s) for s in l3_spells]
+    player.spellbook.extend(l3_spells)
+    player.subelements[0].subelements[1].subelements[0].grasped = wsu.IronPoisonedScimitar(color="oily", texture="green")
+
+    # Skip
+    player.location.creatures.remove(player)
+    player.location = game.level_list[3].start
+    game.set_current_level(3)
+    player.location.creatures.append(player)

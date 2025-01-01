@@ -88,6 +88,19 @@ class Shadow(sp.Effect):
         self.limb.size = self.limb.orig_size
 
 
+class SquirtInk(sp.Effect):
+    rounds = 1
+    def _cast(self):
+        class Ink(Shadow):
+            desc = "inky"
+
+        for limb in self.creature.subelements[0].limb_check("isSurface"):
+            ink = Ink(creature=self.creature, limb=limb, controller=self.cont)
+            ink.cast()
+        print(f"{C.RED}{self.creature.name} squirts out a cloud of ink!{C.OFF}")
+        return True
+
+
 class Webbed(sp.Effect):
     """If this effect is on a limb, that limb cannot be used as an attacker or a blocker."""
     desc = "webbed"
@@ -134,6 +147,7 @@ class Fear(sp.Effect):
 
 class Might(sp.Effect):
     rounds = 10
+    desc = "bulging"
 
     def _cast(self):
         if not hasattr(self.limb, "orig_strength") and hasattr(self.limb, "strength"):
@@ -191,11 +205,17 @@ class Mastery(sp.Effect):
 
 class Bleed(sp.Effect):
     expire_on_removal = True
+    desc = "bleeding"
+
     def __init__(self, creature, limb, controller, amount=2):
         super().__init__(creature, limb, controller)
         self.amount = amount
         # More bleeding lasts for longer
         self.rounds = amount
+
+    def _cast(self):
+        if self.limb.can_bleed:
+            return True
 
     def update(self):
         self.creature.bled += self.amount
@@ -290,3 +310,25 @@ class HealAllies(sp.Effect):
 
 
 # TODO entangle- neither casting limb nor target limb can attack until the effect expires (eg tentacles, vines)
+class Entangled(sp.Effect):
+    rounds = 3
+    expire_on_removal = True
+    # Subclass and set entangling_limb
+    entangling_limb = None
+    allow_duplicates = False
+
+    def cast(self):
+        """We need custom cast() and expire() since this effect affects two limbs."""
+        if not self.allow_duplicates:
+            if sum([isinstance(x, self.__class__) and (x.entangling_limb is self.entangling_limb) for x in self.limb.active_effects]):
+                return False
+        print(f"{C.RED}{self.entangling_limb.name} and {self.limb.name} are entangled!{C.OFF}")
+        self.limb.active_effects.append(self)
+        self.entangling_limb.active_effects.append(self)
+        self.cont.game.active_spells.append(self)
+
+    def expire(self):
+        print(f"{C.RED}{self.entangling_limb.name} and {self.limb.name} separate.{C.OFF}")
+        self.limb.active_effects.remove(self)
+        self.entangling_limb.active_effects.remove(self)
+        self.cont.game.active_spells.remove(self)

@@ -1,6 +1,6 @@
 import assets.places
 import engine.place as pl
-from engine.styles import wall, floor, water, lakebed, pillar, door
+from engine.styles import wall, single_wall, floor, water, lakebed, pillar, door
 
 import assets.furniture as fur
 
@@ -8,14 +8,16 @@ import wizard.furniture
 
 from wizard.arachne import Arachne, ArachneQueen
 from wizard.cave_fish import BlindCaveFish
+from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
+from wizard.fairy import DarkElfFairy
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
 from wizard.giant_shrimp import BlindCaveShrimp
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
-from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
-from wizard.fairy import DarkElfFairy
+from wizard.octopus import CaveOctopus
 from wizard.tunnel_worm import TunnelWorm
+from wizard.tentacle_monster import TentacleMonster
 
 from assets.goblin import ShallowGoblin
 
@@ -29,6 +31,8 @@ cc = {
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
     "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (DarkElfFairy, 1), (None, 1)],
+    # "lake_4_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)]
+    "lake_4_fish": [(CaveOctopus, 5)]
 }
 
 # Player apartment rooms
@@ -164,6 +168,7 @@ class DarkElfGuardtower(pl.Place):
     subelement_classes = [wall, floor]
 
 
+# Dark Elf L3 rooms
 class DarkElfHollowedStalagmite(pl.Place):
     name = "stalagmite quarters"
     sprite = "S"
@@ -215,3 +220,28 @@ class QueensNest(pl.Place):
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     furniture_classes = [wizard.furniture.L3Chest]
     creature_classes = [[(ArachneQueen, 1)], [(DarkElfChampion, 1)], [(Arachne, 1)], [(DarkElfFairy, 1)]]
+
+
+# Lake L4 rooms
+class LakeShore(pl.Place):
+    name = "lake shore"
+    sprite = "S"
+    count = (1, 2)
+    colors = ["black", "white"]
+    textures = ["sandy"]
+    furniture_classes = []
+    subelement_classes = [single_wall, floor]
+
+class LakeTile(pl.Place):
+    name = "cave lake"
+    sprite = "L"
+    count = (5, 10)
+    colors = ["black", "wet", "murky"]
+    textures = ["dark"]
+    creature_classes = [cc["lake_4_fish"]]
+    furniture_classes = [wizard.furniture.WithyMushrooms, wizard.furniture.PadMushroom]
+    subelement_classes = [water, lakebed, wizard.furniture.Stalactite]
+    # Fire spells will fail here
+    wet = True
+
+# TODO lake doors (channels)- allow rooms to specify their own door classes optionally

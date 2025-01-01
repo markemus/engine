@@ -51,7 +51,7 @@ class ArmGrowthPotion(I.Potion):
         if torso:
             print(f"{BC.CYAN}An extra arm sprouts from {creature.name}'s {torso.name}!{BC.OFF}")
             armclass = random.choice([cl.RArm, cl.LArm])
-            torso.subelements.append(armclass(color="pale", texture="skinned"))
+            torso.subelements.append(armclass(color="pale", texture="skinned", creature=creature))
             if hasattr(creature, "humanity"):
                 creature.humanity -= 1
         else:
@@ -75,7 +75,7 @@ class LegGrowthPotion(I.Potion):
 
         if torso:
             print(f"{BC.CYAN}An extra leg sprouts from {creature.name}'s {torso.name}!{BC.OFF}")
-            torso.subelements.append(cl.Leg(color="pale", texture="skinned"))
+            torso.subelements.append(cl.Leg(color="pale", texture="skinned", creature=creature))
             if hasattr(creature, "humanity"):
                 creature.humanity -= 1
         else:
@@ -98,7 +98,7 @@ class TentacleGrowthPotion(I.Potion):
 
         if head:
             print(f"{BC.CYAN}Tentacles sprout from {creature.name}'s {head.name}!{BC.OFF}")
-            head.subelements.append(cl.PTentacle(color="green", texture="slimy"))
+            head.subelements.append(cl.PTentacle(color="green", texture="slimy", creature=creature))
             if hasattr(creature, "humanity"):
                 creature.humanity -= 1
         else:

@@ -30,6 +30,9 @@ class wall(pl.Element):
     name = "wall"
     count = (4, 5)
 
+class single_wall(wall):
+    count = (1, 2)
+
 class pillar(pl.Element):
     name = "pillar"
     count = (8, 9)

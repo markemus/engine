@@ -27,10 +27,14 @@ class Limb:
     # Effects will be cast before battle begins (if they aren't already active)
     passive_effects = []
     can_heal = True
+    can_bleed = True
 
-    def __init__(self, color="d_color", texture="d_texture"):
+    def __init__(self, color, texture, creature=None):
         self.color = color
         self.texture = texture
+        # TODO-DONE add creature to tentacle and limb growth potions
+        # TODO zombies should display creature class of baseElem
+        self.creature = creature
         self.subelements = []
         self._elementGen()
         self.equipment = []
@@ -66,7 +70,7 @@ class Limb:
                     texture = self.texture
 
                 for count in range(countRange):
-                    elem = elemclass(color, texture)
+                    elem = elemclass(color, texture, self.creature)
                     self.subelements.append(elem)
 
     def desc(self, full=True, offset=0, stats=True):
@@ -356,7 +360,7 @@ class creature:
         self.companions = []
 
     def _elementGen(self):
-        baseElem = self.baseElem(self.color, self.texture)
+        baseElem = self.baseElem(self.color, self.texture, self)
         self.subelements = [baseElem]
 
     def _clothe(self):

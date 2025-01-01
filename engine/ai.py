@@ -1,19 +1,28 @@
 import random
 
+import engine.effectsbook as eff
+
 
 class CombatAI:
     def __init__(self, creature):
         self.creature = creature
         self.target = None
 
-    def target_creature(self):
+    def target_creature(self, weapon):
         targets = []
+        entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
 
-        if not self.target or self.target.dead:
+        if not self.target or self.target.dead or entanglements:
             # Gather targets
             for creature in self.get_enemy_creatures():
                 if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):
                     targets.append(creature)
+
+            # If weapon is entangled, must target entangler
+            if entanglements:
+                targets = []
+                for entanglement in entanglements:
+                    targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.creature])
 
             # Pick
             if len(targets) > 0:
@@ -24,7 +33,7 @@ class CombatAI:
 
         return self.target
 
-    def target_limb(self, target):
+    def target_limb(self, target, attacking_weapon):
         best_weapon = None
         easiest_vital = None
         easiest_foot = None
@@ -58,6 +67,14 @@ class CombatAI:
             if target.limb_count("amble") >= 1:
                 target_limbs.append(easiest_foot)
 
+        entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
+        if entanglements:
+            # print(entanglements)
+            # Can only attack limbs weapon is entangled with
+            target_limbs = []
+            for entanglement in entanglements:
+                target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
+
         if target_limbs:
             # This way enemies will switch targets instead of relentlessly hammering down the best target
             chosen = random.choice(target_limbs)
@@ -66,7 +83,7 @@ class CombatAI:
             chosen = random.choice(limbs)
 
         # Small chance AI will target a random limb (just to keep things fun and give a purpose for armor everywhere)
-        if not random.randint(0, 5):
+        if not random.randint(0, 5) and not entanglements:
             # AI critical failure
             chosen = random.choice(limbs)
 

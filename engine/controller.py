@@ -1,6 +1,8 @@
 import random
 import textwrap
 
+import engine.effectsbook as eff
+
 from colorist import BrightColor as BC, Color as C
 from engine import combat
 from engine import creature
@@ -223,8 +225,14 @@ class Controller:
                             eff = Effect(creature=creature, limb=limb, controller=self)
                             eff.cast()
 
-    def pick_target(self):
+    def pick_target(self, weapon):
         enemylist = self.game.char.ai.get_enemy_creatures()
+        entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
+        if entanglements:
+            enemylist = []
+            for entanglement in entanglements:
+                enemylist.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.game.char])
+
         targets = utils.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
 
@@ -259,9 +267,15 @@ class Controller:
                 print(f"{C.RED}{i} is not a recognized weapon! You must pick a weapon.{C.OFF}")
         return weapon
 
-    def pick_limb(self, defender):
-        # limblist = combat.get_target_limbs(defender)
+    def pick_limb(self, defender, weapon):
         limblist = defender.subelements[0].limb_check("isSurface")
+        entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
+        if entanglements:
+            # Can only attack limbs weapon is entangled with
+            limblist = []
+            for entanglement in entanglements:
+                limblist.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not weapon and x.creature is defender])
+
         limbs = utils.listtodict(limblist)
         limbs["x"] = "Withhold your blow."
 

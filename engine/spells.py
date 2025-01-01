@@ -41,7 +41,9 @@ class Effect:
     # Effects may define a "desc" attribute that will be added to limb.desc()
     desc = None
     rounds = None
+    # TODO expire_on_removal doesn't work if effect happens after limb is removed
     expire_on_removal = False
+    allow_duplicates = True
 
     def __init__(self, creature, limb, controller):
         self.creature = creature
@@ -51,6 +53,10 @@ class Effect:
     def cast(self):
         """Effects can implement a _cast() method. This will be called when the effect is first applied, similar to
         a spell."""
+        if not self.allow_duplicates:
+            if sum([isinstance(x, self.__class__) for x in self.limb.active_effects]):
+                return False
+
         if self._cast():
             self.limb.active_effects.append(self)
             self.cont.game.active_spells.append(self)

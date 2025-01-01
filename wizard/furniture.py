@@ -218,3 +218,15 @@ class Anvil(pl.Furniture):
     count = (1, 2)
     color = ["black", "matte"]
     texture = ["steel", "iron"]
+
+class WithyMushrooms(pl.Furniture):
+    name = "withy mushroom"
+    count = (1, 6)
+    color = ["white"]
+    texture = ["tall"]
+
+class PadMushroom(pl.Furniture):
+    name = "pad mushroom"
+    count = (1, 6)
+    color = ["white"]
+    texture = ["round"]

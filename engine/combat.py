@@ -80,17 +80,17 @@ class Combat:
 
         if actor is self.char:
             print(f"{C.RED}\nYou prepare to strike with your {weapon.name}.{C.OFF}")
-            target = self.cont.pick_target()
+            target = self.cont.pick_target(weapon)
         else:
             # Selects a nearby enemy at random
-            target = actor.ai.target_creature()
+            target = actor.ai.target_creature(weapon)
 
         if target:
             if actor.limb_count("see") >= 1:
                 if actor is self.char:
-                    limb = self.cont.pick_limb(target)
+                    limb = self.cont.pick_limb(target, weapon)
                 else:
-                    limb = actor.ai.target_limb(target)
+                    limb = actor.ai.target_limb(target, weapon)
             else:
                 # blind fighting
                 print(f"\n{C.RED}{actor.name}{C.OFF} attacks blindly with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
@@ -108,7 +108,7 @@ class Combat:
             print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
-            if (target.limb_count("see") >= 1) and not target.stunned:
+            if (target.limb_count("see") >= 1) and not target.stunned and not sum([isinstance(x, eff.Entangled) for x in limb.active_effects]):
                 blockers = self.blockers[target].copy()
                 # Can't block with webbed blocker
                 blockers = [b for b in blockers if eff.Webbed not in [e.__class__ for e in b.active_effects]]
@@ -128,8 +128,12 @@ class Combat:
                         print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
                 else:
                     print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
-            else:
+            elif target.limb_count("see") < 1:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} cannot see the blow coming.")
+            elif target.stunned:
+                print(f"{BC.YELLOW}{target.name}{BC.OFF} is stunned and cannot stop the blow.")
+            elif sum([isinstance(x, eff.Entangled) for x in limb.active_effects]):
+                print(f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} is entangled and cannot be helped!")
 
             # Masters have a higher to-hit roll
             mastery = actor.mastery if hasattr(actor, "mastery") else 0
@@ -267,8 +271,9 @@ class Combat:
         damage = self.check_damage(weapon, actor, limb)
         # Damage roll
         damage = round(random.random() * damage, 2)
-        self.apply_damage(defender, limb, damage)
-        self.apply_effects(defender, limb, weapon)
+        cutoff = self.apply_damage(defender, limb, damage)
+        if not cutoff:
+            self.apply_effects(defender, limb, weapon)
 
     # TODO-DONE webbed should remove the limb from blockers? Currently doesn't update until the next combat cycle.
     def get_blockers(self, actor):
