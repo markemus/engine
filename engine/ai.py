@@ -167,3 +167,44 @@ class CombatAI:
         targets = [c for c in targets if c.team == self.creature.team or c.team == "neutral"]
 
         return targets
+
+
+class PestAI(CombatAI):
+    def target_creature(self, weapon):
+        """Pests switch targets from round to round instead of focusing on one target."""
+        targets = []
+        entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
+
+        # Gather targets
+        for creature in self.get_enemy_creatures():
+            if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):
+                targets.append(creature)
+
+        # If weapon is entangled, must target entangler
+        if entanglements:
+            targets = []
+            for entanglement in entanglements:
+                targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.creature])
+
+        # Pick
+        if len(targets) > 0:
+            self.target = random.choice(targets)
+        else:
+            self.target = None
+
+        return self.target
+
+    def target_limb(self, target, attacking_weapon):
+        """Pests just want to attack something, they don't care what."""
+        target_limbs = target.subelements[0].limb_check("isSurface")
+        entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
+
+        if entanglements:
+            # Can only attack limbs weapon is entangled with
+            target_limbs = []
+            for entanglement in entanglements:
+                target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
+
+        chosen = random.choice(target_limbs)
+
+        return chosen

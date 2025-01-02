@@ -298,12 +298,15 @@ class SuckBlood(sp.Effect):
     rounds = 1
 
     def _cast(self):
-        self.creature.bled += self.amount
-        print(f"{C.RED}It drinks {self.creature.name}'s blood!{C.OFF}")
-        if self.creature.bled > self.creature.blood / 2:
-            print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
-        if self.creature.bled >= self.creature.blood:
-            self.creature.die()
+        if self.limb.can_bleed:
+            self.creature.bled += self.amount
+            print(f"{C.RED}It drinks {self.creature.name}'s blood!{C.OFF}")
+            if self.creature.bled > self.creature.blood / 2:
+                print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
+            if self.creature.bled >= self.creature.blood:
+                self.creature.die()
+        else:
+            print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to suck.{C.OFF}")
 
 
 class HealAllies(sp.Effect):
@@ -322,9 +325,9 @@ class HealAllies(sp.Effect):
                 ally.heal_poison(1)
 
 
-# TODO entangle- neither casting limb nor target limb can attack until the effect expires (eg tentacles, vines)
+# TODO-DONE entangle- neither casting limb nor target limb can attack until the effect expires (eg tentacles, vines)
 class Entangled(sp.Effect):
-    rounds = 3
+    rounds = 4
     expire_on_removal = True
     # Subclass and set entangling_limb
     entangling_limb = None

@@ -3,6 +3,8 @@ import engine.effectsbook as eff
 
 import assets.commonlimbs as cl
 
+from engine import ai
+
 
 class Proboscis(cr.Weapon):
     name = "proboscis"
@@ -65,9 +67,13 @@ class Thorax(cr.Limb):
 
 class GiantMosquito(cr.creature):
     classname = "giant mosquito"
-    team = "monster"
+    team = "pest"
     namelist = ["giant mosquito"]
     baseElem = Thorax
     colors = ["black", "tan", "brown"]
     textures = ["haired"]
     suits = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ai = ai.PestAI(creature=self)

@@ -7,11 +7,11 @@ import wizard.places
 
 from colorist import BrightColor as BC, Color as C
 
-
-# TODO level 4- underwater lake (wet environmental tag- no fire spells). Giant mosquitos. Plants that entangle.
+# TODO only one new spell per level
+# TODO level 4- underwater lake (wet environmental tag- no fire spells). Giant mosquitos.
 #  Octopi with shell shields and rock weapons and ink. Tentacle monsters.
-# TODO level 5- goblin town
-# TODO level 6- necromancer halls. zombies, death knights, enemies that explode on death
+# TODO level 5- necromancer halls. zombies, death knights, enemies that explode on death
+# TODO level 6- goblin town
 # TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king)
 # TODO mirror fight- fight a mirror image of yourself and your companions.
 

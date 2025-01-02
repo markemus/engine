@@ -31,7 +31,7 @@ class Head(cr.Limb):
 
 class CaveOctopus(cr.creature):
     classname = "cave octopus"
-    team = "prey"
+    team = "squids"
     namelist = nl.names["octopus"]
     baseElem = Head
     colors = ["red", "yellow", "magenta", "blue", "cyan", "green"]

@@ -22,7 +22,7 @@ class TentacleMonster(cr.creature):
     """A giant tentacle monster. This creature cannot move but is extremely dangerous."""
     classname = "tentacle monster"
     namelist = nl.names["eldritch"]
-    team = "monster"
+    team = "squids"
     can_breathe = False
     can_stun = False
     baseElem = Trunk
