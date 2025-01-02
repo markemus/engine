@@ -238,7 +238,7 @@ class Combat:
                             bleed.cast()
 
                         # Expire limb effects
-                        for effect in limb.active_effects:
+                        for effect in limb.active_effects.copy():
                             if effect.expire_on_removal:
                                 effect.expire()
 
