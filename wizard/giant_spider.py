@@ -20,20 +20,21 @@ class Eye(cr.Limb):
     colors = ["oily", "pitch"]
     textures = ["black"]
 
-class Fangs(cl.Teeth):
+class Fang(cl.Teeth):
     name = "fangs"
+    appendageRange = (2, 3)
     wears = "fangs"
     _damage = 10
     # weapon effects are applied when the weapon strikes
-    weapon_effects = [eff.Webbed, eff.Poison]
+    weapon_effects = [eff.Poison]
 
 class Jaw(cr.Limb):
     name = "jaw"
-    subelement_classes = [Fangs]
+    subelement_classes = [Fang]
     isSurface = True
     appendageRange = (1, 2)
     wears = "mouth"
-    base_hp = 5
+    base_hp = 7
     size = 1
     eats = 1
     strength = 1
@@ -58,9 +59,16 @@ class Leg(cr.Limb):
     size = 2
     amble = 1/4
 
+class Spinneret(cr.Weapon):
+    name = "spinneret"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (2, 3)
+    weapon_effects = [eff.Webbed]
+
 class Abdomen(cr.Limb):
     name = "abdomen"
-    subelement_classes = []
+    subelement_classes = [Spinneret]
     isSurface = True
     appendageRange = (1, 2)
     wears = "spider_abdomen"

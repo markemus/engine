@@ -9,7 +9,7 @@ class Teeth(cr.Weapon):
     subelement_classes = []
     _damage = 3
     appendageRange = (1, 2)
-    wears = "fangs"
+    wears = "fang"
     base_hp = 5
     size = 1
     colors = ["yellow"]

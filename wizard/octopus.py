@@ -6,12 +6,12 @@ import assets.namelists as nl
 
 
 class Tentacle(cl.Tentacle):
-    _damage = 20
     base_hp = 15
     size = 3
     appendageRange = (8, 9)
     amble = 1
-    # TODO-DONE entangle effect
+    _damage = 20
+
 
 class Head(cr.Limb):
     name = "head"

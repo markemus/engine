@@ -104,7 +104,7 @@ class SquirtInk(sp.Effect):
 class Webbed(sp.Effect):
     """If this effect is on a limb, that limb cannot be used as an attacker or a blocker."""
     desc = "webbed"
-    rounds = 3
+    rounds = 5
 
     def _cast(self):
         if not hasattr(self.limb, "orig_amble") and hasattr(self.limb, "amble"):

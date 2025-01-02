@@ -5,13 +5,14 @@ import castle.commonlimbs as cl
 import castle.namelists as nm
 
 
-class Fangs(cl.Teeth):
-    name = "fangs"
+class Fang(cl.Teeth):
+    name = "fang"
+    appendageRange = (2, 3)
     _damage = 10
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Nose, Fangs, cl.Tongue]
+    subelement_classes = [cl.Nose, Fang, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"

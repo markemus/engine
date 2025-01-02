@@ -10,7 +10,7 @@ class Tentacle(cl.Tentacle):
     _damage = 30
     base_hp = 15
 
-class Torso(cr.Limb):
+class Trunk(cr.Limb):
     name = "trunk"
     subelement_classes = [Tentacle]
     size = 2
@@ -24,11 +24,7 @@ class TentacleMonster(cr.creature):
     team = "monster"
     can_breathe = False
     can_stun = False
-    baseElem = Torso
+    baseElem = Trunk
     colors = ["black", "green", "gray"]
     textures = ["smooth", "slimy"]
     suits = []
-
-    # def leave(self, direction):
-    #     """Tentacle monsters have amble (so they don't fall over) but they can't actually move."""
-    #     print(f"{C.RED}{self.name} cannot move.{C.OFF}")

@@ -100,7 +100,7 @@ class LightHelm(i.Item):
     covers["animal_head"] = True
     covers["spider_head"] = True
     covers["snout"] = True
-    covers["fangs"] = True
+    covers["fang"] = True
     armor = 2
     level = 3
     descends = 2

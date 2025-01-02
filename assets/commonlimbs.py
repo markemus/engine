@@ -248,6 +248,7 @@ class Tentacle(cr.Weapon):
     base_hp = 5
     size = 2
     strength = 1
+    _damage = 10
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         class Entangled(eff.Entangled):

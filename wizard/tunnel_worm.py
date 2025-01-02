@@ -5,7 +5,7 @@ class Teeth(cr.Weapon):
     subelement_classes = []
     _damage = 10
     appendageRange = (1, 2)
-    wears = "fangs"
+    wears = "fang"
     base_hp = 8
     size = 1
     colors = ["white"]
@@ -15,6 +15,7 @@ class Maw(cr.Limb):
     name = "maw"
     subelement_classes = [Teeth]
     appendageRange = (1, 2)
+    wears = "mouth"
     base_hp = 10
     size = 2
     strength = 1
@@ -23,6 +24,7 @@ class Tube(cr.Limb):
     name = "tube"
     subelement_classes = [Maw]
     appendageRange = (1, 2)
+    wears = "animal_body"
     base_hp = 20
     size = 3
     amble = 1

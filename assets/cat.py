@@ -4,11 +4,11 @@ import engine.creature as cr
 import assets.commonlimbs as cl
 import assets.namelists as nm
 
-class Fangs(cr.Weapon):
-    name = "fangs"
+class Fang(cr.Weapon):
+    name = "fang"
     subelement_classes = []
     _damage = 8
-    appendageRange = (1, 2)
+    appendageRange = (2, 3)
     wears = "fangs"
     base_hp = 3
     size = 1
@@ -17,7 +17,7 @@ class Fangs(cr.Weapon):
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [cl.Nose, Fangs, cl.Tongue]
+    subelement_classes = [cl.Nose, Fang, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"

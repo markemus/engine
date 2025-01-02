@@ -4,12 +4,12 @@ import engine.effectsbook as eff
 import assets.commonlimbs as cl
 
 
-class Fangs(cr.Weapon):
+class Fang(cr.Weapon):
     name = "fangs"
     subelement_classes = []
     _damage = 3
-    appendageRange = (1, 2)
-    wears = "fangs"
+    appendageRange = (2, 3)
+    wears = "fang"
     base_hp = 5
     size = 1
     colors = ["yellow"]
@@ -17,7 +17,7 @@ class Fangs(cr.Weapon):
 
 class Snout(cr.Limb):
     name = "snout"
-    subelement_classes = [Fangs, cl.Tongue]
+    subelement_classes = [Fang, cl.Tongue]
     isSurface = True
     appendageRange = (1, 2)
     wears = "snout"
