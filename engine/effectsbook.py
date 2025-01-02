@@ -293,6 +293,19 @@ class Vampirism(sp.Effect):
         self.vampire.heal(self.amount)
 
 
+class SuckBlood(sp.Effect):
+    amount = 5
+    rounds = 1
+
+    def _cast(self):
+        self.creature.bled += self.amount
+        print(f"{C.RED}It drinks {self.creature.name}'s blood!{C.OFF}")
+        if self.creature.bled > self.creature.blood / 2:
+            print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
+        if self.creature.bled >= self.creature.blood:
+            self.creature.die()
+
+
 class HealAllies(sp.Effect):
     """Heals allies for a small amount every turn. This is an aura that resides on a creature, such as a fairy."""
     amount = 2

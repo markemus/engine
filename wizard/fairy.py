@@ -16,7 +16,7 @@ class PointyEar(cr.Limb):
     base_hp = 3
     size = 1
 
-class FairyWings(cr.Limb):
+class FairyWing(cr.Limb):
     name = "wing"
     subelement_classes = []
     appendageRange = (2, 3)
@@ -38,7 +38,7 @@ class TinyHead(cr.Limb):
 
 class FairyTorso(cr.Limb):
     name = "torso"
-    subelement_classes = [TinyHead, FairyWings, cl.TinyRArm, cl.TinyLArm, cl.TinyLeg]
+    subelement_classes = [TinyHead, FairyWing, cl.TinyRArm, cl.TinyLArm, cl.TinyLeg]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

@@ -12,6 +12,7 @@ from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
 from wizard.fairy import DarkElfFairy
 from wizard.giant_rat import GiantRat
 from wizard.giant_bat import GiantBat
+from wizard.giant_mosquito import GiantMosquito
 from wizard.giant_shrimp import BlindCaveShrimp
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog
@@ -31,8 +32,8 @@ cc = {
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
     "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (DarkElfFairy, 1), (None, 1)],
-    # "lake_4_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)]
-    "lake_4_fish": [(CaveOctopus, 5)]
+    "lake_4_big_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)],
+    "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (GiantMosquito, 1), (None, 1)],
 }
 
 # Player apartment rooms
@@ -238,7 +239,7 @@ class LakeTile(pl.Place):
     count = (5, 10)
     colors = ["black", "wet", "murky"]
     textures = ["dark"]
-    creature_classes = [cc["lake_4_fish"]]
+    creature_classes = [cc["lake_4_big_fish"], cc["lake_4_big_fish"], cc["lake_4_small_fish"], cc["lake_4_small_fish"]]
     furniture_classes = [wizard.furniture.WithyMushrooms, wizard.furniture.PadMushroom]
     subelement_classes = [water, lakebed, wizard.furniture.Stalactite]
     # Fire spells will fail here

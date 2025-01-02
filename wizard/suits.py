@@ -44,8 +44,10 @@ class LightBreastplate(i.Item):
     covers["body"] = True
     canwear["animal_body"] = True
     covers["animal_body"] = True
+    covers["animal_abdomen"] = True
     canwear["spider_body"] = True
     covers["spider_body"] = True
+    covers["spider_abdomen"] = True
     armor = 2
     level = 3
     descends = 0
@@ -111,6 +113,7 @@ class SpiderBronzeBreastplate(i.Item):
     covers = i.Item.covers.copy()
     canwear["spider_body"] = True
     covers["spider_body"] = True
+    covers["spider_abdomen"] = True
     descends = 0
     level = 3
     armor = 1

@@ -58,9 +58,18 @@ class Leg(cr.Limb):
     size = 2
     amble = 1/4
 
-class Torso(cr.Limb):
-    name = "body"
-    subelement_classes = [Head, Leg]
+class Abdomen(cr.Limb):
+    name = "abdomen"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "spider_abdomen"
+    base_hp = 20
+    size = 3
+
+class Thorax(cr.Limb):
+    name = "thorax"
+    subelement_classes = [Head, Leg, Abdomen]
     isSurface = True
     appendageRange = (1, 2)
     wears = "spider_body"
@@ -71,7 +80,7 @@ class GiantSpider(cr.creature):
     classname = "giant spider"
     team = "dark elf"
     namelist = nl.names["spider"]
-    baseElem = Torso
+    baseElem = Thorax
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
     suits = []

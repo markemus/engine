@@ -33,6 +33,8 @@ class Tentacle(cr.Limb):
     textures = []
 """
 import engine.creature as cr
+import engine.effectsbook as eff
+
 
 class Hair(cr.Limb):
     name = "hair"
@@ -246,6 +248,12 @@ class Tentacle(cr.Weapon):
     base_hp = 5
     size = 2
     strength = 1
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        class Entangled(eff.Entangled):
+            entangling_limb = self
+        self.weapon_effects = [Entangled]
+
 
 # Small limbs- for smaller creatures
 class SmallRHand(RHand):
