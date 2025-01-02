@@ -59,8 +59,7 @@ class DarkElfL3:
 
 class LakeL4:
     level_text = f"""{BC.BLUE}Below the fortress of the dark elves you encounter a shallow lake. Mysterious colored lights flash in the distance as you wade out into the darkness. Whatever it is that is doing that, you hope you won't encounter them.{BC.OFF}"""
-    # room_classes = [wizard.places.LakeTile]
-    room_classes = []
+    room_classes = [wizard.places.LakeTile]
     start_room = wizard.places.LakeShore
     end_room = wizard.places.MirrorLake
     creature_classes = []
