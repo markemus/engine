@@ -352,7 +352,8 @@ class TheFloorIsLava(CreationSpell):
             else:
                 limbs = enemy.subelements[0].limb_check("isSurface")
             for limb in limbs:
-                if eff.FireDOT not in [e.__class__ for e in limb.active_effects]:
+                # if eff.FireDOT not in [e.__class__ for e in limb.active_effects]:
+                if not sum([isinstance(e, eff.FireDOT) for e in limb.active_effects]):
                     fire = eff.FireDOT(creature=enemy, limb=limb, controller=self.cont)
                     fire.cast()
 
