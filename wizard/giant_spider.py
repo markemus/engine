@@ -64,6 +64,7 @@ class Spinneret(cr.Weapon):
     subelement_classes = []
     isSurface = True
     appendageRange = (2, 3)
+    _damage = 0
     weapon_effects = [eff.Webbed]
 
 class Abdomen(cr.Limb):

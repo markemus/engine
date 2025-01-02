@@ -1,5 +1,7 @@
 """Half spider, half human hybrid."""
 import engine.creature as cr
+import engine.effectsbook as eff
+
 import assets.commonlimbs as cl
 import assets.namelists as nl
 
@@ -40,9 +42,26 @@ class Leg(cr.Limb):
     size = 2
     amble = 1/4
 
-class SpiderTorso(cr.Limb):
-    name = "body"
-    subelement_classes = [Torso, Leg]
+class Spinneret(cr.Weapon):
+    name = "spinneret"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (2, 3)
+    _damage = 0
+    weapon_effects = [eff.Webbed]
+
+class Abdomen(cr.Limb):
+    name = "abdomen"
+    subelement_classes = [Spinneret]
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "spider_abdomen"
+    base_hp = 20
+    size = 3
+
+class Thorax(cr.Limb):
+    name = "thorax"
+    subelement_classes = [Torso, Leg, Abdomen]
     isSurface = True
     appendageRange = (1, 2)
     wears = "spider_body"
@@ -53,7 +72,7 @@ class Arachne(cr.creature):
     classname = "arachne"
     team = "dark elf"
     namelist = nl.names["spider"]
-    baseElem = SpiderTorso
+    baseElem = Thorax
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
     suits = [wsu.partial_spider_bronze_suit, asu.partial_bronze_armorsuit, wsu.iron_poisonsword]
