@@ -231,10 +231,15 @@ class levelGenerator:
 
     def connectRooms(self, room1, room2):
         """Add a door connecting room_1 to previous room room_2 (or to nothing if there is no previous room)."""
-        color = random.choice(styles.door.colors)
-        texture = random.choice(styles.door.textures)
+        if hasattr(room1, "door_class"):
+            door_class = room1.door_class
+        else:
+            door_class = styles.door
 
-        door = styles.door(color, texture)
+        color = random.choice(door_class.colors)
+        texture = random.choice(door_class.textures)
+
+        door = door_class(color, texture)
         
         door.addBorder(room1)
         room1.addElement(door)

@@ -58,6 +58,13 @@ class door(pl.Element):
     colors = ["red", "blue", "white", "black", "green", "yellow", "purple", "orange"]
     textures = ["painted"]
 
+class channel(pl.Element):
+    name = "channel"
+    sprite = "O"
+    printcolor = C.RED
+    colors = ["black", "dark", "murky"]
+    textures = ["shallow", "watery"]
+
 def weight_list(clist, weight):
     """Reweights elements in a creature list in preparation for joining with another creature list.
     e.g. creature_list = weight_list(d_creature_lists["caves"], 3) + d_creature_lists["city"]"""

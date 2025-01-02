@@ -1,6 +1,6 @@
 import assets.places
 import engine.place as pl
-from engine.styles import wall, single_wall, floor, water, lakebed, pillar, door
+from engine.styles import wall, single_wall, floor, water, lakebed, pillar, door, channel
 
 import assets.furniture as fur
 
@@ -214,6 +214,7 @@ class DarkElfEntrance(pl.Place):
     creature_classes = []
     furniture_classes = []
 
+
 class QueensNest(pl.Place):
     name = "queen's lair"
     sprite = "Q"
@@ -235,6 +236,7 @@ class LakeShore(pl.Place):
     furniture_classes = []
     subelement_classes = [single_wall, floor]
 
+
 class LakeTile(pl.Place):
     name = "cave lake"
     sprite = "L"
@@ -246,5 +248,6 @@ class LakeTile(pl.Place):
     subelement_classes = [water, lakebed, wizard.furniture.Stalactite]
     # Fire spells will fail here
     wet = True
+    door_class = channel
 
-# TODO lake doors (channels)- allow rooms to specify their own door classes optionally
+# TODO-DONE lake doors (channels)- allow rooms to specify their own door classes optionally
