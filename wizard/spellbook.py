@@ -390,9 +390,11 @@ class SummonCerberus(CreationSpell):
         cerberus = assets.dog.Cerberus(location=self.target.location)
         cerberus.mana_cost = self.mana_cost
         cerberus.team = self.caster.team
-        self.target.location.creatures.append(cerberus)
-        self.caster.companions.append(cerberus)
+
         print(f"{BC.MAGENTA}A loyal {C.RED}cerberus{BC.MAGENTA} appears!{BC.OFF}")
+        self.target.location.addCreature(cerberus)
+        self.caster.companions.append(cerberus)
+
         if hasattr(self.target, "humanity"):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
@@ -411,9 +413,11 @@ class SummonSpider(CreationSpell):
         spider = giant_spider.GiantSpider(location=self.target.location)
         spider.mana_cost = self.mana_cost
         spider.team = self.caster.team
-        self.target.location.creatures.append(spider)
-        self.caster.companions.append(spider)
+
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} appears!{BC.OFF}")
+        self.target.location.addCreature(spider)
+        self.caster.companions.append(spider)
+
         if hasattr(self.target, "humanity"):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
@@ -432,9 +436,11 @@ class SummonEtherealHand(CreationSpell):
         hand = ethereal_hand.EtherealHand(location=self.target.location)
         hand.mana_cost = self.mana_cost
         hand.team = self.caster.team
-        self.target.location.creatures.append(hand)
-        self.caster.companions.append(hand)
+
         print(f"{BC.MAGENTA}A flying {C.RED}ethereal hand{BC.MAGENTA} appears!{BC.OFF}")
+        self.target.location.addCreature(hand)
+        self.caster.companions.append(hand)
+
         if hasattr(self.target, "humanity"):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
@@ -451,11 +457,10 @@ class SummonTentacleMonster(CreationSpell):
     def _cast(self):
         tm = tentacle_monster.TentacleMonster(location=self.target.location)
         tm.team = self.caster.team
-        # tm.mana_cost = self.mana_cost
-        # self.tm = tm
-        self.target.location.creatures.append(tm)
-        # self.caster.companions.append(tm)
+
         print(f"{BC.MAGENTA}A gigantic {C.RED}tentacle monster{BC.MAGENTA} appears!{BC.OFF}")
+        self.target.location.addCreature(tm)
+
         return True
 
 
@@ -471,11 +476,11 @@ class SummonFairy(CreationSpell):
         f = fairy.Fairy(location=self.target.location)
         f.mana_cost = self.mana_cost
         f.team = self.caster.team
-        # aura = eff.HealAllies(creature=f, limb=f.subelements[0], controller=self.cont)
-        # aura.cast()
-        self.target.location.creatures.append(f)
-        self.caster.companions.append(f)
+
         print(f"{BC.MAGENTA}A tiny {C.RED}fairy{BC.MAGENTA} appears!{BC.OFF}")
+        self.target.location.addCreature(f)
+        self.caster.companions.append(f)
+
         if hasattr(self.target, "humanity"):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")

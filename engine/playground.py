@@ -1,14 +1,33 @@
 import collections
+import copy
 import random
 from colorist import Color as C, BrightColor as BC
 
 
-class Test:
-    humanity_max = 10
-    mana_cost = 5
-    @property
-    def cost(self):
-        return f"{BC.RED}(<{self.humanity_max}) {BC.CYAN}[{self.mana_cost}]{BC.OFF}"
+class BottomLayer:
+    def __init__(self):
+        self.one = 1
+        self.two = 2
+
+class MiddleLayer:
+    def __init__(self):
+        test_lower = BottomLayer()
+        self.lower = [test_lower]
+        self.lower2 = [test_lower]
+
+class TopLayer:
+    def __init__(self):
+        self.lower = [MiddleLayer()]
+
+t = TopLayer()
+t2 = copy.deepcopy(t)
+
+# class Test:
+#     humanity_max = 10
+#     mana_cost = 5
+#     @property
+#     def cost(self):
+#         return f"{BC.RED}(<{self.humanity_max}) {BC.CYAN}[{self.mana_cost}]{BC.OFF}"
 
 # class ChangingPassword(object):
 #     def __init__(self, username, password):

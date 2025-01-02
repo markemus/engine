@@ -46,6 +46,11 @@ class water(pl.Element):
     name = "water"
     count = (1, 2)
 
+class mirrored_water(pl.Element):
+    name = "water"
+    count = (1, 2)
+    canCatch = True
+
 class lakebed(pl.Platform):
     name = "lakebed"
     count = (1, 2)

@@ -1,6 +1,8 @@
+import copy
+
 import assets.places
 import engine.place as pl
-from engine.styles import wall, single_wall, floor, water, lakebed, pillar, door, channel
+from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel
 
 import assets.furniture as fur
 
@@ -23,6 +25,7 @@ from wizard.tentacle_monster import TentacleMonster
 
 from assets.goblin import ShallowGoblin
 
+from colorist import BrightColor as BC, Color as C
 
 cc = {
     "caverns_1": [(GiantRat, 3), (GiantBat, 3), (ShallowGoblin, 4), (None, 2)],
@@ -249,5 +252,33 @@ class LakeTile(pl.Place):
     # Fire spells will fail here
     wet = True
     door_class = channel
+
+
+class MirrorLake(pl.Place):
+    name = "mirror lake"
+    sprite = "M"
+    count = (1, 2)
+    colors = ["glassy"]
+    textures = ["mirrored"]
+    creature_classes = []
+    furniture_classes = []
+    subelement_classes = [mirrored_water]
+    wet = True
+    door_class = channel
+    mirrored_creatures = []
+
+    def addCreature(self, creature):
+        """Creates mirror fight."""
+        if creature not in self.creatures:
+            self.creatures.append(creature)
+            if creature not in self.mirrored_creatures:
+                copied = copy.deepcopy(creature)
+                copied.team = "mirrored"
+                self.creatures.append(copied)
+                self.mirrored_creatures.append(creature)
+                copied.location = self
+                copied.classname = "reflected " + copied.classname
+                copied.name = copied.name + "'s reflection"
+                print(f"{BC.MAGENTA}{creature.name}'s reflection rises up from the mirrored surface!{BC.OFF}")
 
 # TODO-DONE lake doors (channels)- allow rooms to specify their own door classes optionally

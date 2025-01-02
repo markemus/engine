@@ -134,7 +134,7 @@ class Place:
             self.elements.remove(element)
 
     def addCreature(self, creature):
-        if not creature in self.creatures:
+        if creature not in self.creatures:
             self.creatures.append(creature)
 
     def removeCreature(self, creature):
