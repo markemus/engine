@@ -21,9 +21,9 @@ class Eye(cr.Limb):
     textures = ["black"]
 
 class Fang(cl.Teeth):
-    name = "fangs"
+    name = "fang"
     appendageRange = (2, 3)
-    wears = "fangs"
+    wears = "fang"
     _damage = 10
     # weapon effects are applied when the weapon strikes
     weapon_effects = [eff.Poison]

@@ -8,6 +8,16 @@ class CombatAI:
         self.creature = creature
         self.target = None
 
+    def pick_weapon(self, weapons):
+        random.shuffle(weapons)
+        best_weapon = max(weapons, key=lambda x: x.damage[0])
+        weapons_effects = [w for w in weapons if w.damage[1].weapon_effects]
+
+        # Best weapon is twice as likely to be selected, but we'll get effects as well
+        weapon = random.choice(weapons_effects + [best_weapon])
+
+        return weapon
+
     def target_creature(self, weapon):
         targets = []
         entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]

@@ -61,9 +61,10 @@ class Combat:
                     if actor is self.char:
                         weapon = self.cont.pick_weapon(weapons)
                     else:
-                        # AI shouldn't favor one weapon if multiple are equal- makes for better gameplay.
-                        random.shuffle(weapons)
-                        weapon = max(weapons, key=lambda x: x.damage[0])
+                        weapon = actor.ai.pick_weapon(weapons)
+                        # # AI shouldn't favor one weapon if multiple are equal- makes for better gameplay.
+                        # random.shuffle(weapons)
+                        # weapon = max(weapons, key=lambda x: x.damage[0])
 
                     # Attack
                     used = self.combatRound(actor, weapon)
