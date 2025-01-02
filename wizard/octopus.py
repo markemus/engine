@@ -4,13 +4,16 @@ import engine.effectsbook as eff
 import assets.commonlimbs as cl
 import assets.namelists as nl
 
+import wizard.suits as wsu
+
 
 class Tentacle(cl.Tentacle):
     base_hp = 15
     size = 3
     appendageRange = (8, 9)
     amble = 1
-    _damage = 20
+    _damage = 10
+    strength = 1.5
 
 
 class Head(cr.Limb):
@@ -33,5 +36,5 @@ class CaveOctopus(cr.creature):
     baseElem = Head
     colors = ["red", "yellow", "magenta", "blue", "cyan", "green"]
     textures = ["glowing"]
-    # TODO suits for octopus (rock, shell)
-    suits = []
+    # TODO-DONE suits for octopus (rock, shell)
+    suits = [wsu.octopus_gear]

@@ -209,6 +209,16 @@ class BronzeFlail(i.Item):
 class IronFlail(BronzeFlail):
     damage = 17
 
+class GiantRock(i.Item):
+    name = "giant rock"
+    damage = 15
+    weapon_effects = [eff.Stun]
+
+class HalfShell(i.Item):
+    name = "half shell"
+    armor = 1
+
+
 # Suits
 darkelfsuit = {
 "wears": {
@@ -415,6 +425,18 @@ iron_hammer = {
     "color_scheme": "same",
     "texture": ["iron"],
     "texture_scheme": "same",
+    "full": True,
+}
+
+octopus_gear = {
+    "grasps": {
+        "tentacle": (GiantRock, HalfShell, None, None, None, None),
+    },
+    "wears": {},
+    "color": ["white", "gray", "pink"],
+    "color_scheme": "unique",
+    "texture": ["smooth"],
+    "texture_scheme": "unique",
     "full": True,
 }
 

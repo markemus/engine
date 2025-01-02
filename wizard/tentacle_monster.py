@@ -7,7 +7,8 @@ from colorist import BrightColor as BC, Color as C
 
 
 class Tentacle(cl.Tentacle):
-    _damage = 30
+    _damage = 15
+    strength = 2
     base_hp = 15
 
 class Trunk(cr.Limb):

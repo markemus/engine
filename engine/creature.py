@@ -292,6 +292,10 @@ class Limb:
             if hasattr(item, "armor"):
                 armor += item.armor
 
+        if self.grasped:
+            if hasattr(self.grasped, "armor"):
+                armor += self.grasped.armor
+
         return armor
 
 
@@ -421,8 +425,9 @@ class creature:
                             texture = random.choice(suit["texture"])
                         else:
                             texture = textures[limb.wears]
-                        article = article(color=color, texture=texture)
-                        limb.equip(article)
+                        if article is not None:
+                            article = article(color=color, texture=texture)
+                            limb.equip(article)
 
                 if "grasps" in suit.keys() and limb.wears in suit["grasps"].keys():
                     # We don't need to coordinate weapon selections
@@ -446,8 +451,9 @@ class creature:
                                 texture = random.choice(suit["texture"])
                             else:
                                 texture = textures[limb.wears]
-                            weapon = weapon(color=color, texture=texture)
-                            limb.grasped = weapon
+                            if weapon is not None:
+                                weapon = weapon(color=color, texture=texture)
+                                limb.grasped = weapon
 
         # Reset seed
         random.seed()

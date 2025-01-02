@@ -8,9 +8,20 @@ class CombatAI:
         self.creature = creature
         self.target = None
 
+    def calc_true_damage(self, weapon):
+        """This is the damage calculation used for combat, replicated here. Ensure they are updated together."""
+        parent_strength = [p.strength for p in self.creature.get_parents(weapon) if hasattr(p, "strength")]
+        if parent_strength:
+            strength = max(parent_strength)
+        else:
+            strength = 1
+        damage = weapon.damage[0] * strength
+        return damage
+
     def pick_weapon(self, weapons):
         random.shuffle(weapons)
-        best_weapon = max(weapons, key=lambda x: x.damage[0])
+        # best_weapon = max(weapons, key=lambda x: x.damage[0])
+        best_weapon = max(weapons, key=self.calc_true_damage)
         weapons_effects = [w for w in weapons if w.damage[1].weapon_effects]
 
         # Best weapon is twice as likely to be selected, but we'll get effects as well
