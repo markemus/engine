@@ -483,7 +483,7 @@ class creature:
                 nextRoom.addCreature(self)
                 left = True
                 print(f"{BC.CYAN}{self.name}{BC.OFF} leaves {C.RED}{currentRoom.name}{C.OFF} and enters {C.RED}{nextRoom.name}{C.OFF}.")
-                for companion in self.companions:
+                for companion in self.get_companions():
                     if companion.location == currentRoom:
                         companion.leave(direction=direction)
                 # if nextRoom.borders[">"]:
@@ -777,3 +777,12 @@ class creature:
         total_pr = sum([x.size if not hasattr(x, "orig_size") else x.orig_size for x in limbs])
 
         return total_pr
+
+
+class Fish(creature):
+    def leave(self, direction):
+        """Fish die if they leave the water."""
+        super().leave(direction=direction)
+        if not (hasattr(self.location, "wet") and self.location.wet):
+            print(f"{C.RED}{self.name} lies gasping in the air.{C.OFF}")
+            self.die()

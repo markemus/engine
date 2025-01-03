@@ -49,7 +49,7 @@ class CombatAI:
             if entanglements:
                 targets = []
                 for entanglement in entanglements:
-                    targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.creature])
+                    targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if (x.creature is not self.creature) and (x.creature.team != self.creature.team) and (x.creature.team != "neutral")])
 
             # Pick
             if len(targets) > 0:

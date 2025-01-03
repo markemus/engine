@@ -66,7 +66,7 @@ class Torso(cr.Limb):
     size = 2
     _armor = 2
 
-class BlindCaveFish(cr.creature):
+class BlindCaveFish(cr.Fish):
     """A gigantic blind fish that lives in cave lakes deep beneath the surface."""
     classname = "cave fish"
     aggressive = True

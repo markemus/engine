@@ -63,7 +63,7 @@ class Torso(cr.Limb):
     size = 2
     _armor = 2
 
-class BlindCaveShrimp(cr.creature):
+class BlindCaveShrimp(cr.Fish):
     """A big blind shrimp that lives in lakes in caves."""
     classname = "cave shrimp"
     aggressive = True

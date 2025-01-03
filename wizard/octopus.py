@@ -30,7 +30,7 @@ class Head(cr.Limb):
 
 
 # TODO octopi (and other fish) should die if they go on land (look for location.wet tag)
-class CaveOctopus(cr.creature):
+class CaveOctopus(cr.Fish):
     classname = "cave octopus"
     team = "squids"
     namelist = nl.names["octopus"]

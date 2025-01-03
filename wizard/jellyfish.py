@@ -27,7 +27,7 @@ class JellySac(cr.Limb):
     flight = 1
 
 
-class Jellyfish(cr.creature):
+class Jellyfish(cr.Fish):
     classname = "jellyfish"
     namelist = ["jellyfish"]
     team = "pest"

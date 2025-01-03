@@ -34,7 +34,7 @@ cc = {
     "caverns_2_gobs": [(ShallowGoblin, 4), (None, 1)],
     "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
-    "tunnels": [(GiantSpider, 4), (TunnelWorm, 4)],
+    "tunnels": [(TunnelWorm, 1)],
     "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (DarkElfFairy, 1), (None, 1)],
     "lake_4_big_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)],
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],

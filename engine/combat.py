@@ -109,10 +109,11 @@ class Combat:
             print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
 
             # Blocking
-            if (target.limb_count("see") >= 1) and not target.stunned and not sum([isinstance(x, eff.Entangled) for x in limb.active_effects]):
+            is_entangled_together = sum([isinstance(x, eff.Entangled) and ((x.entangling_limb is weapon) or (x.limb is weapon)) for x in limb.active_effects])
+            if (target.limb_count("see") >= 1) and not target.stunned and not is_entangled_together:
                 blockers = self.blockers[target].copy()
-                # Can't block with webbed blocker
-                blockers = [b for b in blockers if eff.Webbed not in [e.__class__ for e in b.active_effects]]
+                # Can't block with webbed or entangled blocker
+                blockers = [b for b in blockers if not sum([isinstance(e, eff.Webbed) for e in b.active_effects]) and not sum([isinstance(e, eff.Entangled) for e in b.active_effects])]
                 if target is self.char:
                     blocker = self.cont.pick_blocker(blockers)
                 else:
@@ -129,12 +130,12 @@ class Combat:
                         print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
                 else:
                     print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
-            elif target.limb_count("see") < 1:
-                print(f"{BC.YELLOW}{target.name}{BC.OFF} cannot see the blow coming.")
+            elif is_entangled_together:
+                print(f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} is entangled with {C.RED}{weapon.name}{C.OFF} and cannot be helped!")
             elif target.stunned:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} is stunned and cannot stop the blow.")
-            elif sum([isinstance(x, eff.Entangled) for x in limb.active_effects]):
-                print(f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} is entangled and cannot be helped!")
+            elif target.limb_count("see") < 1:
+                print(f"{BC.YELLOW}{target.name}{BC.OFF} cannot see the blow coming.")
 
             # Masters have a higher to-hit roll
             mastery = actor.mastery if hasattr(actor, "mastery") else 0

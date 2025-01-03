@@ -326,6 +326,7 @@ class HealAllies(sp.Effect):
 
 
 # TODO-DONE entangle- neither casting limb nor target limb can attack until the effect expires (eg tentacles, vines)
+# TODO should set amble=0
 class Entangled(sp.Effect):
     rounds = 4
     expire_on_removal = True
@@ -339,12 +340,34 @@ class Entangled(sp.Effect):
             if sum([isinstance(x, self.__class__) and (x.entangling_limb is self.entangling_limb) for x in self.limb.active_effects]):
                 return False
         print(f"{C.RED}{self.entangling_limb.name} and {self.limb.name} are entangled!{C.OFF}")
+
+        self.update()
+
         self.limb.active_effects.append(self)
         self.entangling_limb.active_effects.append(self)
         self.cont.game.active_spells.append(self)
 
+    def update(self):
+        """Entangled limbs cannot walk or fly."""
+        for l in [self.entangling_limb, self.limb]:
+            if hasattr(l, "amble"):
+                if not hasattr(l, "orig_amble"):
+                    l.orig_amble = l.amble
+                l.amble = 0
+            if hasattr(l, "flight"):
+                if not hasattr(l, "orig_flight"):
+                    l.orig_flight = l.flight
+                l.flight = 0
+
     def expire(self):
-        print(f"{C.RED}{self.entangling_limb.name} and {self.limb.name} separate.{C.OFF}")
+        print(f"{C.RED}{self.entangling_limb.creature.name}'s {self.entangling_limb.name} and {self.limb.creature.name}'s {self.limb.name} separate.{C.OFF}")
+
+        for l in [self.entangling_limb, self.limb]:
+            if hasattr(l, "amble"):
+                l.amble = l.orig_amble
+            if hasattr(l, "flight"):
+                l.flight = l.orig_flight
+
         self.limb.active_effects.remove(self)
         self.entangling_limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
