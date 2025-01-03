@@ -22,6 +22,7 @@ lt = {
     "l1_chest_potion": [(pot.PotionOfStoneskin, 1), (pot.TentacleGrowthPotion, 1), (pot.PotionOfHealing, 1), (pot.PotionOfMight, 1)],
     "l2_chest_scroll": [(wcol.LevelTwoScroll, 1)],
     "l3_chest_scroll": [(wcol.LevelThreeScroll, 1)],
+    "excalibur_scroll": [(wcol.ScrollOfExcalibur, 1)]
 }
 
 class FruitOfLife(it.Potion):
@@ -159,6 +160,14 @@ class L3Chest(pl.DisplayFurniture):
     texture = ["wood"]
     count = (1, 2)
     loot_tables = [lt["l3_chest_scroll"], lt["l1_chest_potion"]]
+
+class ExcaliburChest(pl.DisplayFurniture):
+    name = "treasure chest"
+    color = ["brown", "black", "gray"]
+    texture = ["wood"]
+    count = (1, 2)
+    loot_tables = [lt["excalibur_scroll"], lt["l1_chest_potion"]]
+
 
 class GoblinGrave(pl.DisplayFurniture):
     name = "goblin grave"

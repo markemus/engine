@@ -27,7 +27,7 @@ for x in dir(sb):
 
 level_one_spells = [sb.Caltrops, sb.Light, sb.Shadow, sb.Flashbang, sb.GrowBeard, sb.Fear, sb.Might, sb.PoisonedWeapons, sb.FlamingWeapons, sb.BleedingWeapons]
 level_two_spells = [sb.GrowFangs, sb.SummonSpider, sb.ArmorOfLight, sb.Fireball, sb.Lightning, sb.Distract, sb.Scry, sb.FleshRip, sb.Trapdoor, sb.SummonEtherealHand, sb.Stun, sb.ReanimateLimb]
-level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.PoisonGas, sb.Possess, sb.GrowTreeOfLife, sb.SummonFairy, sb.TheFloorIsLava, sb.Mastery, sb.SummonExcalibur]
+level_three_spells = [sb.SummonTentacleMonster, sb.Enthrall, sb.PoisonGas, sb.Possess, sb.GrowTreeOfLife, sb.SummonFairy, sb.TheFloorIsLava, sb.Mastery]
 
 
 class RandomScroll(it.Scroll):
@@ -63,6 +63,14 @@ class LevelThreeScroll(it.Scroll):
         # We don't want duplicates
         level_three_spells.remove(self.spell)
         self.name = f"scroll of {self.spell.name}"
+
+
+class ScrollOfExcalibur(it.Scroll):
+    def __init__(self, color=None, texture=None):
+        super().__init__()
+        self.spell = sb.SummonExcalibur
+        self.name = f"scroll of {self.spell.name}"
+
 
 
 class Plaque(it.Item):

@@ -262,7 +262,7 @@ class MirrorLake(pl.Place):
     colors = ["glassy"]
     textures = ["mirrored"]
     creature_classes = []
-    furniture_classes = [wizard.furniture.L3Chest]
+    furniture_classes = [wizard.furniture.ExcaliburChest]
     subelement_classes = [mirrored_water]
     wet = True
     door_class = channel
