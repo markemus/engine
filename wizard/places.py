@@ -254,6 +254,7 @@ class LakeTile(pl.Place):
     door_class = channel
 
 
+# TODO spell to summon Excalibur
 class MirrorLake(pl.Place):
     name = "mirror lake"
     sprite = "M"
@@ -280,5 +281,3 @@ class MirrorLake(pl.Place):
                 copied.classname = "reflected " + copied.classname
                 copied.name = copied.name + "'s reflection"
                 print(f"{BC.MAGENTA}{creature.name}'s reflection rises up from the mirrored surface!{BC.OFF}")
-
-# TODO-DONE lake doors (channels)- allow rooms to specify their own door classes optionally

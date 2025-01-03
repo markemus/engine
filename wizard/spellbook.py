@@ -488,6 +488,49 @@ class SummonFairy(CreationSpell):
         return True
 
 
+class SummonExcalibur(CreationSpell):
+    name = "Summon Excalibur"
+    mana_cost = 15
+    humanity_min = 10
+    description = f"Creates a beautiful and powerful sword. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        hands = self.caster.subelements[0].limb_check("grasp")
+        hands = utils.listtodict([h for h in hands if not h.grasped], add_x=True)
+        utils.dictprint(hands)
+        i = input(f"{BC.GREEN}Raise a hand to summon Excalibur: {BC.OFF}")
+        if i in hands.keys() and i != "x":
+            hand = hands[i]
+
+            if not hasattr(self.cont, "excalibur"):
+                self.cont.excalibur = su.Excalibur("shining", "steel")
+
+            for level in self.cont.game.level_list:
+                for room in level.roomLocations.keys():
+                    for inv in room.find_invs():
+                        if self.cont.excalibur in inv.vis_inv:
+                            inv.vis_inv.remove(self.cont.excalibur)
+                            print(f"{BC.MAGENTA}Excalibur disappears from {room.name}'s {inv.name}.{BC.OFF}")
+                    for creature in room.creatures:
+                        for inv in creature.subelements[0].find_invs():
+                            if self.cont.excalibur in inv.vis_inv:
+                                inv.vis_inv.remove(self.cont.excalibur)
+                                print(f"{BC.MAGENTA}Excalibur disappears from {creature.name}'s {inv.name}.{BC.OFF}")
+                        for grasper in creature.subelements[0].limb_check("grasp"):
+                            if self.cont.excalibur is grasper.grasped:
+                                grasper.grasped = None
+                                print(f"{BC.MAGENTA}Excalibur disappears from {creature.name}'s {grasper.name}.{BC.OFF}")
+
+            print(f"{BC.MAGENTA}Excalibur flies into {self.caster.name}'s {hand.name}!{BC.OFF}")
+            if not hand.grasped and (hand.limb_count("f_grasp") >= 1) and (hand.limb_count("t_grasp") >= 1):
+                hand.grasped = self.cont.excalibur
+            else:
+                self.caster.location.drop_item(self.cont.excalibur)
+            return True
+
+
 class Trapdoor(CreationSpell):
     name = "Trapdoor"
     mana_cost = 10

@@ -218,6 +218,11 @@ class HalfShell(i.Item):
     name = "half shell"
     armor = 1
 
+class Excalibur(su.IronSword):
+    name = "Excalibur"
+    damage = 50
+    weapon_effects = [eff.Light]
+
 
 # Suits
 darkelfsuit = {
