@@ -22,10 +22,16 @@ class CombatAI:
         random.shuffle(weapons)
         # best_weapon = max(weapons, key=lambda x: x.damage[0])
         best_weapon = max(weapons, key=self.calc_true_damage)
-        weapons_effects = [w for w in weapons if w.damage[1].weapon_effects]
+        # weapons_effects = [w for w in weapons if w.damage[1].weapon_effects]
+        # Gets each set of weapon effects once- eg s={eff.Bleed, eff.FireDOT}
+        weapons_effects = list({tuple(sorted(w.damage[1].weapon_effects, key=lambda x: x.rounds)): w for w in weapons if w.damage[1].weapon_effects}.values())
 
-        # Best weapon is twice as likely to be selected, but we'll get effects as well
-        weapon = random.choice(weapons_effects + [best_weapon])
+        # Best weapon is selected half the time, but we'll get effects as well
+        if weapons_effects:
+            weapon_list = random.choice([weapons_effects, [best_weapon]])
+            weapon = random.choice(weapon_list)
+        else:
+            weapon = best_weapon
 
         return weapon
 
@@ -33,7 +39,7 @@ class CombatAI:
         targets = []
         entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
 
-        if not self.target or self.target.dead or entanglements:
+        if not self.target or self.target.dead or entanglements or self.target.team == self.creature.team:
             # Gather targets
             for creature in self.get_enemy_creatures():
                 if creature.team and (creature.team != self.creature.team) and (creature.team != "neutral"):

@@ -41,9 +41,6 @@ class Claw(cr.Weapon):
     appendageRange = (1, 2)
     base_hp = 10
     size = 2
-    grasp = 1
-    f_grasp = 1
-    t_grasp = 1
     _armor = 2
     _damage = 15
 

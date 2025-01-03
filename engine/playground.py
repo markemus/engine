@@ -3,24 +3,30 @@ import copy
 import random
 from colorist import Color as C, BrightColor as BC
 
+# class Thing:
+#     def __init__(self, val):
+#         self.val = [val]
+#
+# l = [Thing(1), Thing(1), Thing(2)]
+# y = list({x.val: x for x in l}.values())
 
-class BottomLayer:
-    def __init__(self):
-        self.one = 1
-        self.two = 2
-
-class MiddleLayer:
-    def __init__(self):
-        test_lower = BottomLayer()
-        self.lower = [test_lower]
-        self.lower2 = [test_lower]
-
-class TopLayer:
-    def __init__(self):
-        self.lower = [MiddleLayer()]
-
-t = TopLayer()
-t2 = copy.deepcopy(t)
+# class BottomLayer:
+#     def __init__(self):
+#         self.one = 1
+#         self.two = 2
+#
+# class MiddleLayer:
+#     def __init__(self):
+#         test_lower = BottomLayer()
+#         self.lower = [test_lower]
+#         self.lower2 = [test_lower]
+#
+# class TopLayer:
+#     def __init__(self):
+#         self.lower = [MiddleLayer()]
+#
+# t = TopLayer()
+# t2 = copy.deepcopy(t)
 
 # class Test:
 #     humanity_max = 10
