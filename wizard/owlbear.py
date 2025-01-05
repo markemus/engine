@@ -13,7 +13,7 @@ class Beak(cr.Weapon):
     appendageRange = (1, 2)
     wears = "beak"
     base_hp = 30
-    size = 1
+    size = 2
     eats = 1
     strength = 1
     colors = ["black", "gray", "steely"]
