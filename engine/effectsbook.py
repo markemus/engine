@@ -371,3 +371,13 @@ class Entangled(sp.Effect):
         self.limb.active_effects.remove(self)
         self.entangling_limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
+
+class DrawAggro(sp.Effect):
+    """This creature will draw the aggression of any creature it attacks."""
+    rounds = 1
+    # subclass and set casting_creature
+    casting_creature = None
+
+    def _cast(self):
+        self.creature.ai.target = self.casting_creature
+        print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")

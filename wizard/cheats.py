@@ -3,6 +3,7 @@ import random
 import assets.suits as asu
 
 import wizard.item_collections as wic
+import wizard.spellbook as sb
 import wizard.suits as wsu
 
 
@@ -55,3 +56,14 @@ def skip_level_three(player, game):
     player.location = game.level_list[3].start
     game.set_current_level(3)
     player.location.creatures.append(player)
+
+def skip_level_four(player, game):
+    # Cheat
+    player.spellbook.extend(sb.SummonExcalibur)
+
+    # Skip
+    player.location.creatures.remove(player)
+    player.location = game.level_list[4].start
+    game.set_current_level(4)
+    player.location.creatures.append(player)
+

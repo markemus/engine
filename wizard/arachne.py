@@ -79,5 +79,5 @@ class Arachne(cr.creature):
 
 class ArachneQueen(Arachne):
     classname = "queen arachne"
-    suits = [wsu.spider_iron_suit, asu.bronze_armorsuit, wsu.double_iron_poisonsword]
+    suits = [wsu.spider_bronze_suit, asu.bronze_armorsuit, wsu.double_iron_poisonsword]
     mastery = 2

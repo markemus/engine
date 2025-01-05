@@ -15,6 +15,7 @@ import wizard.zombie as z
 from wizard import ethereal_hand
 from wizard import giant_spider
 from wizard import fairy
+from wizard import owlbear
 from wizard import tentacle_monster
 
 
@@ -122,7 +123,7 @@ class FlamingWeapons(CreationSpell):
     mana_cost = 5
     humanity_min = -3
     description = f"Wreath a creature's weapons in magical fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 10
+    rounds = "forever"
     targets = "friendly"
     weapons = []
 
@@ -149,7 +150,7 @@ class PoisonedWeapons(CreationSpell):
     mana_cost = 5
     humanity_min = -3
     description = f"Cover a creature's weapons in magical poison. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 10
+    rounds = "forever"
     targets = "friendly"
     weapons = []
 
@@ -170,12 +171,12 @@ class PoisonedWeapons(CreationSpell):
             print(f"{BC.MAGENTA}The poison on {weapon.name} dries up and disappears.{BC.OFF}")
 
 
-class BleedingWeapons(CreationSpell):
-    name = "Bleeding Weapons"
+class Bleeding(CreationSpell):
+    name = "Bleeding"
     mana_cost = 5
     humanity_min = -3
     description = f"Cover a creature's weapons in an anti-coagulating fluid. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 10
+    rounds = "forever"
     targets = "friendly"
     weapons = []
 
@@ -486,6 +487,30 @@ class SummonFairy(CreationSpell):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
+
+
+class SummonOwlbear(CreationSpell):
+    name = "Summon Owlbear"
+    mana_cost = 15
+    humanity_min = 15
+    description = f"Summons a giant owlbear to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        o = owlbear.Owlbear(location=self.target.location)
+        o.mana_cost = self.mana_cost
+        o.team = self.caster.team
+
+        print(f"{BC.MAGENTA}A gigantic {C.RED}owlbear{BC.MAGENTA} appears!{BC.OFF}")
+        self.target.location.addCreature(o)
+        self.caster.companions.append(o)
+
+        if hasattr(self.target, "humanity"):
+            self.target.humanity += 1
+            print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
+        return True
+
 
 
 class SummonExcalibur(CreationSpell):
@@ -1144,3 +1169,4 @@ class SetHumanity(sp.Spell):
 # TODO-DONE Stun spell
 # TODO use controller.combat to allow ai to use magic.
 # TODO higher level summons
+# TODO summon owlbear (can draw aggro and tank)

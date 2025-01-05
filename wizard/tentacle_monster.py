@@ -1,3 +1,4 @@
+import engine.ai as ai
 import engine.creature as cr
 
 import assets.commonlimbs as cl
@@ -29,3 +30,8 @@ class TentacleMonster(cr.creature):
     colors = ["black", "green", "gray"]
     textures = ["smooth", "slimy"]
     suits = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ai = ai.PestAI(self)
+
