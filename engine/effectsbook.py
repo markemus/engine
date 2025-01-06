@@ -403,5 +403,6 @@ class RegrowLimb(sp.Effect):
                 return True
 
     def _expire(self):
-        self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))
-        print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.creature.name}'s {self.limb_parent.name}!{BC.OFF}")
+        if not self.creature.dead:
+            self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))
+            print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.creature.name}'s {self.limb_parent.name}!{BC.OFF}")

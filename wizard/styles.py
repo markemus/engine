@@ -9,7 +9,7 @@ from colorist import BrightColor as BC, Color as C
 
 # TODO-DONE level 4- underwater lake (wet environmental tag- no fire spells). Giant mosquitos.
 #  Octopi with shell shields and rock weapons and ink. Tentacle monsters.
-# TODO level 5- goblin town. Trolls, uruks, wargs, owlbears? iron armor.
+# TODO-DONE level 5- goblin town. Trolls, uruks, wargs, owlbears? iron armor.
 # TODO level 6- necromancer halls. zombies, death knights,
 #  enemies that explode on death, transmogrified zombies (multiple source classes)
 # TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king)
