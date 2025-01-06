@@ -33,7 +33,7 @@ class Nose(cr.Limb):
 class Teeth(cr.Weapon):
     name = "teeth"
     subelement_classes = []
-    _damage = 10
+    _damage = 7
     appendageRange = (1, 2)
     wears = "teeth"
     base_hp = 15
@@ -67,6 +67,7 @@ class Head(cr.Limb):
 class LargeRHand(cl.RHand):
     base_hp = int(cl.RHand.base_hp * 2)
     _armor = 2
+    _damage = 10
 
 class LargeRArm(cl.RArm):
     subelement_classes = [LargeRHand]
@@ -108,7 +109,7 @@ class Troll(cr.creature):
     team = "goblinkin"
     namelist = nm.names["troll"]
     baseElem = Torso
-    colors = ["green", "gray", "beige"]
+    colors = ["green", "gray", "brown"]
     textures = ["stony"]
     suits = [wsu.troll_gear, asu.prisonersuit]
 

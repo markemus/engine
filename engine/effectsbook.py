@@ -27,6 +27,7 @@ class Stoneskin(sp.Effect):
             self.limb.texture = self.limb.orig_texture
 
 
+# TODO cauterize wounds so they don't bleed. Will need to know parent_limb so do it combat.py
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = .5
@@ -204,6 +205,7 @@ class Mastery(sp.Effect):
 
 class Bleed(sp.Effect):
     expire_on_removal = True
+    cast_on_removal = False
     desc = "bleeding"
 
     def __init__(self, creature, limb, controller, amount=2):
@@ -239,6 +241,7 @@ class Poison(sp.Effect):
     rounds = 1
     amount = 2
     expire_on_removal = True
+    cast_on_removal = False
 
     def _cast(self):
         self.creature.poisoned += self.amount
@@ -279,6 +282,7 @@ class Vampirism(sp.Effect):
     amount = 5
     rounds = 1
     expire_on_removal = True
+    cast_on_removal = False
 
     def _cast(self):
         self.creature.bled += self.amount
@@ -294,6 +298,7 @@ class Vampirism(sp.Effect):
 class SuckBlood(sp.Effect):
     amount = 5
     rounds = 1
+    cast_on_removal = False
 
     def _cast(self):
         if self.limb.can_bleed:
@@ -383,7 +388,7 @@ class DrawAggro(sp.Effect):
             print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")
 
 class RegrowLimb(sp.Effect):
-    rounds = 2
+    rounds = 5
     # Subclass and set limb_parent as parent limb
     limb_parent = None
 
@@ -391,7 +396,10 @@ class RegrowLimb(sp.Effect):
         """Will apply if limb has been removed from creature."""
         limbs = self.creature.subelements[0].limb_check("name")
         if self.limb not in limbs:
-            return True
+            # fire stops regeneration
+            # TODO test
+            if not sum([isinstance(e, FireDOT) for e in self.limb.active_effects]):
+                return True
 
     def _expire(self):
         self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))

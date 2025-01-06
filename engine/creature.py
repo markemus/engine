@@ -498,6 +498,17 @@ class creature:
 
         return left
 
+    def limb_check(self, tag):
+        """Returns a list of all limbs where tag is present (on the limb or on an inventory item).
+        tag=name returns all limbs.
+        Used for gathering limbs for a task, eg. tag=grasp to pick up an item."""
+        if self.subelements:
+            limbs = self.subelements[0].limb_check(tag)
+        else:
+            limbs = []
+
+        return limbs
+
     def limb_count(self, tag):
         """Counts total of tag value in subelements."""
         if self.subelements:

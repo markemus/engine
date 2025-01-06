@@ -233,8 +233,7 @@ class Combat:
                         print(f"The {BC.CYAN}{limb.name}{BC.OFF} is severed from {BC.YELLOW}{defender.name}{BC.OFF}'s body!")
                         self.throw_limb(defender, limb)
 
-                        # Cauterizing works
-                        if not defender.dead and eff.FireDOT not in [x.__class__ for x in (limb.active_effects + parent_limb.active_effects)]:
+                        if not defender.dead:
                             size = limb.size if not hasattr(limb, "orig_size") else limb.orig_size
                             bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
                             bleed.cast()
@@ -257,28 +256,29 @@ class Combat:
 
             cutoff = True
 
-        for Effect in limb.impact_effects:
-            Effect(creature=defender, limb=limb, controller=self.cont).cast()
-
         return cutoff
 
-    def apply_effects(self, defender, limb, weapon):
+    def apply_weapon_effects(self, defender, limb, weapon):
         """Applies weapon effects to the limb."""
         true_weapon = weapon.damage[1]
         effects = true_weapon.weapon_effects
         for Effect in effects:
             e = Effect(defender, limb, self.cont)
             e.cast()
-            # self.cont.game.active_spells.append(e)
-            # limb.active_effects.append(e)
+
+    # TODO bleed should be applied here iff there is no firedot.
+    def apply_impact_effects(self, defender, limb):
+        for Effect in limb.impact_effects:
+            e = Effect(creature=defender, limb=limb, controller=self.cont)
+            e.cast()
 
     def attack(self, actor, defender, limb, weapon):
         damage = self.check_damage(weapon, actor, limb)
         # Damage roll
         damage = round(random.random() * damage, 2)
         cutoff = self.apply_damage(defender, limb, damage)
-        if not cutoff:
-            self.apply_effects(defender, limb, weapon)
+        self.apply_weapon_effects(defender, limb, weapon)
+        self.apply_impact_effects(defender, limb)
 
     # TODO-DONE webbed should remove the limb from blockers? Currently doesn't update until the next combat cycle.
     def get_blockers(self, actor):
