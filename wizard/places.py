@@ -2,7 +2,7 @@ import copy
 
 import assets.places
 import engine.place as pl
-from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel
+from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway
 
 import assets.furniture as fur
 
@@ -22,6 +22,7 @@ from wizard.jellyfish import Jellyfish
 from wizard.octopus import CaveOctopus
 from wizard.tunnel_worm import TunnelWorm
 from wizard.tentacle_monster import TentacleMonster
+from wizard.troll import Troll
 
 from assets.goblin import ShallowGoblin
 
@@ -39,6 +40,7 @@ cc = {
     "lake_4_big_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)],
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
+    "goblintown": [(Troll, 1)],
 }
 
 # Player apartment rooms
@@ -236,6 +238,7 @@ class LakeShore(pl.Place):
     count = (1, 2)
     colors = ["black", "white"]
     textures = ["sandy"]
+    creature_classes = []
     furniture_classes = []
     subelement_classes = [single_wall, floor]
 
@@ -281,3 +284,37 @@ class MirrorLake(pl.Place):
                 copied.classname = "reflected " + copied.classname
                 copied.name = copied.name + "'s reflection"
                 print(f"{BC.MAGENTA}{creature.name}'s reflection rises up from the mirrored surface!{BC.OFF}")
+
+
+class GoblinTownGateway(pl.Place):
+    name = "Welcome to Goblintown!"
+    sprite = "G"
+    count = (5, 10)
+    colors = ["brown", "gray", "tan"]
+    textures = ["hide", "leather"]
+    creature_classes = []
+    furniture_classes = []
+    subelement_classes = [wall, floor]
+    door_class = gateway
+
+
+class GoblinTownShack(pl.Place):
+    name = "goblin shack"
+    sprite = "S"
+    count = (5, 10)
+    colors = ["brown", "gray", "tan"]
+    textures = ["hide", "leather"]
+    creature_classes = [cc["goblintown"]]
+    furniture_classes = []
+    subelement_classes = [wall, floor]
+
+
+class GoblinTownFirepit(pl.Place):
+    name = "goblin barbecue"
+    sprite = "P"
+    count = (2, 3)
+    colors = ["dark", "gray", "black"]
+    textures = ["stone"]
+    creature_classes = [cc["goblintown"]]
+    furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock]
+    subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]

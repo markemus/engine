@@ -17,6 +17,8 @@ class Place:
     area = "You are standing in"
     sprite = "R"
     creature_classes = []
+    furniture_classes = []
+    subelement_classes = []
 
     def __init__(self, level, extra_creatures=None):
         # self.name = name

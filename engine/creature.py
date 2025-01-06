@@ -24,8 +24,10 @@ class Limb:
     # Size should be an int between 1 and 3. This affects to-hit chance.
     size = 2
     isSurface = True
-    # Effects will be cast before battle begins (if they aren't already active)
+    # Passive effects will be cast before battle begins (if they aren't already active)
     passive_effects = []
+    # Impact effects will be cast when limb is hit
+    impact_effects = []
     can_heal = True
     can_bleed = True
 
@@ -41,6 +43,7 @@ class Limb:
         self.covers = []
         self.active_effects = []
         self.passive_effects = self.passive_effects.copy()
+        self.impact_effects = self.impact_effects.copy()
         self.hp = self.base_hp
 
     def _elementGen(self):

@@ -65,11 +65,18 @@ class LakeL4:
     creature_classes = []
 
 
+class GoblintownL5:
+    level_text = f"""{BC.BLUE}You go through a mysterious gateway and leave the strange lake behind you. Ahead of you you hear strange sounds, hoots, howls, and drums, drums in the deep.{BC.OFF}"""
+    room_classes = [wizard.places.GoblinTownShack, wizard.places.GoblinTownFirepit]
+    start_room = wizard.places.GoblinTownGateway
+    algorithm = "labyrinth"
+    creature_classes = []
+
 class Wizard:
     # levels will spawn in this order
-    levelorder = [CavernL1, CavernL2, DarkElfL3, LakeL4, Home]
+    levelorder = [CavernL1, CavernL2, DarkElfL3, LakeL4, GoblintownL5, Home]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
-    links = [(0, 1), (1, 2), (2, 3)]
+    links = [(0, 1), (1, 2), (2, 3), (3, 4)]
     start_splash = f"""
     ------------------------
     |       {C.RED}The Tomb{C.OFF}       |

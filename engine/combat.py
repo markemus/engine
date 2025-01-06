@@ -257,6 +257,9 @@ class Combat:
 
             cutoff = True
 
+        for Effect in limb.impact_effects:
+            Effect(creature=defender, limb=limb, controller=self.cont).cast()
+
         return cutoff
 
     def apply_effects(self, defender, limb, weapon):

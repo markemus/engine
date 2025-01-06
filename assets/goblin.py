@@ -35,11 +35,11 @@ class Goblin(cr.creature):
     baseElem = Torso
     colors = ["red", "brown", "green", "black", "beige"] 
     textures = ["scaled", "haired", "skinned"]
-    suits = [suits.plainsuit, suits.weapons]
+    suits = [suits.plainsuit, suits.iron_weapons]
 
 class ServantGoblin(Goblin):
     """A role for a goblin- a civilian servant."""
-    # This creature will fight if attacked but you can leave them alone too.
+    # This creature will not fight back if attacked.
     aggressive = False
     team = "goblinkin"
     suits = [suits.plainsuit]
@@ -53,3 +53,8 @@ class ShallowGoblin(cr.creature):
     colors = ["red", "brown", "green", "black", "beige"]
     textures = ["scaled", "haired", "skinned"]
     suits = [suits.prisonersuit, suits.copper_weapons]
+
+class DeepGoblin(ShallowGoblin):
+    """Deep goblins are living deep in caves in their natural environment and have scrounged equipment from the dwarves."""
+    classname = "deep goblin"
+    suits = [suits.partial_iron_armorsuit, suits.iron_weapons]

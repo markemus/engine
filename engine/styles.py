@@ -70,6 +70,13 @@ class channel(pl.Element):
     colors = ["black", "dark", "murky"]
     textures = ["shallow", "watery"]
 
+class gateway(pl.Element):
+    name = "gateway"
+    sprite = "O"
+    printcolor = C.RED
+    colors = ["black", "gray", "brown"]
+    textures = ["stone"]
+
 def weight_list(clist, weight):
     """Reweights elements in a creature list in preparation for joining with another creature list.
     e.g. creature_list = weight_list(d_creature_lists["caves"], 3) + d_creature_lists["city"]"""

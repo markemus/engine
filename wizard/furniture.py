@@ -204,6 +204,12 @@ class Firepit(pl.DisplayFurniture):
     texture = ["wood", "charcoal"]
     vis_collections = [(wsu.bronze_spit, (1, 2)), (wcol.rat_cooked, (0, 2))]
 
+class SittingRock(pl.Furniture):
+    name = "sitting rock"
+    count = (3, 6)
+    color = ["gray", "dark"]
+    texture = ["slate", "granite"]
+
 class PupTent(pl.Furniture):
     """A dark elf scout's tent."""
     name = "pup tent"

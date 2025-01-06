@@ -98,7 +98,6 @@ class SquirtInk(sp.Effect):
             ink = Ink(creature=self.creature, limb=limb, controller=self.cont)
             ink.cast()
         print(f"{C.RED}{self.creature.name} squirts out a cloud of ink!{C.OFF}")
-        return True
 
 
 class Webbed(sp.Effect):
@@ -249,7 +248,6 @@ class Poison(sp.Effect):
         if self.creature.poisoned >= self.creature.poison_resist:
             print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
             self.creature.die()
-        return True
 
 
 class Stun(sp.Effect):
@@ -379,5 +377,22 @@ class DrawAggro(sp.Effect):
     casting_creature = None
 
     def _cast(self):
-        self.creature.ai.target = self.casting_creature
-        print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")
+        old_target = self.creature.ai.target
+        if old_target is not self.casting_creature:
+            self.creature.ai.target = self.casting_creature
+            print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")
+
+class RegrowLimb(sp.Effect):
+    rounds = 2
+    # Subclass and set limb_parent as parent limb
+    limb_parent = None
+
+    def _cast(self):
+        """Will apply if limb has been removed from creature."""
+        limbs = self.creature.subelements[0].limb_check("name")
+        if self.limb not in limbs:
+            return True
+
+    def _expire(self):
+        self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))
+        print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.creature.name}'s {self.limb_parent.name}!{BC.OFF}")

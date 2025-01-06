@@ -282,11 +282,11 @@ class Ring(i.Item):
     level = 2
 
 # Weapons
-class Axe(i.Item):
+class IronAxe(i.Item):
     name = "axe"
     damage = 15
 
-class CopperAxe(Axe):
+class CopperAxe(IronAxe):
     damage = 5
 
 class Cleaver(i.Item):
@@ -297,11 +297,11 @@ class Shiv(i.Item):
     name = "prison shiv"
     damage = 5
 
-class Spear(i.Item):
+class IronSpear(i.Item):
     name = "spear"
     damage = 10
 
-class CopperSpear(Spear):
+class CopperSpear(IronSpear):
     damage = 4
 
 class IronSword(i.Item):
@@ -402,7 +402,7 @@ prisonersuit = {
     "full": True,
 }
 
-armorsuit = {
+iron_armorsuit = {
     "wears": {
         "head": IronHelm,
         "body": IronChainmail,
@@ -419,8 +419,8 @@ armorsuit = {
     "full": True,
     }
 
-partial_armorsuit = copy.deepcopy(armorsuit)
-partial_armorsuit["full"] = False
+partial_iron_armorsuit = copy.deepcopy(iron_armorsuit)
+partial_iron_armorsuit["full"] = False
 
 bronze_armorsuit = {
     "wears": {
@@ -446,10 +446,10 @@ partial_bronze_armorsuit["full"] = False
 bronze_duelists_armorsuit = copy.deepcopy(bronze_armorsuit)
 del bronze_duelists_armorsuit["wears"]["left hand"][1]
 
-weapons = {
+iron_weapons = {
     "wears": {},
     "grasps": {
-        "right hand": (IronSword, Spear, Axe)},
+        "right hand": (IronSword, IronSpear, IronAxe)},
     "color": ["gray"],
     "color_scheme": "same",
     "texture": ["steel"],
@@ -479,4 +479,3 @@ basic_weapons = {
     "full": True,
 }
 
-# TODO add dog armor to first levels (goblin chief's dog)

@@ -59,7 +59,7 @@ def skip_level_three(player, game):
 
 def skip_level_four(player, game):
     # Cheat
-    player.spellbook.extend(sb.SummonExcalibur)
+    player.spellbook.append(sb.SummonExcalibur)
 
     # Skip
     player.location.creatures.remove(player)

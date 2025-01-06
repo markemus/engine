@@ -6,6 +6,6 @@ from assets.human import Human
 from assets import suits as st
 
 
-testsuit_c = sc.suit_to_collection(st.armorsuit, Human)
+testsuit_c = sc.suit_to_collection(st.iron_armorsuit, Human)
 plainsuit_c = sc.suit_to_collection(st.plainsuit, Human)
-weapons_c = sc.suit_to_collection(st.weapons, Human)
+weapons_c = sc.suit_to_collection(st.iron_weapons, Human)

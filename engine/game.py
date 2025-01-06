@@ -34,11 +34,7 @@ class Game(object):
             self.level_list.append(gennedLevel)
 
         # Connect levels to one another.
-        # for (l1, l2) in zip([None, ] + self.level_list, self.level_list):
         for (i1, i2) in gamestyle.links:
-            # Skip first level
-            # if l1 is not None:
-            # self.levelGenerator.connectRooms(l2.start, l1.end)
             self.levelGenerator.connectRooms(self.level_list[i2].start, self.level_list[i1].end)
             self.level_list[i2].start.get_borders()
             self.level_list[i1].end.get_borders()
