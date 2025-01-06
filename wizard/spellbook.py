@@ -995,7 +995,32 @@ class Unpossess(sp.Spell):
         return True
 
 
-# TODO should work on friendly targets too
+class Meld(CorruptionSpell):
+    name = "Meld"
+    mana_cost = 10
+    humanity_max = -15
+    description = f"Meld two companions into a single creature. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        target_list = [x for x in self.caster.get_companions() if x.location == self.caster.location]
+        targets = utils.listtodict(target_list, add_x=True)
+        utils.dictprint(targets)
+        i = input(f"{BC.GREEN}Pick a creature to meld onto: {BC.OFF}")
+        if i in targets.keys() and i != "x":
+            j = input(f"{BC.GREEN}Pick a creature to meld in: {BC.OFF}")
+            if j in targets.keys() and j not in ["x", i]:
+                base_creature = targets[i]
+                other_creature = targets[j]
+                limbs = other_creature.get_neighbors(other_creature.subelements[0])
+                limbs = limbs[:random.randint(0, len(limbs))]
+                base_creature.subelements[0].subelements.extend(limbs)
+                self.caster.companions.remove(other_creature)
+                self.caster.location.creatures.remove(other_creature)
+                print(f"{BC.MAGENTA}{other_creature.name} melds into {base_creature.name}!{BC.OFF}")
+
+
 class Distract(CorruptionSpell):
     name = "Disorient"
     mana_cost = 5
@@ -1204,4 +1229,5 @@ class SetHumanity(sp.Spell):
 # TODO-DONE Stun spell
 # TODO use controller.combat to allow ai to use magic.
 # TODO higher level summons
-# TODO summon owlbear (can draw aggro and tank)
+# TODO-DONE summon owlbear (can draw aggro and tank)
+# TODO meld- transmogrify two companions into a single creature

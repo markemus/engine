@@ -55,6 +55,7 @@ player.spellbook.append(starter_spell)
 player.spellbook.append(sb.SummonCerberus)
 player.spellbook.append(sb.CutLimb)
 player.spellbook.append(sb.GraftLimb)
+player.spellbook.append(sb.Meld)
 # player.spellbook.append(sb.Scry)
 # player.spellbook.append(sb.Light)
 # player.spellbook.append(sb.FlamingWeapons)
@@ -93,7 +94,7 @@ player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.GrowBeard)
 player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
-# player.spellbook.append(sb.SetHumanity)
+player.spellbook.append(sb.SetHumanity)
 
 # TODO player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
