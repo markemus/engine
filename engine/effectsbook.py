@@ -256,6 +256,7 @@ class Poison(sp.Effect):
 class Stun(sp.Effect):
     rounds = 5
     expire_on_removal = True
+    allow_duplicates = False
 
     def _cast(self):
         if self.creature.can_stun:
@@ -274,7 +275,7 @@ class Stun(sp.Effect):
         self.creature.stunned = False
         print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
 
-
+# TODO-DONE this isn't being cast on every attack?
 class Vampirism(sp.Effect):
     """Suck the lifeforce out of a creature."""
     # You need to overwrite this attribute in your subclass

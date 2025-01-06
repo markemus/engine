@@ -414,7 +414,7 @@ iron_armorsuit = {
     "grasps": {},
     "color": ["shiny", "rusty", "matte"],
     "color_scheme": "same",
-    "texture": ["steel"],
+    "texture": ["iron"],
     "texture_scheme": "same",
     "full": True,
     }

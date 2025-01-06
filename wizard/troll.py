@@ -52,6 +52,7 @@ class Jaw(cr.Limb):
     size = 1
     eats = 1
     strength = 1
+    _armor = 3
 
 class Head(cr.Limb):
     name = "head"
@@ -66,33 +67,33 @@ class Head(cr.Limb):
 
 class LargeRHand(cl.RHand):
     base_hp = int(cl.RHand.base_hp * 2)
-    _armor = 2
+    _armor = 3
     _damage = 10
 
 class LargeRArm(cl.RArm):
     subelement_classes = [LargeRHand]
     base_hp = int(cl.RArm.base_hp * 2)
     strength = 2
-    _armor = 2
+    _armor = 3
 
 class LargeLHand(cl.LHand):
     base_hp = int(cl.LHand.base_hp * 2)
-    _armor = 2
+    _armor = 3
 
 class LargeLArm(cl.LArm):
     subelement_classes = [LargeLHand]
     base_hp = int(cl.LArm.base_hp * 2)
     strength = 2
-    _armor = 2
+    _armor = 3
 
 class LargeFoot(cl.Foot):
     base_hp = int(cl.Foot.base_hp * 2)
-    _armor = 2
+    _armor = 3
 
 class LargeLeg(cl.Leg):
     subelement_classes = [LargeFoot]
     base_hp = int(cl.Leg.base_hp * 2)
-    _armor = 2
+    _armor = 3
 
 class Torso(cr.Limb):
     name = "torso"
@@ -102,7 +103,7 @@ class Torso(cr.Limb):
     wears = "body"
     base_hp = 20
     size = 3
-    _armor = 2
+    _armor = 3
 
 class Troll(cr.creature):
     classname = "troll"
@@ -117,6 +118,7 @@ class Troll(cr.creature):
         super().__init__(*args, **kwargs)
         for limb in self.subelements[0].limb_check("name"):
             if limb.wears not in ["head", "body"]:
+                # TODO this should find parent_limb when it is chopped off? It doesn't work with grafting.
                 parent_limb = self.get_parents(limb)[-2]
                 class RegrowLimb(eff.RegrowLimb):
                     limb_parent = parent_limb

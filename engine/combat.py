@@ -12,22 +12,25 @@ class Combat:
         self.cont = cont
         self.blockers = None
 
-    # TODO add vision check to grab_weapon()
-    # TODO should only grab if it's better than their current weapon
+    # TODO-DONE add vision check to grab_weapon()
+    # TODO-DONE should only grab if it's better than their current weapon
     def grab_weapon(self, actor):
         """AI creatures should grab weapons up off the floor if they have a spare hand."""
         # Search the room for weapons
-        invs = actor.location.find_invs()
-        for inv in invs:
-            # isinstance is to stop enemies from wielding their own severed hands.
-            weapons = [x for x in inv.vis_inv if isinstance(x, item.Item) and hasattr(x, "damage")]
-            if weapons:
-                weapon = max(weapons, key=lambda x: x.damage)
-                graspHand = actor.grasp_check()
-                if graspHand:
-                    inv.vis_inv.remove(weapon)
-                    graspHand.grasped = weapon
-                    print(f"{BC.CYAN}{actor.name} grabs the {weapon.name} from the {inv.name}!")
+        if actor.limb_count("see") >= 1:
+            invs = actor.location.find_invs()
+            for inv in invs:
+                # isinstance is to stop enemies from wielding their own severed hands.
+                weapons = [x for x in inv.vis_inv if isinstance(x, item.Item) and hasattr(x, "damage")]
+                if weapons:
+                    weapon = max(weapons, key=lambda x: x.damage)
+                    current_weapon = max(actor.limb_check("damage"), key=lambda x: x.damage[0])
+                    if weapon.damage > current_weapon.damage[0]:
+                        graspHand = actor.grasp_check()
+                        if graspHand:
+                            inv.vis_inv.remove(weapon)
+                            graspHand.grasped = weapon
+                            print(f"{BC.CYAN}{actor.name} grabs the {weapon.name} from the {inv.name}!")
 
     def fullCombat(self, include_char=True):
         """Full combat round for all creatures."""

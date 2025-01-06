@@ -69,8 +69,10 @@ class GiantBat(cr.creature):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Vampire bat
-        fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fangs"][0]
+        fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fangs"]
         class CVampirism(eff.Vampirism):
             vampire = self
             amount = 2
-        fangs.weapon_effects = [CVampirism]
+
+        for fang in fangs:
+            fang.weapon_effects = [CVampirism]

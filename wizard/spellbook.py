@@ -53,7 +53,7 @@ class Shadow(CreationSpell):
     name = "Shadow"
     mana_cost = 3
     humanity_min = -5
-    description = f"A shadow surrounds a creature, making it harder to hit. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"A shadow surrounds a creature, making it harder to hit. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 10
     targets = "friendly"
     original_colors = None
@@ -85,7 +85,7 @@ class Might(CreationSpell):
     name = "Might"
     mana_cost = 5
     humanity_min = -3
-    description = f"Make an ally stronger. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Make an ally stronger. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
 
@@ -106,7 +106,7 @@ class Mastery(CreationSpell):
     name = "Mastery"
     mana_cost = 7
     humanity_min = 5
-    description = f"Make an ally fight better. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Make an ally fight better. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "friendly"
 
@@ -122,7 +122,7 @@ class FlamingWeapons(CreationSpell):
     name = "Flaming Weapons"
     mana_cost = 5
     humanity_min = -3
-    description = f"Wreath a creature's weapons in magical fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Wreath a creature's weapons in magical fire. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = "forever"
     targets = "friendly"
     weapons = []
@@ -149,7 +149,7 @@ class PoisonedWeapons(CreationSpell):
     name = "Poisoned Weapons"
     mana_cost = 5
     humanity_min = -3
-    description = f"Cover a creature's weapons in magical poison. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Cover a creature's weapons in magical poison. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = "forever"
     targets = "friendly"
     weapons = []
@@ -175,7 +175,7 @@ class Bleeding(CreationSpell):
     name = "Bleeding"
     mana_cost = 5
     humanity_min = -3
-    description = f"Cover a creature's weapons in an anti-coagulating fluid. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Cover a creature's weapons in an anti-coagulating fluid. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = "forever"
     targets = "friendly"
     weapons = []
@@ -200,7 +200,7 @@ class Flashbang(CreationSpell):
     name = "Flashbang"
     mana_cost = 3
     humanity_min = -5
-    description = f"Temporarily blind your enemies in the area of effect. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Temporarily blind your enemies in the area of effect. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 5
     targets = "caster"
     original_see = {}
@@ -224,7 +224,7 @@ class Caltrops(CreationSpell):
     name = "Caltrops"
     mana_cost = 5
     humanity_min = -10
-    description = f"Causes enemies to fall. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Causes enemies to fall. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 5
     targets = "caster"
 
@@ -270,7 +270,7 @@ class Lightning(CreationSpell):
     name = "Lightning"
     mana_cost = 5
     humanity_min = -5
-    description = f"Lightning strikes an enemy and jumps to other enemies. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Lightning strikes an enemy and jumps to other enemies. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -315,7 +315,7 @@ class Fireball(CreationSpell):
     name = "Fireball"
     mana_cost = 7
     humanity_min = -5
-    description = f"A fireball lights an enemy on fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"A fireball lights an enemy on fire. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
 
@@ -332,7 +332,7 @@ class TheFloorIsLava(CreationSpell):
     name = "The Floor is Lava"
     mana_cost = 7
     humanity_min = -5
-    description = f"Set the ground on fire. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Set the ground on fire. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 20
     targets = "caster"
 
@@ -366,7 +366,7 @@ class GrowTreeOfLife(CreationSpell):
     name = "Grow Tree of Life"
     mana_cost = 10
     humanity_min = 2
-    description = f"A tree with healing fruit grows from the floor. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"A tree with healing fruit grows from the floor. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -383,7 +383,7 @@ class SummonCerberus(CreationSpell):
     name = "Summon Cerberus"
     mana_cost = 7
     humanity_min = -3
-    description = f"Summons a three headed dog to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a three headed dog to aid you. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -407,7 +407,7 @@ class SummonSpider(CreationSpell):
     name = "Summon Spider"
     mana_cost = 8
     humanity_min = 0
-    description = f"Summons a giant friendly spider. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a giant friendly spider. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -429,7 +429,7 @@ class SummonEtherealHand(CreationSpell):
     name = "Summon Ethereal Hand"
     mana_cost = 8
     humanity_min = 3
-    description = f"Summons a flying hand holding a shining blade. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a flying hand holding a shining blade. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -452,7 +452,7 @@ class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
     mana_cost = 12
     humanity_min = 7
-    description = f"Summons a friendly tentacle monster. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a friendly tentacle monster. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -470,7 +470,7 @@ class SummonFairy(CreationSpell):
     name = "Summon Fairy"
     mana_cost = 5
     humanity_min = 5
-    description = f"Summons a tiny fairy to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a tiny fairy to aid you. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -493,7 +493,7 @@ class SummonOwlbear(CreationSpell):
     name = "Summon Owlbear"
     mana_cost = 15
     humanity_min = 15
-    description = f"Summons a giant owlbear to aid you. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a giant owlbear to aid you. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -517,7 +517,7 @@ class SummonExcalibur(CreationSpell):
     name = "Summon Excalibur"
     mana_cost = 15
     humanity_min = 10
-    description = f"Creates a beautiful and powerful sword. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Summons a beautiful and powerful sword. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -548,7 +548,7 @@ class SummonExcalibur(CreationSpell):
                                 grasper.grasped = None
                                 print(f"{BC.MAGENTA}Excalibur disappears from {creature.name}'s {grasper.name}.{BC.OFF}")
 
-            print(f"{BC.MAGENTA}Excalibur flies into {self.caster.name}'s {hand.name}!{BC.OFF}")
+            print(f"{BC.MAGENTA}Excalibur appears in {self.caster.name}'s {hand.name}!{BC.OFF}")
             if not hand.grasped and (hand.limb_count("f_grasp") >= 1) and (hand.limb_count("t_grasp") >= 1):
                 hand.grasped = self.cont.excalibur
             else:
@@ -560,7 +560,7 @@ class Trapdoor(CreationSpell):
     name = "Trapdoor"
     mana_cost = 10
     humanity_min = 0
-    description = f"Creates a trapdoor to descend downward into the depths. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Creates a trapdoor to descend downward into the depths. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
@@ -596,7 +596,7 @@ class ArmorOfLight(CreationSpell):
     name = "Light Armor"
     mana_cost = 5
     humanity_min = -5
-    description = f"Conjures a set of armor made of light. {C.RED}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Conjures a set of armor made of light. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 20
     targets = "friendly"
     equipped = {}
@@ -663,7 +663,7 @@ class Light(CorruptionSpell):
 class GrowFangs(CorruptionSpell):
     name = "Grow Vampiric Fangs"
     mana_cost = 5
-    humanity_max = -5
+    humanity_max = -3
     description = f"Turn your teeth into powerful vampiric weapons. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
@@ -788,6 +788,40 @@ class SwordHand(CorruptionSpell):
 #         print(f"{C.RED}{self.old_char.name}{BC.MAGENTA} transforms back into a {C.RED}{self.old_char.classname}{BC.MAGENTA}.{BC.OFF}")
 
 
+class CutLimb(CorruptionSpell):
+    name = "Cut Limb"
+    mana_cost = 0
+    humanity_max = 5
+    description = f"Cut a disembodied limb at a joint. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    rounds = 1
+    targets = "caster"
+
+    def _cast(self):
+        invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
+        invs = utils.listtodict(invs, add_x=True)
+        utils.dictprint(invs)
+        i = input(f"\n{BC.GREEN}Which inventory contains the limb you want to cut?{BC.OFF} ")
+
+        if i in invs.keys() and i != "x":
+            inv = invs[i]
+            limbs = utils.listtodict([item for item in inv.vis_inv if isinstance(item, cr.Limb)], add_x=True)
+            utils.dictprint(limbs)
+            j = input(f"\n{BC.GREEN}Select a limb to cut:{BC.OFF} ")
+
+            if j in limbs.keys() and j != "x":
+                full_limb = limbs[j]
+                sublimbs = utils.listtodict(full_limb.limb_check("name"), add_x=True)
+                utils.dictprint(sublimbs)
+                k = input(f"\n{BC.GREEN}Select a joint to make the cut at:{BC.OFF} ")
+
+                if k in sublimbs.keys() and k != "x":
+                    sublimb = sublimbs[k]
+                    full_limb.remove_limb(sublimb)
+                    inv.vis_inv.append(sublimb)
+                    print(f"{BC.MAGENTA}{self.caster.name} cuts the {sublimb.name} off of the {full_limb.name}.{BC.OFF}")
+                    return True
+
+
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
@@ -819,6 +853,7 @@ class GraftLimb(CorruptionSpell):
                     target_limb = target_limbs[k]
                     target_limb.subelements.append(graft_limb)
                     invs[i].vis_inv.remove(graft_limb)
+                    graft_limb.hp = int(graft_limb.base_hp / 2)
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                     # Lowers humanity, if target is appropriate
                     if hasattr(self.caster, "humanity"):
@@ -891,7 +926,7 @@ class FleshRip(CorruptionSpell):
 
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
-    mana_cost = 7
+    mana_cost = 10
     humanity_max = -5
     description = f"Force an enemy to fight for you. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
