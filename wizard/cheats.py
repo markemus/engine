@@ -67,3 +67,14 @@ def skip_level_four(player, game):
     game.set_current_level(4)
     player.location.creatures.append(player)
 
+def skip_level_five(player, game):
+    # Cheat
+    player.unequip_suit(asu.bronze_armorsuit)
+    player.suits = [asu.iron_armorsuit]
+    player._clothe()
+
+    # Skip
+    player.location.creatures.remove(player)
+    player.location = game.level_list[5].start
+    game.set_current_level(5)
+    player.location.creatures.append(player)

@@ -76,6 +76,13 @@ class gateway(pl.Element):
     colors = ["black", "gray", "brown"]
     textures = ["stone"]
 
+class dwarven_gateway(pl.Element):
+    name = "gateway"
+    sprite = "O"
+    printcolor = C.RED
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+
 def weight_list(clist, weight):
     """Reweights elements in a creature list in preparation for joining with another creature list.
     e.g. creature_list = weight_list(d_creature_lists["caves"], 3) + d_creature_lists["city"]"""

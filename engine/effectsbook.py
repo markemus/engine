@@ -403,3 +403,29 @@ class RegrowLimb(sp.Effect):
         if not self.creature.dead:
             self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))
             print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.creature.name}'s {self.limb_parent.name}!{BC.OFF}")
+
+class ExplodeOnDeath(sp.Effect):
+    rounds = 3
+    expire_on_removal = False
+    cast_on_removal = True
+
+    def _cast(self):
+        if self.creature.dead:
+            return True
+
+    def update(self):
+        print(f"{C.RED}{self.creature.name}'s corpse bloats and distends.{C.OFF}")
+
+    def _expire(self):
+        print(f"{C.RED}{self.creature.name}'s bloated corpse explodes!{C.OFF}")
+        enemies = [c for c in self.creature.location.creatures if c.team not in [self.creature.team, "neutral"]]
+        # print(self.creature.location)
+        # print(enemies)
+        for enemy in enemies:
+            limbs = enemy.limb_check("isSurface")
+            random.shuffle(limbs)
+            limbs = limbs[:random.randint(0, 4)]
+            # print(limbs)
+            for limb in limbs:
+                print(f"{C.RED}{enemy.name}'s {limb.name} is caught in the explosion!{C.OFF}")
+                self.cont.combat.apply_damage(defender=enemy, limb=limb, damage=random.randint(0, 3))

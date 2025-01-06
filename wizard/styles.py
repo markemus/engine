@@ -20,6 +20,9 @@ class Home:
     creature_classes = []
 
 
+LevelStyle.register(Home)
+
+
 class CavernL1:
     level_text = f"""{BC.BLUE}The caves stretch before you, beckoning you on towards your first big adventure. You seek the burial chamber of the great dwarven king, Naarumsin, which lies deep underground somewhere beneath your feet. Legend has it that he was buried with an immense treasure, and his tomb has never been found. Many dangers lie before you, but fame and fortune will be yours, if you can rise to the challenge. Into the depths!"""
     room_classes = [wizard.places.CavernOpen, wizard.places.GoblinCavernVillage, wizard.places.Tunnel]
@@ -28,16 +31,18 @@ class CavernL1:
     algorithm = "labyrinth"
     creature_classes = []
 
+
 LevelStyle.register(CavernL1)
 
 
 class CavernL2:
-    level_text = f"""{BC.BLUE}The goblin chieftain defeated, you descend further into the caverns. Here the goblins and the dark elves battle for supremacy, dark elf raiding parties headed towards the surface and goblin raiders headed into the deep. You seem to have stumbled into the middle of an endless battle.{BC.OFF}"""
+    level_text = f"""{BC.BLUE}The goblin chieftain defeated, you descend further into the caverns. Here the goblins and the dark elves battle for supremacy, dark elf raiding parties heading towards the surface and goblin raiders heading into the deep. You seem to have stumbled into the middle of an endless battle.{BC.OFF}"""
     room_classes = [wizard.places.CavernOpenL2, wizard.places.GoblinCavernVillageL2, wizard.places.DarkElfOutpost, wizard.places.CavernLake]
     start_room = wizard.places.CavernEntrance
     end_room = wizard.places.DarkElfGuardtower
     algorithm = "labyrinth"
     creature_classes = []
+
 
 LevelStyle.register(CavernL2)
 
@@ -50,6 +55,9 @@ class DarkElfL3:
     creature_classes = []
 
 
+LevelStyle.register(DarkElfL3)
+
+
 class LakeL4:
     level_text = f"""{BC.BLUE}Below the fortress of the dark elves you encounter a shallow lake. Mysterious colored lights flash in the distance as you wade out into the darkness. Whatever it is that is doing that, you hope you won't encounter them.{BC.OFF}"""
     room_classes = [wizard.places.LakeTile]
@@ -58,7 +66,9 @@ class LakeL4:
     creature_classes = []
 
 
-# TODO-DONE playtest goblintown
+LevelStyle.register(LakeL4)
+
+
 class GoblintownL5:
     level_text = f"""{BC.BLUE}You go through a mysterious gateway and leave the strange lake behind you. Ahead of you you hear strange sounds, hoots, howls, and drums, drums in the deep.{BC.OFF}"""
     room_classes = [wizard.places.GoblinTownShack, wizard.places.GoblinTownFirepit]
@@ -67,11 +77,26 @@ class GoblintownL5:
     algorithm = "labyrinth"
     creature_classes = []
 
+
+LevelStyle.register(GoblintownL5)
+
+
+class NecromancerL6:
+    level_text = f"""{BC.BLUE}Behind the Great Goblin's throne there stands a great gateway, the ancient hinges nearly rusted shut. You push them apart with a deep creaking sound and press onwards into the ancient dwarven fortress of Zugalbash. But an ancient evil has taken root in these once homely halls, and you must face it if you are to win through to the tomb of Naarumsin.{BC.OFF}"""
+    room_classes = [wizard.places.DwarvenHome]
+    start_room = wizard.places.DwarvenEntranceHall
+    algorithm = "labyrinth"
+    creature_classes = []
+
+
+LevelStyle.register(NecromancerL6)
+
+
 class Wizard:
     # levels will spawn in this order
-    levelorder = [CavernL1, CavernL2, DarkElfL3, LakeL4, GoblintownL5, Home]
+    levelorder = [CavernL1, CavernL2, DarkElfL3, LakeL4, GoblintownL5, NecromancerL6, Home]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
-    links = [(0, 1), (1, 2), (2, 3), (3, 4)]
+    links = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
     start_splash = f"""
     ------------------------
     |       {C.RED}The Tomb{C.OFF}       |

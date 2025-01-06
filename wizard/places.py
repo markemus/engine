@@ -2,7 +2,7 @@ import copy
 
 import assets.places
 import engine.place as pl
-from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway
+from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway, dwarven_gateway
 
 import assets.furniture as fur
 
@@ -26,6 +26,7 @@ from wizard.tentacle_monster import TentacleMonster
 from wizard.troll import Troll
 from wizard.uruk import Uruk
 from wizard.warg import Warg
+from wizard.zombie import RandomZombie, RandomExplodingZombie
 
 from assets.goblin import ShallowGoblin, DeepGoblin
 
@@ -44,9 +45,11 @@ cc = {
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
+    "necromancer": [(RandomExplodingZombie, 1)],
 }
 
-# Player apartment rooms
+
+# Player apartment
 class MagicFoyer(pl.Place):
     name = "foyer"
     sprite = "F"
@@ -57,15 +60,19 @@ class MagicFoyer(pl.Place):
     furniture_classes = [fur.Carpet, wizard.furniture.Doormat]
     subelement_classes = [wall, floor, wizard.furniture.MagicDoor]
 
+
 class PlayerBathroom(assets.places.Bathroom):
     count = (1, 2)
+
 
 class PlayerParlor(assets.places.Parlor):
     count = (1, 2)
 
+
 class PlayerBedroom(assets.places.Bedroom):
     count = (1, 2)
     furniture_classes = [wizard.furniture.Bed, fur.Dresser]
+
 
 class TrophyRoom(pl.Place):
     name = "trophy room"
@@ -76,11 +83,12 @@ class TrophyRoom(pl.Place):
     furniture_classes = [fur.Carpet, wizard.furniture.TrophyPlinth]
     subelement_classes = [wall, floor]
 
+
 class PlayerDen(assets.places.Den):
     furniture_classes = [wizard.furniture.DenTable, fur.Chair, fur.Carpet, fur.Bookcase]
 
 
-# Cavern L1 rooms
+# Cavern (L1)
 class CavernEntrance(pl.Place):
     name = "cavern"
     sprite = "E"
@@ -132,7 +140,7 @@ class GoblinChiefVillage(GoblinCavernVillage):
     creature_classes = [[(ShallowGoblin, 1)], [(ShallowGoblin, 1)], [(ShallowGoblinChief, 1)], [(GoblinPetDog, 1)]]
 
 
-# Cavern L2 rooms
+# Cavern (L2)
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
     creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
@@ -178,7 +186,7 @@ class DarkElfGuardtower(pl.Place):
     subelement_classes = [wall, floor]
 
 
-# Dark Elf L3 rooms
+# Dark Elf (L3)
 class DarkElfHollowedStalagmite(pl.Place):
     name = "stalagmite quarters"
     sprite = "S"
@@ -233,7 +241,7 @@ class QueensNest(pl.Place):
     creature_classes = [[(ArachneQueen, 1)], [(DarkElfChampion, 1)], [(Arachne, 1)], [(DarkElfFairy, 1)]]
 
 
-# Lake L4 rooms
+# Lake (L4)
 class LakeShore(pl.Place):
     name = "lake shore"
     sprite = "S"
@@ -288,6 +296,7 @@ class MirrorLake(pl.Place):
                 print(f"{BC.MAGENTA}{creature.name}'s reflection rises up from the mirrored surface!{BC.OFF}")
 
 
+# Goblintown (L5)
 class GoblinTownGateway(pl.Place):
     name = "Welcome to Goblintown!"
     sprite = "G"
@@ -331,3 +340,27 @@ class GreatGoblinsHall(pl.Place):
     creature_classes = [[(GoblinPetOwlbear, 1)], [(GoblinPetOwlbear, 1)], [(Troll, 1)], [(Troll, 1)], [(GreatGoblin, 1)]]
     furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock, wizard.furniture.Mattress, wizard.furniture.L3Chest]
     subelement_classes = [wall, floor, pillar]
+
+
+# Necromancer (L6)
+class DwarvenEntranceHall(pl.Place):
+    name = "Entrance to Zugalbash"
+    sprite = "E"
+    count = (1, 2)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = []
+    furniture_classes = []
+    subelement_classes = [wall, floor, pillar]
+    door_class = dwarven_gateway
+
+
+class DwarvenHome(pl.Place):
+    name = "dwarven home"
+    sprite = "H"
+    count = (5, 10)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [cc["necromancer"]]
+    furniture_classes = []
+    subelement_classes = [wall, floor]

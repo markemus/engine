@@ -580,14 +580,23 @@ class creature:
 
         return ungrasped
 
-    # def unequip_suit(self, suit):
-    #     """Remove all items that belong to a suit of equipment."""
-    #     limbs = self.subelements[0].limb_check("wears")
-    #     for limb in limbs:
-    #         to_remove = tuple(suit["wears"].values())
-    #         for equipment in limb.equipment:
-    #             if isinstance(equipment, to_remove):
-    #                 limb.unequip(equipment)
+    def unequip_suit(self, suit):
+        """Remove all items that belong to a suit of equipment."""
+        limbs = self.subelements[0].limb_check("wears")
+        to_remove = []
+        # Suits can contain tuples or lists for optional or multiple items.
+        for x in suit["wears"].values():
+            if not isinstance(x, (tuple, list)):
+                to_remove.append(x)
+            else:
+                to_remove.extend(x)
+        to_remove = tuple(to_remove)
+        # print(to_remove)
+
+        for limb in limbs:
+            for equipment in limb.equipment.copy():
+                if isinstance(equipment, to_remove):
+                    limb.unequip(equipment)
 
     def get_neighbors(self, limb):
         return self.subelements[0].get_neighbors(limb)
