@@ -44,7 +44,7 @@ cc = {
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     # TODO-DONE populate goblintown
-    "goblintown": [(Troll, 1), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
+    "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
 }
 
 # Player apartment rooms
@@ -331,5 +331,5 @@ class GreatGoblinsHall(pl.Place):
     colors = ["dark", "gray", "black"]
     textures = ["stone"]
     creature_classes = [[(GoblinPetOwlbear, 1)], [(GoblinPetOwlbear, 1)], [(Troll, 1)], [(Troll, 1)], [(GreatGoblin, 1)]]
-    furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock, wizard.furniture.Mattress]
+    furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock, wizard.furniture.Mattress, wizard.furniture.L3Chest]
     subelement_classes = [wall, floor, pillar]
