@@ -29,7 +29,7 @@ class Head(cr.Limb):
     passive_effects = [eff.SquirtInk]
 
 
-# TODO octopi (and other fish) should die if they go on land (look for location.wet tag)
+# TODO-DONE octopi (and other fish) should die if they go on land (look for location.wet tag)
 class CaveOctopus(cr.Fish):
     classname = "cave octopus"
     team = "squids"
@@ -37,5 +37,4 @@ class CaveOctopus(cr.Fish):
     baseElem = Head
     colors = ["red", "yellow", "magenta", "blue", "cyan", "green"]
     textures = ["glowing"]
-    # TODO-DONE suits for octopus (rock, shell)
     suits = [wsu.octopus_gear]

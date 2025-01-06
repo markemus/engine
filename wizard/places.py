@@ -43,7 +43,6 @@ cc = {
     "lake_4_big_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)],
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
-    # TODO-DONE populate goblintown
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
 }
 
@@ -154,7 +153,6 @@ class DarkElfOutpost(CavernOpenL2):
     furniture_classes = [wizard.furniture.GiantMushroomWithHammock, wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
 
 
-# TODO-DONE fire effects should not work here
 class CavernLake(pl.Place):
     name = "cave lake"
     sprite = "L"
@@ -261,7 +259,7 @@ class LakeTile(pl.Place):
     door_class = channel
 
 
-# TODO spell to summon Excalibur
+# TODO-DONE spell to summon Excalibur
 class MirrorLake(pl.Place):
     name = "mirror lake"
     sprite = "M"

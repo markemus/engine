@@ -34,7 +34,6 @@ class Limb:
     def __init__(self, color, texture, creature=None):
         self.color = color
         self.texture = texture
-        # TODO-DONE add creature to tentacle and limb growth potions
         # TODO zombies should display creature class of baseElem
         self.creature = creature
         self.subelements = []
@@ -745,7 +744,6 @@ class creature:
             # Don't siphon, and tell caller there isn't enough.
             return False
 
-     # TODO-DONE can_rest tag on creature, can_heal tag on limbs. Apply to heal() as well.
     def rest(self):
         """Rest, recover HP, and clear status effects."""
         if self.can_rest:

@@ -41,7 +41,6 @@ class Effect:
     # Effects may define a "desc" attribute that will be added to limb.desc()
     desc = None
     rounds = None
-    # TODO-DONE expire_on_removal doesn't work if effect happens after limb is removed
     expire_on_removal = False
     cast_on_removal = True
     allow_duplicates = True

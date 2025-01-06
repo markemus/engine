@@ -18,7 +18,6 @@ from colorist import BrightColor as BC, Color as C
 lt = {
     "l1_chest_scroll": [(wcol.LevelOneScroll, 1)],
     "l1_chest_mana": [(wsu.RingOfMana, 2), (wsu.ManaLocket, 1)],
-    # TODO-DONE add potion of might
     "l1_chest_potion": [(pot.PotionOfStoneskin, 1), (pot.TentacleGrowthPotion, 1), (pot.PotionOfHealing, 1), (pot.PotionOfMight, 1)],
     "l2_chest_scroll": [(wcol.LevelTwoScroll, 1)],
     "l3_chest_scroll": [(wcol.LevelThreeScroll, 1)],
@@ -153,7 +152,6 @@ class L2Chest(pl.DisplayFurniture):
     # vis_collections = [(wcol.l2_scrolls, (1, 2)), ((wcol.potions_col, (2, 3)), (wcol.mana_items, (1, 2)))]
     loot_tables = [lt["l2_chest_scroll"], (lt["l1_chest_mana"], lt["l1_chest_potion"])]
 
-# TODO-DONE L3chest loot
 class L3Chest(pl.DisplayFurniture):
     name = "treasure chest"
     color = ["brown", "black", "gray"]

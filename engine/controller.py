@@ -199,7 +199,6 @@ class Controller:
         return self.check_safety()
 
     # Combat
-    # TODO-DONE combat should start automatically if hostiles are present in the room after an action.
     def attack(self, include_char=True):
         self.combat.fullCombat(include_char=include_char)
         self.game.update_spells()
@@ -324,8 +323,6 @@ class Controller:
 
         return blocker
 
-    # TODO-DONE companions (but not zombies) should heal on rest
-    # TODO-DONE can_rest tags on creatures, can_heal tags on limbs. Defaults True.
     def rest(self):
         print(f"{C.RED}{self.game.char.name}{C.OFF} rests for one hour.")
 
@@ -373,7 +370,6 @@ class Controller:
                 if usable.consumable:
                     invs[i].vis_inv.remove(usable)
 
-     # TODO-DONE require grasp check
     def put_on(self):
         if self.game.char.grasp_check():
             invs = self.game.char.subelements[0].find_invs()
@@ -442,7 +438,6 @@ class Controller:
         else:
             print(f"{C.RED}{self.game.char.name} has no free hands!{C.OFF}")
 
-    # TODO-DONE require grasp check
     def take_off(self):
         """Remove equipment from a limb."""
         if self.game.char.grasp_check():

@@ -7,16 +7,9 @@ import wizard.places
 
 from colorist import BrightColor as BC, Color as C
 
-# TODO-DONE level 4- underwater lake (wet environmental tag- no fire spells). Giant mosquitos.
-#  Octopi with shell shields and rock weapons and ink. Tentacle monsters.
-# TODO-DONE level 5- goblin town. Trolls, uruks, wargs, owlbears? iron armor.
 # TODO level 6- necromancer halls. zombies, death knights,
 #  enemies that explode on death, transmogrified zombies (multiple source classes)
 # TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king)
-# TODO-DONE mirror fight- fight a mirror image of yourself and your companions.
-
-# TODO-DONE add bookshelves to den to hold scrolls
-# TODO-DONE add empty jars to den table
 # TODO more stuff to do with home
 # TODO clothing with passive effects- cloak of shadows, gloves of mastery (for dark elf champions)
 class Home:
@@ -65,7 +58,7 @@ class LakeL4:
     creature_classes = []
 
 
-# TODO playtest goblintown
+# TODO-DONE playtest goblintown
 class GoblintownL5:
     level_text = f"""{BC.BLUE}You go through a mysterious gateway and leave the strange lake behind you. Ahead of you you hear strange sounds, hoots, howls, and drums, drums in the deep.{BC.OFF}"""
     room_classes = [wizard.places.GoblinTownShack, wizard.places.GoblinTownFirepit]

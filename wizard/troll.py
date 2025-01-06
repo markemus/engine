@@ -118,7 +118,7 @@ class Troll(cr.creature):
         super().__init__(*args, **kwargs)
         for limb in self.subelements[0].limb_check("name"):
             if limb.wears not in ["head", "body"]:
-                # TODO this should find parent_limb when it is chopped off? It doesn't work with grafting.
+                # TODO-DONE this should find parent_limb when it is chopped off? It doesn't work with grafting.
                 parent_limb = self.get_parents(limb)[-2]
                 class RegrowLimb(eff.RegrowLimb):
                     limb_parent = parent_limb

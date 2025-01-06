@@ -275,7 +275,7 @@ class Stun(sp.Effect):
         self.creature.stunned = False
         print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
 
-# TODO-DONE this isn't being cast on every attack?
+
 class Vampirism(sp.Effect):
     """Suck the lifeforce out of a creature."""
     # You need to overwrite this attribute in your subclass
@@ -329,8 +329,6 @@ class HealAllies(sp.Effect):
                 ally.heal_poison(1)
 
 
-# TODO-DONE entangle- neither casting limb nor target limb can attack until the effect expires (eg tentacles, vines)
-# TODO should set amble=0
 class Entangled(sp.Effect):
     rounds = 4
     expire_on_removal = True
@@ -398,7 +396,6 @@ class RegrowLimb(sp.Effect):
         limbs = self.creature.subelements[0].limb_check("name")
         if self.limb not in limbs:
             # fire stops regeneration
-            # TODO test
             if not sum([isinstance(e, FireDOT) for e in self.limb.active_effects]):
                 return True
 

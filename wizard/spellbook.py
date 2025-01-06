@@ -831,8 +831,7 @@ class GraftLimb(CorruptionSpell):
     targets = "friendly"
 
     def _cast(self):
-        # TODO-DONE test finds creature invs
-        # TODO allow you to cut off a limb (from a corpse)
+        # TODO-DONE allow you to cut off a limb (from a corpse)
         invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
         invs = utils.listtodict(invs, add_x=True)
         utils.dictprint(invs)
@@ -1073,8 +1072,6 @@ class Stun(CorruptionSpell):
         print(f"{C.RED}{self.target.name} is no longer stunned.{C.OFF}")
 
 
-
-# TODO-DONE only enemies that breathe should take damage from poison gas
 class PoisonGas(CorruptionSpell):
     name = "Poison Gas"
     mana_cost = 10
@@ -1223,11 +1220,3 @@ class SetHumanity(sp.Spell):
         self.original_humanity = self.caster.humanity
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
-
-
-# TODO-DONE more weapon effects- stun.
-# TODO-DONE Stun spell
-# TODO use controller.combat to allow ai to use magic.
-# TODO higher level summons
-# TODO-DONE summon owlbear (can draw aggro and tank)
-# TODO meld- transmogrify two companions into a single creature

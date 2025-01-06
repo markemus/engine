@@ -12,8 +12,6 @@ class Combat:
         self.cont = cont
         self.blockers = None
 
-    # TODO-DONE add vision check to grab_weapon()
-    # TODO-DONE should only grab if it's better than their current weapon
     def grab_weapon(self, actor):
         """AI creatures should grab weapons up off the floor if they have a spare hand."""
         # Search the room for weapons
@@ -55,7 +53,6 @@ class Combat:
             if actor.aggressive and not actor.dead and not actor.afraid and not actor.stunned:
                 # select best weapon
                 if actor is not self.char:
-                    # TODO-DONE this should run before creature attacks instead of before combat round (so char can't always grab it up first)
                     # Check the room for a better weapon
                     self.grab_weapon(actor)
 
@@ -175,11 +172,7 @@ class Combat:
 
     def get_weapons(self, actor, include_webbed=False):
         """Any limb that can cause damage directly or wield a weapon."""
-        # TODO-DONE probably shouldn't return grasp if limb doesn't have damage attribute. Test.
         weapons = actor.subelements[0].limb_check("damage")
-        # hands = actor.subelements[0].limb_check("grasp")
-        #
-        # weapons = list(set(claws + hands))
 
         unwebbed_weapons = []
         for weapon in weapons:
@@ -248,7 +241,6 @@ class Combat:
 
                         # check if target falls over
                         if not defender.dead:
-                            # TODO-DONE test- didn't work if subelement has amble instead. use limb_count() instead
                             if (limb.limb_count("amble") and can_amble) or (limb.limb_count("flight") and can_fly):
                                 if (defender.limb_count("amble") < 1) and (defender.limb_count("flight") < 1):
                                     print(f"{C.RED}{defender.name} collapses to the ground!{C.OFF}")
@@ -283,7 +275,6 @@ class Combat:
         self.apply_weapon_effects(defender, limb, weapon)
         self.apply_impact_effects(defender, limb)
 
-    # TODO-DONE webbed should remove the limb from blockers? Currently doesn't update until the next combat cycle.
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""
         blockers = [x for x in actor.subelements[0].limb_check("blocker") if x.blocker]

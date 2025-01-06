@@ -10,7 +10,6 @@ from colorist import Color as C
 from . import place as pl
 
 
-# TODO levelstyle floor layouts- add hallways algorithm
 class LevelStyle(abc.ABC):
     """creature_classes structure: [[(creature11, weight11), (creature12, weight12)], [(creature21, weight21)]]"""
     level_text = None
