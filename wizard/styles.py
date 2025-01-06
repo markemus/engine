@@ -69,6 +69,7 @@ class GoblintownL5:
     level_text = f"""{BC.BLUE}You go through a mysterious gateway and leave the strange lake behind you. Ahead of you you hear strange sounds, hoots, howls, and drums, drums in the deep.{BC.OFF}"""
     room_classes = [wizard.places.GoblinTownShack, wizard.places.GoblinTownFirepit]
     start_room = wizard.places.GoblinTownGateway
+    end_room = wizard.places.GreatGoblinsHall
     algorithm = "labyrinth"
     creature_classes = []
 

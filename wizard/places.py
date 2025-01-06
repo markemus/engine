@@ -17,14 +17,17 @@ from wizard.giant_bat import GiantBat
 from wizard.giant_mosquito import GiantMosquito
 from wizard.giant_shrimp import BlindCaveShrimp
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
-from wizard.goblin import ShallowGoblinChief, GoblinPetDog
+from wizard.goblin import ShallowGoblinChief, GoblinPetDog, GoblinPetOwlbear, GreatGoblin
 from wizard.jellyfish import Jellyfish
 from wizard.octopus import CaveOctopus
+# from wizard.owlbear import Owlbear
 from wizard.tunnel_worm import TunnelWorm
 from wizard.tentacle_monster import TentacleMonster
 from wizard.troll import Troll
+from wizard.uruk import Uruk
+from wizard.warg import Warg
 
-from assets.goblin import ShallowGoblin
+from assets.goblin import ShallowGoblin, DeepGoblin
 
 from colorist import BrightColor as BC, Color as C
 
@@ -40,7 +43,8 @@ cc = {
     "lake_4_big_fish": [(TentacleMonster, 1), (CaveOctopus, 5), (None, 1)],
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
-    "goblintown": [(Troll, 1)],
+    # TODO-DONE populate goblintown
+    "goblintown": [(Troll, 1), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
 }
 
 # Player apartment rooms
@@ -304,7 +308,7 @@ class GoblinTownShack(pl.Place):
     count = (5, 10)
     colors = ["brown", "gray", "tan"]
     textures = ["hide", "leather"]
-    creature_classes = [cc["goblintown"]]
+    creature_classes = [cc["goblintown"], cc["goblintown"], cc["goblintown"], cc["goblintown"]]
     furniture_classes = []
     subelement_classes = [wall, floor]
 
@@ -315,6 +319,17 @@ class GoblinTownFirepit(pl.Place):
     count = (2, 3)
     colors = ["dark", "gray", "black"]
     textures = ["stone"]
-    creature_classes = [cc["goblintown"]]
+    creature_classes = [cc["goblintown"], cc["goblintown"], cc["goblintown"], cc["goblintown"]]
     furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock]
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
+
+
+class GreatGoblinsHall(pl.Place):
+    name = "Great Goblin's hall"
+    sprite = "H"
+    count = (1, 2)
+    colors = ["dark", "gray", "black"]
+    textures = ["stone"]
+    creature_classes = [[(GoblinPetOwlbear, 1)], [(GoblinPetOwlbear, 1)], [(Troll, 1)], [(Troll, 1)], [(GreatGoblin, 1)]]
+    furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock, wizard.furniture.Mattress]
+    subelement_classes = [wall, floor, pillar]

@@ -74,7 +74,7 @@ class Torso(cr.Limb):
 class Owlbear(cr.creature):
     """A ferocious creature that is impossible for most to ignore."""
     classname = "owlbear"
-    team = "monster"
+    team = "goblinkin"
     namelist = nl.names["dog"]
     baseElem = Torso
     colors = ["black", "brindled", "spotted", "brown", "rust"]
