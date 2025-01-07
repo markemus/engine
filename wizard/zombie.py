@@ -26,7 +26,7 @@ zombie_source_creatures = [Arachne, DarkElfScout, DarkElfGuard, DarkElfFairy, De
 class Zombie(cr.creature):
     """A reanimated Limb."""
     classname = "zombie"
-    team = "monster"
+    team = "necromancer"
     namelist = ["zombie"]
     can_rest = False
     can_breathe = False

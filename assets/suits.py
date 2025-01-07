@@ -450,9 +450,9 @@ iron_weapons = {
     "wears": {},
     "grasps": {
         "right hand": (IronSword, IronSpear, IronAxe)},
-    "color": ["gray"],
+    "color": ["gray", "shiny", "matte", "polished"],
     "color_scheme": "same",
-    "texture": ["steel"],
+    "texture": ["iron"],
     "texture_scheme": "same",
     "full": True,
 }

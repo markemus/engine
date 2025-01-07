@@ -10,6 +10,7 @@ import wizard.furniture
 
 from wizard.arachne import Arachne, ArachneQueen
 from wizard.cave_fish import BlindCaveFish
+from wizard.death_knight import DeathKnight
 from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
 from wizard.fairy import DarkElfFairy
 from wizard.giant_rat import GiantRat
@@ -45,7 +46,7 @@ cc = {
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
-    "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (None, 1)],
+    "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (DeathKnight, 1), (None, 1)],
 }
 
 
