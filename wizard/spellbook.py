@@ -853,6 +853,7 @@ class GraftLimb(CorruptionSpell):
                     target_limb.subelements.append(graft_limb)
                     invs[i].vis_inv.remove(graft_limb)
                     graft_limb.hp = int(graft_limb.base_hp / 2)
+                    graft_limb.resurrected = True
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                     # Lowers humanity, if target is appropriate
                     if hasattr(self.caster, "humanity"):

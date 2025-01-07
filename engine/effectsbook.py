@@ -421,15 +421,12 @@ class ExplodeOnDeath(sp.Effect):
     def _expire(self):
         print(f"{C.RED}{self.creature.name}'s bloated corpse explodes!{C.OFF}")
         enemies = [c for c in self.creature.location.creatures if c.team not in [self.creature.team, "neutral"]]
-        # print(self.creature.location)
-        # print(enemies)
+
         for enemy in enemies:
             limbs = enemy.limb_check("isSurface")
             random.shuffle(limbs)
             limbs = limbs[:random.randint(0, 4)]
-            # print(limbs)
+
             for limb in limbs:
                 print(f"{C.RED}{enemy.name}'s {limb.name} is caught in the explosion!{C.OFF}")
                 self.cont.combat.apply_damage(defender=enemy, limb=limb, damage=random.randint(0, 3))
-
-# TODO death knight effect that resurrects limbs that are chopped off (if not limb.resurrected)

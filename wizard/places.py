@@ -376,3 +376,6 @@ class DwarvenWorkshop(pl.Place):
     creature_classes = [cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"]]
     furniture_classes = [wizard.furniture.Anvil, wizard.furniture.StoneTableWork]
     subelement_classes = [wall, floor]
+
+
+# TODO necromancer boss fight- super-melded (6 creatures) with some funky limb effects (heal, explode). Super huge and armored torso- you have to carve him apart. Some zombie adds.
