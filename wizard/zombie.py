@@ -49,6 +49,9 @@ class Zombie(cr.creature):
             limb.can_bleed = False
             limb.can_heal = False
 
+        for limb in self.limb_check("grasp"):
+            limb.grasped = None
+
     def _elementGen(self):
         """Zombies should not have limbs generated for them- we will manually set self.subelements."""
         pass
@@ -74,6 +77,17 @@ class RandomZombie(Zombie):
         limbs = creature.limb_check("name")
         random.shuffle(limbs)
         missing_limbs = limbs[:random.randint(0, len(limbs))]
+
+        # missing limbs should leave at least one weapon
+        weapons = creature.limb_check("damage")
+        in_both = list(set(weapons).intersection(set(missing_limbs)))
+        if in_both:
+            in_both_parents = creature.get_parents(in_both[0])
+            for limb in in_both_parents:
+                if limb in missing_limbs:
+                    missing_limbs.remove(limb)
+
+        # Remove missing limbs
         for limb in missing_limbs:
             creature.subelements[0].remove_limb(limb)
 
@@ -90,11 +104,20 @@ class RandomExplodingZombie(ExplodingZombie):
         creature = random.choice(zombie_source_creatures)(location=None)
 
         # Should have some missing limbs
-        # limbs = creature.subelements[0].get_neighbors(creature.subelements[0])
         limbs = creature.limb_check("name")
         random.shuffle(limbs)
-        # TODO missing limbs should keep at least one weapon
         missing_limbs = limbs[:random.randint(0, len(limbs))]
+
+        # missing limbs should leave at least one weapon
+        weapons = creature.limb_check("damage")
+        in_both = list(set(weapons).intersection(set(missing_limbs)))
+        if in_both:
+            in_both_parents = creature.get_parents(in_both[0])
+            for limb in in_both_parents:
+                if limb in missing_limbs:
+                    missing_limbs.remove(limb)
+
+        # Remove missing limbs
         for limb in missing_limbs:
             creature.subelements[0].remove_limb(limb)
 
