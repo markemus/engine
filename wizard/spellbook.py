@@ -831,7 +831,6 @@ class GraftLimb(CorruptionSpell):
     targets = "friendly"
 
     def _cast(self):
-        # TODO-DONE allow you to cut off a limb (from a corpse)
         invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
         invs = utils.listtodict(invs, add_x=True)
         utils.dictprint(invs)
@@ -853,6 +852,7 @@ class GraftLimb(CorruptionSpell):
                     target_limb.subelements.append(graft_limb)
                     invs[i].vis_inv.remove(graft_limb)
                     graft_limb.hp = int(graft_limb.base_hp / 2)
+                    # Stop limbs from being grafted back on repeatedly- once only
                     for limb in graft_limb.limb_check("name"):
                         limb.resurrected = True
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
