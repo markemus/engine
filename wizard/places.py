@@ -27,7 +27,7 @@ from wizard.tentacle_monster import TentacleMonster
 from wizard.troll import Troll
 from wizard.uruk import Uruk
 from wizard.warg import Warg
-from wizard.zombie import RandomZombie, RandomExplodingZombie
+from wizard.zombie import MeldedRandomZombie, RandomZombie, RandomExplodingZombie
 
 from assets.goblin import ShallowGoblin, DeepGoblin
 
@@ -46,7 +46,7 @@ cc = {
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
-    "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (DeathKnight, 1), (None, 1)],
+    "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (MeldedRandomZombie, 2), (DeathKnight, 2), (None, 1)],
 }
 
 

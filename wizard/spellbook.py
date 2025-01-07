@@ -1013,8 +1013,12 @@ class Meld(CorruptionSpell):
                 base_creature = targets[i]
                 other_creature = targets[j]
                 limbs = other_creature.get_neighbors(other_creature.subelements[0])
-                limbs = limbs[:random.randint(0, len(limbs))]
+                limbs = limbs[:random.randint(1, len(limbs))]
+                for limb in limbs:
+                    other_creature.subelements[0].remove_limb(limb)
                 base_creature.subelements[0].subelements.extend(limbs)
+                base_creature.name = f"{base_creature.name}-{other_creature.name}"[:60]
+                base_creature.classname = f"{base_creature.classname}-{other_creature.classname}"[:60]
                 self.caster.companions.remove(other_creature)
                 self.caster.location.creatures.remove(other_creature)
                 print(f"{BC.MAGENTA}{other_creature.name} melds into {base_creature.name}!{BC.OFF}")

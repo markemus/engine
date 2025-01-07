@@ -39,7 +39,7 @@ class Zombie(cr.creature):
         self.classname = f"zombie {limb.creature.classname}"
         self.name = f"zombie {limb.creature.classname}"
         self.subelements = [limb]
-        # Heal the base limb a bit, since it will have negative hp otherwise
+        # Heal the base limb a bit, since it might have negative hp otherwise
         if limb.hp < int(limb.base_hp / 2):
             limb.hp = int(limb.base_hp / 2)
 
@@ -132,4 +132,19 @@ class RandomExplodingZombie(ExplodingZombie):
 
         super().__init__(limb=creature.subelements[0], location=location)
 
-# TODO-DECIDE zombies should grapple?
+
+# TODO-DONE melded zombies
+class MeldedRandomZombie(Zombie):
+    def __init__(self, location):
+        base_creature = random.choice(zombie_source_creatures)(location=None)
+        other_creature = random.choice(zombie_source_creatures)(location=None)
+
+        limbs = other_creature.get_neighbors(other_creature.subelements[0])
+        limbs = limbs[:random.randint(1, len(limbs))]
+        for limb in limbs:
+            other_creature.subelements[0].remove_limb(limb)
+        base_creature.subelements[0].subelements.extend(limbs)
+        base_creature.name = f"{base_creature.name}-{other_creature.name}"[:60]
+        base_creature.classname = f"{base_creature.classname}-{other_creature.classname}"[:60]
+
+        super().__init__(limb=base_creature.subelements[0], location=location)
