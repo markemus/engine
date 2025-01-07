@@ -89,3 +89,14 @@ class DeathKnight(cr.creature):
     colors = ["white", "gray"]
     textures = ["bone"]
     suits = [asu.iron_armorsuit, asu.iron_weapons]
+    can_stun = False
+    can_rest = False
+    can_breathe = False
+    can_fear = False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for limb in self.limb_check("name"):
+            limb.can_heal = False
+            limb.resurrected = True
+

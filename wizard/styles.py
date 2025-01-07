@@ -81,6 +81,7 @@ class GoblintownL5:
 LevelStyle.register(GoblintownL5)
 
 
+# TODO playtest necromancer level
 class NecromancerL6:
     level_text = f"""{BC.BLUE}Behind the Great Goblin's throne there stands a great gateway, the ancient hinges nearly rusted shut. You push them apart with a deep creaking sound and press onwards into the ancient dwarven fortress of Zugalbash. But an ancient evil has taken root in these once homely halls, and you must face it if you are to win through to the tomb of Naarumsin.{BC.OFF}"""
     room_classes = [wizard.places.DwarvenHome, wizard.places.DwarvenWorkshop]

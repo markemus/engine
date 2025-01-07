@@ -31,6 +31,7 @@ class Zombie(cr.creature):
     can_rest = False
     can_breathe = False
     can_stun = False
+    can_fear = False
 
     def __init__(self, limb, location):
         self.colors = [limb.creature.color]
@@ -50,6 +51,7 @@ class Zombie(cr.creature):
             limb.can_heal = False
             # Limbs that have been resurrected cannot be resurrected again (spells that create Zombies should enforce).
             limb.resurrected = True
+            limb.creature = self
 
         for limb in self.limb_check("grasp"):
             limb.grasped = None
@@ -57,7 +59,8 @@ class Zombie(cr.creature):
             # Zombies can't hold weapons, but they can grapple, of course
             class Entangled(eff.Entangled):
                 entangling_limb = limb
-            limb.weapon_effects.append(Entangled)
+            if not sum([issubclass(e, eff.Entangled) for e in limb.weapon_effects]):
+                limb.weapon_effects.append(Entangled)
 
     def _elementGen(self):
         """Zombies should not have limbs generated for them- we will manually set self.subelements."""

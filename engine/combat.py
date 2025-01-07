@@ -271,6 +271,7 @@ class Combat:
         # Damage roll
         damage = round(random.random() * damage, 2)
         cutoff = self.apply_damage(defender, limb, damage)
+        # TODO creatures should collapse if weapon_effects cause it (like in apply_damage())
         self.apply_weapon_effects(defender, limb, weapon)
         # TODO bleed should be applied here iff there is no firedot on limb. Save parent_limb before apply_damage.
         self.apply_impact_effects(defender, limb)

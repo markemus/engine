@@ -335,12 +335,18 @@ class Entangled(sp.Effect):
     # Subclass and set entangling_limb
     entangling_limb = None
     allow_duplicates = False
+    cast_on_removal = False
 
     def cast(self):
         """We need custom cast() and expire() since this effect affects two limbs."""
         if not self.allow_duplicates:
             if sum([isinstance(x, self.__class__) and (x.entangling_limb is self.entangling_limb) for x in self.limb.active_effects]):
                 return False
+
+        if not self.cast_on_removal:
+            if self.limb not in self.creature.limb_check("name"):
+                return False
+
         print(f"{C.RED}{self.entangling_limb.name} and {self.limb.name} are entangled!{C.OFF}")
 
         self.update()
