@@ -431,3 +431,5 @@ class ExplodeOnDeath(sp.Effect):
             for limb in limbs:
                 print(f"{C.RED}{enemy.name}'s {limb.name} is caught in the explosion!{C.OFF}")
                 self.cont.combat.apply_damage(defender=enemy, limb=limb, damage=random.randint(0, 3))
+
+# TODO death knight effect that resurrects limbs that are chopped off (if not limb.resurrected)

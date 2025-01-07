@@ -48,6 +48,8 @@ class Zombie(cr.creature):
                 limb.vital = False
             limb.can_bleed = False
             limb.can_heal = False
+            # Limbs that have been resurrected cannot be resurrected again (spells that create Zombies should enforce).
+            limb.resurrected = True
 
         for limb in self.limb_check("grasp"):
             limb.grasped = None

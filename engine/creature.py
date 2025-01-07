@@ -30,6 +30,7 @@ class Limb:
     impact_effects = []
     can_heal = True
     can_bleed = True
+    resurrected = False
 
     def __init__(self, color, texture, creature=None):
         self.color = color

@@ -712,7 +712,7 @@ class GrowFangs(CorruptionSpell):
 class SwordHand(CorruptionSpell):
     name = "Sword Hand"
     mana_cost = 15
-    humanity_max = -8
+    humanity_max = -12
     description = f"Transform one of your hands into a gigantic sword. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
@@ -838,7 +838,7 @@ class GraftLimb(CorruptionSpell):
         i = input(f"\n{BC.GREEN}Which inventory would you like to graft from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            graft_limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
+            graft_limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb) and not item.resurrected], add_x=True)
             utils.dictprint(graft_limbs)
             j = input(f"\n{BC.GREEN}Select a limb to graft:{BC.OFF} ")
 
@@ -878,7 +878,7 @@ class ReanimateLimb(CorruptionSpell):
         i = input(f"\n{BC.GREEN}Which inventory would you like to resurrect from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb)], add_x=True)
+            limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb) and not item.resurrected], add_x=True)
             utils.dictprint(limbs)
             j = input(f"\n{BC.GREEN}Select a limb to resurrect:{BC.OFF} ")
 
