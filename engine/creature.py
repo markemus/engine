@@ -586,10 +586,10 @@ class creature:
         to_remove = []
         # Suits can contain tuples or lists for optional or multiple items.
         for x in suit["wears"].values():
-            if not isinstance(x, (tuple, list)):
-                to_remove.append(x)
-            else:
+            if isinstance(x, (tuple, list)):
                 to_remove.extend(x)
+            else:
+                to_remove.append(x)
         to_remove = tuple(to_remove)
         # print(to_remove)
 

@@ -127,3 +127,5 @@ class RandomExplodingZombie(ExplodingZombie):
             limb.hp = random.randint(1, limb.base_hp)
 
         super().__init__(limb=creature.subelements[0], location=location)
+
+# TODO-DECIDE zombies should grapple?
