@@ -20,8 +20,8 @@ from wizard.giant_shrimp import BlindCaveShrimp
 from wizard.giant_spider import GiantSpider, ArmoredGiantSpider
 from wizard.goblin import ShallowGoblinChief, GoblinPetDog, GoblinPetOwlbear, GreatGoblin
 from wizard.jellyfish import Jellyfish
+from wizard.necromancer import Necromancer
 from wizard.octopus import CaveOctopus
-# from wizard.owlbear import Owlbear
 from wizard.tunnel_worm import TunnelWorm
 from wizard.tentacle_monster import TentacleMonster
 from wizard.troll import Troll
@@ -378,4 +378,12 @@ class DwarvenWorkshop(pl.Place):
     subelement_classes = [wall, floor]
 
 
-# TODO necromancer boss fight- super-melded (6 creatures) with some funky limb effects (heal, explode). Super huge and armored torso- you have to carve him apart. Some zombie adds.
+class DwarvenAleHall(pl.Place):
+    name = "dwarven ale hall"
+    sprite = "A"
+    count = (1, 2)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [[(Necromancer, 1)], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"]]
+    furniture_classes = [wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
+    subelement_classes = [wall, floor, pillar]

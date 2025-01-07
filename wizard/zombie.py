@@ -53,7 +53,8 @@ class Zombie(cr.creature):
 
         for limb in self.limb_check("grasp"):
             limb.grasped = None
-            # Zombies can grapple, of course
+            limb.grasp = 0
+            # Zombies can't hold weapons, but they can grapple, of course
             class Entangled(eff.Entangled):
                 entangling_limb = limb
             limb.weapon_effects.append(Entangled)
@@ -135,7 +136,6 @@ class RandomExplodingZombie(ExplodingZombie):
         super().__init__(limb=creature.subelements[0], location=location)
 
 
-# TODO-DONE melded zombies
 class MeldedRandomZombie(Zombie):
     def __init__(self, location):
         base_creature = random.choice(zombie_source_creatures)(location=None)

@@ -29,7 +29,6 @@ class Blanket(it.Item):
     canwear = it.Item.canwear.copy()
     covers = it.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     covers["head"] = True
     armor = 1
     descends = 1
@@ -51,7 +50,6 @@ class Pillow(it.Item):
     canwear = it.Item.canwear.copy()
     covers = it.Item.covers.copy()
     canwear["arm"] = True
-    covers["arm"] = True
     armor = 1
     descends = 0
     level = 2

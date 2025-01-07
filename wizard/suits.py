@@ -17,8 +17,6 @@ class LightBoot(i.Item):
     covers = i.Item.covers.copy()
     canwear["foot"] = True
     canwear["paw"] = True
-    covers["foot"] = True
-    covers["paw"] = True
     covers["claw"] = True
     armor = 2
     level = 3
@@ -30,7 +28,6 @@ class LightBracer(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["arm"] = True
-    covers["arm"] = True
     armor = 2
     level = 3
     descends = 0
@@ -41,16 +38,13 @@ class LightBreastplate(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     canwear["animal_body"] = True
-    covers["animal_body"] = True
     covers["animal_abdomen"] = True
     canwear["spider_body"] = True
-    covers["spider_body"] = True
     covers["spider_abdomen"] = True
     armor = 2
     level = 3
-    descends = 0
+    descends = 1
     cannot_remove = True
 
 class LightGauntlet(i.Item):
@@ -59,8 +53,6 @@ class LightGauntlet(i.Item):
     covers = i.Item.covers.copy()
     canwear["right hand"] = True
     canwear["left hand"] = True
-    covers["right hand"] = True
-    covers["left hand"] = True
     covers["finger"] = True
     covers["thumb"] = True
     armor = 2
@@ -75,9 +67,7 @@ class LightGreave(i.Item):
     canwear["leg"] = True
     covers["leg"] = True
     canwear["animal_leg"] = True
-    covers["animal_leg"] = True
     canwear["spider_leg"] = True
-    covers["spider_leg"] = True
     armor = 2
     level = 3
     descends = 0
@@ -90,15 +80,12 @@ class LightHelm(i.Item):
     canwear["head"] = True
     canwear["animal_head"] = True
     canwear["spider_head"] = True
-    covers["head"] = True
     covers["eye"] = True
     covers["ear"] = True
     covers["nose"] = True
     covers["mouth"] = True
     covers["teeth"] = True
     covers["tongue"] = True
-    covers["animal_head"] = True
-    covers["spider_head"] = True
     covers["snout"] = True
     covers["fang"] = True
     armor = 2
@@ -112,7 +99,6 @@ class SpiderBronzeBreastplate(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["spider_body"] = True
-    covers["spider_body"] = True
     covers["spider_abdomen"] = True
     descends = 0
     level = 3
@@ -123,8 +109,6 @@ class SpiderBronzeHelm(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["spider_head"] = True
-    covers["spider_head"] = True
-    covers["spider_head"] = True
     covers["eye"] = True
     covers["mouth"] = True
     covers["fangs"] = True
@@ -137,7 +121,6 @@ class SpiderBronzeGreave(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["spider_leg"] = True
-    covers["spider_leg"] = True
     descends = 0
     level = 3
     armor = 1
@@ -159,7 +142,6 @@ class RingOfMana(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["finger"] = True
-    covers["finger"] = True
     level = 2
     base_mana = 5
     mana = base_mana
@@ -172,7 +154,6 @@ class ManaLocket(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     level = 2
     base_mana = 10
     mana = base_mana
@@ -250,6 +231,9 @@ lightsuit = {
         "animal_head": LightHelm,
         "animal_body": LightBreastplate,
         "animal_leg": LightGreave,
+        "spider_head": LightHelm,
+        "spider_body": LightBreastplate,
+        "spider_leg": LightGreave,
         "paw": LightBoot
     },
     "grasps": {},

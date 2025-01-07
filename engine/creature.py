@@ -194,18 +194,28 @@ class Limb:
                 # Check level if empty
                 already_equipped = [x for x in self.equipment if x.level == article.level]
                 if not already_equipped:
-                    # Insert equipment at proper level
+                    # Insert equipment at proper level for equipment
                     i = 0
                     levels = [x.level for x in self.equipment]
                     for i, level in enumerate(levels):
                         if level > article.level:
                             break
                     self.equipment.insert(i, article)
-                    # Equipment should cover limb (and lower limbs if applicable).
-                    # Items that cover should always have a 'descend' tag.
+
+                    # Insert equipment at proper level for covers
+                    i = 0
+                    levels = [x.level for x in self.covers]
+                    for i, level in enumerate(levels):
+                        if level > article.level:
+                            break
+                    self.covers.insert(i, article)
+
+                    # Equipment should cover lower limbs if applicable.
+                    # Items that cover should always have a 'descends' tag.
                     if hasattr(article, "descends"):
-                        potentially_cover = self.return_from_depth(article.descends)
+                        potentially_cover = self.return_from_depth(article.descends)[1:]
                         for subelement in potentially_cover:
+                            # TODO this insertion check is not working- articles are in reverse order?
                             if article.covers[subelement.wears]:
                                 # Insert equipment at proper level
                                 i = 0

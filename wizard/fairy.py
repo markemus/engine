@@ -31,7 +31,7 @@ class TinyHead(cr.Limb):
     subelement_classes = [PointyEar, cl.Eye, cl.Nose, cl.Jaw]
     isSurface = True
     appendageRange = (1, 2)
-    wear = "head"
+    wears = "head"
     vital = True
     base_hp = 5
     size = 1

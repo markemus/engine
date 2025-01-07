@@ -60,7 +60,6 @@ class Boot(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["foot"] = True
-    covers["foot"] = True
     armor = 2
     level = 3
     descends = 0
@@ -70,7 +69,6 @@ class Bracer(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["arm"] = True
-    covers["arm"] = True
     armor = 2
     level = 3
     descends = 0
@@ -80,7 +78,6 @@ class Chainmail(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     armor = 2
     level = 3
     descends = 0
@@ -91,8 +88,6 @@ class Gauntlet(i.Item):
     covers = i.Item.covers.copy()
     canwear["right hand"] = True
     canwear["left hand"] = True
-    covers["right hand"] = True
-    covers["left hand"] = True
     covers["finger"] = True
     covers["thumb"] = True
     armor = 2
@@ -104,7 +99,6 @@ class Greave(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["leg"] = True
-    covers["leg"] = True
     armor = 2
     level = 3
     descends = 0
@@ -114,7 +108,6 @@ class Helm(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["head"] = True
-    covers["head"] = True
     covers["eye"] = True
     covers["ear"] = True
     covers["nose"] = True
@@ -128,10 +121,7 @@ class Shield(i.Item):
     name = "shield"
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
-    canwear["back"] = True
     canwear["left hand"] = True
-    covers["back"] = True
-    covers["left hand"] = True
     covers["finger"] = True
     covers["thumb"] = True
     armor = 2
@@ -144,7 +134,6 @@ class Apron(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     covers["leg"] = True
     level = 2
     descends = 1
@@ -154,7 +143,6 @@ class ChefHat(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["head"] = True
-    covers["head"] = True
     level = 2
     descends = 0
 
@@ -163,7 +151,6 @@ class Hose(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["leg"] = True
-    covers["leg"] = True
     level = 1
     descends = 0
 
@@ -172,7 +159,6 @@ class Shoe(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["foot"] = True
-    covers["foot"] = True
     level = 1
     descends = 0
 
@@ -181,7 +167,6 @@ class Slipper(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["foot"] = True
-    covers["foot"] = True
     level = 1
     descends = 0
 
@@ -190,7 +175,6 @@ class Tunic(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     covers["arm"] = True
     level = 1
     descends = 1
@@ -200,7 +184,6 @@ class Clout(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     level = 1
     descends = 0
 
@@ -211,11 +194,8 @@ class Bracelet(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["hand"] = True
-    covers["hand"] = True
     canwear["right hand"] = True
-    covers["right hand"] = True
     canwear["left hand"] = True
-    covers["left hand"] = True
     canwear["foot"] = True
     covers["foot"] = True
     level = 2
@@ -225,7 +205,6 @@ class Necklace(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["body"] = True
-    covers["body"] = True
     level = 2
 
 class Ring(i.Item):
@@ -233,7 +212,6 @@ class Ring(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["finger"] = True
-    covers["finger"] = True
     level = 2
 
 # Weapons
@@ -263,7 +241,6 @@ class Blindfold(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["head"] = True
-    covers["head"] = True
     covers["eye"] = True
     see = -2
     level = 1
@@ -274,7 +251,6 @@ class SkinMask(i.Item):
     canwear = i.Item.canwear.copy()
     covers = i.Item.covers.copy()
     canwear["head"] = True
-    covers["head"] = True
     covers["ear"] = True
     covers["eye"] = True
     covers["nose"] = True
@@ -419,4 +395,3 @@ king_weapon = {
     "texture_scheme": "same",
     "full": True,
 }
-

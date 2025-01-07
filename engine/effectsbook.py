@@ -314,6 +314,7 @@ class SuckBlood(sp.Effect):
 
 class HealAllies(sp.Effect):
     """Heals allies for a small amount every turn. This is an aura that resides on a creature, such as a fairy."""
+    desc = "glowing"
     amount = 2
     rounds = "forever"
     expire_on_removal = True
