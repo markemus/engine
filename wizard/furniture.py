@@ -5,6 +5,7 @@ import engine.styles as st
 
 import assets.asset_collections as col
 import assets.furniture as fur
+import assets.household_items as hi
 import assets.potions as pot
 
 import wizard.elf
@@ -226,12 +227,6 @@ class Fresco(pl.Element):
 class FrescoWall(st.wall):
     subelement_classes = [Fresco]
 
-class Anvil(pl.Furniture):
-    name = "anvil"
-    count = (1, 2)
-    color = ["black", "matte"]
-    texture = ["steel", "iron"]
-
 class WithyMushrooms(pl.Furniture):
     name = "withy mushroom"
     count = (1, 6)
@@ -243,3 +238,34 @@ class PadMushroom(pl.Furniture):
     count = (1, 6)
     color = ["white"]
     texture = ["round"]
+
+class StoneBed(pl.Furniture):
+    name = "bed"
+    count = (1, 3)
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+
+class StoneTable(pl.DisplayFurniture):
+    name = "table"
+    count = (1, 2)
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+
+class StoneChair(pl.Furniture):
+    name = "chair"
+    count = (1, 5)
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+
+class Anvil(pl.Furniture):
+    name = "anvil"
+    count = (1, 2)
+    color = ["black", "gray", "matte"]
+    texture = ["steel", "iron"]
+
+class StoneTableWork(pl.DisplayFurniture):
+    name = "table"
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+    count = (1, 2)
+    vis_collections = [(hi.tools, (0, 2))]

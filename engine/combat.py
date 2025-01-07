@@ -261,7 +261,6 @@ class Combat:
             e = Effect(defender, limb, self.cont)
             e.cast()
 
-    # TODO bleed should be applied here iff there is no firedot.
     def apply_impact_effects(self, defender, limb):
         for Effect in limb.impact_effects:
             e = Effect(creature=defender, limb=limb, controller=self.cont)
@@ -273,6 +272,7 @@ class Combat:
         damage = round(random.random() * damage, 2)
         cutoff = self.apply_damage(defender, limb, damage)
         self.apply_weapon_effects(defender, limb, weapon)
+        # TODO bleed should be applied here iff there is no firedot on limb. Save parent_limb before apply_damage.
         self.apply_impact_effects(defender, limb)
 
     def get_blockers(self, actor):

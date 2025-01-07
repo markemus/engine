@@ -45,7 +45,7 @@ cc = {
     "lake_4_small_fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
-    "necromancer": [(RandomExplodingZombie, 1)],
+    "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (None, 1)],
 }
 
 
@@ -361,6 +361,17 @@ class DwarvenHome(pl.Place):
     count = (5, 10)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
-    creature_classes = [cc["necromancer"]]
-    furniture_classes = []
+    creature_classes = [cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"]]
+    furniture_classes = [wizard.furniture.StoneBed, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
+    subelement_classes = [wall, floor]
+
+
+class DwarvenWorkshop(pl.Place):
+    name = "dwarven workshop"
+    sprite = "W"
+    count = (1, 4)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"]]
+    furniture_classes = [wizard.furniture.Anvil, wizard.furniture.StoneTableWork]
     subelement_classes = [wall, floor]

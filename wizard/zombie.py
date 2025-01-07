@@ -51,6 +51,10 @@ class Zombie(cr.creature):
 
         for limb in self.limb_check("grasp"):
             limb.grasped = None
+            # Zombies can grapple, of course
+            class Entangled(eff.Entangled):
+                entangling_limb = limb
+            limb.weapon_effects.append(Entangled)
 
     def _elementGen(self):
         """Zombies should not have limbs generated for them- we will manually set self.subelements."""

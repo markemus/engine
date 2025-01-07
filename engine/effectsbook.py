@@ -27,7 +27,6 @@ class Stoneskin(sp.Effect):
             self.limb.texture = self.limb.orig_texture
 
 
-# TODO cauterize wounds so they don't bleed. Will need to know parent_limb so do it combat.py
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = .5
@@ -374,6 +373,7 @@ class Entangled(sp.Effect):
         self.entangling_limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
 
+
 class DrawAggro(sp.Effect):
     """This creature will draw the aggression of any creature it attacks."""
     rounds = 1
@@ -385,6 +385,7 @@ class DrawAggro(sp.Effect):
         if old_target is not self.casting_creature:
             self.creature.ai.target = self.casting_creature
             print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")
+
 
 class RegrowLimb(sp.Effect):
     rounds = 5
@@ -403,6 +404,7 @@ class RegrowLimb(sp.Effect):
         if not self.creature.dead:
             self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))
             print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.creature.name}'s {self.limb_parent.name}!{BC.OFF}")
+
 
 class ExplodeOnDeath(sp.Effect):
     rounds = 3
