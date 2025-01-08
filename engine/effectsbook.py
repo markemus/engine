@@ -243,13 +243,14 @@ class Poison(sp.Effect):
     cast_on_removal = False
 
     def _cast(self):
-        self.creature.poisoned += self.amount
-        print(f"{C.RED}{self.creature.name} absorbs {self.amount} points of poison!{C.OFF}")
-        if self.creature.poisoned > self.creature.poison_resist / 2:
-            print(f"{C.RED}{self.creature.name}{C.OFF} looks green.")
-        if self.creature.poisoned >= self.creature.poison_resist:
-            print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
-            self.creature.die()
+        if self.creature.can_poison:
+            self.creature.poisoned += self.amount
+            print(f"{C.RED}{self.creature.name} absorbs {self.amount} points of poison!{C.OFF}")
+            if self.creature.poisoned > self.creature.poison_resist / 2:
+                print(f"{C.RED}{self.creature.name}{C.OFF} looks green.")
+            if self.creature.poisoned >= self.creature.poison_resist:
+                print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
+                self.creature.die()
 
 
 class Stun(sp.Effect):

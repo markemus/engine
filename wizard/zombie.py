@@ -32,6 +32,7 @@ class Zombie(cr.creature):
     can_breathe = False
     can_stun = False
     can_fear = False
+    can_poison = False
 
     def __init__(self, limb, location):
         self.colors = [limb.creature.color]

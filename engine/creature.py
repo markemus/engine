@@ -161,6 +161,13 @@ class Limb:
     def remove_limb(self, limb):
         if limb in self.subelements:
             self.subelements.remove(limb)
+
+            # Expire limb effects
+            for effect in limb.active_effects.copy():
+                if effect.expire_on_removal:
+                    effect.expire()
+
+            # Remove covering equipment
             for item in limb.covers.copy():
                 if item not in limb.equipment:
                     for sublimb in limb.limb_check("name"):
@@ -363,6 +370,7 @@ class creature:
     can_rest = True
     can_breathe = True
     can_stun = True
+    can_poison = True
     bled = 0
     poisoned = 0
     afraid = False
@@ -633,16 +641,22 @@ class creature:
             # Limb is the core limb. Just die and don't try checking statuses since we're removing the whole limb tree.
             self.die()
             self.subelements.remove(limb)
+
+            # Expire limb effects
+            for effect in limb.active_effects.copy():
+                if effect.expire_on_removal:
+                    effect.expire()
             return
+
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
         # Losing a vital limb kills the creature
-        limb_vitals = limb.limb_check("vital")
+        limb_vitals = [l for l in limb.limb_check("vital") if l.vital]
         # We'll see if others of this class are still attached
-        limb_vitals = set([x.__class__ for x in limb_vitals])
+        limb_vitals = set([l.__class__ for l in limb_vitals])
         if len(limb_vitals):
-            other_vitals = set([x.__class__ for x in self.subelements[0].limb_check("vital")])
+            other_vitals = set([l.__class__ for l in self.subelements[0].limb_check("vital") if l.vital])
             # We confirm that all vitals that were removed still exist in our subelements. Otherwise, die.
             if len(limb_vitals.intersection(other_vitals)) < len(limb_vitals):
                 self.die()

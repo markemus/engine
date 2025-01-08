@@ -49,7 +49,7 @@ class CombatAI:
             if entanglements:
                 targets = []
                 for entanglement in entanglements:
-                    targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if (x.creature is not self.creature) and (x.creature.team != self.creature.team) and (x.creature.team != "neutral")])
+                    targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if (x.creature is not self.creature) and (x.creature.team != self.creature.team) and (x.creature.team != "neutral") and not x.creature.dead])
 
             # Pick
             if len(targets) > 0:
@@ -96,11 +96,12 @@ class CombatAI:
 
         entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
         if entanglements:
-            # print(entanglements)
-            # Can only attack limbs weapon is entangled with
-            target_limbs = []
-            for entanglement in entanglements:
-                target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
+            target_limbs = self.target_entangling_limbs(target, attacking_weapon)
+            # # print(entanglements)
+            # # Can only attack limbs weapon is entangled with
+            # target_limbs = []
+            # for entanglement in entanglements:
+            #     target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
 
         if target_limbs:
             # This way enemies will switch targets instead of relentlessly hammering down the best target
@@ -115,6 +116,14 @@ class CombatAI:
             chosen = random.choice(limbs)
 
         return chosen
+
+    def target_entangling_limbs(self, target, attacking_weapon):
+        entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
+        # Can only attack limbs weapon is entangled with
+        target_limbs = []
+        for entanglement in entanglements:
+            target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
+        return target_limbs
 
     def block(self, blockers, target_limb):
         """Calculates a block value. The algorithm tries to minimize damage taken while maximizing damage potential."""
@@ -190,7 +199,7 @@ class PestAI(CombatAI):
         if entanglements:
             targets = []
             for entanglement in entanglements:
-                targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.creature])
+                targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.creature and not x.creature.dead])
 
         # Pick
         if len(targets) > 0:
@@ -206,10 +215,11 @@ class PestAI(CombatAI):
         entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
 
         if entanglements:
-            # Can only attack limbs weapon is entangled with
-            target_limbs = []
-            for entanglement in entanglements:
-                target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
+            target_limbs = self.target_entangling_limbs(target, attacking_weapon)
+            # # Can only attack limbs weapon is entangled with
+            # target_limbs = []
+            # for entanglement in entanglements:
+            #     target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
 
         chosen = random.choice(target_limbs)
 

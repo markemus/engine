@@ -101,7 +101,7 @@ class Torso(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
-    base_hp = 20
+    base_hp = 50
     size = 3
     _armor = 3
 

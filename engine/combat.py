@@ -93,10 +93,16 @@ class Combat:
                 else:
                     limb = actor.ai.target_limb(target, weapon)
             else:
+                # TODO-DONE entangled limb should still only be able to attack entangled limbs
+                # TODO-DONE unify all the entangled limb selection logic into one function on ai
                 # blind fighting
                 print(f"\n{C.RED}{actor.name}{C.OFF} attacks blindly with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-                all_limbs = [x for x in target.subelements[0].limb_check("isSurface") if x.isSurface]
-                limb = random.choices(all_limbs, weights=[l.size for l in all_limbs], k=1)[0]
+                entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
+                if entanglements:
+                     target_limbs = actor.ai.target_entangling_limbs(target, weapon)
+                else:
+                    target_limbs = [x for x in target.subelements[0].limb_check("isSurface") if x.isSurface]
+                limb = random.choices(target_limbs, weights=[l.size for l in target_limbs], k=1)[0]
         else:
             limb = None
 
@@ -235,9 +241,9 @@ class Combat:
                             bleed.cast()
 
                         # Expire limb effects
-                        for effect in limb.active_effects.copy():
-                            if effect.expire_on_removal:
-                                effect.expire()
+                        # for effect in limb.active_effects.copy():
+                        #     if effect.expire_on_removal:
+                        #         effect.expire()
 
                         # check if target falls over
                         if not defender.dead:

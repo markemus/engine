@@ -301,7 +301,7 @@ darkelf_fairysuit = {
 
 lightsword_ethereal = {
     "grasps": {
-        "right hand": BronzeSwordOfLight,
+        "right hand": IronSwordOfLight,
     },
     "wears": {},
     "color": ["glowing"],

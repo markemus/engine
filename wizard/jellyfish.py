@@ -33,6 +33,7 @@ class Jellyfish(cr.Fish):
     team = "pest"
     can_breathe = False
     can_stun = False
+    can_poison = False
     baseElem = JellySac
     colors = ["pink", "white", "blue", "cyan"]
     textures = ["clear", "translucent", "cloudy"]

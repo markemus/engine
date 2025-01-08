@@ -26,6 +26,7 @@ class TentacleMonster(cr.creature):
     team = "squids"
     can_breathe = False
     can_stun = False
+    can_poison = False
     baseElem = Trunk
     colors = ["black", "green", "gray"]
     textures = ["smooth", "slimy"]

@@ -93,6 +93,7 @@ class GiantSpider(cr.creature):
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
     suits = []
+    can_poison = False
 
 class ArmoredGiantSpider(GiantSpider):
     classname = "armored spider"

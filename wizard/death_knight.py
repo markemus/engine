@@ -26,7 +26,7 @@ class Jaw(cr.Limb):
     base_hp = 10
     size = 1
     eats = 1
-    strength = 1
+    strength = 1.5
     _armor = 2
 
 class Skull(cr.Limb):
@@ -93,10 +93,11 @@ class DeathKnight(cr.creature):
     can_rest = False
     can_breathe = False
     can_fear = False
+    can_poison = False
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for limb in self.limb_check("name"):
             limb.can_heal = False
+            limb.can_bleed = False
             limb.resurrected = True
-

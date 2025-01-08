@@ -230,7 +230,7 @@ class Controller:
         if entanglements:
             enemylist = []
             for entanglement in entanglements:
-                enemylist.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.game.char])
+                enemylist.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.game.char and not x.creature.dead])
 
         targets = utils.listtodict(enemylist)
         targets["x"] = "Withhold your blow."
@@ -270,10 +270,11 @@ class Controller:
         limblist = defender.subelements[0].limb_check("isSurface")
         entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
         if entanglements:
-            # Can only attack limbs weapon is entangled with
-            limblist = []
-            for entanglement in entanglements:
-                limblist.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not weapon and x.creature is defender])
+            limblist = self.game.char.ai.target_entangling_limbs(target=defender, attacking_weapon=weapon)
+            # # Can only attack limbs weapon is entangled with
+            # limblist = []
+            # for entanglement in entanglements:
+            #     limblist.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not weapon and x.creature is defender])
 
         limbs = utils.listtodict(limblist)
         limbs["x"] = "Withhold your blow."
