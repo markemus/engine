@@ -40,7 +40,7 @@ class Limb:
         self.subelements = []
         self._elementGen()
         self.equipment = []
-        self.covers = []
+        self.covered = []
         self.active_effects = []
         self.passive_effects = self.passive_effects.copy()
         self.impact_effects = self.impact_effects.copy()
@@ -89,7 +89,7 @@ class Limb:
         if full:
             if hasattr(self, "grasped") and self.grasped:
                 text += "\n" + self.grasped.desc(offset=offset+1)
-            for item in self.covers:
+            for item in self.covered:
                 text += "\n" + item.desc(offset=offset+1, )
             for elem in self.subelements:
                 text += "\n" + elem.desc(offset=offset+1, stats=stats)
@@ -168,11 +168,11 @@ class Limb:
             self.subelements.remove(limb)
 
             # Remove covering equipment
-            for item in limb.covers.copy():
+            for item in limb.covered.copy():
                 if item not in limb.equipment:
                     for sublimb in limb.limb_check("name"):
-                        if item in sublimb.covers:
-                            sublimb.covers.remove(item)
+                        if item in sublimb.covered:
+                            sublimb.covered.remove(item)
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
@@ -211,11 +211,11 @@ class Limb:
 
                     # Insert equipment at proper level for covers
                     i = 0
-                    levels = [x.level for x in self.covers]
+                    levels = [x.level for x in self.covered]
                     for i, level in enumerate(levels):
                         if level > article.level:
                             break
-                    self.covers.insert(i, article)
+                    self.covered.insert(i, article)
 
                     # Equipment should cover lower limbs if applicable.
                     # Items that cover should always have a 'descends' tag.
@@ -226,11 +226,11 @@ class Limb:
                             if article.covers[subelement.wears]:
                                 # Insert equipment at proper level
                                 i = 0
-                                levels = [x.level for x in subelement.covers]
+                                levels = [x.level for x in subelement.covered]
                                 for i, level in enumerate(levels):
                                     if level > article.level:
                                         break
-                                subelement.covers.insert(i, article)
+                                subelement.covered.insert(i, article)
                     equipped = True
                 else:
                     print(f"{C.RED}{self.name} already has a {already_equipped[0].name} equipped!{C.OFF}")
@@ -257,8 +257,8 @@ class Limb:
         """Recursively remove a piece of equipment from self.covers.
         This is necessary because a piece of equipment is only equipped
         on one limb, but can cover lower limbs as well."""
-        if gear in self.covers:
-            self.covers.remove(gear)
+        if gear in self.covered:
+            self.covered.remove(gear)
         for limb in self.subelements:
             limb.remove_from_covers(gear)
 
@@ -312,7 +312,7 @@ class Limb:
     def armor(self):
         armor = self._armor
 
-        for item in self.covers:
+        for item in self.covered:
             if hasattr(item, "armor"):
                 armor += item.armor
 
@@ -828,6 +828,14 @@ class creature:
         total_pr = sum([x.size if not hasattr(x, "orig_size") else x.orig_size for x in limbs])
 
         return total_pr
+
+    @property
+    def mana_cost(self):
+        mana_cost = 0
+        for limb in self.limb_check("name"):
+            if hasattr(limb, "mana_cost"):
+                mana_cost += limb.mana_cost
+        return mana_cost
 
 
 class Fish(creature):

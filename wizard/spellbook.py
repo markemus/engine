@@ -390,7 +390,7 @@ class SummonCerberus(CreationSpell):
     def _cast(self):
         """A giant friendly dog with three heads."""
         cerberus = assets.dog.Cerberus(location=self.target.location)
-        cerberus.mana_cost = self.mana_cost
+        cerberus.subelements[0].mana_cost = self.mana_cost
         cerberus.team = self.caster.team
 
         print(f"{BC.MAGENTA}A loyal {C.RED}cerberus{BC.MAGENTA} appears!{BC.OFF}")
@@ -413,7 +413,7 @@ class SummonSpider(CreationSpell):
 
     def _cast(self):
         spider = giant_spider.GiantSpider(location=self.target.location)
-        spider.mana_cost = self.mana_cost
+        spider.subelements[0].mana_cost = self.mana_cost
         spider.team = self.caster.team
 
         print(f"{BC.MAGENTA}A {C.RED}giant spider{BC.MAGENTA} appears!{BC.OFF}")
@@ -436,7 +436,7 @@ class SummonEtherealHand(CreationSpell):
     def _cast(self):
         """A giant friendly dog with three heads."""
         hand = ethereal_hand.EtherealHand(location=self.target.location)
-        hand.mana_cost = self.mana_cost
+        hand.subelements[0].mana_cost = self.mana_cost
         hand.team = self.caster.team
 
         print(f"{BC.MAGENTA}A flying {C.RED}ethereal hand{BC.MAGENTA} appears!{BC.OFF}")
@@ -476,7 +476,7 @@ class SummonFairy(CreationSpell):
 
     def _cast(self):
         f = fairy.Fairy(location=self.target.location)
-        f.mana_cost = self.mana_cost
+        f.subelements[0].mana_cost = self.mana_cost
         f.team = self.caster.team
 
         print(f"{BC.MAGENTA}A tiny {C.RED}fairy{BC.MAGENTA} appears!{BC.OFF}")
@@ -499,7 +499,7 @@ class SummonOwlbear(CreationSpell):
 
     def _cast(self):
         o = owlbear.Owlbear(location=self.target.location)
-        o.mana_cost = self.mana_cost
+        o.subelements[0].mana_cost = self.mana_cost
         o.team = self.caster.team
 
         print(f"{BC.MAGENTA}A gigantic {C.RED}owlbear{BC.MAGENTA} appears!{BC.OFF}")
@@ -822,7 +822,7 @@ class CutLimb(CorruptionSpell):
                     return True
 
 
-# TODO-DECIDE graftlimb should permanently reduce mana by one? Needs some cost so they don't just graft everything.
+# TODO-DONE graftlimb should permanently reduce mana by one? Needs some cost so they don't just graft everything.
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
@@ -853,10 +853,13 @@ class GraftLimb(CorruptionSpell):
                     target_limb.subelements.append(graft_limb)
                     invs[i].vis_inv.remove(graft_limb)
                     graft_limb.hp = int(graft_limb.base_hp / 2)
+                    # Costs mana to maintain this graft
+                    graft_limb.mana_cost = 3
                     # Stop limbs from being grafted back on repeatedly- once only
                     for limb in graft_limb.limb_check("name"):
                         limb.resurrected = True
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                    print(f"{C.RED}It will cost 3 mana to maintain this graft.{C.OFF}")
                     # Lowers humanity, if target is appropriate
                     if hasattr(self.caster, "humanity"):
                         self.caster.humanity -= 1
@@ -889,7 +892,7 @@ class ReanimateLimb(CorruptionSpell):
                 limb = limbs[j]
                 zombie = z.Zombie(limb=limb, location=self.caster.location)
                 zombie.team = self.caster.team
-                zombie.mana_cost = self.mana_cost
+                zombie.subelements[0].mana_cost = self.mana_cost
                 self.caster.location.addCreature(zombie)
                 self.caster.companions.append(zombie)
                 print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
@@ -937,7 +940,7 @@ class Enthrall(CorruptionSpell):
     def _cast(self):
         self.target.orig_team = self.target.team
         self.target.team = self.caster.team
-        self.target.mana_cost = self.mana_cost
+        self.target.subelements[0].mana_cost = self.mana_cost
         self.target.ai.target = None
         self.caster.companions.append(self.target)
         print(f"{BC.YELLOW}{self.target.name}{BC.MAGENTA} turns around to fight for your team!{BC.OFF}")
@@ -1022,9 +1025,11 @@ class Meld(CorruptionSpell):
                 base_creature.subelements[0].subelements.extend(limbs)
                 base_creature.name = f"{base_creature.name}-{other_creature.name}"[:60]
                 base_creature.classname = f"{base_creature.classname}-{other_creature.classname}"[:60]
+                base_creature.subelements[0].mana_cost += 3
                 self.caster.companions.remove(other_creature)
                 self.caster.location.creatures.remove(other_creature)
                 print(f"{BC.MAGENTA}{other_creature.name} melds into {base_creature.name}!{BC.OFF}")
+                print(f"{C.RED}It will cost 3 more mana to maintain {base_creature.name}{C.OFF}")
 
 
 class Distract(CorruptionSpell):

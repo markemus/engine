@@ -333,7 +333,7 @@ class Controller:
                 spell.expire()
 
         # All equipment recovers full mana, except that used for creating/summoning minions
-        minion_mana = sum([x.mana_cost for x in self.game.char.get_companions()])
+        minion_mana = sum([x.mana_cost for x in self.game.char.get_companions() + [self.game.char]])
         for mana_equipment in self.game.char.get_tagged_equipment("mana") + [x for x in self.game.char.subelements[0].limb_check("mana") if hasattr(x, "mana")]:
             missing_mana = mana_equipment.base_mana - mana_equipment.mana
             if missing_mana >= minion_mana:

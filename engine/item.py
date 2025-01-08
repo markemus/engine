@@ -17,13 +17,9 @@ class Item:
     requires: (tag, amount)- if Item requires a tag on a Limb to be equipped.
     level: each Limb can only wear one Item per level (eg undershirt=1 and shirt=2)."""
     name = "item"
-    # canwear = defaultdict(lambda: False)
     canwear = defaultdict(engine.utils.defaultdict_false)
-    # covers = defaultdict(lambda: False)
     covers = defaultdict(engine.utils.defaultdict_false)
     descends = 0
-    # canwear = {}
-    # covers = {}
     printcolor = C.BLUE
     # requires = (tag, amount) if needed- eg (grasp, 1)
     requires = None

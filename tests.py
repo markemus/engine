@@ -133,7 +133,7 @@ class TestCastle():
         assert "right hand" in subelem_names
         assert "finger" not in subelem_names
 
-    def test_covers(self):
+    def test_covered(self):
         """Tests that items cover lower limbs as they're supposed to."""
         import castle.castle_style as cs
         import castle.suits as su
@@ -145,7 +145,7 @@ class TestCastle():
         head = g.subelements[0].subelements[0]
         assert head.equipment[0].descends == 2
         # Helm should cover teeth as well
-        assert head.subelements[4].covers[0] == head.covers[0]
+        assert head.subelements[4].covered[0] == head.covered[0]
 
 
 class TestGeneral:
