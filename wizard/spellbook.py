@@ -1186,7 +1186,7 @@ class GrowBeard(sp.Spell):
                 for beard in existing_beards:
                     head.remove_limb(beard)
                     print(f"{BC.MAGENTA}{self.target.name}'s old beard hairs fall out of their face.{BC.OFF}")
-            head.subelements.append(cl.WizardBeard(color="white", texture="luxuriant"))
+            head.subelements.append(cl.WizardBeard(color="white", texture="luxuriant", creature=self.target))
             print(f"{BC.MAGENTA}A long flowing beard erupts from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s face!{BC.OFF}")
             return True
 
