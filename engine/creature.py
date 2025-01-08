@@ -157,15 +157,15 @@ class Limb:
 
         return equipped
 
-     # TODO-DONE remove covers for items that are on parent limbs
     def remove_limb(self, limb):
         if limb in self.subelements:
-            self.subelements.remove(limb)
-
             # Expire limb effects
-            for effect in limb.active_effects.copy():
-                if effect.expire_on_removal:
-                    effect.expire()
+            for sublimb in limb.limb_check("name"):
+                for effect in sublimb.active_effects.copy():
+                    if effect.expire_on_removal:
+                        effect.expire()
+
+            self.subelements.remove(limb)
 
             # Remove covering equipment
             for item in limb.covers.copy():
@@ -639,13 +639,14 @@ class creature:
     def remove_limb(self, limb):
         if limb in self.subelements:
             # Limb is the core limb. Just die and don't try checking statuses since we're removing the whole limb tree.
+            # Expire limb effects
+            for sublimb in limb.limb_check("name"):
+                for effect in sublimb.active_effects.copy():
+                    if effect.expire_on_removal:
+                        effect.expire()
+
             self.die()
             self.subelements.remove(limb)
-
-            # Expire limb effects
-            for effect in limb.active_effects.copy():
-                if effect.expire_on_removal:
-                    effect.expire()
             return
 
         else:

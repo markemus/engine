@@ -13,7 +13,7 @@ import wizard.tentacle_monster
 
 class Torso(cr.Limb):
     name = "bloated torso"
-    subelement_classes = [wizard.owlbear.Head, wizard.fairy.FairyTorso, wizard.fairy.FairyTorso, wizard.fairy.FairyTorso]
+    subelement_classes = [wizard.owlbear.Head, cl.Tentacle, wizard.fairy.FairyTorso, wizard.fairy.FairyTorso, wizard.fairy.FairyTorso]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
@@ -36,6 +36,7 @@ class Necromancer(cr.creature):
     colors = ["black"]
     textures = ["skinned"]
     suits = [wsu.lightsuit]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for limb in self.limb_check("name"):

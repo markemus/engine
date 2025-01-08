@@ -93,8 +93,6 @@ class Combat:
                 else:
                     limb = actor.ai.target_limb(target, weapon)
             else:
-                # TODO-DONE entangled limb should still only be able to attack entangled limbs
-                # TODO-DONE unify all the entangled limb selection logic into one function on ai
                 # blind fighting
                 print(f"\n{C.RED}{actor.name}{C.OFF} attacks blindly with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
                 entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
@@ -120,6 +118,8 @@ class Combat:
                 blockers = self.blockers[target].copy()
                 # Can't block with webbed or entangled blocker
                 blockers = [b for b in blockers if not sum([isinstance(e, eff.Webbed) for e in b.active_effects]) and not sum([isinstance(e, eff.Entangled) for e in b.active_effects])]
+                # Confirm all blockers are still attached to the body
+                blockers = [b for b in blockers if target.subelements[0].is_subelement(b)]
                 if target is self.char:
                     blocker = self.cont.pick_blocker(blockers)
                 else:
