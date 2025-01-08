@@ -384,6 +384,6 @@ class DwarvenAleHall(pl.Place):
     count = (1, 2)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
-    creature_classes = [[(Necromancer, 1)], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"]]
+    creature_classes = [[(Necromancer, 1)], cc["necromancer"], cc["necromancer"]]
     furniture_classes = [wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
     subelement_classes = [wall, floor, pillar]

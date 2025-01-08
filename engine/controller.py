@@ -237,7 +237,7 @@ class Controller:
 
         def pfunc(x, y):
             if y != "Withhold your blow.":
-                return x + f" {BC.YELLOW}({y.ai.target.name if y.ai.target else y.ai.target}){BC.OFF}"
+                return x + f" {C.RED}({y.ai.target.name if y.ai.target else y.ai.target}){C.OFF}"
             else:
                 return x
 
@@ -331,8 +331,6 @@ class Controller:
         for spell in self.game.active_spells.copy():
             if spell.rounds != "forever":
                 spell.expire()
-                # self.game.active_spells.remove(spell)
-        # self.game.active_spells = []
 
         # All equipment recovers full mana, except that used for creating/summoning minions
         minion_mana = sum([x.mana_cost for x in self.game.char.get_companions()])

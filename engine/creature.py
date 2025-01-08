@@ -13,7 +13,7 @@ class Limb:
     Limbs are procedurally generated from the class template; limbs of the same class may still be
     very different objects."""
     name = "NO_NAME_LIMB"
-    printcolor = C.CYAN
+    printcolor = BC.CYAN
     # Subelement classes are limbs that will be spawned attached to this limb
     subelement_classes = None
     wears = None
@@ -358,7 +358,7 @@ class creature:
     different objects."""
     classname = "NO_NAME_CREATURE"
     team = None
-    printcolor = BC.CYAN
+    printcolor = BC.YELLOW
     # cantransfer = False      # can carry items
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object

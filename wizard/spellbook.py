@@ -822,6 +822,7 @@ class CutLimb(CorruptionSpell):
                     return True
 
 
+# TODO-DECIDE graftlimb should permanently reduce mana by one? Needs some cost so they don't just graft everything.
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
