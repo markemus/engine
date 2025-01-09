@@ -7,11 +7,10 @@ import wizard.places
 
 from colorist import BrightColor as BC, Color as C
 
-# TODO level 6- necromancer halls. zombies, death knights,
-#  enemies that explode on death, transmogrified zombies (multiple source classes)
-# TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king)
-# TODO more stuff to do with home
-# TODO clothing with passive effects- cloak of shadows, gloves of mastery (for dark elf champions)
+# TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king). Grabber, scorpion, mech spider,
+#  searchlight limb (blinding and light effects, pest ai), spidersword (spider legs, sword arm and mastery)
+#  mimic spell effects. Blinding flash, poison cloud, stuns, caltrops, light, sword hand
+# TODO-DONE more stuff to do with home
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen, wizard.places.Laboratory]
@@ -97,6 +96,7 @@ LevelStyle.register(NecromancerL6)
 class MountainhomeL7:
     level_text = f"""{BC.BLUE}You continue deeper into the dwarven mountain halls. The dwarves are long gone from here, but their mechanical creations still linger on in the halls around you. You can tell that you are drawing near to your goal. The treasure of Naarumsin will soon be yours- hurry now, and claim your destiny.{BC.OFF}"""
     room_classes = [wizard.places.DwarvenHomeL7]
+    start_room = wizard.places.DwarvenStairway
     algorithm = "labyrinth"
     creature_classes = []
 

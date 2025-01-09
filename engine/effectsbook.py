@@ -49,6 +49,7 @@ class Light(sp.Effect):
     desc = "luminous"
     rounds = 10
     original_size = None
+    allow_duplicates = False
 
     def _cast(self):
         if not hasattr(self.limb, "orig_size"):
@@ -438,3 +439,32 @@ class ExplodeOnDeath(sp.Effect):
             for limb in limbs:
                 print(f"{C.RED}{enemy.name}'s {limb.name} is caught in the explosion!{C.OFF}")
                 self.cont.combat.apply_damage(defender=enemy, limb=limb, damage=random.randint(0, 3))
+
+
+class BrightLight(sp.Effect):
+    rounds = "forever"
+    expire_on_removal = True
+
+    def _cast(self):
+        self.effects = []
+        self.update()
+        return True
+
+    def update(self):
+        enemies = self.creature.ai.get_enemy_creatures()
+        for enemy in enemies:
+            enemy_illuminated = False
+            for limb in enemy.limb_check("isSurface"):
+                light = Light(creature=enemy, limb=limb, controller=self.cont)
+                if light.cast():
+                    enemy_illuminated = True
+                    self.effects.append(light)
+
+            if enemy_illuminated:
+                print(f"{BC.MAGENTA}{enemy.name} is illuminated in the harsh glare!{BC.OFF}")
+
+    def _expire(self):
+        for effect in self.effects:
+            if not effect.expired:
+                effect.expire()
+        print(f"{BC.MAGENTA}The harsh light illuminating the room goes out.{BC.OFF}")

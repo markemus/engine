@@ -44,6 +44,7 @@ class Effect:
     expire_on_removal = False
     cast_on_removal = True
     allow_duplicates = True
+    expired = False
 
     def __init__(self, creature, limb, controller):
         self.creature = creature
@@ -64,6 +65,7 @@ class Effect:
         if self._cast():
             self.limb.active_effects.append(self)
             self.cont.game.active_spells.append(self)
+            return True
 
     def _cast(self):
         return True
@@ -78,3 +80,4 @@ class Effect:
             self._expire()
         self.limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
+        self.expired = True

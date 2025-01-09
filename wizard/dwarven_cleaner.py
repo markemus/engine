@@ -5,9 +5,9 @@ import assets.commonlimbs as cl
 import assets.suits as asu
 
 
-class MetalFrame(cr.Limb):
-    name = "frame"
-    subelement_classes = [cl.MetalArm, cl.MetalEye, cl.MetalTreads, cl.MetalTreads]
+class MetalBody(cr.Limb):
+    name = "drum"
+    subelement_classes = [cl.MetalEye, cl.MetalTreads, cl.MetalTreads]
     isSurface = True
     can_bleed = False
     can_heal = False
@@ -17,15 +17,15 @@ class MetalFrame(cr.Limb):
     size = 3
     _armor = 2
 
-class DwarvenSnatcher(cr.creature):
-    """A small mechanoid that can wield a weapon."""
-    classname = "dwarven snatcher"
-    team = "dwarven"
-    namelist = ["dwarven snatcher"]
-    baseElem = MetalFrame
+class DwarvenCleaner(cr.creature):
+    """A small neutral mechanoid."""
+    classname = "dwarven cleaner"
+    team = "neutral"
+    namelist = ["dwarven cleaner"]
+    baseElem = MetalBody
     colors = ["silvery", "gray", "steely", "rusty", "matte"]
     textures = ["metallic"]
-    suits = [asu.iron_weapons]
+    suits = []
     can_fear = False
     can_rest = False
     can_stun = False

@@ -360,7 +360,7 @@ class MetalEye(cr.Limb):
     name = "vision plate"
     subelement_classes = []
     isSurface = True
-    appendageRange = (2, 3)
+    appendageRange = (1, 2)
     wears = "eye"
     see = 1
     base_hp = 3
@@ -399,7 +399,7 @@ class MetalHead(cr.Limb):
     size = 2
     _armor = 2
 
-class MetalHand(cr.Limb):
+class MetalHand(cr.Weapon):
     name = "grasper"
     appendageRange = (1, 2)
     wears = "right hand"
@@ -426,6 +426,18 @@ class MetalArm(cr.Limb):
     base_hp = 30
     _armor = 2
     size = 2
+
+class MetalTreads(cr.Limb):
+    name = "treads"
+    appendageRange = (1, 2)
+    subelement_classes = []
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    base_hp = 10
+    _armor = 2
+    size = 2
+    amble = 1
 
 class MetalFoot(cr.Limb):
     name = "foot"
