@@ -22,6 +22,7 @@ class DarkElfChampion(DarkElf):
     suits = [wsu.darkelfsuit, asu.bronze_duelists_armorsuit, wsu.double_iron_poisonsword]
     # masters have a higher to-hit chance
     mastery = 2
+    strong_will = True
 
 
 class DarkElfGuard(DarkElf):

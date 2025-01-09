@@ -237,7 +237,7 @@ class Controller:
 
         def pfunc(x, y):
             if y != "Withhold your blow.":
-                return x + f" {C.RED}({y.ai.target.name if y.ai.target else y.ai.target}){C.OFF}"
+                return x + f" {BC.YELLOW}({y.ai.target.name if y.ai.target else y.ai.target}){C.OFF}"
             else:
                 return x
 
@@ -552,7 +552,8 @@ class Controller:
                         print(f"{C.RED}{self.game.char.name}'s {hand.name} is already holding a {hand.grasped.name}!{C.OFF}")
 
                     # grasp check fails if no thumb or not enough fingers (or tentacly equivalent, whatever)
-                    elif (sum([x.f_grasp for x in hand.limb_check("f_grasp")]) >= 1) and (sum([x.t_grasp for x in hand.limb_check("t_grasp")]) >= 1):
+                    # elif (sum([x.f_grasp for x in hand.limb_check("f_grasp")]) >= 1) and (sum([x.t_grasp for x in hand.limb_check("t_grasp")]) >= 1):
+                    elif (hand.limb_count("f_grasp") >= 1) and (hand.limb_count("t_grasp") >= 1):
                         print(f"{BC.CYAN}{self.game.char.name} grasps the {wielded.name} in their {hand.name}.{BC.OFF}")
                         target_inv.vis_inv.remove(wielded)
                         hand.grasped = wielded
@@ -603,7 +604,8 @@ class Controller:
                                         print(f"{C.RED}{ally.name}'s {hand.name} is already holding a {hand.grasped.name}!{C.OFF}")
 
                                     # grasp check fails if no thumb or not enough fingers (or tentacly equivalent, whatever)
-                                    elif (sum([x.f_grasp for x in hand.limb_check("f_grasp")]) >= 1) and (sum([x.t_grasp for x in hand.limb_check("t_grasp")]) >= 1):
+                                    # elif (sum([x.f_grasp for x in hand.limb_check("f_grasp")]) >= 1) and (sum([x.t_grasp for x in hand.limb_check("t_grasp")]) >= 1):
+                                    elif (hand.limb_count("f_grasp") >= 1) and (hand.limb_count("t_grasp") >= 1):
                                         print(f"{BC.CYAN}{self.game.char.name} places the {wielded.name} into {ally.name}'s {hand.name}.{BC.OFF}")
                                         target_inv.vis_inv.remove(wielded)
                                         hand.grasped = wielded

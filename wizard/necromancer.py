@@ -33,6 +33,7 @@ class Necromancer(cr.creature):
     team = "necromancer"
     namelist = nl.names["elf"]
     baseElem = Thorax
+    strong_will = True
     colors = ["black"]
     textures = ["skinned"]
     suits = [wsu.lightsuit]

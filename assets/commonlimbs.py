@@ -39,7 +39,7 @@ import engine.effectsbook as eff
 class Hair(cr.Limb):
     name = "hair"
     subelement_classes = []
-    isSurface = 1
+    isSurface = True
     appendageRange = (1, 2)
     wears = "hair"
     size = 1
@@ -49,7 +49,7 @@ class Hair(cr.Limb):
 class Beard(cr.Limb):
     name = "beard"
     subelement_classes = []
-    isSurface = 1
+    isSurface = True
     appendageRange = (1, 2)
     wears = "hair"
     base_hp = 1
@@ -66,7 +66,7 @@ class WizardBeard(Beard):
 class Ear(cr.Limb):
     name = "ear"
     subelement_classes = []
-    isSurface = 1
+    isSurface = True
     appendageRange = (2, 3)
     wears = "ear"
     base_hp = 3
@@ -75,7 +75,7 @@ class Ear(cr.Limb):
 class Eye(cr.Limb):
     name = "eye"
     subelement_classes = []
-    isSurface = 1
+    isSurface = True
     appendageRange = (2, 3)
     wears = "eye"
     see = 1
@@ -340,3 +340,114 @@ class SwordHand(cr.Weapon):
     base_hp = 20
     size = 2
     armor = 3
+
+
+# Metal limbs
+class MetalEar(cr.Limb):
+    name = "ear"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (2, 3)
+    wears = "ear"
+    base_hp = 3
+    size = 1
+    _armor = 2
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+
+class MetalEye(cr.Limb):
+    name = "vision plate"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (2, 3)
+    wears = "eye"
+    see = 1
+    base_hp = 3
+    size = 1
+    _armor = 2
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    colors = ["blue", "hazel", "black", "brown", "green"]
+    textures = ["metallic"]
+
+class MetalNose(cr.Limb):
+    name = "nose"
+    subelement_classes = []
+    isSurface = True
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    appendageRange = (1, 2)
+    wears = "nose"
+    base_hp = 3
+    size = 1
+    _armor = 2
+
+class MetalHead(cr.Limb):
+    name = "head"
+    subelement_classes = [MetalEar, MetalEye, MetalNose]
+    isSurface = True
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    appendageRange = (1, 2)
+    wears = "head"
+    vital = True
+    base_hp = 15
+    size = 2
+    _armor = 2
+
+class MetalHand(cr.Limb):
+    name = "grasper"
+    appendageRange = (1, 2)
+    wears = "right hand"
+    subelement_classes = []
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    base_hp = 10
+    _armor = 2
+    size = 2
+    grasp = 1
+    f_grasp = 1
+    t_grasp = 1
+
+class MetalArm(cr.Limb):
+    name = "arm"
+    appendageRange = (1, 2)
+    wears = "arm"
+    subelement_classes = [MetalHand]
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    no_subelements = True
+    base_hp = 30
+    _armor = 2
+    size = 2
+
+class MetalFoot(cr.Limb):
+    name = "foot"
+    appendageRange = (1, 2)
+    wears = "foot"
+    subelement_classes = []
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    base_hp = 10
+    _armor = 2
+    size = 2
+    amble = 1 / 2
+
+class MetalLeg(cr.Limb):
+    name = "leg"
+    appendageRange = (2, 3)
+    wears = "leg"
+    subelement_classes = [MetalFoot]
+    can_bleed = False
+    can_heal = False
+    resurrected = True
+    base_hp = 30
+    _armor = 2
+    size = 2

@@ -78,3 +78,11 @@ def skip_level_five(player, game):
     player.location = game.level_list[5].start
     game.set_current_level(5)
     player.location.creatures.append(player)
+
+def skip_level_six(player, game):
+    # Cheat
+    # Skip
+    player.location.creatures.remove(player)
+    player.location = game.level_list[6].start
+    game.set_current_level(6)
+    player.location.creatures.append(player)

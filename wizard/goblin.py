@@ -9,10 +9,12 @@ import wizard.suits as wsu
 
 class ShallowGoblinChief(assets.goblin.ShallowGoblin):
     classname = "goblin chief"
+    strong_will = True
     suits = [asu.plainsuit, (wsu.bronze_firesword, wsu.bronze_lightsword, wsu.bleedflail)]
 
 class GreatGoblin(assets.goblin.DeepGoblin):
     classname = "Great Goblin"
+    strong_will = True
     suits = [asu.plainsuit, asu.iron_armorsuit, asu.iron_weapons]
 
 class GoblinPetDog(assets.dog.Dog):

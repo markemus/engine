@@ -23,7 +23,6 @@ class Item:
     printcolor = C.BLUE
     # requires = (tag, amount) if needed- eg (grasp, 1)
     requires = None
-    no_subelements = False
     level = 1
     weapon_effects = []
 

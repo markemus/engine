@@ -972,6 +972,10 @@ class Enthrall(CorruptionSpell):
     targets = "enemy"
 
     def _cast(self):
+        if hasattr(self.target, "strong_will" and self.target.strong_will):
+            print(f"{C.RED}{self.target.name} cannot be dominated!{C.OFF}")
+            return False
+
         self.target.orig_team = self.target.team
         self.target.team = self.caster.team
         self.target.subelements[0].mana_cost = self.mana_cost
@@ -994,6 +998,11 @@ class Possess(CorruptionSpell):
         if hasattr(self.caster, "orig_char"):
             print(f"{BC.MAGENTA}You must return to your body before you can do that!{BC.OFF}")
             return False
+
+        elif hasattr(self.target, "strong_will") and self.target.strong_will:
+            print(f"{C.RED}{self.target.name} cannot be possessed!{C.OFF}")
+            return False
+
         else:
             self.target.orig_team = self.target.team
             self.target.team = self.caster.team
@@ -1002,7 +1011,7 @@ class Possess(CorruptionSpell):
             self.target.companions = self.caster.companions.copy()
             self.target.companions.append(self.caster)
             self.target.humanity = self.caster.humanity
-            self.target.orig_char.mana_cost = self.mana_cost
+            self.target.orig_char.subelements[0].mana_cost = self.mana_cost
             self.target.spellbook.append(Unpossess)
 
             self.cont.game.char = self.target
@@ -1025,6 +1034,7 @@ class Unpossess(sp.Spell):
         char.companions = self.caster.companions.copy()
         char.spellbook = self.caster.spellbook.copy()
         char.humanity = self.caster.humanity
+        char.subelements[0].mana_cost = 0
 
         # Remove Unpossess spell from spellbook
         char.spellbook.remove(self.__class__)

@@ -11,6 +11,7 @@ import wizard.furniture
 from wizard.arachne import Arachne, ArachneQueen
 from wizard.cave_fish import BlindCaveFish
 from wizard.death_knight import DeathKnight
+from wizard.dwarven_snatcher import DwarvenSnatcher
 from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
 from wizard.fairy import DarkElfFairy
 from wizard.giant_rat import GiantRat
@@ -47,6 +48,7 @@ cc = {
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
     "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (MeldedRandomZombie, 2), (DeathKnight, 2), (None, 1)],
+    "mountainhome": [(DwarvenSnatcher, 1)],
 }
 
 
@@ -366,7 +368,7 @@ class DwarvenEntranceHall(pl.Place):
     door_class = dwarven_gateway
 
 
-class DwarvenHome(pl.Place):
+class DwarvenHomeNecromancer(pl.Place):
     name = "dwarven home"
     sprite = "H"
     count = (5, 10)
@@ -377,7 +379,7 @@ class DwarvenHome(pl.Place):
     subelement_classes = [wall, floor]
 
 
-class DwarvenWorkshop(pl.Place):
+class DwarvenWorkshopNecromancer(pl.Place):
     name = "dwarven workshop"
     sprite = "W"
     count = (1, 4)
@@ -388,7 +390,7 @@ class DwarvenWorkshop(pl.Place):
     subelement_classes = [wall, floor]
 
 
-class DwarvenAleHall(pl.Place):
+class DwarvenAleHallNecromancer(pl.Place):
     name = "dwarven ale hall"
     sprite = "A"
     count = (1, 2)
@@ -397,3 +399,15 @@ class DwarvenAleHall(pl.Place):
     creature_classes = [[(Necromancer, 1)], cc["necromancer"], cc["necromancer"]]
     furniture_classes = [wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
     subelement_classes = [wall, floor, pillar]
+
+
+# Mountainhome (L7)
+class DwarvenHomeL7(pl.Place):
+    name = "dwarven home"
+    sprite = "H"
+    count = (5, 10)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [cc["mountainhome"]]
+    furniture_classes = [wizard.furniture.StoneBed, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
+    subelement_classes = [wall, floor]
