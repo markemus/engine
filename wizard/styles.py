@@ -14,7 +14,7 @@ from colorist import BrightColor as BC, Color as C
 # TODO clothing with passive effects- cloak of shadows, gloves of mastery (for dark elf champions)
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
-    room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen]
+    room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen, wizard.places.Laboratory]
     start_room = wizard.places.MagicFoyer
     end_room = wizard.places.PlayerDen
     creature_classes = []

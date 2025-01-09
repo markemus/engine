@@ -130,6 +130,12 @@ class TrophyPlinth(pl.DisplayFurniture):
     # vis_collections = [(wcol.plaque, (1, 2))]
     loot_tables = [[(wcol.Plaque, 1)]]
 
+class SummoningCircle(pl.Furniture):
+    name = "summoning circle"
+    color = ["black", "red"]
+    texture = ["shiny"]
+    count = (1, 2)
+
 class DenTable(fur.Table):
     loot_tables = [[(wcol.Jar, 1)], [(wcol.Jar, 1)], [(wcol.Jar, 1)]]
 

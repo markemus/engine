@@ -197,45 +197,49 @@ class Limb:
         article.level specifies the level it will be equipped at. Each Limb can only equip one Item at each level."""
         equipped = False
         if article.canwear[self.wears]:
-            if not article.requires or (hasattr(self, article.requires[0]) and (getattr(self, article.requires[0]) >= article.requires[1])):
-                # Check level if empty
-                already_equipped = [x for x in self.equipment if x.level == article.level]
-                if not already_equipped:
-                    # Insert equipment at proper level for equipment
-                    i = 0
-                    levels = [x.level for x in self.equipment]
-                    for i, level in enumerate(levels):
-                        if level > article.level:
-                            break
-                    self.equipment.insert(i, article)
+            if not article.no_subelements or not self.subelements:
+                # TODO-DECIDE refactor a.requires to allow parent and child requirements? Right now it's not practical.
+                if not article.requires or (hasattr(self, article.requires[0]) and (getattr(self, article.requires[0]) >= article.requires[1])):
+                    # Check level if empty
+                    already_equipped = [x for x in self.equipment if x.level == article.level]
+                    if not already_equipped:
+                        # Insert equipment at proper level for equipment
+                        i = 0
+                        levels = [x.level for x in self.equipment]
+                        for i, level in enumerate(levels):
+                            if level > article.level:
+                                break
+                        self.equipment.insert(i, article)
 
-                    # Insert equipment at proper level for covers
-                    i = 0
-                    levels = [x.level for x in self.covered]
-                    for i, level in enumerate(levels):
-                        if level > article.level:
-                            break
-                    self.covered.insert(i, article)
+                        # Insert equipment at proper level for covers
+                        i = 0
+                        levels = [x.level for x in self.covered]
+                        for i, level in enumerate(levels):
+                            if level > article.level:
+                                break
+                        self.covered.insert(i, article)
 
-                    # Equipment should cover lower limbs if applicable.
-                    # Items that cover should always have a 'descends' tag.
-                    if hasattr(article, "descends"):
-                        potentially_cover = self.return_from_depth(article.descends)[1:]
-                        for subelement in potentially_cover:
-                            # TODO this insertion check is not working- articles are in reverse order?
-                            if article.covers[subelement.wears]:
-                                # Insert equipment at proper level
-                                i = 0
-                                levels = [x.level for x in subelement.covered]
-                                for i, level in enumerate(levels):
-                                    if level > article.level:
-                                        break
-                                subelement.covered.insert(i, article)
-                    equipped = True
+                        # Equipment should cover lower limbs if applicable.
+                        # Items that cover should always have a 'descends' tag.
+                        if hasattr(article, "descends"):
+                            potentially_cover = self.return_from_depth(article.descends)[1:]
+                            for subelement in potentially_cover:
+                                # TODO this insertion check is not working- articles are in reverse order?
+                                if article.covers[subelement.wears]:
+                                    # Insert equipment at proper level
+                                    i = 0
+                                    levels = [x.level for x in subelement.covered]
+                                    for i, level in enumerate(levels):
+                                        if level > article.level:
+                                            break
+                                    subelement.covered.insert(i, article)
+                        equipped = True
+                    else:
+                        print(f"{C.RED}{self.name} already has a {already_equipped[0].name} equipped!{C.OFF}")
                 else:
-                    print(f"{C.RED}{self.name} already has a {already_equipped[0].name} equipped!{C.OFF}")
+                    print(f"{C.RED}{self.name} lacks the {article.requires[0]} ability!{C.OFF}")
             else:
-                print(f"{C.RED}{self.name} lacks the {article.requires[0]} ability!{C.OFF}")
+                print(f"{C.RED}{self.name} has limbs attached and cannot wear a {article.name}!{C.OFF}")
         else:
             print(f"{C.RED}{self.name} cannot wear a {article.name}!{C.OFF}")
 

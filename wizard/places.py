@@ -85,6 +85,16 @@ class TrophyRoom(pl.Place):
     subelement_classes = [wall, floor]
 
 
+class Laboratory(pl.Place):
+    name = "laboratory"
+    sprite = "L"
+    count = (1, 2)
+    colors = ["white"]
+    textures = ["tiled"]
+    furniture_classes = [wizard.furniture.SummoningCircle, fur.TableWork]
+    subelement_classes = [wall, floor]
+
+
 class PlayerDen(assets.places.Den):
     furniture_classes = [wizard.furniture.DenTable, fur.Chair, fur.Carpet, fur.Bookcase]
 

@@ -792,34 +792,68 @@ class CutLimb(CorruptionSpell):
     name = "Cut Limb"
     mana_cost = 0
     humanity_max = 5
-    description = f"Cut a disembodied limb at a joint. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Cut a limb at a joint. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 
     def _cast(self):
-        invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
-        invs = utils.listtodict(invs, add_x=True)
-        utils.dictprint(invs)
-        i = input(f"\n{BC.GREEN}Which inventory contains the limb you want to cut?{BC.OFF} ")
+        creature = None
+        h = input(f"\n{BC.GREEN}Cut one of your limbs {BC.CYAN}(y){BC.GREEN}, a companion's limb {BC.CYAN}(c){BC.GREEN} or a disembodied limb {BC.CYAN}(o){BC.GREEN}?{BC.OFF} ")
+        # Your limbs
+        if h == "y":
+            creature = self.caster
+            limbs = utils.listtodict(self.caster.limb_check("name"), add_x=True)
 
-        if i in invs.keys() and i != "x":
-            inv = invs[i]
-            limbs = utils.listtodict([item for item in inv.vis_inv if isinstance(item, cr.Limb)], add_x=True)
-            utils.dictprint(limbs)
-            j = input(f"\n{BC.GREEN}Select a limb to cut:{BC.OFF} ")
+        # Companion's limbs
+        elif h == "c":
+            creatures = utils.listtodict(self.caster.get_companions(), add_x=True)
+            utils.dictprint(creatures)
+            i = input(f"\n{BC.GREEN}Which creature do you want to amputate on?{BC.OFF} ")
+            if i in creatures.keys() and i != "x":
+                creature = creatures[i]
+                limbs = utils.listtodict(creature.limb_check("name"), add_x=True)
+            else:
+                return False
 
-            if j in limbs.keys() and j != "x":
-                full_limb = limbs[j]
-                sublimbs = utils.listtodict(full_limb.limb_check("name"), add_x=True)
-                utils.dictprint(sublimbs)
-                k = input(f"\n{BC.GREEN}Select a joint to make the cut at:{BC.OFF} ")
+        # Disembodied limbs
+        elif h == "o":
+            invs = self.caster.location.find_invs() + self.caster.subelements[0].find_invs()
+            invs = utils.listtodict(invs, add_x=True)
+            utils.dictprint(invs)
+            i = input(f"\n{BC.GREEN}Which inventory contains the limb you want to cut?{BC.OFF} ")
 
-                if k in sublimbs.keys() and k != "x":
-                    sublimb = sublimbs[k]
+            if i in invs.keys() and i != "x":
+                inv = invs[i]
+                limbs = utils.listtodict([item for item in inv.vis_inv if isinstance(item, cr.Limb)], add_x=True)
+            else:
+                return False
+        else:
+            print(f"{BC.MAGENTA}{self.caster.name} decides not to make any cuts.{BC.OFF}")
+            return False
+
+        # Proceed to cut limb
+        utils.dictprint(limbs)
+        j = input(f"\n{BC.GREEN}Select a limb to cut:{BC.OFF} ")
+
+        if j in limbs.keys() and j != "x":
+            full_limb = limbs[j]
+            sublimbs = utils.listtodict(full_limb.limb_check("name"), add_x=True)
+            utils.dictprint(sublimbs)
+            k = input(f"\n{BC.GREEN}Select a joint to make the cut at:{BC.OFF} ")
+
+            if k in sublimbs.keys() and k != "x":
+                sublimb = sublimbs[k]
+                if creature:
+                    creature.remove_limb(sublimb)
+                else:
                     full_limb.remove_limb(sublimb)
-                    inv.vis_inv.append(sublimb)
+                self.caster.location.drop_item(sublimb)
+                if creature:
+                    print(
+                        f"{BC.MAGENTA}{self.caster.name} cuts the {sublimb.name} off of the {creature.name}.{BC.OFF}")
+                else:
                     print(f"{BC.MAGENTA}{self.caster.name} cuts the {sublimb.name} off of the {full_limb.name}.{BC.OFF}")
-                    return True
+                return True
 
 
 # TODO-DONE graftlimb should permanently reduce mana by one? Needs some cost so they don't just graft everything.

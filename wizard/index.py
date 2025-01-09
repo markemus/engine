@@ -7,6 +7,7 @@ from assets import suits as asu
 from engine import game
 from engine import interface
 from engine import effectsbook as eff
+from engine import equippable_limbs as el
 
 from wizard import cheats
 from wizard import human
@@ -104,16 +105,16 @@ player.humanity = 1
 # Give player some mana to start the game with
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
-# player.subelements[0].find_invs()[0].vis_inv.append(potions.PotionOfMight())
+player.subelements[0].find_invs()[0].vis_inv.append(el.MetalFoot("gray", "iron"))
 # player.subelements[0].subelements[1].subelements[0].grasped = asu.IronHammer(color="bright", texture="steel")
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 # TODO disable cheats before release
-cheats.skip_level_one(player, t_game)
-cheats.skip_level_two(player, t_game)
-cheats.skip_level_three(player, t_game)
-cheats.skip_level_four(player, t_game)
-cheats.skip_level_five(player, t_game)
+# cheats.skip_level_one(player, t_game)
+# cheats.skip_level_two(player, t_game)
+# cheats.skip_level_three(player, t_game)
+# cheats.skip_level_four(player, t_game)
+# cheats.skip_level_five(player, t_game)
 
 i = interface.Interface(t_game)
 # player.can_fear = False
