@@ -284,8 +284,8 @@ class Controller:
                 str = f"{str} {C.YELLOW}({obj.size}){C.OFF}"
             if hasattr(obj, "hp"):
                 str = f"{str} {C.RED}({obj.hp}){C.OFF}"
-            if hasattr(obj, "armor"):
-                str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
+            if hasattr(obj, "armored"):
+                str = f"{str} {C.BLUE}({obj.armored}){C.OFF}"
             return str
         utils.dictprint(limbs, pfunc=a_pfunc)
 
@@ -304,8 +304,8 @@ class Controller:
             blockers["x"] = "Accept the blow."
 
             def a_pfunc(str, obj):
-                if hasattr(obj, "armor"):
-                    str = f"{str} {C.BLUE}({obj.armor}){C.OFF}"
+                if hasattr(obj, "armored"):
+                    str = f"{str} {C.BLUE}({obj.armored}){C.OFF}"
                 if hasattr(obj, "hp"):
                     str = f"{str} {C.RED}({obj.hp}){C.OFF}"
                 return str

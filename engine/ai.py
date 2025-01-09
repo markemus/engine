@@ -86,10 +86,10 @@ class CombatAI:
             best_weapon = max(weapons, key=lambda x: x.damage[0])
             target_limbs.append(best_weapon)
         if vitals:
-            easiest_vital = min(vitals, key=lambda x: x.armor * x.hp)
+            easiest_vital = min(vitals, key=lambda x: x.armored * x.hp)
             target_limbs.append(easiest_vital)
         if feet:
-            easiest_foot = min(feet, key=lambda x: x.armor * x.hp)
+            easiest_foot = min(feet, key=lambda x: x.armored * x.hp)
             # no point chopping off feet if target is already supine
             if target.limb_count("amble") >= 1:
                 target_limbs.append(easiest_foot)
@@ -141,7 +141,7 @@ class CombatAI:
 
             for limb in blockers:
                 descendant_damagers = limb.limb_check("damage")
-                block_value = (limb.armor * limb.hp)
+                block_value = (limb.armored * limb.hp)
                 if descendant_damagers:
                     descendant_damage = max(descendant_damagers, key=lambda x: x.damage[0]).damage[0]
                     block_value -= descendant_damage

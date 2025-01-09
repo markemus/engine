@@ -85,7 +85,7 @@ class Limb:
                 text += f"{BC.RED}{effect.desc}{BC.OFF} "
         text += f"{C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
         if stats:
-            text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armor}){C.OFF}"
+            text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armored}){C.OFF}"
         if full:
             if hasattr(self, "grasped") and self.grasped:
                 text += "\n" + self.grasped.desc(offset=offset+1)
@@ -224,7 +224,7 @@ class Limb:
                         if hasattr(article, "descends"):
                             potentially_cover = self.return_from_depth(article.descends)[1:]
                             for subelement in potentially_cover:
-                                # TODO this insertion check is not working- articles are in reverse order?
+                                # TODO this insertion check is not working- articles are in reverse order? It needs a i+=1 if no break. use for-else.
                                 if article.covers[subelement.wears]:
                                     # Insert equipment at proper level
                                     i = 0
@@ -313,7 +313,7 @@ class Limb:
         return sub
 
     @property
-    def armor(self):
+    def armored(self):
         armor = self._armor
 
         for item in self.covered:

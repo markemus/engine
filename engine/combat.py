@@ -110,7 +110,7 @@ class Combat:
             print(f"{C.RED}{actor.name}{C.OFF} attacks "
                   f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} "
                   f"with their {BC.RED}{weapon.name}{BC.OFF} {C.BLUE}({weapon.damage[1].name}){C.OFF}!")
-            print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armor} armor{C.OFF}).")
+            print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armored} armor{C.OFF}).")
 
             # Blocking
             is_entangled_together = sum([isinstance(x, eff.Entangled) and ((x.entangling_limb is weapon) or (x.limb is weapon)) for x in limb.active_effects])
@@ -199,9 +199,9 @@ class Combat:
             damage = 0
 
         # Adjust for armor
-        if hasattr(target, "armor"):
+        if hasattr(target, "armored"):
             # damage = (damage - target.armor) if damage > target.armor else 0
-            damage = (damage / target.armor)
+            damage = (damage / target.armored)
 
         # Adjust for strength.
         # This attribute on a parent limb can modify damage positively or negatively (troll vs hobbit eg).
