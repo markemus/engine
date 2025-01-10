@@ -472,7 +472,8 @@ class Explosive(sp.Effect):
 
     def _cast(self):
         print(f"{BC.MAGENTA}The shell explodes!{BC.OFF}")
-        neighbors = self.creature.get_neighbors(self.limb)
+        neighbors = [self.limb] + self.creature.get_neighbors(self.limb)
         for limb in neighbors:
+            print(f"{C.RED}{limb.name} is caught in the explosion!{C.OFF}")
             self.cont.combat.apply_damage(defender=self.creature, limb=limb, damage=self.amount)
         return True

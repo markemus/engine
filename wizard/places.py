@@ -13,6 +13,7 @@ from wizard.cave_fish import BlindCaveFish
 from wizard.death_knight import DeathKnight
 from wizard.dwarven_snatcher import DwarvenSnatcher
 from wizard.dwarven_cleaner import DwarvenCleaner
+from wizard.dwarven_scorpion import DwarvenScorpion
 from wizard.dwarven_security import DwarvenSecuritySystem
 from wizard.dwarven_tank import DwarvenTank
 from wizard.dwarven_turret import DwarvenTurret
@@ -52,7 +53,7 @@ cc = {
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
     "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (MeldedRandomZombie, 2), (DeathKnight, 2), (None, 1)],
-    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenTank, 2), (DwarvenCleaner, 1), (None, 1)],
+    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenTank, 1), (DwarvenScorpion, 2), (DwarvenCleaner, 1), (None, 1)],
     "mountainhome_security": [(DwarvenSecuritySystem, 1)],
 }
 
@@ -424,6 +425,6 @@ class DwarvenHomeL7(pl.Place):
     count = (5, 10)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
-    creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
+    creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
     furniture_classes = [wizard.furniture.StoneBed, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
     subelement_classes = [wall, floor]

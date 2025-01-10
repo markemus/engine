@@ -9,7 +9,6 @@ from colorist import BrightColor as BC, Color as C
 
 # TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king).#  Security system (neutral but doesn't hurt mechanoids) with time-delayed effects (light, stun, foot entanglement, fire).
 #  Grabber, mech scorpion, spidersword (spider legs, sword arm and mastery)
-#  Tank with explosive shells, spider-gun (bullets) both unblockable.
 #  Flamethrower, shocker (taser but with lightning effect).
 # TODO-DONE more stuff to do with home
 class Home:
