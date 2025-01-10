@@ -68,5 +68,6 @@ class Game(object):
                     spell.expire()
                 spell.rounds -= 1
 
-        for spell in self.active_spells:
+        for spell in self.active_spells.copy():
+            # Some effects expire themselves or others in update(), so use a copied list as well.
             spell.update()

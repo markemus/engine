@@ -719,4 +719,4 @@ class Controller:
                             if state == "fight":
                                 self.attack(include_char=False)
         else:
-            print(f"{C.RED}{self.game.char} is stunned and cannot cast magic.{C.OFF}")
+            print(f"{C.RED}{self.game.char.name} is stunned and cannot cast magic.{C.OFF}")

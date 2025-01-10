@@ -87,10 +87,10 @@ class Limb:
         if stats:
             text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armored}){C.OFF}"
         if full:
-            if hasattr(self, "grasped") and self.grasped:
-                text += "\n" + self.grasped.desc(offset=offset+1)
             for item in self.covered:
                 text += "\n" + item.desc(offset=offset+1, )
+            if hasattr(self, "grasped") and self.grasped:
+                text += "\n" + self.grasped.desc(offset=offset+1)
             for elem in self.subelements:
                 text += "\n" + elem.desc(offset=offset+1, stats=stats)
 

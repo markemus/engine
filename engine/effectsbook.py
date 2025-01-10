@@ -277,6 +277,26 @@ class Stun(sp.Effect):
         print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
 
 
+class StunForSure(sp.Effect):
+    """Cast this effect on creature.subelements[0]."""
+    rounds = 5
+    expire_on_removal = True
+    allow_duplicates = False
+
+    def _cast(self):
+        if self.creature.can_stun:
+            self.creature.stunned = True
+            print(f"{C.RED}{self.creature.name} is stunned!{C.OFF}")
+            return True
+
+    def update(self):
+        self.creature.stunned = True
+
+    def _expire(self):
+        self.creature.stunned = False
+        print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
+
+
 class Vampirism(sp.Effect):
     """Suck the lifeforce out of a creature."""
     # You need to overwrite this attribute in your subclass
@@ -287,14 +307,17 @@ class Vampirism(sp.Effect):
     cast_on_removal = False
 
     def _cast(self):
-        self.creature.bled += self.amount
-        print(f"{C.RED}{self.vampire.name} drinks {self.creature.name}'s blood!{C.OFF}")
-        if self.creature.bled > self.creature.blood / 2:
-            print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
-        if self.creature.bled >= self.creature.blood:
-            self.creature.die()
+        if self.limb.can_bleed:
+            self.creature.bled += self.amount
+            print(f"{C.RED}{self.vampire.name} drinks {self.creature.name}'s blood!{C.OFF}")
+            if self.creature.bled > self.creature.blood / 2:
+                print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
+            if self.creature.bled >= self.creature.blood:
+                self.creature.die()
 
-        self.vampire.heal(self.amount)
+            self.vampire.heal(self.amount)
+        else:
+            print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to drink!{C.OFF}")
 
 
 class SuckBlood(sp.Effect):
@@ -332,6 +355,7 @@ class HealAllies(sp.Effect):
 
 
 class Entangled(sp.Effect):
+    desc = "entangled"
     rounds = 4
     expire_on_removal = True
     # Subclass and set entangling_limb
@@ -439,32 +463,3 @@ class ExplodeOnDeath(sp.Effect):
             for limb in limbs:
                 print(f"{C.RED}{enemy.name}'s {limb.name} is caught in the explosion!{C.OFF}")
                 self.cont.combat.apply_damage(defender=enemy, limb=limb, damage=random.randint(0, 3))
-
-
-class BrightLight(sp.Effect):
-    rounds = "forever"
-    expire_on_removal = True
-
-    def _cast(self):
-        self.effects = []
-        self.update()
-        return True
-
-    def update(self):
-        enemies = self.creature.ai.get_enemy_creatures()
-        for enemy in enemies:
-            enemy_illuminated = False
-            for limb in enemy.limb_check("isSurface"):
-                light = Light(creature=enemy, limb=limb, controller=self.cont)
-                if light.cast():
-                    enemy_illuminated = True
-                    self.effects.append(light)
-
-            if enemy_illuminated:
-                print(f"{BC.MAGENTA}{enemy.name} is illuminated in the harsh glare!{BC.OFF}")
-
-    def _expire(self):
-        for effect in self.effects:
-            if not effect.expired:
-                effect.expire()
-        print(f"{BC.MAGENTA}The harsh light illuminating the room goes out.{BC.OFF}")

@@ -692,6 +692,7 @@ class GrowFangs(CorruptionSpell):
                     for teeth in existing_teeth:
                         jaw.remove_limb(teeth)
                         print(f"{BC.MAGENTA}{self.target.name}'s old teeth fall out of their mouth.{BC.OFF}")
+                        self.target.location.drop_item(teeth)
 
                 # We need to define a subclass for the caster
                 class CVampirism(eff.Vampirism):
@@ -1277,3 +1278,6 @@ class SetHumanity(sp.Spell):
         self.original_humanity = self.caster.humanity
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
+
+
+# TODO HealParty spell (creationspell, should heal a lot)

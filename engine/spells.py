@@ -81,3 +81,22 @@ class Effect:
         self.limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
         self.expired = True
+
+
+class DelayedEffect(Effect):
+    """Works the same as Effect, but subclasses should implement _update() instead of update(). They should also set delay.
+    rounds should be long enough to include the delay."""
+    delay = 0
+    counter = 1
+    on_message = None
+
+    def update(self):
+        if self.counter == self.delay and self.on_message:
+            print(self.on_message)
+        if self.counter >= self.delay:
+            self._update()
+        self.counter += 1
+
+    def _update(self):
+        """Subclasses should implement _update()."""
+        pass

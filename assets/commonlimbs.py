@@ -407,8 +407,10 @@ class MetalHand(cr.Weapon):
     can_bleed = False
     can_heal = False
     resurrected = True
+    blocker = True
     base_hp = 10
     _armor = 2
+    _damage = 9
     size = 2
     grasp = 1
     f_grasp = 1
@@ -423,6 +425,7 @@ class MetalArm(cr.Limb):
     can_heal = False
     resurrected = True
     no_subelements = True
+    blocker = True
     base_hp = 30
     _armor = 2
     size = 2

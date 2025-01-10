@@ -9,7 +9,8 @@ from colorist import BrightColor as BC, Color as C
 
 # TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king). Grabber, scorpion, mech spider,
 #  searchlight limb (blinding and light effects, pest ai), spidersword (spider legs, sword arm and mastery)
-#  mimic spell effects. Blinding flash, poison cloud, stuns, caltrops, light, sword hand
+#  mimic spell effects. Blinding flash, poison cloud, stuns, caltrops, light, sword hand. Security system (neutral but
+#  doesn't hurt mechanoids) with time-delayed effects (light, stun, foot entanglement, fire).
 # TODO-DONE more stuff to do with home
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""

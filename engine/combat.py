@@ -15,7 +15,7 @@ class Combat:
     def grab_weapon(self, actor):
         """AI creatures should grab weapons up off the floor if they have a spare hand."""
         # Search the room for weapons
-        if actor.limb_count("see") >= 1:
+        if (actor.limb_count("see") >= 1) and actor.limb_count("grasp"):
             invs = actor.location.find_invs()
             for inv in invs:
                 # isinstance is to stop enemies from wielding their own severed hands.
