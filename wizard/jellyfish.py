@@ -31,7 +31,6 @@ class Jellyfish(cr.Fish):
     classname = "jellyfish"
     namelist = ["jellyfish"]
     team = "pest"
-    can_breathe = False
     can_stun = False
     can_poison = False
     baseElem = JellySac

@@ -842,6 +842,8 @@ class creature:
 
 
 class Fish(creature):
+    can_breathe = False
+
     def leave(self, direction):
         """Fish die if they leave the water."""
         super().leave(direction=direction)
