@@ -211,7 +211,7 @@ class GoldenSarcophagus(pl.DisplayFurniture):
     color = ["gold"]
     texture = ["shiny"]
     count = (1, 2)
-    vis_collections = [(wcol.narumsin, (1, 2)), (wcol.c_steel_weapons, (1, 2))]
+    vis_collections = [(wcol.naarumsin, (1, 2)), (wcol.c_steel_weapons, (1, 2))]
 
 
 class GoblinGrave(pl.DisplayFurniture):

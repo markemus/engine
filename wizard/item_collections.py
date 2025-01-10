@@ -109,5 +109,5 @@ class GoldenVessel(it.Item):
 
 c_spider_suit = sc.suit_to_collection(suit=wsu.spider_bronze_suit, model=giant_spider.GiantSpider)
 rat_cooked = sc.limbs_to_collection(limbs=[giant_rat.Leg, giant_rat.Leg, giant_rat.Head], model=giant_rat.GiantRatCooked, full=False)
-narumsin = sc.limbs_to_collection(limbs=[dwarf.Torso], model=dwarf.Dwarf, full=True)
+naarumsin = sc.limbs_to_collection(limbs=[dwarf.Torso], model=dwarf.Dwarf, full=True)
 c_steel_weapons = sc.suit_to_collection(asu.steel_weapons, Human)
