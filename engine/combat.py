@@ -107,27 +107,28 @@ class Combat:
             # Blocking
             is_entangled_together = sum([isinstance(x, eff.Entangled) and ((x.entangling_limb is weapon) or (x.limb is weapon)) for x in limb.active_effects])
             if (target.limb_count("see") >= 1) and not target.stunned and not is_entangled_together:
-                blockers = self.blockers[target].copy()
-                # Can't block with webbed or entangled blocker
-                blockers = [b for b in blockers if not sum([isinstance(e, eff.Webbed) for e in b.active_effects]) and not sum([isinstance(e, eff.Entangled) for e in b.active_effects])]
-                # Confirm all blockers are still attached to the body
-                blockers = [b for b in blockers if target.subelements[0].is_subelement(b)]
-                if target is self.char:
-                    blocker = self.cont.pick_blocker(blockers)
-                else:
-                    blocker = actor.ai.block(blockers, limb)
-
-                if blocker and limb is not blocker:
-                    # 50/50 chance of blocking an attack
-                    block_chance = random.randint(0, 1)
-                    self.blockers[target].remove(blocker)
-                    if block_chance:
-                        limb = blocker
-                        print(f"{BC.YELLOW}{target.name}{BC.OFF} blocks the blow with their {BC.CYAN}{blocker.name}{BC.OFF}!")
+                if weapon.damage[1].blockable:
+                    blockers = self.blockers[target].copy()
+                    # Can't block with webbed or entangled blocker
+                    blockers = [b for b in blockers if not sum([isinstance(e, eff.Webbed) for e in b.active_effects]) and not sum([isinstance(e, eff.Entangled) for e in b.active_effects])]
+                    # Confirm all blockers are still attached to the body
+                    blockers = [b for b in blockers if target.subelements[0].is_subelement(b)]
+                    if target is self.char:
+                        blocker = self.cont.pick_blocker(blockers)
                     else:
-                        print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
-                else:
-                    print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
+                        blocker = actor.ai.block(blockers, limb)
+
+                    if blocker and limb is not blocker:
+                        # 50/50 chance of blocking an attack
+                        block_chance = random.randint(0, 1)
+                        self.blockers[target].remove(blocker)
+                        if block_chance:
+                            limb = blocker
+                            print(f"{BC.YELLOW}{target.name}{BC.OFF} blocks the blow with their {BC.CYAN}{blocker.name}{BC.OFF}!")
+                        else:
+                            print(f"{BC.YELLOW}{target.name}{BC.OFF} tries to block with {BC.CYAN}{blocker.name}{BC.OFF} but {C.RED}{actor.name}{C.OFF} blows through their defenses!")
+                    else:
+                        print(f"{BC.YELLOW}{target.name}{BC.OFF} accepts the blow.")
             elif is_entangled_together:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF} is entangled with {C.RED}{weapon.name}{C.OFF} and cannot be helped!")
             elif target.stunned:

@@ -464,3 +464,15 @@ class ExplodeOnDeath(sp.Effect):
             for limb in limbs:
                 print(f"{C.RED}{enemy.name}'s {limb.name} is caught in the explosion!{C.OFF}")
                 self.cont.combat.apply_damage(defender=enemy, limb=limb, damage=random.randint(0, 3))
+
+
+class Explosive(sp.Effect):
+    rounds = 1
+    amount = 2
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}The shell explodes!{BC.OFF}")
+        neighbors = self.creature.get_neighbors(self.limb)
+        for limb in neighbors:
+            self.cont.combat.apply_damage(defender=self.creature, limb=limb, damage=self.amount)
+        return True

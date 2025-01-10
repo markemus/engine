@@ -440,3 +440,12 @@ class MetalLeg(MetalLimb):
     subelement_classes = [MetalFoot]
     base_hp = 30
     size = 2
+
+class MetalSpiderLeg(MetalLimb):
+    name = "leg"
+    appendageRange = (8, 9)
+    wears = "spider_leg"
+    subelement_classes = []
+    base_hp = 20
+    size = 2
+    amble = 1/4

@@ -330,6 +330,7 @@ class Weapon(Limb):
     """A limb that can deal damage."""
     name = "NO_NAME_WEAPON"
     _damage = 0
+    blockable = True
     weapon_effects = []
 
     def __init__(self, *args, **kwargs):
