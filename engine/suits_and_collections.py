@@ -28,6 +28,10 @@ def limbs_to_collection(limbs, model, color_scheme="same", texture_scheme="same"
     """Converts a list of Limbs into a Collection of Limbs (for display in an Item or Furniture).
     Limbs will have colors and textures taken from the model, so you probably want Limbs from
     that same Creature class."""
+    limbs = copy.deepcopy(limbs)
+    for limb in limbs:
+        limb.creature = model(location=None)
+
     collection = {
         "contains": limbs,
         "color": model.colors.copy(),

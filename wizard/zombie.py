@@ -35,11 +35,16 @@ class Zombie(cr.creature):
     can_poison = False
 
     def __init__(self, limb, location):
-        self.colors = [limb.creature.color]
-        self.textures = [limb.creature.texture]
+        self.colors = [limb.color]
+        self.textures = [limb.texture]
         super().__init__(location=location)
-        self.classname = f"zombie {limb.creature.classname}"
-        self.name = f"zombie {limb.creature.classname}"
+        if limb.creature:
+            self.classname = f"zombie {limb.creature.classname}"
+            self.name = f"zombie {limb.creature.classname}"
+        else:
+            self.classname = f"zombie {limb.name}"
+            self.name = f"zombie {limb.name}"
+
         self.subelements = [limb]
         # Heal the base limb a bit, since it might have negative hp otherwise
         if limb.hp < int(limb.base_hp / 2):

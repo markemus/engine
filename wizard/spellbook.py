@@ -920,18 +920,20 @@ class ReanimateLimb(CorruptionSpell):
         i = input(f"\n{BC.GREEN}Which inventory would you like to resurrect from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            limbs = utils.listtodict([item for item in invs[i].vis_inv if isinstance(item, cr.Limb) and not item.resurrected], add_x=True)
+            inv = invs[i]
+            limbs = utils.listtodict([item for item in inv.vis_inv if isinstance(item, cr.Limb) and not item.resurrected], add_x=True)
             utils.dictprint(limbs)
             j = input(f"\n{BC.GREEN}Select a limb to resurrect:{BC.OFF} ")
 
             if j in limbs.keys() and j != "x":
                 limb = limbs[j]
+                inv.vis_inv.remove(limb)
                 zombie = z.Zombie(limb=limb, location=self.caster.location)
                 zombie.team = self.caster.team
                 zombie.subelements[0].mana_cost = self.mana_cost
                 self.caster.location.addCreature(zombie)
                 self.caster.companions.append(zombie)
-                print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead with a moan!{BC.OFF}")
+                print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead!{BC.OFF}")
 
                 # Reduces caster's humanity
                 if hasattr(self.caster, "humanity"):

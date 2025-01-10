@@ -36,8 +36,9 @@ class Limb:
     def __init__(self, color, texture, creature=None):
         self.color = color
         self.texture = texture
-        # TODO zombies should display creature class of baseElem
-        self.creature = creature
+        # TODO-DONE zombies should display creature class of baseElem
+        if creature:
+            self.creature = creature
         self.subelements = []
         self._elementGen()
         self.equipment = []
