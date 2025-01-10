@@ -5,7 +5,7 @@ import assets.commonlimbs as cl
 
 
 class Fang(cr.Weapon):
-    name = "fangs"
+    name = "fang"
     subelement_classes = []
     _damage = 3
     appendageRange = (2, 3)
@@ -69,7 +69,7 @@ class GiantBat(cr.creature):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Vampire bat
-        fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fangs"]
+        fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fang"]
         class CVampirism(eff.Vampirism):
             vampire = self
             amount = 2

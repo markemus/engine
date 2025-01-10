@@ -894,6 +894,11 @@ class GraftLimb(CorruptionSpell):
                     # Stop limbs from being grafted back on repeatedly- once only
                     for limb in graft_limb.limb_check("name"):
                         limb.resurrected = True
+                        # Special case for vampirism
+                        if hasattr(limb, "weapon_effects"):
+                            for weapon_effect in limb.weapon_effects:
+                                if issubclass(weapon_effect, eff.Vampirism):
+                                    weapon_effect.vampire = self.target
                     print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                     print(f"{C.RED}It will cost 3 mana to maintain this graft.{C.OFF}")
                     # Lowers humanity, if target is appropriate
@@ -933,6 +938,12 @@ class ReanimateLimb(CorruptionSpell):
                 zombie.subelements[0].mana_cost = self.mana_cost
                 self.caster.location.addCreature(zombie)
                 self.caster.companions.append(zombie)
+                # Special case for vampirism
+                for limb in zombie.limb_check("name"):
+                    if hasattr(limb, "weapon_effects"):
+                        for weapon_effect in limb.weapon_effects:
+                            if issubclass(weapon_effect, eff.Vampirism):
+                                weapon_effect.vampire = zombie
                 print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead!{BC.OFF}")
 
                 # Reduces caster's humanity
@@ -1071,6 +1082,11 @@ class Meld(CorruptionSpell):
                 limbs = limbs[:random.randint(1, len(limbs))]
                 for limb in limbs:
                     other_creature.subelements[0].remove_limb(limb)
+                    # Special case for vampirism
+                    if hasattr(limb, "weapon_effects"):
+                        for weapon_effect in limb.weapon_effects:
+                            if issubclass(weapon_effect, eff.Vampirism):
+                                weapon_effect.vampire = base_creature
                 base_creature.subelements[0].subelements.extend(limbs)
                 base_creature.name = f"{base_creature.name}-{other_creature.name}"[:60]
                 base_creature.classname = f"{base_creature.classname}-{other_creature.classname}"[:60]

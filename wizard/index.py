@@ -111,12 +111,12 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
 
 # TODO disable cheats before release
-cheats.skip_level_one(player, t_game)
-cheats.skip_level_two(player, t_game)
-cheats.skip_level_three(player, t_game)
-cheats.skip_level_four(player, t_game)
-cheats.skip_level_five(player, t_game)
-cheats.skip_level_six(player, t_game)
+# cheats.skip_level_one(player, t_game)
+# cheats.skip_level_two(player, t_game)
+# cheats.skip_level_three(player, t_game)
+# cheats.skip_level_four(player, t_game)
+# cheats.skip_level_five(player, t_game)
+# cheats.skip_level_six(player, t_game)
 
 i = interface.Interface(t_game)
 # player.can_fear = False
