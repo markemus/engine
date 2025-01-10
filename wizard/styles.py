@@ -7,10 +7,8 @@ import wizard.places
 
 from colorist import BrightColor as BC, Color as C
 
-# TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king).#  Security system (neutral but doesn't hurt mechanoids) with time-delayed effects (light, stun, foot entanglement, fire).
-#  Grabber, mech scorpion, spidersword (spider legs, sword arm and mastery)
-#  Flamethrower, shocker (taser but with lightning effect).
-# TODO-DONE more stuff to do with home
+
+# TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king).
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen, wizard.places.Laboratory]
@@ -94,8 +92,8 @@ LevelStyle.register(NecromancerL6)
 
 
 class MountainhomeL7:
-    level_text = f"""{BC.BLUE}You continue deeper into the dwarven mountain halls. The dwarves are long gone from here, but their mechanical creations still linger on in the halls around you. You can tell that you are drawing near to your goal. The treasure of Naarumsin will soon be yours- hurry now, and claim your destiny.{BC.OFF}"""
-    room_classes = [wizard.places.DwarvenHomeL7]
+    level_text = f"""{BC.BLUE}You continue deeper into the dwarven mountain halls. The dwarves are long gone from here, but their mechanical creations still linger on in the halls around you. You can sense that you are drawing near to your goal. The treasure of Naarumsin will soon be yours- hurry now, and claim your destiny.{BC.OFF}"""
+    room_classes = [wizard.places.DwarvenHomeL7, wizard.places.DwarvenPubL7]
     start_room = wizard.places.DwarvenStairway
     algorithm = "labyrinth"
     creature_classes = []

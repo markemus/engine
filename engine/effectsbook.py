@@ -29,7 +29,7 @@ class Stoneskin(sp.Effect):
 
 class FireDOT(sp.Effect):
     desc = "burning"
-    damage = .5
+    damage = .75
     rounds = 8
 
     def _cast(self):

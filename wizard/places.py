@@ -13,6 +13,7 @@ from wizard.cave_fish import BlindCaveFish
 from wizard.death_knight import DeathKnight
 from wizard.dwarven_snatcher import DwarvenSnatcher
 from wizard.dwarven_cleaner import DwarvenCleaner
+from wizard.dwarven_flamethrower import DwarvenFlamethrower
 from wizard.dwarven_scorpion import DwarvenScorpion
 from wizard.dwarven_security import DwarvenSecuritySystem
 from wizard.dwarven_tank import DwarvenTank
@@ -54,7 +55,7 @@ cc = {
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
     "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (MeldedRandomZombie, 2), (DeathKnight, 2), (None, 1)],
-    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenScorpion, 2), (DwarvenTank, 1), (DwarvenTaser, 1), (DwarvenCleaner, 1), (None, 1)],
+    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenScorpion, 2), (DwarvenTank, 1), (DwarvenTaser, 1), (DwarvenFlamethrower, 1), (DwarvenCleaner, 1), (None, 1)],
     "mountainhome_security": [(DwarvenSecuritySystem, 1)],
 }
 
@@ -359,7 +360,7 @@ class GreatGoblinsHall(pl.Place):
     textures = ["stone"]
     creature_classes = [[(GoblinPetOwlbear, 1)], [(GoblinPetOwlbear, 1)], [(Troll, 1)], [(Troll, 1)], [(GreatGoblin, 1)]]
     furniture_classes = [wizard.furniture.Firepit, wizard.furniture.SittingRock, wizard.furniture.Mattress, wizard.furniture.L3Chest]
-    subelement_classes = [wall, floor, pillar]
+    subelement_classes = [wall, pillar, floor]
 
 
 # Necromancer (L6)
@@ -371,7 +372,7 @@ class DwarvenEntranceHall(pl.Place):
     textures = ["granite", "obsidian", "marble"]
     creature_classes = []
     furniture_classes = []
-    subelement_classes = [wall, floor, pillar]
+    subelement_classes = [wall, pillar, floor]
     door_class = dwarven_gateway
 
 
@@ -405,11 +406,10 @@ class DwarvenAleHallNecromancer(pl.Place):
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [[(Necromancer, 1)], cc["necromancer"], cc["necromancer"]]
     furniture_classes = [wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.L3Chest]
-    subelement_classes = [wall, floor, pillar]
+    subelement_classes = [wall, pillar, floor]
 
 
 # Mountainhome (L7)
-
 class DwarvenStairway(pl.Place):
     name = "dwarven stairway"
     sprite = "S"
@@ -418,7 +418,8 @@ class DwarvenStairway(pl.Place):
     textures = ["granite", "obsidian", "marble"]
     creature_classes = []
     furniture_classes = []
-    subelement_classes = [wall, floor, pillar]
+    subelement_classes = [wall, pillar, floor]
+
 
 class DwarvenHomeL7(pl.Place):
     name = "dwarven home"
@@ -429,3 +430,14 @@ class DwarvenHomeL7(pl.Place):
     creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
     furniture_classes = [wizard.furniture.StoneBed, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
     subelement_classes = [wall, floor]
+
+
+class DwarvenPubL7(pl.Place):
+    name = "dwarven pub"
+    sprite = "P"
+    count = (2, 4)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
+    furniture_classes = [wizard.furniture.StoneBar, wizard.furniture.StoneStool]
+    subelement_classes = [wall, pillar, floor]

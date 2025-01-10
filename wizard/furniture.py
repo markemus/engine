@@ -271,7 +271,19 @@ class Anvil(pl.Furniture):
 
 class StoneTableWork(pl.DisplayFurniture):
     name = "table"
+    count = (1, 2)
     color = ["black", "gray"]
     texture = ["granite", "obsidian", "marble"]
-    count = (1, 2)
     vis_collections = [(hi.tools, (0, 2))]
+
+class StoneBar(pl.Furniture):
+    name = "bar"
+    count = (1, 2)
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+
+class StoneStool(pl.Furniture):
+    name = "stool"
+    count = (3, 8)
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
