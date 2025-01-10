@@ -40,5 +40,3 @@ class Necromancer(cr.creature):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for limb in self.limb_check("name"):
-            limb.resurrected = True

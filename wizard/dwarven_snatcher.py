@@ -11,6 +11,7 @@ class MetalFrame(cr.Limb):
     isSurface = True
     can_bleed = False
     can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 40

@@ -80,6 +80,7 @@ class CombatAI:
         random.shuffle(feet)
 
         # Assemble targets
+        # TODO ai should target limbs with passive_effects as well (eg fairy torsos)
         target_limbs = []
 
         if weapons:
@@ -97,11 +98,6 @@ class CombatAI:
         entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
         if entanglements:
             target_limbs = self.target_entangling_limbs(target, attacking_weapon)
-            # # print(entanglements)
-            # # Can only attack limbs weapon is entangled with
-            # target_limbs = []
-            # for entanglement in entanglements:
-            #     target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
 
         if target_limbs:
             # This way enemies will switch targets instead of relentlessly hammering down the best target

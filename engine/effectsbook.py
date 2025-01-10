@@ -33,7 +33,7 @@ class FireDOT(sp.Effect):
     rounds = 8
 
     def _cast(self):
-        if (not hasattr(self.creature.location, "wet")) or (not self.creature.location.wet):
+        if ((not hasattr(self.creature.location, "wet")) or (not self.creature.location.wet)) and self.limb.can_burn:
             return True
 
     def update(self):

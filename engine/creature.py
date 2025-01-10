@@ -31,6 +31,7 @@ class Limb:
     can_heal = True
     can_bleed = True
     resurrected = False
+    can_burn = True
 
     def __init__(self, color, texture, creature=None):
         self.color = color

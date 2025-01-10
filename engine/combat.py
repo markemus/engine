@@ -37,8 +37,6 @@ class Combat:
         # Non-aggressive creatures will not attack but can still be attacked.
         creatures = [creature for creature in creatures if (creature.team != "neutral")]
         random.shuffle(creatures)
-        # if self.char.team == "neutral":
-        #     print(f"{C.RED}{self.char.name}{C.OFF} remains neutral.")
 
         # Blockers must be reset each round.
         self.blockers = {}
@@ -62,15 +60,9 @@ class Combat:
                         weapon = self.cont.pick_weapon(weapons)
                     else:
                         weapon = actor.ai.pick_weapon(weapons)
-                        # # AI shouldn't favor one weapon if multiple are equal- makes for better gameplay.
-                        # random.shuffle(weapons)
-                        # weapon = max(weapons, key=lambda x: x.damage[0])
 
                     # Attack
                     used = self.combatRound(actor, weapon)
-                    # # Can't block with weapons used to attack
-                    # if used and (weapon in self.blockers[actor]):
-                    #     self.blockers[actor].remove(weapon)
                 else:
                     print(f"\n{C.RED}{actor.name}{C.OFF} has no weapons to attack with!")
 

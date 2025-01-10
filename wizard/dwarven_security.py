@@ -13,6 +13,7 @@ class Speaker(cr.Limb):
     subelement_classes = []
     can_bleed = False
     can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
@@ -25,6 +26,7 @@ class Spotlight(cr.Limb):
     subelement_classes = []
     can_bleed = False
     can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
@@ -38,6 +40,7 @@ class GrenadeDucts(cr.Limb):
     subelement_classes = []
     can_bleed = False
     can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
@@ -50,6 +53,7 @@ class DetentionCable(cr.Limb):
     subelement_classes = []
     can_bleed = False
     can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
@@ -61,6 +65,7 @@ class DetentionCableDeployer(cr.Limb):
     subelement_classes = [DetentionCable]
     can_bleed = False
     can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
@@ -76,11 +81,70 @@ class DetentionCableDeployer(cr.Limb):
         self.passive_effects = [EntangleFeet]
 
 
-class ControlBox(cr.Limb):
-    name = "control box"
-    subelement_classes = [Speaker, Spotlight, GrenadeDucts, DetentionCableDeployer]
+class GasVents(cr.Limb):
+    name = "thin ceiling vents"
+    subelement_classes = []
     can_bleed = False
     can_heal = False
+    can_burn = False
+    resurrected = True
+    appendageRange = (1, 2)
+    base_hp = 10
+    size = 1
+    _armor = 2
+    passive_effects = [weff.GasAttack]
+
+
+# Broken version of each security component
+class BrokenSpeaker(Speaker):
+    passive_effects = [weff.BrokenSecurityAnnouncement]
+
+class BrokenSpotlight(Spotlight):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        class BrokenSecurityComponent(weff.BrokenSecurityComponent):
+            delay = self.passive_effects[0].delay
+
+        self.passive_effects = [BrokenSecurityComponent]
+
+
+class BrokenGrenadeDucts(GrenadeDucts):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        class BrokenSecurityComponent(weff.BrokenSecurityComponent):
+            delay = self.passive_effects[0].delay
+
+        self.passive_effects = [BrokenSecurityComponent]
+
+
+class BrokenDetentionCableDeployer(DetentionCableDeployer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        class BrokenSecurityComponent(weff.BrokenSecurityComponent):
+            delay = self.passive_effects[0].delay
+
+        self.passive_effects = [BrokenSecurityComponent]
+
+
+class BrokenGasVents(GasVents):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        class BrokenSecurityComponent(weff.BrokenSecurityComponent):
+            delay = self.passive_effects[0].delay
+
+        self.passive_effects = [BrokenSecurityComponent]
+
+
+class ControlBox(cr.Limb):
+    name = "control box"
+    subelement_classes = [(Speaker, BrokenSpeaker), (Spotlight, BrokenSpotlight), (GrenadeDucts, BrokenGrenadeDucts), (DetentionCableDeployer, BrokenDetentionCableDeployer), (GasVents, BrokenGasVents)]
+    can_bleed = False
+    can_heal = False
+    can_burn = False
     resurrected = True
     appendageRange = (1, 2)
     base_hp = 15
