@@ -154,7 +154,7 @@ class ControlBox(cr.Limb):
 
 
 class DwarvenSecuritySystem(cr.creature):
-    """Security system for the dwarven mountainhomes"""
+    """Security system for the dwarven mountainhomes."""
     classname = "security system"
     team = "neutral"
     namelist = ["security system"]

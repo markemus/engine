@@ -5,6 +5,7 @@ class Spell:
     name = "spell"
     rounds = None
     mana_cost = None
+    expired = False
 
     def __init__(self, caster, target, controller):
         self.caster = caster
@@ -34,6 +35,7 @@ class Spell:
         if hasattr(self, "_expire"):
             self._expire()
         self.cont.game.active_spells.remove(self)
+        self.expired = True
 
 
 # TODO-DECIDE what to do for effects in a room once you leave it? Expire?

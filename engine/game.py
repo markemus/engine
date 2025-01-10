@@ -70,4 +70,5 @@ class Game(object):
 
         for spell in self.active_spells.copy():
             # Some effects expire themselves or others in update(), so use a copied list as well.
-            spell.update()
+            if not spell.expired:
+                spell.update()

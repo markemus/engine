@@ -86,6 +86,7 @@ class EntangleFeet(sp.DelayedEffect):
             entangling_limb = self.entangling_limb
 
         self.Entangled = Entangled
+        self.entanglements = []
 
     def _update(self):
         enemies = [c for c in self.creature.location.creatures if c.team == "adventurer"]
@@ -95,7 +96,13 @@ class EntangleFeet(sp.DelayedEffect):
             if not can_fly:
                 for foot in feet:
                     e = self.Entangled(creature=enemy, limb=foot, controller=self.cont)
-                    e.cast()
+                    if e.cast():
+                        self.entanglements.append(e)
+
+    def _expire(self):
+        print(f"{BC.MAGENTA}The thin cable releases everyone and snakes back into the wall.{BC.OFF}")
+        for effect in self.entanglements:
+            effect.expire()
 
 
 class GasAttack(sp.DelayedEffect):
@@ -150,6 +157,7 @@ class TurnOffAllSecurityEffects(sp.Effect):
         combatants = [c for c in self.creature.location.creatures if c.team not in ["adventurer", "neutral"]]
         if not combatants:
             # Expire all security effects, including self
-            creature_effects = [e for e in self.cont.game.active_spells if e.creature == self.creature]
+            creature_effects = [e for e in self.cont.game.active_spells if e.creature == self.creature and e != self]
             for e in creature_effects:
                 e.expire()
+            self.expire()

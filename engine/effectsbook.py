@@ -380,6 +380,7 @@ class Entangled(sp.Effect):
         self.limb.active_effects.append(self)
         self.entangling_limb.active_effects.append(self)
         self.cont.game.active_spells.append(self)
+        return True
 
     def update(self):
         """Entangled limbs cannot walk or fly."""
