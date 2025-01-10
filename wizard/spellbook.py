@@ -1151,6 +1151,7 @@ class PoisonGas(CorruptionSpell):
     def _expire(self):
         print(f"{BC.MAGENTA}The cloud of gas dissipates and disappears.{BC.OFF}")
 
+
 # Neither
 class Scry(sp.Spell):
     name = "Scry"

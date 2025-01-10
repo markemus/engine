@@ -112,17 +112,12 @@ class BrokenGasVents(GasVents):
         self.passive_effects = [BrokenSecurityComponent]
 
 
-class ControlBox(cr.Limb):
+class ControlBox(cl.MetalLimb):
     name = "control box"
     subelement_classes = [(Speaker, BrokenSpeaker), (Spotlight, BrokenSpotlight), (GrenadeDucts, BrokenGrenadeDucts), (DetentionCableDeployer, BrokenDetentionCableDeployer), (GasVents, BrokenGasVents)]
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 15
     size = 2
-    _armor = 2
     passive_effects = [weff.TurnOffAllSecurityEffects]
 
 
