@@ -40,7 +40,7 @@ class Zombie(cr.creature):
         super().__init__(location=location)
         if limb.creature:
             self.classname = f"zombie {limb.creature.classname}"
-            self.name = f"zombie {limb.creature.classname}"
+            self.name = f"zombie {limb.creature.name}"
         else:
             self.classname = f"zombie {limb.name}"
             self.name = f"zombie {limb.name}"

@@ -3,6 +3,11 @@ import copy
 import random
 from colorist import Color as C, BrightColor as BC
 
+import wizard.item_collections as wcol
+
+t = wcol.naarumsin["contains"][0]
+s = type(t.__name__, (t,), {})
+issubclass(type(t.__name__, (t,), {}), t)
 # class Thing:
 #     def __init__(self, val):
 #         self.val = [val]

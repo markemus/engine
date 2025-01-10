@@ -144,7 +144,7 @@ class Head(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
-    vital = True
+    vital = "head"
     base_hp = 15
     size = 2
 
@@ -389,7 +389,7 @@ class MetalHead(MetalLimb):
     subelement_classes = [MetalEar, MetalEye, MetalNose]
     appendageRange = (1, 2)
     wears = "head"
-    vital = True
+    vital = "head"
     base_hp = 15
     size = 2
     _armor = 2

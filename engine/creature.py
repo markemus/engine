@@ -32,6 +32,7 @@ class Limb:
     can_bleed = True
     resurrected = False
     can_burn = True
+    creature = None
 
     def __init__(self, color, texture, creature=None):
         self.color = color
@@ -657,12 +658,13 @@ class creature:
         else:
             for subLimb in self.subelements:
                 subLimb.remove_limb(limb)
+
         # Losing a vital limb kills the creature
         limb_vitals = [l for l in limb.limb_check("vital") if l.vital]
-        # We'll see if others of this class are still attached
-        limb_vitals = set([l.__class__ for l in limb_vitals])
+        # We'll see if others of this vital type are still attached
+        limb_vitals = set([l.vital for l in limb_vitals])
         if len(limb_vitals):
-            other_vitals = set([l.__class__ for l in self.subelements[0].limb_check("vital") if l.vital])
+            other_vitals = set([l.vital for l in self.subelements[0].limb_check("vital") if l.vital])
             # We confirm that all vitals that were removed still exist in our subelements. Otherwise, die.
             if len(limb_vitals.intersection(other_vitals)) < len(limb_vitals):
                 self.die()

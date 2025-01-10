@@ -32,7 +32,7 @@ class Head(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wear = "animal_head"
-    vital = True
+    vital = "head"
     base_hp = 20
     size = 2
 

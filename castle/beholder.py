@@ -21,7 +21,7 @@ class Head(cr.Limb):
     appendageRange = (1, 2)
     wear = "head"
     amble = 1 # beholders fly
-    vital = True
+    vital = "head"
     base_hp = 10
     size = 2
 

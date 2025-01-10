@@ -19,7 +19,7 @@ class Head(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
-    vital = True
+    vital = "head"
     base_hp = 15
     size = 2
 
@@ -48,6 +48,7 @@ class Spinneret(cr.Weapon):
     isSurface = True
     appendageRange = (2, 3)
     _damage = 0
+    base_hp = 5
     weapon_effects = [eff.Webbed]
 
 class Abdomen(cr.Limb):

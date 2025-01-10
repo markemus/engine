@@ -7,7 +7,7 @@ class Gem(cr.Limb):
     subelement_classes = []
     isSurface = True
     appendageRange = (1, 2)
-    vital = True
+    vital = "gem"
     base_hp = 5
     size = 1
     see = 1

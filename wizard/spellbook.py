@@ -32,7 +32,7 @@ class CreationSpell(sp.Spell):
             return super().cast()
             # return self._cast()
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! ({self.humanity_min}){BC.OFF}")
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too low to cast this spell! {C.BLUE}({self.caster.humanity}/{self.humanity_min}){BC.OFF}")
 
 
 class CorruptionSpell(sp.Spell):
@@ -45,7 +45,7 @@ class CorruptionSpell(sp.Spell):
             return super().cast()
             # return self._cast()
         else:
-            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell ({self.humanity_max})!{BC.OFF}")
+            print(f"{C.RED}{self.caster.name}{BC.MAGENTA}'s humanity is too high to cast this spell! {C.RED}({self.caster.humanity}/{self.humanity_max}){BC.OFF}")
 
 
 # Creation

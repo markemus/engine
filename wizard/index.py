@@ -8,7 +8,6 @@ from assets import commonlimbs as cl
 from engine import game
 from engine import interface
 from engine import effectsbook as eff
-# from engine import equippable_limb as el
 
 from wizard import cheats
 from wizard import human

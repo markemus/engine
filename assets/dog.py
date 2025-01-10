@@ -27,7 +27,7 @@ class Head(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wear = "animal_head"
-    vital = True
+    vital = "head"
     base_hp = 15
     size = 2
 
@@ -37,7 +37,7 @@ class TripleHead(cr.Limb):
     isSurface = True
     appendageRange = (3, 4)
     wear = "animal_head"
-    vital = True
+    vital = "head"
     base_hp = 15
     size = 2
 

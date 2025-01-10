@@ -32,8 +32,8 @@ class TinyHead(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"
-    vital = True
-    base_hp = 5
+    vital = "head"
+    base_hp = 7
     size = 1
 
 class FairyTorso(cr.Limb):

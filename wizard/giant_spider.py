@@ -25,6 +25,7 @@ class Fang(cl.Teeth):
     appendageRange = (2, 3)
     wears = "fang"
     _damage = 10
+    base_hp = 7
     # weapon effects are applied when the weapon strikes
     weapon_effects = [eff.Poison]
 
@@ -45,7 +46,7 @@ class Head(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "spider_head"
-    vital = True
+    vital = "head"
     base_hp = 20
     size = 2
 
@@ -65,6 +66,7 @@ class Spinneret(cr.Weapon):
     isSurface = True
     appendageRange = (2, 3)
     _damage = 0
+    base_hp = 5
     weapon_effects = [eff.Webbed]
 
 class Abdomen(cr.Limb):
