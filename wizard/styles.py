@@ -81,9 +81,9 @@ LevelStyle.register(GoblintownL5)
 # TODO playtest necromancer level
 class NecromancerL6:
     level_text = f"""{BC.BLUE}Behind the Great Goblin's throne there stands a great gateway, the ancient hinges nearly rusted shut. You push them apart with a deep creaking sound and press onwards into the ancient dwarven fortress of Zugalbash. But an ancient evil has taken root in these once homely halls, and you must face it if you are to win through to the tomb of Naarumsin.{BC.OFF}"""
-    room_classes = [wizard.places.DwarvenHomeNecromancer, wizard.places.DwarvenWorkshopNecromancer]
+    room_classes = [wizard.places.DwarvenHomeNecromancer, wizard.places.DwarvenWorkshopNecromancer, wizard.places.DwarvenPubNecromancer]
     start_room = wizard.places.DwarvenEntranceHall
-    end_room = wizard.places.DwarvenAleHallNecromancer
+    end_room = wizard.places.DwarvenTempleNecromancer
     algorithm = "labyrinth"
     creature_classes = []
 
@@ -91,27 +91,36 @@ class NecromancerL6:
 LevelStyle.register(NecromancerL6)
 
 
-class MountainhomeL7:
-    level_text = f"""{BC.BLUE}You continue deeper into the dwarven mountain halls. The dwarves are long gone from here, but their mechanical creations still linger on in the halls around you. You can sense that you are drawing near to your goal. The treasure of Naarumsin will soon be yours- hurry now, and claim your destiny.{BC.OFF}"""
-    room_classes = [wizard.places.DwarvenHomeL7, wizard.places.DwarvenPubL7]
+class TombL7:
+    level_text = f"""{BC.BLUE}The necromancer defeated, you enter the ancient tomb of Naarumsin. The dwarves are long gone from this place, but their mechanical guardians still linger on in the halls around you. The treasure of Naarumsin will soon be yours- hurry now, and claim your destiny.{BC.OFF}"""
+    room_classes = [wizard.places.GalleryL7, wizard.places.TreasureRoomL7]
     start_room = wizard.places.DwarvenStairway
-    algorithm = "labyrinth"
+    end_room = wizard.places.AntechamberL7
     creature_classes = []
 
 
-LevelStyle.register(MountainhomeL7)
+LevelStyle.register(TombL7)
+
+
+class InnerTombL8:
+    level_text = f"""{BC.BLUE}The dragon is defeated and its hoard, the burial treasure of Naarumsin, is yours. Your epic adventure at last draws to a close, and you are looking forward to a quiet retirement. But perhaps other stories yet await you? The call of the road often reaches out to old burglars, and beckons them out of their peaceful homes and on to new adventures. Only time will tell.\n\nTHE END."""
+    room_classes = []
+    start_room = wizard.places.TombL8
+    creature_classes = []
+
+LevelStyle.register(InnerTombL8)
 
 
 class Wizard:
     # levels will spawn in this order
-    levelorder = [CavernL1, CavernL2, DarkElfL3, LakeL4, GoblintownL5, NecromancerL6, MountainhomeL7, Home]
+    levelorder = [CavernL1, CavernL2, DarkElfL3, LakeL4, GoblintownL5, NecromancerL6, TombL7, InnerTombL8, Home]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
-    links = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]
+    links = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7)]
     start_splash = f"""
     ------------------------
     |       {C.RED}The Tomb{C.OFF}       |
-    |        {C.RED}of the{C.OFF}        |   
-    |     {C.RED}Dwarven King{C.OFF}     |
+    |          {C.RED}of{C.OFF}          |   
+    |       {C.RED}Naarumsin{C.OFF}      |
     |                      |
     |  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
     |     by Markemus      |

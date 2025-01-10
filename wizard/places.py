@@ -2,7 +2,7 @@ import copy
 
 import assets.places
 import engine.place as pl
-from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway, dwarven_gateway
+from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway, dwarven_gateway, staircase
 
 import assets.furniture as fur
 
@@ -249,6 +249,7 @@ class DarkElfEntrance(pl.Place):
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     creature_classes = []
     furniture_classes = []
+    door_class = staircase
 
 
 class QueensNest(pl.Place):
@@ -398,14 +399,26 @@ class DwarvenWorkshopNecromancer(pl.Place):
     subelement_classes = [wall, floor]
 
 
-class DwarvenAleHallNecromancer(pl.Place):
-    name = "dwarven ale hall"
-    sprite = "A"
+class DwarvenPubNecromancer(pl.Place):
+    name = "dwarven pub"
+    sprite = "P"
+    count = (2, 4)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"], cc["necromancer"]]
+    furniture_classes = [wizard.furniture.StoneBar, wizard.furniture.StoneStool]
+    subelement_classes = [wall, pillar, floor]
+
+
+
+class DwarvenTempleNecromancer(pl.Place):
+    name = "dwarven temple"
+    sprite = "T"
     count = (1, 2)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [[(Necromancer, 1)], cc["necromancer"], cc["necromancer"]]
-    furniture_classes = [wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.StoneTable, wizard.furniture.StoneChair, wizard.furniture.L3Chest]
+    furniture_classes = [wizard.furniture.StoneAltar, wizard.furniture.StoneBar, wizard.furniture.StoneStool, wizard.furniture.StoneTable, wizard.furniture.StoneChair,  wizard.furniture.L3Chest]
     subelement_classes = [wall, pillar, floor]
 
 
@@ -419,25 +432,48 @@ class DwarvenStairway(pl.Place):
     creature_classes = []
     furniture_classes = []
     subelement_classes = [wall, pillar, floor]
+    door_class = staircase
 
 
-class DwarvenHomeL7(pl.Place):
-    name = "dwarven home"
-    sprite = "H"
-    count = (5, 10)
+class GalleryL7(pl.Place):
+    name = "gallery"
+    sprite = "G"
+    count = (8, 12)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
-    furniture_classes = [wizard.furniture.StoneBed, wizard.furniture.StoneTable, wizard.furniture.StoneChair]
+    furniture_classes = []
+    subelement_classes = [wall, pillar, floor]
+
+
+class TreasureRoomL7(pl.Place):
+    name = "treasure room"
+    sprite = "T"
+    count = (6, 10)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
+    furniture_classes = [wizard.furniture.EmptyChest, wizard.furniture.SmashedChest]
     subelement_classes = [wall, floor]
 
 
-class DwarvenPubL7(pl.Place):
-    name = "dwarven pub"
-    sprite = "P"
-    count = (2, 4)
+# TODO dragon fight
+class AntechamberL7(pl.Place):
+    name = "antechamber"
+    sprite = "A"
+    count = (1, 2)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
-    creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
-    furniture_classes = [wizard.furniture.StoneBar, wizard.furniture.StoneStool]
+    creature_classes = []
+    furniture_classes = [wizard.furniture.StoneAltar, wizard.furniture.StoneStool]
     subelement_classes = [wall, pillar, floor]
+
+
+class TombL8(pl.Place):
+    name = "Tomb of Narumsin"
+    sprite = "T"
+    count = (1, 2)
+    colors = ["carved", "engraved", "etched", "scrolled"]
+    textures = ["granite", "obsidian", "marble"]
+    creature_classes = []
+    furniture_classes = [wizard.furniture.GoldenChariot, wizard.furniture.TreasureChest, wizard.furniture.TreasureTable, wizard.furniture.GoldenSarcophagus]

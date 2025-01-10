@@ -22,7 +22,8 @@ lt = {
     "l1_chest_potion": [(pot.PotionOfStoneskin, 1), (pot.TentacleGrowthPotion, 1), (pot.PotionOfHealing, 1), (pot.PotionOfMight, 1)],
     "l2_chest_scroll": [(wcol.LevelTwoScroll, 1)],
     "l3_chest_scroll": [(wcol.LevelThreeScroll, 1)],
-    "excalibur_scroll": [(wcol.ScrollOfExcalibur, 1)]
+    "excalibur_scroll": [(wcol.ScrollOfExcalibur, 1)],
+    "final_treasure": [(wcol.GoldCoins, 3), (wcol.GoldenVessel, 1), (None, 2)],
 }
 
 class FruitOfLife(it.Potion):
@@ -173,6 +174,45 @@ class ExcaliburChest(pl.DisplayFurniture):
     count = (1, 2)
     loot_tables = [lt["excalibur_scroll"], lt["l1_chest_potion"]]
 
+class EmptyChest(pl.DisplayFurniture):
+    name = "treasure chest"
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+    count = (3, 10)
+
+class SmashedChest(pl.Furniture):
+    name = "smashed treasure chest"
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+    count = (1, 5)
+
+class TreasureChest(pl.DisplayFurniture):
+    name = "treasure chest"
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+    count = (5, 10)
+    loot_tables = [lt["final_treasure"], lt["final_treasure"], lt["final_treasure"], lt["final_treasure"], lt["final_treasure"], lt["final_treasure"], lt["final_treasure"]]
+
+class TreasureTable(pl.DisplayFurniture):
+    name = "table"
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+    count = (5, 10)
+    loot_tables = [lt["final_treasure"], lt["final_treasure"], lt["final_treasure"], lt["final_treasure"]]
+
+class GoldenChariot(pl.Furniture):
+    name = "chariot"
+    color = ["gold"]
+    texture = ["shiny"]
+    count = (1, 2)
+
+class GoldenSarcophagus(pl.DisplayFurniture):
+    name = "sarcophagus"
+    color = ["gold"]
+    texture = ["shiny"]
+    count = (1, 2)
+    vis_collections = [(wcol.narumsin, (1, 2))]
+
 
 class GoblinGrave(pl.DisplayFurniture):
     name = "goblin grave"
@@ -287,3 +327,10 @@ class StoneStool(pl.Furniture):
     count = (3, 8)
     color = ["black", "gray"]
     texture = ["granite", "obsidian", "marble"]
+
+class StoneAltar(pl.DisplayFurniture):
+    name = "altar"
+    count = (1, 2)
+    color = ["black", "gray"]
+    texture = ["granite", "obsidian", "marble"]
+    vis_collections = []

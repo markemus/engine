@@ -859,5 +859,4 @@ class Mechanoid(creature):
     can_stun = False
     can_poison = False
     can_breathe = False
-    # This creature cannot be enthralled or possessed
-    strong_will = True
+

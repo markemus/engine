@@ -12,6 +12,7 @@ import wizard.spellbook as sb
 import wizard.suits as wsu
 
 from assets.human import Human
+from assets import dwarf
 from wizard import giant_spider
 from wizard import giant_rat
 
@@ -94,5 +95,17 @@ class Jar(it.Holder):
     textures = ["glass"]
 
 
+class GoldCoins(it.Item):
+    name = "pile of gold coins"
+    colors = ["gold"]
+    textures = ["shiny"]
+
+class GoldenVessel(it.Item):
+    name = "golden vessel"
+    colors = ["gold"]
+    textures = ["shiny"]
+
+
 c_spider_suit = sc.suit_to_collection(suit=wsu.spider_bronze_suit, model=giant_spider.GiantSpider)
 rat_cooked = sc.limbs_to_collection(limbs=[giant_rat.Leg, giant_rat.Leg, giant_rat.Head], model=giant_rat.GiantRatCooked, full=False)
+narumsin = sc.limbs_to_collection(limbs=[dwarf.Torso], model=dwarf.Dwarf, full=True)

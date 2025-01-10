@@ -471,7 +471,7 @@ class SummonTentacleMonster(CreationSpell):
 class SummonFairy(CreationSpell):
     name = "Summon Fairy"
     mana_cost = 5
-    humanity_min = 5
+    humanity_min = 8
     description = f"Summons a tiny fairy to aid you. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
@@ -494,7 +494,7 @@ class SummonFairy(CreationSpell):
 class SummonOwlbear(CreationSpell):
     name = "Summon Owlbear"
     mana_cost = 15
-    humanity_min = 15
+    humanity_min = 12
     description = f"Summons a giant owlbear to aid you. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
@@ -859,7 +859,6 @@ class CutLimb(CorruptionSpell):
                 return True
 
 
-# TODO-DONE graftlimb should permanently reduce mana by one? Needs some cost so they don't just graft everything.
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 10
