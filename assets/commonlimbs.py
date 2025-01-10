@@ -343,7 +343,6 @@ class SwordHand(cr.Weapon):
 
 
 # Metal limbs
-# TODO-DONE metallimb and metalweapon classes
 class MetalLimb(cr.Limb):
     _armor = 2
     can_bleed = False

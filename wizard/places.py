@@ -289,7 +289,6 @@ class LakeTile(pl.Place):
     door_class = channel
 
 
-# TODO-DONE spell to summon Excalibur
 class MirrorLake(pl.Place):
     name = "mirror lake"
     sprite = "M"

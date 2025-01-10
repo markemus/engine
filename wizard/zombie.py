@@ -22,7 +22,7 @@ from colorist import BrightColor as BC, Color as C
 
 zombie_source_creatures = [Arachne, DarkElfScout, DarkElfGuard, DarkElfFairy, DeepGoblin, GiantRat, GiantBat, GiantSpider, CaveOctopus, Owlbear, Troll, Uruk, Warg]
 
-# TODO-DECIDE store original creature somewhere on limb when it gets removed? Then we could name zombies with class
+# TODO-DONE store original creature somewhere on limb when it gets removed? Then we could name zombies with class
 class Zombie(cr.creature):
     """A reanimated Limb."""
     classname = "zombie"

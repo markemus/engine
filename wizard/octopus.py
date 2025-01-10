@@ -29,7 +29,6 @@ class Head(cr.Limb):
     passive_effects = [eff.SquirtInk]
 
 
-# TODO-DONE octopi (and other fish) should die if they go on land (look for location.wet tag)
 class CaveOctopus(cr.Fish):
     classname = "cave octopus"
     team = "squids"
