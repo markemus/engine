@@ -49,6 +49,7 @@ class Tail(cr.Limb):
     subelement_classes = []
     isSurface = True
     appendageRange = (1, 2)
+    wears = "tail"
     base_hp = 3
     size = 2
 

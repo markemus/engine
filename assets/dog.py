@@ -9,6 +9,7 @@ class Fang(cl.Teeth):
     name = "fang"
     appendageRange = (2, 3)
     _damage = 10
+    wears = "fang"
 
 class Snout(cr.Limb):
     name = "snout"

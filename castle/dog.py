@@ -24,7 +24,7 @@ class Head(cr.Limb):
     subelement_classes = [cl.Ear, cl.Eye, Snout]
     isSurface = True
     appendageRange = (1, 2)
-    wear = "head"
+    wears = "head"
     vital = "head"
     base_hp = 15
     size = 2
@@ -34,7 +34,7 @@ class TripleHead(cr.Limb):
     subelement_classes = [cl.Ear, cl.Eye, Snout]
     isSurface = True
     appendageRange = (3, 4)
-    wear = "head"
+    wears = "head"
     vital = "head"
     base_hp = 15
     size = 2
@@ -63,6 +63,7 @@ class Tail(cr.Limb):
     name = "tail"
     subelement_classes = []
     isSurface = True
+    wears = "tail"
     appendageRange = (1, 2)
     base_hp = 3
     size = 1

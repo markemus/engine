@@ -516,3 +516,17 @@ class Lightning(sp.Effect):
                     cc.apply_damage(ot, r_limb, self.amount)
         print(f"{BC.MAGENTA}The lightning goes out, leaving a searing afterimage.{BC.OFF}")
         return True
+
+
+class Firebreath(sp.Effect):
+    rounds = 1
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}It exhales a great gout of fire!{BC.OFF}")
+        neighbors = self.creature.get_neighbors(self.limb)
+        for limb in neighbors:
+            if not sum([isinstance(e, FireDOT) for e in limb.active_effects]):
+                e = FireDOT(creature=self.creature, limb=limb, controller=self.cont)
+                if e.cast():
+                    print(f"{C.RED}{limb.name} is caught in the flames!{BC.OFF}")
+        return True

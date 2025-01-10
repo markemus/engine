@@ -11,6 +11,7 @@ import wizard.furniture
 from wizard.arachne import Arachne, ArachneQueen
 from wizard.cave_fish import BlindCaveFish
 from wizard.death_knight import DeathKnight
+from wizard.dragon import Dragon
 from wizard.dwarven_snatcher import DwarvenSnatcher
 from wizard.dwarven_cleaner import DwarvenCleaner
 from wizard.dwarven_flamethrower import DwarvenFlamethrower
@@ -463,7 +464,7 @@ class AntechamberL7(pl.Place):
     count = (1, 2)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
-    creature_classes = []
+    creature_classes = [[(Dragon, 1)]]
     furniture_classes = [wizard.furniture.StoneAltar, wizard.furniture.StoneStool]
     subelement_classes = [wall, pillar, floor]
 

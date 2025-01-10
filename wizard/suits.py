@@ -111,7 +111,7 @@ class SpiderBronzeHelm(i.Item):
     canwear["spider_head"] = True
     covers["eye"] = True
     covers["mouth"] = True
-    covers["fangs"] = True
+    covers["fang"] = True
     descends = 2
     level = 3
     armor = 1

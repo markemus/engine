@@ -9,7 +9,7 @@ class Fang(cr.Weapon):
     subelement_classes = []
     _damage = 8
     appendageRange = (2, 3)
-    wears = "fangs"
+    wears = "fang"
     base_hp = 3
     size = 1
     colors = ["yellow"]

@@ -45,6 +45,8 @@ class Wing(cr.Limb):
     base_hp = 5
     size = 2
     flight = 1/2
+    colors = ["thin"]
+    textures = ["skin"]
 
 class Torso(cr.Limb):
     name = "torso"
