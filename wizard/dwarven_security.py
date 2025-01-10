@@ -8,69 +8,47 @@ import assets.suits as asu
 import wizard.effectsbook as weff
 
 
-class Speaker(cr.Limb):
+class Speaker(cl.MetalLimb):
     name = "speaker"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-    _armor = 2
     passive_effects = [weff.SecurityAnnouncement]
 
-class Spotlight(cr.Limb):
+
+class Spotlight(cl.MetalLimb):
     name = "spotlight"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-    _armor = 2
     passive_effects = [weff.BrightLight]
 
 
-class GrenadeDucts(cr.Limb):
+class GrenadeDucts(cl.MetalLimb):
     name = "ceiling ducts"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-    _armor = 2
     passive_effects = [weff.StunGrenades]
 
-class DetentionCable(cr.Limb):
+
+class DetentionCable(cl.MetalLimb):
     name = "autonomous cable"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-    _armor = 2
 
-class DetentionCableDeployer(cr.Limb):
+
+class DetentionCableDeployer(cl.MetalLimb):
     name = "cable deployment system"
     subelement_classes = [DetentionCable]
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-    _armor = 2
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -81,17 +59,12 @@ class DetentionCableDeployer(cr.Limb):
         self.passive_effects = [EntangleFeet]
 
 
-class GasVents(cr.Limb):
-    name = "thin ceiling vents"
+class GasVents(cl.MetalLimb):
+    name = "thin floor vents"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-    _armor = 2
     passive_effects = [weff.GasAttack]
 
 
@@ -153,7 +126,7 @@ class ControlBox(cr.Limb):
     passive_effects = [weff.TurnOffAllSecurityEffects]
 
 
-class DwarvenSecuritySystem(cr.creature):
+class DwarvenSecuritySystem(cr.Mechanoid):
     """Security system for the dwarven mountainhomes."""
     classname = "security system"
     team = "neutral"
@@ -162,10 +135,3 @@ class DwarvenSecuritySystem(cr.creature):
     colors = ["silvery", "gray", "steely", "rusty", "matte"]
     textures = ["metallic"]
     suits = []
-    can_fear = False
-    can_rest = False
-    can_stun = False
-    can_poison = False
-    can_breathe = False
-    # This creature cannot be enthralled or possessed
-    strong_will = True

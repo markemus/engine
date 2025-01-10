@@ -361,7 +361,6 @@ class creature:
     classname = "NO_NAME_CREATURE"
     team = None
     printcolor = BC.CYAN
-    # cantransfer = False      # can carry items
     # subelements = []         # elements of creature
     location = "loader"   # name of Place where creature is- object
     spellbook = []
@@ -377,6 +376,8 @@ class creature:
     poisoned = 0
     afraid = False
     stunned = False
+    # Increases to-hit rolls
+    mastery = 0
   
     def __init__(self, location):
         self.name = random.choice(self.namelist)
@@ -847,3 +848,13 @@ class Fish(creature):
         if not (hasattr(self.location, "wet") and self.location.wet):
             print(f"{C.RED}{self.name} lies gasping in the air.{C.OFF}")
             self.die()
+
+
+class Mechanoid(creature):
+    can_fear = False
+    can_rest = False
+    can_stun = False
+    can_poison = False
+    can_breathe = False
+    # This creature cannot be enthralled or possessed
+    strong_will = True

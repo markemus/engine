@@ -343,7 +343,20 @@ class SwordHand(cr.Weapon):
 
 
 # Metal limbs
-class MetalEar(cr.Limb):
+# TODO-DONE metallimb and metalweapon classes
+class MetalLimb(cr.Limb):
+    _armor = 2
+    can_bleed = False
+    can_heal = False
+    can_burn = False
+
+class MetalWeapon(cr.Weapon):
+    _armor = 2
+    can_bleed = False
+    can_heal = False
+    can_burn = False
+
+class MetalEar(MetalLimb):
     name = "ear"
     subelement_classes = []
     isSurface = True
@@ -351,51 +364,29 @@ class MetalEar(cr.Limb):
     wears = "ear"
     base_hp = 3
     size = 1
-    _armor = 2
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
 
-class MetalEye(cr.Limb):
+class MetalEye(MetalLimb):
     name = "vision plate"
     subelement_classes = []
-    isSurface = True
     appendageRange = (1, 2)
     wears = "eye"
     see = 1
     base_hp = 3
     size = 1
-    _armor = 2
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     colors = ["blue", "hazel", "black", "brown", "green"]
     textures = ["metallic"]
 
-class MetalNose(cr.Limb):
+class MetalNose(MetalLimb):
     name = "nose"
     subelement_classes = []
-    isSurface = True
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     wears = "nose"
     base_hp = 3
     size = 1
-    _armor = 2
 
-class MetalHead(cr.Limb):
+class MetalHead(MetalLimb):
     name = "head"
     subelement_classes = [MetalEar, MetalEye, MetalNose]
-    isSurface = True
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     appendageRange = (1, 2)
     wears = "head"
     vital = True
@@ -403,75 +394,49 @@ class MetalHead(cr.Limb):
     size = 2
     _armor = 2
 
-class MetalHand(cr.Weapon):
+class MetalHand(MetalWeapon):
     name = "grasper"
     appendageRange = (1, 2)
     wears = "right hand"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     blocker = True
     base_hp = 10
-    _armor = 2
     _damage = 9
     size = 2
     grasp = 1
     f_grasp = 1
     t_grasp = 1
 
-class MetalArm(cr.Limb):
+class MetalArm(MetalLimb):
     name = "arm"
     appendageRange = (1, 2)
     wears = "arm"
     subelement_classes = [MetalHand]
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
-    no_subelements = True
     blocker = True
     base_hp = 30
-    _armor = 2
     size = 2
 
-class MetalTreads(cr.Limb):
+class MetalTreads(MetalLimb):
     name = "treads"
     appendageRange = (1, 2)
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     base_hp = 10
-    _armor = 2
     size = 2
     amble = 1
 
-class MetalFoot(cr.Limb):
+class MetalFoot(MetalLimb):
     name = "foot"
     appendageRange = (1, 2)
     wears = "foot"
     subelement_classes = []
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     base_hp = 10
-    _armor = 2
     size = 2
     amble = 1 / 2
 
-class MetalLeg(cr.Limb):
+class MetalLeg(MetalLimb):
     name = "leg"
     appendageRange = (2, 3)
     wears = "leg"
     subelement_classes = [MetalFoot]
-    can_bleed = False
-    can_heal = False
-    can_burn = False
-    resurrected = True
     base_hp = 30
-    _armor = 2
     size = 2

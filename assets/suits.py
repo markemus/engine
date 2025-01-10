@@ -265,6 +265,9 @@ class IronAxe(i.Item):
 class CopperAxe(IronAxe):
     damage = 5
 
+class SteelAxe(IronAxe):
+    damage = 20
+
 class Cleaver(i.Item):
     name = "cleaver"
     damage = 30
@@ -280,6 +283,9 @@ class IronSpear(i.Item):
 class CopperSpear(IronSpear):
     damage = 4
 
+class SteelSpear(IronSpear):
+    damage = 15
+
 class IronSword(i.Item):
     name = "sword"
     damage = 20
@@ -289,6 +295,9 @@ class CopperSword(IronSword):
 
 class BronzeSword(IronSword):
     damage = 14
+
+class SteelSword(IronSword):
+    damage = 30
 
 class IronHammer(i.Item):
     name = "hammer"
@@ -439,6 +448,17 @@ copper_weapons = {
     "color": ["shiny", "polished", "gleaming"],
     "color_scheme": "same",
     "texture": ["copper"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+steel_weapons = {
+    "wears": {},
+    "grasps": {
+        "right hand": (SteelSword, SteelSpear, SteelAxe)},
+    "color": ["gray", "shiny", "matte", "polished"],
+    "color_scheme": "same",
+    "texture": ["steel"],
     "texture_scheme": "same",
     "full": True,
 }

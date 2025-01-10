@@ -136,7 +136,7 @@ class Combat:
                 print(f"{BC.YELLOW}{target.name}{BC.OFF} cannot see the blow coming.")
 
             # Masters have a higher to-hit roll
-            mastery = actor.mastery if hasattr(actor, "mastery") else 0
+            mastery = actor.mastery
 
             # To hit roll- smaller limbs are harder to hit
             if actor.limb_count("see") < 1:
