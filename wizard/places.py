@@ -16,6 +16,7 @@ from wizard.dwarven_cleaner import DwarvenCleaner
 from wizard.dwarven_scorpion import DwarvenScorpion
 from wizard.dwarven_security import DwarvenSecuritySystem
 from wizard.dwarven_tank import DwarvenTank
+from wizard.dwarven_taser import DwarvenTaser
 from wizard.dwarven_turret import DwarvenTurret
 from wizard.elf import DarkElfScout, DarkElfChampion, DarkElfGuard, DarkElfSmith
 from wizard.fairy import DarkElfFairy
@@ -53,7 +54,7 @@ cc = {
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
     "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (MeldedRandomZombie, 2), (DeathKnight, 2), (None, 1)],
-    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenTank, 1), (DwarvenScorpion, 2), (DwarvenCleaner, 1), (None, 1)],
+    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenScorpion, 2), (DwarvenTank, 1), (DwarvenTaser, 1), (DwarvenCleaner, 1), (None, 1)],
     "mountainhome_security": [(DwarvenSecuritySystem, 1)],
 }
 

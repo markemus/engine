@@ -477,3 +477,42 @@ class Explosive(sp.Effect):
             print(f"{C.RED}{limb.name} is caught in the explosion!{C.OFF}")
             self.cont.combat.apply_damage(defender=self.creature, limb=limb, damage=self.amount)
         return True
+
+
+class Lightning(sp.Effect):
+    rounds = 1
+    amount = 2
+    # subclass and set caster
+    caster = None
+
+    def _cast(self):
+        cc = self.cont.combat
+        # Other limbs to strike from same target
+        other_limbs_to_strike = self.creature.get_neighbors(self.limb)
+        if other_limbs_to_strike:
+            other_limbs_to_strike = other_limbs_to_strike[:random.randrange(0, len(other_limbs_to_strike))]
+
+        print(f"{BC.MAGENTA}Lightning zaps {BC.YELLOW}{self.creature.name}{BC.MAGENTA}'s {C.RED}{self.limb.name}{BC.MAGENTA}!{BC.OFF}")
+        cc.apply_damage(self.creature, self.limb, self.amount)
+
+        for limb in other_limbs_to_strike:
+            print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{limb.name}{BC.MAGENTA}!{BC.OFF}")
+            cc.apply_damage(self.creature, limb, self.amount)
+
+        # Other limbs to strike from other targets
+        other_targets = [c for c in self.creature.location.creatures if c.team not in [self.caster.team, "neutral"] and c is not self.creature]
+        if other_targets:
+            other_targets = other_targets[:random.randrange(0, len(other_targets))]
+            for ot in other_targets:
+                jump_limb = random.choice(ot.subelements[0].limb_check("isSurface"))
+                random_neighbors = ot.get_neighbors(jump_limb)
+                print(
+                    f"{BC.MAGENTA}Lightning jumps to {BC.YELLOW}{ot.name}{BC.MAGENTA}'s {C.RED}{jump_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                cc.apply_damage(ot, jump_limb, self.amount)
+
+                random_neighbors = random_neighbors[:random.randrange(0, len(random_neighbors))]
+                for r_limb in random_neighbors:
+                    print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{r_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                    cc.apply_damage(ot, r_limb, self.amount)
+        print(f"{BC.MAGENTA}The lightning goes out, leaving a searing afterimage.{BC.OFF}")
+        return True

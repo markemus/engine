@@ -285,7 +285,8 @@ class Lightning(CreationSpell):
         if i in limbs.keys() and i != "x":
             # Other limbs to strike from same target
             other_limbs_to_strike = self.target.get_neighbors(limbs[i])
-            other_limbs_to_strike = other_limbs_to_strike[:random.randrange(0, len(other_limbs_to_strike))]
+            if other_limbs_to_strike:
+                other_limbs_to_strike = other_limbs_to_strike[:random.randrange(0, len(other_limbs_to_strike))]
             print(f"{BC.MAGENTA}Lightning arcs across the room and strikes {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s {C.RED}{limbs[i].name}{BC.MAGENTA}!{BC.OFF}")
             cc.apply_damage(self.target, limbs[i], l_damage)
 
@@ -295,17 +296,18 @@ class Lightning(CreationSpell):
 
             # Other limbs to strike from other targets
             other_targets = [c for c in self.target.location.creatures if c.team not in [self.caster.team, "neutral"] and c is not self.target]
-            other_targets = other_targets[:random.randrange(0, len(other_targets))]
-            for ot in other_targets:
-                jump_limb = random.choice(ot.subelements[0].limb_check("isSurface"))
-                random_neighbors = ot.get_neighbors(jump_limb)
-                print(f"{BC.MAGENTA}Lightning jumps to {BC.YELLOW}{ot.name}{BC.MAGENTA}'s {C.RED}{jump_limb.name}{BC.MAGENTA}!{BC.OFF}")
-                cc.apply_damage(ot, jump_limb, l_damage)
+            if other_targets:
+                other_targets = other_targets[:random.randrange(0, len(other_targets))]
+                for ot in other_targets:
+                    jump_limb = random.choice(ot.subelements[0].limb_check("isSurface"))
+                    random_neighbors = ot.get_neighbors(jump_limb)
+                    print(f"{BC.MAGENTA}Lightning jumps to {BC.YELLOW}{ot.name}{BC.MAGENTA}'s {C.RED}{jump_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                    cc.apply_damage(ot, jump_limb, l_damage)
 
-                random_neighbors = random_neighbors[:random.randrange(0, len(random_neighbors))]
-                for r_limb in random_neighbors:
-                    print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{r_limb.name}{BC.MAGENTA}!{BC.OFF}")
-                    cc.apply_damage(ot, r_limb, l_damage)
+                    random_neighbors = random_neighbors[:random.randrange(0, len(random_neighbors))]
+                    for r_limb in random_neighbors:
+                        print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{r_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                        cc.apply_damage(ot, r_limb, l_damage)
             print(f"{BC.MAGENTA}The lightning goes out, leaving a searing afterimage.{BC.OFF}")
             return True
 
