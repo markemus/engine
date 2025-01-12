@@ -32,10 +32,19 @@ def limbs_to_collection(limbs, model, color_scheme="same", texture_scheme="same"
     # Note however that limb colors will be generated separately.
     new_limbs = []
     for limb in limbs:
-        # Subclass the limb class so we don't overwrite original class
-        new_limb = type(limb.__name__, (limb,), {})
-        new_limb.creature = model(location=None)
-        new_limbs.append(new_limb)
+        if type(limb) == tuple:
+            new_l = []
+            for l in limb:
+                # Subclass the limb class so we don't overwrite original class
+                new_limb = type(l.__name__, (l,), {})
+                new_limb.creature = model(location=None)
+                new_l.append(new_limb)
+            new_limbs.append(tuple(new_l))
+        else:
+            # Subclass the limb class so we don't overwrite original class
+            new_limb = type(limb.__name__, (limb,), {})
+            new_limb.creature = model(location=None)
+            new_limbs.append(new_limb)
 
     collection = {
         "contains": new_limbs,

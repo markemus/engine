@@ -46,7 +46,7 @@ adams_knife = suits.Shiv(color="rusty", texture="iron")
 # other_knife = suits.Shank(color="rusty", texture="iron")
 adams_pillowcase = hi.Pillowcase(color="dirty", texture="roughspun")
 # adams_pillowcase2 = hi.Pillowcase(color="dirty", texture="roughspun")
-adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin())
+adams_pillowcase.vis_inv.append(potions.PotionOfStoneskin(color="gray", texture="murky"))
 # adams_pillowcase.vis_inv.append(potions.PotionOfHealing())
 # adams_pillowcase.vis_inv.append(hi.Pillow(color="stained", texture="fluffy"))
 # adams_pillowcase2.vis_inv.append(potions.TentacleGrowthPotion())
@@ -57,7 +57,7 @@ adam.subelements[0].limb_check("grasp")[1].grasped = adams_pillowcase
 # adam.location.drop_item(suits.Blindfold("dirty", "linen"))
 # adam.location.drop_item(other_knife)
 # Give first creature (not Adam) a Potion of Arm Growth
-c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion()
+c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = potions.ArmGrowthPotion(color="gray", texture="murky")
 
 # adam.team = "neutral"
 
