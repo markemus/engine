@@ -107,7 +107,7 @@ class EntangleFeet(sp.DelayedEffect):
             for effect in self.entanglements:
                 effect.expire()
         else:
-            print(f"{BC.MAGENTA}The thin cable snakes back into the wall{BC.OFF}")
+            print(f"{BC.MAGENTA}The thin cable snakes back into the wall.{BC.OFF}")
 
 
 class GasAttack(sp.DelayedEffect):
