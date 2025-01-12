@@ -270,7 +270,6 @@ class Combat:
         # Damage roll
         damage = round(random.random() * damage, 2)
         cutoff = self.apply_damage(defender, limb, damage)
-        # TODO-DONE creatures should collapse if weapon_effects cause it (like in apply_damage())
         self.apply_weapon_effects(defender, limb, weapon)
         self.apply_impact_effects(defender, limb)
 

@@ -81,7 +81,7 @@ class Shadow(CreationSpell):
 
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
-# TODO-DONE this should work on limbs with strength tag, not arms and legs
+
 class Might(CreationSpell):
     name = "Might"
     mana_cost = 5

@@ -146,5 +146,3 @@ class PotionOfMana(I.Potion):
             if (mana_equipment.mana < mana_equipment.base_mana) and missing_mana:
                 mana_equipment.mana += missing_mana
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
-
-# TODO-DONE potion colors aren't appearing in game (seen in l1 chests)

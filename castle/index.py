@@ -65,6 +65,15 @@ c = adam.location.creatures[0].subelements[0].limb_check("grasp")[1].grasped = p
 
 i = interface.Interface(t_game)
 i.state = "fight"
+
+# Remove commands that aren't used by this game (no magic, no companions)
+del i.commands["move"]["P"]
+del i.commands["move"]["T"]
+del i.commands["move"]["G"]
+del i.commands["move"]["U"]
+del i.commands["move"]["M"]
+del i.commands["fight"]["M"]
+
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()

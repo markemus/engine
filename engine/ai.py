@@ -78,7 +78,6 @@ class CombatAI:
         random.shuffle(feet)
 
         # Assemble targets
-        # TODO-DONE ai should target limbs with passive_effects as well (eg fairy torsos)
         target_limbs = []
 
         if weapons:

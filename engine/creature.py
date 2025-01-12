@@ -6,8 +6,7 @@ from engine import ai
 from colorist import Color as C
 from colorist import BrightColor as BC
 
-# End of Loading Zone
-# TODO-DONE add can_resurrect? tag so zombies can't come back over and over
+
 class Limb:
     """Body parts for Creatures. Store in a list in Creature object.
 
@@ -38,7 +37,6 @@ class Limb:
     def __init__(self, color, texture, creature=None):
         self.color = color
         self.texture = texture
-        # TODO-DONE zombies should display creature class of baseElem
         if creature:
             self.creature = creature
         self.subelements = []
@@ -231,7 +229,6 @@ class Limb:
                     if hasattr(article, "descends"):
                         potentially_cover = self.return_from_depth(article.descends)[1:]
                         for subelement in potentially_cover:
-                            # TODO-DONE this insertion check is not working- articles are in reverse order? It needs a i+=1 if no break. use for-else.
                             if article.covers[subelement.wears]:
                                 # Insert equipment at proper level
                                 i = 0

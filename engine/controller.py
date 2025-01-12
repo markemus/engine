@@ -170,7 +170,6 @@ class Controller:
         if self.game.char.location.borders[">"]:
             print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
 
-    # TODO-DONE print "there is an exit here" message if there is a staircase
     def north(self):
         self.game.char.leave("n")
         self.cast_prebattle_effects()
