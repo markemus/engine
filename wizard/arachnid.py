@@ -69,17 +69,17 @@ class Thorax(cr.Limb):
     base_hp = 30
     size = 3
 
-class Arachne(cr.creature):
-    classname = "arachne"
+class Arachnid(cr.creature):
+    classname = "arachnid"
     team = "dark elf"
-    namelist = nl.names["spider"]
+    namelist = nl.names["elf"]
     baseElem = Thorax
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
     suits = [wsu.partial_spider_bronze_suit, asu.partial_bronze_armorsuit, wsu.iron_poisonsword]
 
-class ArachneQueen(Arachne):
-    classname = "queen arachne"
+class ArachnidQueen(Arachnid):
+    classname = "arachnid queen"
     strong_will = True
     suits = [wsu.spider_bronze_suit, asu.bronze_armorsuit, wsu.double_iron_poisonsword]
     mastery = 2

@@ -8,7 +8,7 @@ import assets.furniture as fur
 
 import wizard.furniture
 
-from wizard.arachne import Arachne, ArachneQueen
+from wizard.arachnid import Arachnid, ArachnidQueen
 from wizard.cave_fish import BlindCaveFish
 from wizard.death_knight import DeathKnight
 from wizard.dragon import Dragon
@@ -239,7 +239,7 @@ class ArachneNest(pl.Place):
     textures = ["white", "gray"]
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     furniture_classes = []
-    creature_classes = [[(Arachne, 1)], [(Arachne, 1)]]
+    creature_classes = [[(Arachnid, 1)], [(Arachnid, 1)]]
 
 
 class DarkElfEntrance(pl.Place):
@@ -261,7 +261,7 @@ class QueensNest(pl.Place):
     textures = ["white", "gray"]
     subelement_classes = [wall, floor, wizard.furniture.Stalactite, wizard.furniture.Stalagmite]
     furniture_classes = [wizard.furniture.L3Chest]
-    creature_classes = [[(ArachneQueen, 1)], [(DarkElfChampion, 1)], [(Arachne, 1)], [(DarkElfFairy, 1)]]
+    creature_classes = [[(ArachnidQueen, 1)], [(DarkElfChampion, 1)], [(Arachnid, 1)], [(DarkElfFairy, 1)]]
 
 
 # Lake (L4)

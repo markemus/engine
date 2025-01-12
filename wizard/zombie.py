@@ -3,7 +3,7 @@ import random
 import engine.creature as cr
 import engine.effectsbook as eff
 
-from wizard.arachne import Arachne
+from wizard.arachnid import Arachnid
 from wizard.elf import DarkElfScout, DarkElfGuard
 from wizard.fairy import DarkElfFairy
 from wizard.giant_rat import GiantRat
@@ -20,7 +20,7 @@ from assets.goblin import DeepGoblin
 from colorist import BrightColor as BC, Color as C
 
 
-zombie_source_creatures = [Arachne, DarkElfScout, DarkElfGuard, DarkElfFairy, DeepGoblin, GiantRat, GiantBat, GiantSpider, CaveOctopus, Owlbear, Troll, Uruk, Warg]
+zombie_source_creatures = [Arachnid, DarkElfScout, DarkElfGuard, DarkElfFairy, DeepGoblin, GiantRat, GiantBat, GiantSpider, CaveOctopus, Owlbear, Troll, Uruk, Warg]
 
 # TODO-DONE store original creature somewhere on limb when it gets removed? Then we could name zombies with class
 class Zombie(cr.creature):
