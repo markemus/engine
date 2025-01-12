@@ -370,7 +370,7 @@ class MetalEye(MetalLimb):
     appendageRange = (1, 2)
     wears = "eye"
     see = 1
-    base_hp = 3
+    base_hp = 5
     size = 1
     colors = ["blue", "hazel", "black", "brown", "green"]
     textures = ["metallic"]

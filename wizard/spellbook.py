@@ -559,40 +559,40 @@ class SummonExcalibur(CreationSpell):
             return True
 
 
-class Trapdoor(CreationSpell):
-    name = "Trapdoor"
-    mana_cost = 10
-    humanity_min = 0
-    description = f"Creates a trapdoor to descend downward into the depths. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 1
-    targets = "caster"
-
-    def _cast(self):
-        level_index = self.cont.game.level_list.index(self.cont.game.current_level)
-        if len(self.cont.game.level_list) < level_index + 1:
-            next_level = self.cont.game.level_list[level_index + 1]
-
-            next_level_rooms = list(next_level.roomLocations.keys())
-            next_level_rooms.remove(next_level.start)
-            next_level_rooms.remove(next_level.end)
-
-            next_room = random.choice(next_level_rooms)
-            if not self.caster.location.borders[">"]:
-                door = engine.styles.door(color="brown", texture="wood")
-                door.addBorder(self.caster.location)
-                door.addBorder(next_room)
-                self.caster.location.addElement(door)
-                next_room.addElement(door)
-                self.caster.location.get_borders()
-                next_room.get_borders()
-                print(f"{BC.MAGENTA}A doorway appears leading down into the depths!{BC.OFF}")
-                return True
-            else:
-                print(f"{BC.MAGENTA}There is no space for a doorway here.{BC.OFF}")
-                return False
-        else:
-            print(f"{BC.MAGENTA}You have reached rock bottom already.{BC.OFF}")
-            return False
+# class Trapdoor(CreationSpell):
+#     name = "Trapdoor"
+#     mana_cost = 10
+#     humanity_min = 0
+#     description = f"Creates a trapdoor to descend downward into the depths. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+#     rounds = 1
+#     targets = "caster"
+#
+#     def _cast(self):
+#         level_index = self.cont.game.level_list.index(self.cont.game.current_level)
+#         if level_index + 1 < len(self.cont.game.level_list):
+#             next_level = self.cont.game.level_list[level_index + 1]
+#
+#             next_level_rooms = list(next_level.roomLocations.keys())
+#             next_level_rooms.remove(next_level.start)
+#             next_level_rooms.remove(next_level.end)
+#
+#             next_room = random.choice(next_level_rooms)
+#             if not self.caster.location.borders[">"]:
+#                 door = engine.styles.door(color="brown", texture="wood")
+#                 door.addBorder(self.caster.location)
+#                 door.addBorder(next_room)
+#                 self.caster.location.addElement(door)
+#                 next_room.addElement(door)
+#                 self.caster.location.get_borders()
+#                 next_room.get_borders()
+#                 print(f"{BC.MAGENTA}A doorway appears leading down into the depths!{BC.OFF}")
+#                 return True
+#             else:
+#                 print(f"{BC.MAGENTA}There is no space for a doorway here.{BC.OFF}")
+#                 return False
+#         else:
+#             print(f"{BC.MAGENTA}You have reached rock bottom already.{BC.OFF}")
+#             return False
 
 
 class ArmorOfLight(CreationSpell):
@@ -993,7 +993,7 @@ class FleshRip(CorruptionSpell):
 
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
-    mana_cost = 10
+    mana_cost = 5
     humanity_max = -5
     description = f"Force an enemy to fight for you. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
@@ -1039,7 +1039,6 @@ class Possess(CorruptionSpell):
             self.target.companions = self.caster.companions.copy()
             self.target.companions.append(self.caster)
             self.target.humanity = self.caster.humanity
-            self.target.orig_char.subelements[0].mana_cost = self.mana_cost
             self.target.spellbook.append(Unpossess)
 
             self.cont.game.char = self.target
@@ -1312,6 +1311,3 @@ class SetHumanity(sp.Spell):
         self.original_humanity = self.caster.humanity
         self.caster.humanity = int(input(f"{BC.MAGENTA}Set your humanity: {BC.OFF}"))
         return True
-
-
-# TODO heal allies spell (normal spell)

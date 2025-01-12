@@ -416,7 +416,7 @@ class DrawAggro(sp.Effect):
 
     def _cast(self):
         old_target = self.creature.ai.target
-        if old_target is not self.casting_creature:
+        if old_target is not self.casting_creature and not self.creature.dead:
             self.creature.ai.target = self.casting_creature
             print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")
 

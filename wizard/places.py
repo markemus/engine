@@ -56,7 +56,7 @@ cc = {
     "lake_4_pests": [(GiantMosquito, 1), (Jellyfish, 1), (None, 1)],
     "goblintown": [(Troll, 2), (DeepGoblin, 3), (Uruk, 3), (Warg, 3), (None, 1)],
     "necromancer": [(RandomExplodingZombie, 2), (RandomZombie, 2), (MeldedRandomZombie, 2), (DeathKnight, 2), (None, 1)],
-    "mountainhome": [(DwarvenSnatcher, 2), (DwarvenTurret, 2), (DwarvenScorpion, 2), (DwarvenTank, 1), (DwarvenTaser, 1), (DwarvenFlamethrower, 1), (DwarvenCleaner, 1), (None, 1)],
+    "mountainhome": [(DwarvenSnatcher, 3), (DwarvenTurret, 2), (DwarvenScorpion, 2), (DwarvenTank, 1), (DwarvenTaser, 1), (DwarvenFlamethrower, 1), (DwarvenCleaner, 1), (None, 3)],
     "mountainhome_security": [(DwarvenSecuritySystem, 1)],
 }
 
@@ -438,7 +438,7 @@ class DwarvenStairway(pl.Place):
 class GalleryL7(pl.Place):
     name = "gallery"
     sprite = "G"
-    count = (8, 12)
+    count = (1, 4)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
@@ -449,7 +449,7 @@ class GalleryL7(pl.Place):
 class TreasureRoomL7(pl.Place):
     name = "treasure room"
     sprite = "T"
-    count = (6, 10)
+    count = (2, 5)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]

@@ -59,6 +59,7 @@ class Interface:
 
         dead = {
             "h": self.help,
+            "a": self.cont.attack,
             "*": self.load,
         }
 

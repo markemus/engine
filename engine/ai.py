@@ -175,7 +175,7 @@ class CombatAI:
         targets = self.creature.location.get_creatures()
 
         # Remove unfriendly creatures
-        targets = [c for c in targets if c.team == self.creature.team or c.team == "neutral"]
+        targets = [c for c in targets if c.team == self.creature.team]
 
         return targets
 
