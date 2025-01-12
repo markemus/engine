@@ -1012,7 +1012,6 @@ class Enthrall(CorruptionSpell):
         return True
 
 
-# TODO should have access to original char's mana
 class Possess(CorruptionSpell):
     name = "Possess"
     mana_cost = 10

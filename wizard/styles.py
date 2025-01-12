@@ -54,7 +54,7 @@ class DarkElfL3:
 
 LevelStyle.register(DarkElfL3)
 
-# TODO add sharks! blind cave sharks
+
 class LakeL4:
     level_text = f"""{BC.BLUE}Below the fortress of the dark elves you encounter a shallow lake. Mysterious colored lights flash in the distance as you wade out into the darkness. Whatever it is that is doing that, you hope you won't encounter them.{BC.OFF}"""
     room_classes = [wizard.places.LakeTile]
@@ -78,7 +78,6 @@ class GoblintownL5:
 LevelStyle.register(GoblintownL5)
 
 
-# TODO-DONE playtest necromancer level
 class NecromancerL6:
     level_text = f"""{BC.BLUE}Behind the Great Goblin's throne there stands a great gateway, the ancient hinges nearly rusted shut. You push them apart with a deep creaking sound and press onwards into the ancient dwarven fortress of Zugalbash. But an ancient evil has taken root in these once homely halls, and you must face it if you are to win through to the tomb of Naarumsin.{BC.OFF}"""
     room_classes = [wizard.places.DwarvenHomeNecromancer, wizard.places.DwarvenWorkshopNecromancer, wizard.places.DwarvenPubNecromancer]

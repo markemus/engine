@@ -132,7 +132,7 @@ class Holder(Item):
                     random.seed()
 
 
-# TODO potion colors should be set by the class (doesn't work for fruit of life)
+# TODO-DONE potion colors should be set by the class (doesn't work for fruit of life)
 class Potion(Item):
     name = "potion"
     usable = True

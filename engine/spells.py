@@ -39,7 +39,6 @@ class Spell:
         self.expired = True
 
 
-# TODO-DECIDE what to do for effects in a room once you leave it? Expire?
 class Effect:
     # Effects may define a "desc" attribute that will be added to limb.desc()
     desc = None

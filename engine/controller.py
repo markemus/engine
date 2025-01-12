@@ -166,26 +166,33 @@ class Controller:
         else:
             print("You cannot see well enough to read the map.")
 
-    # TODO dispel all spells in room when leaving the room (not on companions or char though)
-    # TODO print "there is an exit here" message if there is a staircase
+    def check_exit(self):
+        if self.game.char.location.borders[">"]:
+            print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
+
+    # TODO-DONE print "there is an exit here" message if there is a staircase
     def north(self):
         self.game.char.leave("n")
         self.cast_prebattle_effects()
+        self.check_exit()
         return self.check_safety()
 
     def south(self):
         self.game.char.leave("s")
         self.cast_prebattle_effects()
+        self.check_exit()
         return self.check_safety()
 
     def west(self):
         self.game.char.leave("w")
         self.cast_prebattle_effects()
+        self.check_exit()
         return self.check_safety()
 
     def east(self):
         self.game.char.leave("e")
         self.cast_prebattle_effects()
+        self.check_exit()
         return self.check_safety()
 
     def stairs(self):
@@ -211,7 +218,6 @@ class Controller:
                 return False
         return True
 
-    # TODO use potions too
     def cast_prebattle_effects(self):
         """Casts the prebattle effects that a creature has available to it."""
         for creature in self.game.char.location.creatures:

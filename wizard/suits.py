@@ -440,5 +440,3 @@ troll_gear = {
     "texture_scheme": "unique",
     "full": True,
 }
-
-# TODO armor that gains .1 armor every time you get hit (also changes color)

@@ -61,13 +61,11 @@ class CombatAI:
         return self.target
 
     def target_limb(self, target, attacking_weapon):
-        best_weapon = None
-        easiest_vital = None
-        easiest_foot = None
         limbs = target.subelements[0].limb_check("isSurface")
-        # print(limbs)
+
         weapons = [x for x in limbs if hasattr(x, "damage")]
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
+        effects = [x for x in limbs if x.passive_effects]
         feet = [x for x in limbs if (hasattr(x, "amble") or hasattr(x, "flight"))]
 
         # subelements[0] is always vital
@@ -80,7 +78,7 @@ class CombatAI:
         random.shuffle(feet)
 
         # Assemble targets
-        # TODO ai should target limbs with passive_effects as well (eg fairy torsos)
+        # TODO-DONE ai should target limbs with passive_effects as well (eg fairy torsos)
         target_limbs = []
 
         if weapons:
@@ -89,6 +87,9 @@ class CombatAI:
         if vitals:
             easiest_vital = min(vitals, key=lambda x: x.armored * x.hp)
             target_limbs.append(easiest_vital)
+        if effects:
+            random_effect = random.choice(effects)
+            target_limbs.append(random_effect)
         if feet:
             easiest_foot = min(feet, key=lambda x: x.armored * x.hp)
             # no point chopping off feet if target is already supine
