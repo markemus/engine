@@ -108,7 +108,9 @@ player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.Ring
 # player.subelements[0].find_invs()[0].vis_inv.append(cl.MetalFoot("gray", "iron"))
 # player.subelements[0].find_invs()[0].vis_inv.append(cl.MetalHand("gray", "iron"))
 # player.subelements[0].subelements[1].subelements[0].grasped = asu.IronHammer(color="bright", texture="steel")
-# firstLevel.start.find_invs()[0].vis_inv.append(a_human.Head(color="gray", texture="rotting"))
+player.subelements[0].find_invs()[0].vis_inv.append(cl.Head(color="gray", texture="rotting"))
+player.subelements[0].find_invs()[0].vis_inv.append(cl.RArm(color="gray", texture="rotting"))
+player.subelements[0].find_invs()[0].vis_inv.append(cl.Eye(color="gray", texture="rotting"))
 
 # TODO disable cheats before release
 cheats.skip_level_one(player, t_game)

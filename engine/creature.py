@@ -1,3 +1,4 @@
+import math
 import random
 
 from engine import ai
@@ -842,6 +843,8 @@ class creature:
         for limb in self.limb_check("name"):
             if hasattr(limb, "mana_cost"):
                 mana_cost += limb.mana_cost
+        # Round to two decimals
+        # mana_cost = math.floor(mana_cost * 100) / 100
         return mana_cost
 
 

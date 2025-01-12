@@ -120,7 +120,7 @@ class TripleNeck(cr.Limb):
     name = "neck"
     subelement_classes = [Head]
     appendageRange = (3, 4)
-    base_hp = 50
+    base_hp = 40
     _armor = 3
     size = 2
     blocker = True

@@ -152,4 +152,5 @@ class TestGeneral:
     def test_dependencies(self):
         import colorist
         import transitions
+        import dill
         pass

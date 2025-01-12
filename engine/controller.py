@@ -1,3 +1,4 @@
+import math
 import random
 import textwrap
 
@@ -333,7 +334,7 @@ class Controller:
                 spell.expire()
 
         # All equipment recovers full mana, except that used for creating/summoning minions
-        minion_mana = sum([x.mana_cost for x in self.game.char.get_companions() + [self.game.char]])
+        minion_mana = math.floor(sum([x.mana_cost for x in self.game.char.get_companions() + [self.game.char]]) * 100) / 100
         for mana_equipment in self.game.char.get_tagged_equipment("mana") + [x for x in self.game.char.subelements[0].limb_check("mana") if hasattr(x, "mana")]:
             missing_mana = mana_equipment.base_mana - mana_equipment.mana
             if missing_mana >= minion_mana:
@@ -399,6 +400,7 @@ class Controller:
         else:
             print(f"{C.RED}{self.game.char.name} has no free hands!{C.OFF}")
 
+    # TODO auto-clothe option
     def put_on_ally(self):
         if self.game.char.grasp_check():
             allies = utils.listtodict(self.game.char.get_companions(), add_x=True)
@@ -486,6 +488,7 @@ class Controller:
         else:
             print(f"{C.RED}{self.game.char.name} has no free hands!{C.OFF}")
 
+    # TODO take off all option
     def take_off_ally(self):
         """Remove equipment from an ally's limb."""
         if self.game.char.grasp_check():

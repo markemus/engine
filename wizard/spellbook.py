@@ -1,3 +1,4 @@
+import math
 import random
 
 import engine.creature as cr
@@ -663,7 +664,7 @@ class Light(CorruptionSpell):
 
 
 class GrowFangs(CorruptionSpell):
-    name = "Grow Vampiric Fangs"
+    name = "Grow Fangs"
     mana_cost = 5
     humanity_max = -3
     description = f"Turn your teeth into powerful vampiric weapons. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
@@ -861,9 +862,9 @@ class CutLimb(CorruptionSpell):
 
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
-    mana_cost = 10
+    mana_cost = 0
     humanity_max = 5
-    description = f"Graft a disembodied limb onto a friendly creature. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Graft a disembodied limb onto a friendly creature. {C.RED}(<{humanity_max}) {BC.CYAN}[varies]{C.OFF}"
     rounds = 1
     targets = "friendly"
 
@@ -880,32 +881,44 @@ class GraftLimb(CorruptionSpell):
 
             if j in graft_limbs.keys() and j != "x":
                 graft_limb = graft_limbs[j]
-                target_limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
-                utils.dictprint(target_limbs)
-                k = input(f"{BC.GREEN}Select a limb to graft onto: {BC.OFF}")
+                # Round down cost to two decimals
+                # print([math.floor((x.size / 3) * 100) / 100 for x in graft_limb.limb_check("name")])
+                mana_cost = math.floor(sum([(x.size / 3) for x in graft_limb.limb_check("name")]) * 100) / 100
 
-                if k in target_limbs.keys() and k != "x":
-                    target_limb = target_limbs[k]
-                    target_limb.subelements.append(graft_limb)
-                    invs[i].vis_inv.remove(graft_limb)
-                    graft_limb.hp = int(graft_limb.base_hp / 2)
-                    # Costs mana to maintain this graft
-                    graft_limb.mana_cost = 3
-                    # Stop limbs from being grafted back on repeatedly- once only
-                    for limb in graft_limb.limb_check("name"):
-                        limb.resurrected = True
-                        # Special case for vampirism
-                        if hasattr(limb, "weapon_effects"):
-                            for weapon_effect in limb.weapon_effects:
-                                if issubclass(weapon_effect, eff.Vampirism):
-                                    weapon_effect.vampire = self.target
-                    print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
-                    print(f"{C.RED}It will cost 3 mana to maintain this graft.{C.OFF}")
-                    # Lowers humanity, if target is appropriate
-                    if hasattr(self.caster, "humanity"):
-                        self.caster.humanity -= 1
-                        print(f"{C.RED}{self.caster.name}'s humanity decreases!{C.OFF}")
-                    return True
+                if self.caster.check_siphon_tag("mana", mana_cost):
+                    m = input(f"{BC.GREEN}{graft_limb.name} will cost {mana_cost} mana to maintain, continue (y)?{BC.OFF}")
+
+                    if m == "y":
+                        target_limbs = utils.listtodict(self.target.subelements[0].limb_check("isSurface"), add_x=True)
+                        utils.dictprint(target_limbs)
+                        k = input(f"{BC.GREEN}Select a limb to graft onto: {BC.OFF}")
+
+                        if k in target_limbs.keys() and k != "x":
+                            target_limb = target_limbs[k]
+                            target_limb.subelements.append(graft_limb)
+                            invs[i].vis_inv.remove(graft_limb)
+                            if graft_limb.hp < int(graft_limb.base_hp / 2):
+                                graft_limb.hp = int(graft_limb.base_hp / 2)
+                            # Costs mana to maintain this graft
+                            # graft_limb.mana_cost = mana_cost
+                            # Stop limbs from being grafted back on repeatedly- once only
+                            for limb in graft_limb.limb_check("name"):
+                                limb.resurrected = True
+                                # limb.mana_cost = math.floor((limb.size / 3) * 100) / 100
+                                limb.mana_cost = (limb.size / 3)
+                                # Special case for vampirism
+                                if hasattr(limb, "weapon_effects"):
+                                    for weapon_effect in limb.weapon_effects:
+                                        if issubclass(weapon_effect, eff.Vampirism):
+                                            weapon_effect.vampire = self.target
+                            print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
+                            print(f"{C.RED}It will cost {mana_cost} mana to maintain this graft.{C.OFF}")
+                            # Lowers humanity, if target is appropriate
+                            if hasattr(self.caster, "humanity"):
+                                self.caster.humanity -= 1
+                                print(f"{C.RED}{self.caster.name}'s humanity decreases!{C.OFF}")
+                            self.caster.siphon_tag("mana", mana_cost)
+                            return True
         return False
 
 
