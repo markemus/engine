@@ -10,7 +10,7 @@ class Head(cr.Limb):
     subelement_classes = [cl.Ear, cl.Eye, cl.Nose, cl.Jaw, cl.Beard]
     isSurface = True
     appendageRange = (1, 2)
-    wear = "head"
+    wears = "head"
     vital = "head"
     base_hp = 10
     size = 2

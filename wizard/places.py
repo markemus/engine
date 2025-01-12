@@ -457,7 +457,7 @@ class TreasureRoomL7(pl.Place):
     subelement_classes = [wall, floor]
 
 
-# TODO test dragon fight
+# TODO-DONE test dragon fight
 class AntechamberL7(pl.Place):
     name = "antechamber"
     sprite = "A"

@@ -111,4 +111,5 @@ c_spider_suit = sc.suit_to_collection(suit=wsu.spider_bronze_suit, model=giant_s
 rat_cooked = sc.limbs_to_collection(limbs=[giant_rat.Leg, giant_rat.Leg, giant_rat.Head], model=giant_rat.GiantRatCooked, full=False)
 naarumsin = sc.limbs_to_collection(limbs=[dwarf.Torso], model=dwarf.Dwarf, full=True)
 naarumsin["contains"][0].creature.name = "Naarumsin"
+c_crown = sc.suit_to_collection(suit=wsu.crown, model=dwarf.Dwarf)
 c_steel_weapons = sc.suit_to_collection(asu.steel_weapons, Human)

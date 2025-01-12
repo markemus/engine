@@ -8,7 +8,7 @@ import wizard.places
 from colorist import BrightColor as BC, Color as C
 
 
-# TODO level 7- mechanical enemies and dragon boss (tomb of the dwarven king).
+# TODO-DONE level 7- mechanical enemies and dragon boss (tomb of the dwarven king).
 class Home:
     level_text = f"""{BC.BLUE}You step into your home and a sense of warmth and security washes over you. Nothing very bad could ever happen to you here.{BC.OFF}"""
     room_classes = [wizard.places.PlayerBathroom, wizard.places.PlayerBedroom, wizard.places.TrophyRoom, assets.places.Parlor, assets.places.Kitchen, wizard.places.Laboratory]

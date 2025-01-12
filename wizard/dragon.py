@@ -1,3 +1,4 @@
+import engine.ai
 import engine.creature as cr
 import engine.effectsbook as eff
 
@@ -202,3 +203,7 @@ class Dragon(cr.creature):
     textures = ["scaled"]
     suits = []
     strong_will = True
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ai = engine.ai.PestAI(self)

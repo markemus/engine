@@ -204,6 +204,14 @@ class Excalibur(su.IronSword):
     damage = 50
     weapon_effects = [eff.Light]
 
+class CrownOfDwarvenKings(i.Item):
+    name = "Crown of Naarumsin"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["head"] = True
+    level = 4
+    colors = ["sapphire", "ruby", "emerald", "diamond"]
+    textures = ["in silver", "in gold", "in platinum"]
 
 # Suits
 darkelfsuit = {
@@ -438,5 +446,17 @@ troll_gear = {
     "color_scheme": "unique",
     "texture": ["rough"],
     "texture_scheme": "unique",
+    "full": True,
+}
+
+crown = {
+    "wears": {
+        "head": CrownOfDwarvenKings,
+    },
+    "grasps": {},
+    "color": ["sapphire", "ruby", "emerald", "diamond"],
+    "color_scheme": "same",
+    "texture": ["in silver", "in gold", "in platinum"],
+    "texture_scheme": "same",
     "full": True,
 }
