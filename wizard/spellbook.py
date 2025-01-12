@@ -81,7 +81,7 @@ class Shadow(CreationSpell):
 
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
-# TODO this should work on limbs with strength tag, not arms and legs
+# TODO-DONE this should work on limbs with strength tag, not arms and legs
 class Might(CreationSpell):
     name = "Might"
     mana_cost = 5
@@ -92,14 +92,11 @@ class Might(CreationSpell):
 
     def _cast(self):
         print(f"{BC.MAGENTA}{self.target.name} grows stronger before your eyes!{BC.MAGENTA}")
-        limbs = self.target.subelements[0].limb_check("wears")
+        limbs = self.target.subelements[0].limb_check("strength")
         for limb in limbs:
-            # print(limb.name)
-            # limb_wears = [k for k in limb.wears.keys() if limb.wears[k]]
-            # if set(limb_wears).intersection({"arm", "animal_leg"}):
-            if limb.wears in ["arm", "animal_leg"]:
-                might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
-                might.cast()
+
+            might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
+            might.cast()
         return True
 
 
@@ -992,7 +989,7 @@ class FleshRip(CorruptionSpell):
 
 class Enthrall(CorruptionSpell):
     name = "Enthrall"
-    mana_cost = 5
+    mana_cost = 9
     humanity_max = -5
     description = f"Force an enemy to fight for you. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1

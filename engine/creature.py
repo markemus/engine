@@ -372,7 +372,7 @@ class creature:
     team = None
     printcolor = BC.CYAN
     # subelements = []         # elements of creature
-    location = "loader"   # name of Place where creature is- object
+    location = None   # name of Place where creature is- object
     spellbook = []
     aggressive = True
     dead = False
@@ -495,6 +495,39 @@ class creature:
 
         # Reset seed
         random.seed()
+
+    def auto_clothe_article(self, article):
+        """Tries to find a spot for a particular item."""
+        for limb in self.limb_check("wears"):
+            if article.canwear[limb.wears]:
+                other_article = [x for x in limb.equipment if x.level == article.level]
+                if other_article:
+                    other_article = other_article[0]
+                    if article.armor > other_article.armor:
+                        if limb.unequip(other_article):
+                            self.location.drop_item(other_article)
+                            if limb.equip(article):
+                                print(f"{BC.CYAN}{self.name} replaces the {other_article.color} {other_article.texture} {other_article.name} with {article.color} {article.texture} {article.name}.{BC.OFF}")
+                                return True
+                else:
+                    if limb.equip(article):
+                        print(f"{BC.CYAN}{self.name} dons {article.color} {article.texture} {article.name}.")
+                        return True
+
+    def auto_equip(self):
+        """Automatically put on clothing from surrounding room. Does not have limb_check because controller will
+        do that on whichever creature is doing the auto_clothing."""
+        for inv in self.location.find_invs():
+            for article in inv.vis_inv.copy():
+                if hasattr(article, "canwear"):
+                    if self.auto_clothe_article(article):
+                        inv.vis_inv.remove(article)
+
+        for equipped_limb in self.location.find_equipment():
+            for article in equipped_limb.equipment.copy():
+                if hasattr(article, "canwear"):
+                    if self.auto_clothe_article(article):
+                        equipped_limb.unequip(article)
 
     def desc(self, full=True, offset=0, stats=True):
         """Basic describe function is always called desc."""

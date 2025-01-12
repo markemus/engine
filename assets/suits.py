@@ -154,6 +154,28 @@ class BronzeHelm(IronHelm):
 class BronzeShield(IronShield):
     armor = 1
 
+class SteelBoot(IronBoot):
+    armor = 3
+
+class SteelBracer(IronBracer):
+    armor = 3
+
+class SteelChainmail(IronChainmail):
+    armor = 3
+
+class SteelGauntlet(IronGauntlet):
+    armor = 3
+
+class SteelGreave(IronGreave):
+    armor = 3
+
+class SteelHelm(IronHelm):
+    armor = 3
+
+class SteelShield(IronShield):
+    armor = 3
+
+
 # Clothing
 class Backpack(i.Holder):
     name = "backpack"
@@ -429,6 +451,27 @@ partial_bronze_armorsuit["full"] = False
 # for creatures with two swords- remove shield
 bronze_duelists_armorsuit = copy.deepcopy(bronze_armorsuit)
 del bronze_duelists_armorsuit["wears"]["left hand"][1]
+
+steel_armorsuit = {
+    "wears": {
+        "head": SteelHelm,
+        "body": SteelChainmail,
+        "arm": SteelBracer,
+        "left hand": [SteelGauntlet, SteelShield],
+        "right hand": SteelGauntlet,
+        "leg": SteelGreave,
+        "foot": SteelBoot},
+    "grasps": {},
+    "color": ["shiny", "rusty", "matte"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
+    "full": True,
+    }
+
+partial_iron_armorsuit = copy.deepcopy(iron_armorsuit)
+partial_iron_armorsuit["full"] = False
+
 
 iron_weapons = {
     "wears": {},

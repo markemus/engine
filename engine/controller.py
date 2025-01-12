@@ -378,35 +378,38 @@ class Controller:
 
     def put_on(self):
         if self.game.char.grasp_check():
-            invs = self.game.char.subelements[0].find_invs()
-            # drop equipment
-            invs = [x for x in invs if hasattr(x, "vis_inv")]
-            invs = utils.listtodict(invs, add_x=True)
-            utils.dictprint(invs)
-            i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
+            z = input(f"\n{BC.GREEN}Would you like to equip automatically (a) or manually (m)?{BC.OFF} ")
+            if z == "a":
+                self.game.char.auto_equip()
+            elif z == "m":
+                invs = self.game.char.subelements[0].find_invs()
+                # drop equipment
+                invs = [x for x in invs if hasattr(x, "vis_inv")]
+                invs = utils.listtodict(invs, add_x=True)
+                utils.dictprint(invs)
+                i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
 
-            if i in invs.keys() and i != "x":
-                inventory = utils.listtodict(invs[i].vis_inv, add_x=True)
-                utils.dictprint(inventory)
-                j = input(f"\n{BC.GREEN}Select an item to equip:{BC.OFF} ")
+                if i in invs.keys() and i != "x":
+                    inventory = utils.listtodict(invs[i].vis_inv, add_x=True)
+                    utils.dictprint(inventory)
+                    j = input(f"\n{BC.GREEN}Select an item to equip:{BC.OFF} ")
 
-                if j in inventory.keys() and j != "x":
-                    gear = inventory[j]
-                    limbs = utils.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
-                    # utils.dictprint(limbs)
-                    utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
-                    k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
+                    if j in inventory.keys() and j != "x":
+                        gear = inventory[j]
+                        limbs = utils.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
+                        # utils.dictprint(limbs)
+                        utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
+                        k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
 
-                    if k in limbs.keys() and k != "x":
-                        limb = limbs[k]
-                        equipped = limb.equip(gear)
-                        if equipped:
-                            invs[i].vis_inv.remove(gear)
-                            print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on their {limb.name}.{BC.OFF}")
+                        if k in limbs.keys() and k != "x":
+                            limb = limbs[k]
+                            equipped = limb.equip(gear)
+                            if equipped:
+                                invs[i].vis_inv.remove(gear)
+                                print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on their {limb.name}.{BC.OFF}")
         else:
             print(f"{C.RED}{self.game.char.name} has no free hands!{C.OFF}")
 
-    # TODO auto-clothe option
     def put_on_ally(self):
         if self.game.char.grasp_check():
             allies = utils.listtodict(self.game.char.get_companions(), add_x=True)
@@ -415,31 +418,35 @@ class Controller:
             if h in allies.keys() and h != "x":
                 ally = allies[h]
                 if ally.location == self.game.char.location:
-                    invs = self.game.char.subelements[0].find_invs()
-                    # drop equipment
-                    invs = [x for x in invs if hasattr(x, "vis_inv")]
-                    invs = utils.listtodict(invs, add_x=True)
-                    utils.dictprint(invs)
-                    i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
+                    z = input(f"\n{BC.GREEN}Would you like to equip automatically (a) or manually (m)?{BC.OFF} ")
+                    if z == "a":
+                        ally.auto_equip()
+                    elif z == "m":
+                        invs = self.game.char.subelements[0].find_invs()
+                        # drop equipment
+                        invs = [x for x in invs if hasattr(x, "vis_inv")]
+                        invs = utils.listtodict(invs, add_x=True)
+                        utils.dictprint(invs)
+                        i = input(f"\n{BC.GREEN}Which inventory would you like to equip from?{BC.OFF} ")
 
-                    if i in invs.keys() and i != "x":
-                        inventory = utils.listtodict(invs[i].vis_inv, add_x=True)
-                        utils.dictprint(inventory)
-                        j = input(f"\n{BC.GREEN}Select an item to equip:{BC.OFF} ")
+                        if i in invs.keys() and i != "x":
+                            inventory = utils.listtodict(invs[i].vis_inv, add_x=True)
+                            utils.dictprint(inventory)
+                            j = input(f"\n{BC.GREEN}Select an item to equip:{BC.OFF} ")
 
-                        if j in inventory.keys() and j != "x":
-                            gear = inventory[j]
-                            limbs = utils.listtodict(ally.subelements[0].limb_check("name"), add_x=True)
-                            # utils.dictprint(limbs)
-                            utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
-                            k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
+                            if j in inventory.keys() and j != "x":
+                                gear = inventory[j]
+                                limbs = utils.listtodict(ally.subelements[0].limb_check("name"), add_x=True)
+                                # utils.dictprint(limbs)
+                                utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
+                                k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
 
-                            if k in limbs.keys() and k != "x":
-                                limb = limbs[k]
-                                equipped = limb.equip(gear)
-                                if equipped:
-                                    invs[i].vis_inv.remove(gear)
-                                    print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on {ally.name}'s {limb.name}.{BC.OFF}")
+                                if k in limbs.keys() and k != "x":
+                                    limb = limbs[k]
+                                    equipped = limb.equip(gear)
+                                    if equipped:
+                                        invs[i].vis_inv.remove(gear)
+                                        print(f"{BC.CYAN}{self.game.char.name} puts the {gear.name} on {ally.name}'s {limb.name}.{BC.OFF}")
                 else:
                     print(f"{C.RED}{ally.name} is not in the same location as {self.game.char.name}!{C.OFF}")
         else:
@@ -494,7 +501,6 @@ class Controller:
         else:
             print(f"{C.RED}{self.game.char.name} has no free hands!{C.OFF}")
 
-    # TODO take off all option
     def take_off_ally(self):
         """Remove equipment from an ally's limb."""
         if self.game.char.grasp_check():

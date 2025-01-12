@@ -158,6 +158,15 @@ class Place:
 
         return invs
 
+    def find_equipment(self):
+        """Returns all disembodied limbs with equipment on them."""
+        equipment = []
+
+        for element in self.elements:
+            equipment += element.find_equipment()
+
+        return equipment
+
     def drop_item(self, item):
         catchers = self.elem_check("canCatch")
         if catchers:
@@ -233,6 +242,15 @@ class Element:
 
         return invs
 
+    def find_equipment(self):
+        """Find all disembodied limbs with equipment in the room."""
+        invs = []
+
+        for element in self.subelements:
+            invs += element.find_equipment()
+
+        return invs
+
     def addBorder(self, place):
         if place not in self.borders:
             self.borders.append(place)
@@ -261,7 +279,7 @@ class Platform(Element):
         return text
 
     def find_invs(self):
-        """Find all inventories in the room (except creature inventories)."""
+        """Find all inventories in the element (except creature inventories)."""
         invs = []
         # Since Platforms have a vis_inv
         invs += [self]
@@ -273,6 +291,22 @@ class Platform(Element):
             invs += item.find_invs()
 
         return invs
+
+    def find_equipment(self):
+        """Find all disembodied limbs with equipment in the element."""
+        equipment = []
+        # Since Platforms have a vis_inv
+        for item in self.vis_inv:
+            # Checks for limbs with equipment
+            if hasattr(item, "equipment") and item.equipment:
+                limbs = item.limb_check("name")
+                equipment.extend(limbs)
+
+        for element in self.subelements:
+            equipment += element.find_equipment()
+
+        return equipment
+
 
 class Furniture(Element):
     visible = True

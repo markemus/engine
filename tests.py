@@ -147,6 +147,48 @@ class TestCastle():
         # Helm should cover teeth as well
         assert head.subelements[4].covered[0] == head.covered[0]
 
+    def test_auto_clothe(self):
+        """Tests that the automatic reclothing function works correctly."""
+        import engine.place as pl
+
+        import assets.asset_collections as ac
+        import assets.suits as asu
+
+        from engine.styles import wall, pillar, floor
+        from assets.goblin import Goblin, ShallowGoblin
+
+        class ExperimentChest(pl.DisplayFurniture):
+            name = "treasure chest"
+            color = ["brown", "black", "gray"]
+            texture = ["wood"]
+            count = (1, 2)
+            vis_collections = [(ac.ironsuit_c, (1, 2))]
+
+        class ExperimentCell(pl.Place):
+            name = "Cell"
+            sprite = "C"
+            count = (1, 2)
+            colors = ["carved", "engraved", "etched", "scrolled"]
+            textures = ["granite", "obsidian", "marble"]
+            creature_classes = []
+            furniture_classes = [ExperimentChest]
+            subelement_classes = [wall, pillar, floor]
+
+        # Build
+        Goblin.suits = [asu.bronze_armorsuit]
+        ShallowGoblin.suits = [asu.steel_armorsuit]
+        lab = ExperimentCell(level=None)
+        g = Goblin(location=lab)
+        sg = ShallowGoblin(location=lab)
+        print(g.location)
+
+        assert g.subelements[0].subelements[1].equipment[0].armor == 1
+        g.auto_clothe()
+        assert g.subelements[0].subelements[1].equipment[0].armor == 2
+        sg.die()
+        g.auto_clothe()
+        assert g.subelements[0].subelements[1].equipment[0].armor == 3
+
 
 class TestGeneral:
     def test_dependencies(self):
