@@ -471,7 +471,7 @@ class SummonTentacleMonster(CreationSpell):
 
 class SummonFairy(CreationSpell):
     name = "Summon Fairy"
-    mana_cost = 5
+    mana_cost = 8
     humanity_min = 8
     description = f"Summons a tiny fairy to aid you. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
@@ -792,11 +792,10 @@ class SwordHand(CorruptionSpell):
 #         print(f"{C.RED}{self.old_char.name}{BC.MAGENTA} transforms back into a {C.RED}{self.old_char.classname}{BC.MAGENTA}.{BC.OFF}")
 
 
-class CutLimb(CorruptionSpell):
+class CutLimb(sp.Spell):
     name = "Cut Limb"
     mana_cost = 0
-    humanity_max = 5
-    description = f"Cut a limb at a joint. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
+    description = f"Cut a limb at a joint. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
 

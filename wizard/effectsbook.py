@@ -10,8 +10,10 @@ class SecurityAnnouncement(sp.DelayedEffect):
     delay = 0
 
     def _cast(self):
-        print(f'{BC.RED}"Conflict detected. Security system is now online. Please desist immediately."{BC.OFF}')
-        return True
+        combatants = [c for c in self.creature.location.creatures if c.team not in ["adventurer", "neutral"]]
+        if combatants:
+            print(f'{BC.RED}"Conflict detected. Security system is now online. Please desist immediately."{BC.OFF}')
+            return True
 
     def _update(self):
         if self.counter == 5:
@@ -100,9 +102,12 @@ class EntangleFeet(sp.DelayedEffect):
                         self.entanglements.append(e)
 
     def _expire(self):
-        print(f"{BC.MAGENTA}The thin cable releases everyone and snakes back into the wall.{BC.OFF}")
-        for effect in self.entanglements:
-            effect.expire()
+        if self.entanglements:
+            print(f"{BC.MAGENTA}The thin cable releases everyone and snakes back into the wall.{BC.OFF}")
+            for effect in self.entanglements:
+                effect.expire()
+        else:
+            print(f"{BC.MAGENTA}The thin cable snakes back into the wall{BC.OFF}")
 
 
 class GasAttack(sp.DelayedEffect):

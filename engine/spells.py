@@ -19,6 +19,7 @@ class Spell:
             worked = self._cast()
             if worked:
                 siphoned = self.caster.siphon_tag("mana", self.mana_cost)
+                self.cont.game.active_spells.append(self)
                 if not siphoned:
                     raise ValueError("Not enough mana to siphon!")
             return worked

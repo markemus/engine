@@ -29,7 +29,7 @@ class Stoneskin(sp.Effect):
 
 class FireDOT(sp.Effect):
     desc = "burning"
-    damage = .75
+    damage = .5
     rounds = 8
 
     def _cast(self):
@@ -406,6 +406,7 @@ class Entangled(sp.Effect):
         self.limb.active_effects.remove(self)
         self.entangling_limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
+        self.expired = True
 
 
 class DrawAggro(sp.Effect):

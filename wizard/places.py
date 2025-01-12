@@ -438,7 +438,7 @@ class DwarvenStairway(pl.Place):
 class GalleryL7(pl.Place):
     name = "gallery"
     sprite = "G"
-    count = (1, 4)
+    count = (4, 8)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]
@@ -449,7 +449,7 @@ class GalleryL7(pl.Place):
 class TreasureRoomL7(pl.Place):
     name = "treasure room"
     sprite = "T"
-    count = (2, 5)
+    count = (3, 7)
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
     creature_classes = [cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome"], cc["mountainhome_security"]]

@@ -5,9 +5,22 @@ from colorist import Color as C, BrightColor as BC
 
 import wizard.item_collections as wcol
 
-t = wcol.naarumsin["contains"][0]
-s = type(t.__name__, (t,), {})
-issubclass(type(t.__name__, (t,), {}), t)
+class Test:
+    def test_func(self):
+        print("running")
+
+t = Test()
+def new_test_func(self):
+    self.test_func_old()
+
+t.test_func_old = t.test_func
+t.test_func = new_test_func
+
+t.test_func()
+
+# t = wcol.naarumsin["contains"][0]
+# s = type(t.__name__, (t,), {})
+# issubclass(type(t.__name__, (t,), {}), t)
 # class Thing:
 #     def __init__(self, val):
 #         self.val = [val]

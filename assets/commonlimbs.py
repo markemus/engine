@@ -337,7 +337,7 @@ class SwordHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "right hand"
     _damage = 40
-    base_hp = 20
+    base_hp = 30
     size = 2
     armor = 3
 
