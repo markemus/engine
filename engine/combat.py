@@ -233,11 +233,6 @@ class Combat:
                             bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
                             bleed.cast()
 
-                        # Expire limb effects
-                        # for effect in limb.active_effects.copy():
-                        #     if effect.expire_on_removal:
-                        #         effect.expire()
-
                         # check if target falls over
                         if not defender.dead:
                             if (limb.limb_count("amble") and can_amble) or (limb.limb_count("flight") and can_fly):

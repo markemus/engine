@@ -13,7 +13,7 @@ class levelGenerator:
     def __init__(self):
         pass
 
-    # TODO can get stuck in infinite loop with "labyrinth" algorithm. This occurs when only spot left open is next to entrance with a perfect square root of roomnums.
+    # TODO-DONE can get stuck in infinite loop with "labyrinth" algorithm. This occurs when only spot left open is next to entrance with a perfect square root of roomnums.
     def levelGen(self, levelname, levelstyle):
         """Generates a level. """
         roomList = []
@@ -168,7 +168,7 @@ class levelGenerator:
             # We negatively iterate lastRoomNum in case we have to do so again
             if deltaMin == len(delta):
                 # print("out of deltas")
-                if (lastRoomNum < 2) and len(previousRoomList) > 3:
+                if (lastRoomNum < 1) and len(previousRoomList) > 3:
                     # This empirically solves a bug where function settles on first_room
                     # and puts the next room randomly on the grid. I do not know how else
                     # to solve it so leave it be.
