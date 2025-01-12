@@ -1103,11 +1103,12 @@ class Meld(CorruptionSpell):
                 base_creature.subelements[0].subelements.extend(limbs)
                 base_creature.name = f"{base_creature.name}-{other_creature.name}"[:60]
                 base_creature.classname = f"{base_creature.classname}-{other_creature.classname}"[:60]
-                base_creature.subelements[0].mana_cost += other_creature.mana_cost / 2
+                added_mana_cost = other_creature.mana_cost / 2
+                base_creature.subelements[0].mana_cost += added_mana_cost
                 self.caster.companions.remove(other_creature)
                 self.caster.location.creatures.remove(other_creature)
                 print(f"{BC.MAGENTA}{other_creature.name} melds into {base_creature.name}!{BC.OFF}")
-                print(f"{C.RED}It will cost 3 more mana to maintain {base_creature.name}{C.OFF}")
+                print(f"{C.RED}It will cost {added_mana_cost} more mana to maintain {base_creature.name}{C.OFF}")
 
 
 class Distract(CorruptionSpell):
