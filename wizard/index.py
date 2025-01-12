@@ -16,6 +16,8 @@ from wizard import spellbook as sb
 from wizard import styles
 from wizard import suits as su
 
+from colorist import BrightColor as BC, Color as C
+
 # Enable color on windows
 import os
 os.system("color")
@@ -27,30 +29,19 @@ ic.level_one_spells.remove(starter_spell)
 
 # Generate a game using the Wizard template.
 t_game = game.Game("The Tomb of the Dwarven King", styles.Wizard)
-# Generate the Home level. This is needed for the A Way Home spell- the level should not be in t_game.level_list.
 homeLevel = t_game.level_list[-1]
 firstLevel = t_game.level_list[0]
-# homeLevel = t_game.level_list[1]
 
 player = human.PlayerHuman(location=firstLevel.start)
-# player = giant_bat.GiantBat(location=thisLevel.start)
 firstLevel.start.creatures.append(player)
 familiar = cat.Cat(location=homeLevel.end)
-# TODO check before release that this still puts the cat in the den!
-homeLevel.end.creatures.append(familiar)
-# familiar.familiar = True
-# player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
-# familiar.name = input(f"{BC.CYAN}Enter the name of your familiar: {BC.OFF}")
-player.name = "Adam"
 familiar.name = "Cozy"
+homeLevel.end.creatures.append(familiar)
+player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 player.home = homeLevel
-
-# player.team = "neutral"
-
-# thisLevel.start.creatures.append(familiar)
 t_game.set_char(player)
 
-# TODO select starting spells for release
+# TODO-DONE select starting spells for release
 # Character setup
 player.spellbook.append(starter_spell)
 player.spellbook.append(sb.SummonCerberus)
@@ -97,33 +88,23 @@ player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
 player.spellbook.append(sb.SetHumanity)
 
-# TODO player.humanity should be 1 for release
+# TODO-DONE player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
 player.humanity = 1
-# player.humanity = -5
 
 # Give player some mana to start the game with
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
-# player.subelements[0].find_invs()[0].vis_inv.append(cl.MetalFoot("gray", "iron"))
-# player.subelements[0].find_invs()[0].vis_inv.append(cl.MetalHand("gray", "iron"))
-# player.subelements[0].subelements[1].subelements[0].grasped = asu.IronHammer(color="bright", texture="steel")
-# player.subelements[0].find_invs()[0].vis_inv.append(cl.Head(color="gray", texture="rotting"))
-# player.subelements[0].find_invs()[0].vis_inv.append(cl.RArm(color="gray", texture="rotting"))
-# player.subelements[0].find_invs()[0].vis_inv.append(cl.Eye(color="gray", texture="rotting"))
 
-# TODO disable cheats before release
-cheats.skip_level_one(player, t_game)
-cheats.skip_level_two(player, t_game)
-cheats.skip_level_three(player, t_game)
-cheats.skip_level_four(player, t_game)
-cheats.skip_level_five(player, t_game)
-cheats.skip_level_six(player, t_game)
+# TODO-DONE disable cheats before release
+# cheats.skip_level_one(player, t_game)
+# cheats.skip_level_two(player, t_game)
+# cheats.skip_level_three(player, t_game)
+# cheats.skip_level_four(player, t_game)
+# cheats.skip_level_five(player, t_game)
+# cheats.skip_level_six(player, t_game)
 
 i = interface.Interface(t_game)
-# player.can_fear = False
-# might = eff.Poison(creature=player, limb=player.subelements[0].subelements[1], controller=i.cont)
-# might.cast()
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
 while True:
     i.command()
