@@ -105,7 +105,7 @@ class Combat:
             print(f"It will deal up to {C.RED}{self.check_damage(weapon, actor, limb)}{C.OFF} damage if not blocked ({C.RED}{limb.hp} hp{C.OFF}, {C.BLUE}{limb.armored} armor{C.OFF}).")
 
             # Blocking
-            is_entangled_together = sum([isinstance(x, eff.Entangled) and ((x.entangling_limb is weapon) or (x.limb is weapon)) for x in limb.active_effects])
+            is_entangled_together = sum([isinstance(x, eff.Entangled) and ((x.casting_limb is weapon) or (x.limb is weapon)) for x in limb.active_effects])
             if (target.limb_count("see") >= 1) and not target.stunned and not is_entangled_together:
                 if weapon.damage[1].blockable:
                     blockers = self.blockers[target].copy()

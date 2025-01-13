@@ -236,7 +236,7 @@ class Controller:
         if entanglements:
             enemylist = []
             for entanglement in entanglements:
-                enemylist.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.game.char and not x.creature.dead])
+                enemylist.extend([x.creature for x in [entanglement.casting_limb, entanglement.limb] if x.creature is not self.game.char and not x.creature.dead])
 
         targets = utils.listtodict(enemylist)
         targets["x"] = "Withhold your blow."

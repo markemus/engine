@@ -49,7 +49,7 @@ class CombatAI:
             if entanglements:
                 targets = []
                 for entanglement in entanglements:
-                    targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if (x.creature is not self.creature) and (x.creature.team != self.creature.team) and (x.creature.team != "neutral") and not x.creature.dead])
+                    targets.extend([x.creature for x in [entanglement.casting_limb, entanglement.limb] if (x.creature is not self.creature) and (x.creature.team != self.creature.team) and (x.creature.team != "neutral") and not x.creature.dead])
 
             # Pick
             if len(targets) > 0:
@@ -118,7 +118,7 @@ class CombatAI:
         # Can only attack limbs weapon is entangled with
         target_limbs = []
         for entanglement in entanglements:
-            target_limbs.extend([x for x in [entanglement.entangling_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
+            target_limbs.extend([x for x in [entanglement.casting_limb, entanglement.limb] if x is not attacking_weapon and x.creature is target])
         return target_limbs
 
     def block(self, blockers, target_limb):
@@ -195,7 +195,7 @@ class PestAI(CombatAI):
         if entanglements:
             targets = []
             for entanglement in entanglements:
-                targets.extend([x.creature for x in [entanglement.entangling_limb, entanglement.limb] if x.creature is not self.creature and not x.creature.dead])
+                targets.extend([x.creature for x in [entanglement.casting_limb, entanglement.limb] if x.creature is not self.creature and not x.creature.dead])
 
         # Pick
         if len(targets) > 0:
