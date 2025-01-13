@@ -230,7 +230,7 @@ class Combat:
 
                         if not defender.dead:
                             size = limb.size if not hasattr(limb, "orig_size") else limb.orig_size
-                            bleed = eff.Bleed(creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
+                            bleed = eff.Bleed(casting_limb=limb, creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
                             bleed.cast()
 
                         # check if target falls over
@@ -252,12 +252,12 @@ class Combat:
         true_weapon = weapon.damage[1]
         effects = true_weapon.weapon_effects
         for Effect in effects:
-            e = Effect(defender, limb, self.cont)
+            e = Effect(casting_limb=weapon, creature=defender, limb=limb, controller=self.cont)
             e.cast()
 
     def apply_impact_effects(self, defender, limb):
         for Effect in limb.impact_effects:
-            e = Effect(creature=defender, limb=limb, controller=self.cont)
+            e = Effect(casting_limb=limb, creature=defender, limb=limb, controller=self.cont)
             e.cast()
 
     def attack(self, actor, defender, limb, weapon):

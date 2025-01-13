@@ -208,8 +208,8 @@ class Bleed(sp.Effect):
     cast_on_removal = False
     desc = "bleeding"
 
-    def __init__(self, creature, limb, controller, amount=2):
-        super().__init__(creature, limb, controller)
+    def __init__(self, casting_limb, creature, limb, controller, amount=2):
+        super().__init__(casting_limb, creature, limb, controller)
         self.amount = amount
         # More bleeding lasts for longer
         self.rounds = amount
@@ -300,7 +300,7 @@ class StunForSure(sp.Effect):
 class Vampirism(sp.Effect):
     """Suck the lifeforce out of a creature."""
     # You need to overwrite this attribute in your subclass
-    vampire = None
+    # vampire = None
     amount = 5
     rounds = 1
     expire_on_removal = True
@@ -309,13 +309,13 @@ class Vampirism(sp.Effect):
     def _cast(self):
         if self.limb.can_bleed:
             self.creature.bled += self.amount
-            print(f"{C.RED}{self.vampire.name} drinks {self.creature.name}'s blood!{C.OFF}")
+            print(f"{C.RED}{self.casting_limb.creature.name} drinks {self.creature.name}'s blood!{C.OFF}")
             if self.creature.bled > self.creature.blood / 2:
                 print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
             if self.creature.bled >= self.creature.blood:
                 self.creature.die()
 
-            self.vampire.heal(self.amount)
+            self.casting_limb.creature.heal(self.amount)
         else:
             print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to drink!{C.OFF}")
 
@@ -359,32 +359,32 @@ class Entangled(sp.Effect):
     rounds = 4
     expire_on_removal = True
     # Subclass and set entangling_limb
-    entangling_limb = None
+    # entangling_limb = None
     allow_duplicates = False
     cast_on_removal = False
 
     def cast(self):
         """We need custom cast() and expire() since this effect affects two limbs."""
         if not self.allow_duplicates:
-            if sum([isinstance(x, self.__class__) and (x.entangling_limb is self.entangling_limb) for x in self.limb.active_effects]):
+            if sum([isinstance(x, self.__class__) and (x.casting_limb is self.casting_limb) for x in self.limb.active_effects]):
                 return False
 
         if not self.cast_on_removal:
             if self.limb not in self.creature.limb_check("name"):
                 return False
 
-        print(f"{C.RED}{self.entangling_limb.name} and {self.limb.name} are entangled!{C.OFF}")
+        print(f"{C.RED}{self.casting_limb.name} and {self.limb.name} are entangled!{C.OFF}")
 
         self.update()
 
         self.limb.active_effects.append(self)
-        self.entangling_limb.active_effects.append(self)
+        self.casting_limb.active_effects.append(self)
         self.cont.game.active_spells.append(self)
         return True
 
     def update(self):
         """Entangled limbs cannot walk or fly."""
-        for l in [self.entangling_limb, self.limb]:
+        for l in [self.casting_limb, self.limb]:
             if hasattr(l, "amble"):
                 if not hasattr(l, "orig_amble"):
                     l.orig_amble = l.amble
@@ -395,16 +395,16 @@ class Entangled(sp.Effect):
                 l.flight = 0
 
     def expire(self):
-        print(f"{C.RED}{self.entangling_limb.creature.name}'s {self.entangling_limb.name} and {self.limb.creature.name}'s {self.limb.name} separate.{C.OFF}")
+        print(f"{C.RED}{self.casting_limb.creature.name}'s {self.casting_limb.name} and {self.limb.creature.name}'s {self.limb.name} separate.{C.OFF}")
 
-        for l in [self.entangling_limb, self.limb]:
+        for l in [self.casting_limb, self.limb]:
             if hasattr(l, "amble"):
                 l.amble = l.orig_amble
             if hasattr(l, "flight"):
                 l.flight = l.orig_flight
 
         self.limb.active_effects.remove(self)
-        self.entangling_limb.active_effects.remove(self)
+        self.casting_limb.active_effects.remove(self)
         self.cont.game.active_spells.remove(self)
         self.expired = True
 

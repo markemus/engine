@@ -694,13 +694,13 @@ class GrowFangs(CorruptionSpell):
                         print(f"{BC.MAGENTA}{self.target.name}'s old teeth fall out of their mouth.{BC.OFF}")
                         self.target.location.drop_item(teeth)
 
-                # We need to define a subclass for the caster
-                class CVampirism(eff.Vampirism):
-                    vampire = self.caster
-                class CVampireFangs(cl.VampireFangs):
-                    weapon_effects = [CVampirism]
+                # # We need to define a subclass for the caster
+                # class CVampirism(eff.Vampirism):
+                #     vampire = self.caster
+                # class CVampireFangs(cl.VampireFangs):
+                #     weapon_effects = [CVampirism]
 
-                jaw.subelements.append(CVampireFangs(color="sharp", texture="white"))
+                jaw.subelements.append(cl.VampireFangs(color="sharp", texture="white"))
                 print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
                 if hasattr(self.target, "humanity"):
                     self.target.humanity -= 1
