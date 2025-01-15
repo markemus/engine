@@ -86,7 +86,7 @@ player.spellbook.append(sb.GraftLimb)
 # player.spellbook.append(sb.GrowBeard)
 player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
-player.spellbook.append(sb.SetHumanity)
+# player.spellbook.append(sb.SetHumanity)
 
 # TODO-DONE player.humanity should be 1 for release
 # Player humanity affects which spells they can cast

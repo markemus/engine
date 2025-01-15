@@ -1,5 +1,6 @@
 # TODO golem fights (owners are present but neutral)
 # TODO shop
+# TODO save golems from previous runs to spawn to fight against (level matched)
 # TODO crowd effect (more cheering = more gold)
 #  more cash for a close fight (so you can rebuild your golem)
 #  extra cash for every enemy limb removed
@@ -40,3 +41,5 @@
 #  Limb that draws attacks to it
 #  Consumable limbs/equipment that leave permanent buffs behind
 #  Static- electricity zap on attack. Messes with mechanical and doesn't affect magical.
+#  Magic level (lowered by technology). Devotion to damage type.
+#  Blood rituals- drain blood, give some effect
