@@ -335,8 +335,8 @@ class Controller:
 
         # Dispel all active spells
         for spell in self.game.active_spells.copy():
-            if spell.rounds != "forever":
-                spell.expire()
+            # if spell.rounds != "forever":
+            spell.expire()
 
         # All equipment recovers full mana, except that used for creating/summoning minions
         minion_mana = math.floor(sum([x.mana_cost for x in self.game.char.get_companions() + [self.game.char]]) * 100) / 100

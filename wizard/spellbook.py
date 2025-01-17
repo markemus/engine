@@ -117,7 +117,6 @@ class Mastery(CreationSpell):
         return True
 
 
-
 class FlamingWeapons(CreationSpell):
     name = "Flaming Weapons"
     mana_cost = 5
