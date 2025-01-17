@@ -500,12 +500,16 @@ class creature:
                 other_article = [x for x in limb.equipment if x.level == article.level]
                 if other_article:
                     other_article = other_article[0]
-                    if article.armor > other_article.armor:
-                        if limb.unequip(other_article):
-                            self.location.drop_item(other_article)
-                            if limb.equip(article):
-                                print(f"{BC.CYAN}{self.name} replaces the {other_article.color} {other_article.texture} {other_article.name} with {article.color} {article.texture} {article.name}.{BC.OFF}")
-                                return True
+                    if hasattr(article, "armor") and hasattr(other_article, "armor"):
+                        if article.armor > other_article.armor:
+                            if limb.unequip(other_article):
+                                self.location.drop_item(other_article)
+                                if limb.equip(article):
+                                    print(f"{BC.CYAN}{self.name} replaces the {other_article.color} {other_article.texture} {other_article.name} with {article.color} {article.texture} {article.name}.{BC.OFF}")
+                                    return True
+                    else:
+                        print(f"{C.RED}{self.name} is unsure whether to equip {article.name}.{C.OFF}")
+                        return False
                 else:
                     if limb.equip(article):
                         print(f"{BC.CYAN}{self.name} dons {article.color} {article.texture} {article.name}.")
