@@ -42,7 +42,7 @@ class DwarvenTaser(cr.Mechanoid):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        class Lightning(eff.Lightning):
-            caster = self
+        # class Lightning(eff.Lightning):
+        #     caster = self
 
-        self.subelements[0].subelements[0].subelements[0].weapon_effects = [Lightning]
+        self.subelements[0].subelements[0].subelements[0].weapon_effects = [eff.Lightning]

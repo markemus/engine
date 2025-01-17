@@ -299,8 +299,6 @@ class StunForSure(sp.Effect):
 
 class Vampirism(sp.Effect):
     """Suck the lifeforce out of a creature."""
-    # You need to overwrite this attribute in your subclass
-    # vampire = None
     amount = 5
     rounds = 1
     expire_on_removal = True
@@ -358,8 +356,6 @@ class Entangled(sp.Effect):
     desc = "entangled"
     rounds = 4
     expire_on_removal = True
-    # Subclass and set entangling_limb
-    # entangling_limb = None
     allow_duplicates = False
     cast_on_removal = False
 
@@ -412,12 +408,10 @@ class Entangled(sp.Effect):
 class DrawAggro(sp.Effect):
     """This creature will draw the aggression of any creature it attacks."""
     rounds = 1
-    # # subclass and set casting_creature
-    # casting_creature = None
 
     def _cast(self):
         old_target = self.creature.ai.target
-        if old_target is not self.casting_creature and not self.creature.dead:
+        if old_target is not self.casting_limb.creature and not self.creature.dead:
             self.creature.ai.target = self.casting_limb.creature
             print(f"{C.RED}{self.creature.name} turns on {self.casting_limb.creature.name}!{C.OFF}")
 
@@ -483,8 +477,6 @@ class Explosive(sp.Effect):
 class Lightning(sp.Effect):
     rounds = 1
     amount = 2
-    # subclass and set caster
-    caster = None
 
     def _cast(self):
         cc = self.cont.combat
@@ -501,7 +493,7 @@ class Lightning(sp.Effect):
             cc.apply_damage(self.creature, limb, self.amount)
 
         # Other limbs to strike from other targets
-        other_targets = [c for c in self.creature.location.creatures if c.team not in [self.caster.team, "neutral"] and c is not self.creature]
+        other_targets = [c for c in self.creature.location.creatures if c.team not in [self.casting_limb.creature.team, "neutral"] and c is not self.creature]
         if other_targets:
             other_targets = other_targets[:random.randrange(0, len(other_targets))]
             for ot in other_targets:
