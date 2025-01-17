@@ -26,7 +26,7 @@ class Blanket(it.Item):
     covers["head"] = True
     armor = 1
     descends = 1
-    level = 2
+    level = 3
 
 class CandleStick(it.Item):
     name = "candlestick"

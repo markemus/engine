@@ -87,7 +87,7 @@ class Limb:
                 text += f"{BC.RED}{effect.desc}{BC.OFF} "
         text += f"{C.YELLOW}{self.color} {self.texture} {self.name}{C.OFF}"
         if stats:
-            text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armored}){C.OFF}"
+            text += f" {C.RED}({self.hp}/{self.base_hp}) {C.BLUE}({self.armored}) {C.YELLOW}({self.size}){C.OFF}"
         if full:
             for item in self.covered:
                 text += "\n" + item.desc(offset=offset+1, )
@@ -511,7 +511,7 @@ class creature:
                                 print(f"{C.RED}{other_article.name} cannot be replaced!{C.OFF}")
                                 return False
                     else:
-                        print(f"{C.RED}{self.name} is unsure whether to replace{other_article.name} with {article.name}.{C.OFF}")
+                        print(f"{C.RED}{self.name} is unsure whether to replace {other_article.name} with {article.name}.{C.OFF}")
                         return False
                 else:
                     if limb.equip(article):

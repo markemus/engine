@@ -57,27 +57,29 @@ class Shadow(CreationSpell):
     description = f"A shadow surrounds a creature, making it harder to hit. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 10
     targets = "friendly"
-    original_colors = None
-    original_sizes = None
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.effects = []
 
     def _cast(self):
-        self.original_colors = {}
-        self.original_sizes = {}
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
             shadow = eff.Shadow(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
             shadow.cast()
+            self.effects.append(shadow)
 
         print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
         return True
 
     def _expire(self):
-        limbs = self.target.subelements[0].limb_check("isSurface")
-        for limb in limbs:
-            effect = [x for x in limb.active_effects if isinstance(x, eff.Shadow)]
-            if effect:
-                effect = effect[0]
-                effect.expire()
+        # limbs = self.target.subelements[0].limb_check("isSurface")
+        # for limb in limbs:
+        #     effect = [x for x in limb.active_effects if isinstance(x, eff.Shadow)]
+        #     if effect:
+        #         effect = effect[0]
+        #         effect.expire()
+        for effect in self.effects:
+            effect.expire()
 
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
@@ -638,6 +640,10 @@ class Light(CorruptionSpell):
     description = f"A glow surrounds a creature, making it easier to hit. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 10
     targets = "enemy"
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.effects = []
 
     def _cast(self):
         self.original_colors = {}
@@ -645,17 +651,20 @@ class Light(CorruptionSpell):
         for limb in limbs:
             halo = eff.Light(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
             halo.cast()
+            self.effects.append(halo)
 
         print(f"{BC.MAGENTA}A luminous glow surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
         return True
 
     def _expire(self):
-        limbs = self.target.subelements[0].limb_check("isSurface")
-        for limb in limbs:
-            effect = [x for x in limb.active_effects if isinstance(x, eff.Light)]
-            if effect:
-                effect = effect[0]
-                effect.expire()
+        # limbs = self.target.subelements[0].limb_check("isSurface")
+        # for limb in limbs:
+        #     effect = [x for x in limb.active_effects if isinstance(x, eff.Light)]
+        #     if effect:
+        #         effect = effect[0]
+        #         effect.expire()
+        for effect in self.effects:
+            effect.expire()
 
         print(f"{BC.MAGENTA}The glow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
