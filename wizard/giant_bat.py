@@ -1,3 +1,4 @@
+import engine.ai as ai
 import engine.creature as cr
 import engine.effectsbook as eff
 
@@ -14,6 +15,7 @@ class Fang(cr.Weapon):
     size = 1
     colors = ["yellow"]
     textures = ["enameled"]
+    weapon_effects = [eff.Vampirism]
 
 class Snout(cr.Limb):
     name = "snout"
@@ -70,11 +72,4 @@ class GiantBat(cr.creature):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Vampire bat
-        fangs = [x for x in self.subelements[0].limb_check("name") if x.name == "fang"]
-        # class CVampirism(eff.Vampirism):
-        #     vampire = self
-        #     amount = 2
-
-        for fang in fangs:
-            fang.weapon_effects = [eff.Vampirism]
+        self.ai = ai.PestAI(self)
