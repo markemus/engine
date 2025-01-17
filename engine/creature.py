@@ -507,8 +507,11 @@ class creature:
                                 if limb.equip(article):
                                     print(f"{BC.CYAN}{self.name} replaces the {other_article.color} {other_article.texture} {other_article.name} with {article.color} {article.texture} {article.name}.{BC.OFF}")
                                     return True
+                            else:
+                                print(f"{C.RED}{other_article.name} cannot be replaced!{C.OFF}")
+                                return False
                     else:
-                        print(f"{C.RED}{self.name} is unsure whether to equip {article.name}.{C.OFF}")
+                        print(f"{C.RED}{self.name} is unsure whether to replace{other_article.name} with {article.name}.{C.OFF}")
                         return False
                 else:
                     if limb.equip(article):

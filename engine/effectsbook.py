@@ -412,14 +412,14 @@ class Entangled(sp.Effect):
 class DrawAggro(sp.Effect):
     """This creature will draw the aggression of any creature it attacks."""
     rounds = 1
-    # subclass and set casting_creature
-    casting_creature = None
+    # # subclass and set casting_creature
+    # casting_creature = None
 
     def _cast(self):
         old_target = self.creature.ai.target
         if old_target is not self.casting_creature and not self.creature.dead:
-            self.creature.ai.target = self.casting_creature
-            print(f"{C.RED}{self.creature.name} turns on {self.casting_creature.name}!{C.OFF}")
+            self.creature.ai.target = self.casting_limb.creature
+            print(f"{C.RED}{self.creature.name} turns on {self.casting_limb.creature.name}!{C.OFF}")
 
 
 class RegrowLimb(sp.Effect):

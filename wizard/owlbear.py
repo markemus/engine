@@ -87,8 +87,5 @@ class Owlbear(cr.creature):
 
         weapons = self.subelements[0].limb_check("_damage")
 
-        class CDrawAggro(eff.DrawAggro):
-            casting_creature = self
-
         for weapon in weapons:
-            weapon.weapon_effects = [CDrawAggro]
+            weapon.weapon_effects = [eff.DrawAggro]
