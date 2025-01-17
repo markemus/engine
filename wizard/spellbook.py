@@ -78,8 +78,8 @@ class Shadow(CreationSpell):
         #     if effect:
         #         effect = effect[0]
         #         effect.expire()
-        for effect in self.effects:
-            effect.expire()
+        # for effect in self.effects:
+        #     effect.expire()
 
         print(f"{BC.MAGENTA}The shadow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
@@ -662,8 +662,8 @@ class Light(CorruptionSpell):
         #     if effect:
         #         effect = effect[0]
         #         effect.expire()
-        for effect in self.effects:
-            effect.expire()
+        # for effect in self.effects:
+        #     effect.expire()
 
         print(f"{BC.MAGENTA}The glow surrounding {C.RED}{self.target.name}{BC.MAGENTA} fades away.{BC.OFF}")
 
