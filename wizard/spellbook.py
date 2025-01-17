@@ -65,7 +65,7 @@ class Shadow(CreationSpell):
         self.original_sizes = {}
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            shadow = eff.Shadow(creature=self.target, limb=limb, controller=self.cont)
+            shadow = eff.Shadow(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
             shadow.cast()
 
         print(f"{BC.MAGENTA}A shadowy gloom surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
@@ -95,7 +95,7 @@ class Might(CreationSpell):
         limbs = self.target.subelements[0].limb_check("strength")
         for limb in limbs:
 
-            might = eff.Might(creature=self.target, limb=limb, controller=self.cont)
+            might = eff.Might(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
             might.cast()
         return True
 
@@ -110,7 +110,7 @@ class Mastery(CreationSpell):
 
     def _cast(self):
         print(f"{BC.MAGENTA}{self.caster.name} lays their thrumming hands on {self.target.name}.{BC.MAGENTA}")
-        mastery = eff.Mastery(creature=self.target, limb=self.target.subelements[0], controller=self.cont)
+        mastery = eff.Mastery(casting_limb=None, creature=self.target, limb=self.target.subelements[0], controller=self.cont)
         mastery.cast()
         return True
 
@@ -323,7 +323,7 @@ class Fireball(CreationSpell):
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
             if not sum([isinstance(e, eff.FireDOT) for e in limb.active_effects]):
-                fire = eff.FireDOT(creature=self.target, limb=limb, controller=self.cont)
+                fire = eff.FireDOT(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
                 fire.cast()
         print(f"{BC.MAGENTA}A gigantic fireball flies across the room and explodes on {self.target.name}!{BC.OFF}")
         return True
@@ -355,7 +355,7 @@ class TheFloorIsLava(CreationSpell):
                 limbs = enemy.subelements[0].limb_check("isSurface")
             for limb in limbs:
                 if not sum([isinstance(e, eff.FireDOT) for e in limb.active_effects]):
-                    fire = eff.FireDOT(creature=enemy, limb=limb, controller=self.cont)
+                    fire = eff.FireDOT(casting_limb=None, creature=enemy, limb=limb, controller=self.cont)
                     fire.cast()
 
     def _expire(self):
@@ -643,7 +643,7 @@ class Light(CorruptionSpell):
         self.original_colors = {}
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            halo = eff.Light(creature=self.target, limb=limb, controller=self.cont)
+            halo = eff.Light(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
             halo.cast()
 
         print(f"{BC.MAGENTA}A luminous glow surrounds {C.RED}{self.target.name}{BC.MAGENTA}.{BC.OFF}")
@@ -693,12 +693,6 @@ class GrowFangs(CorruptionSpell):
                         jaw.remove_limb(teeth)
                         print(f"{BC.MAGENTA}{self.target.name}'s old teeth fall out of their mouth.{BC.OFF}")
                         self.target.location.drop_item(teeth)
-
-                # # We need to define a subclass for the caster
-                # class CVampirism(eff.Vampirism):
-                #     vampire = self.caster
-                # class CVampireFangs(cl.VampireFangs):
-                #     weapon_effects = [CVampirism]
 
                 jaw.subelements.append(cl.VampireFangs(color="sharp", texture="white"))
                 print(f"{BC.MAGENTA}Long sharp teeth erupt from {BC.YELLOW}{self.target.name}{BC.MAGENTA}'s jaws!{BC.OFF}")
@@ -903,10 +897,10 @@ class GraftLimb(CorruptionSpell):
                                 # limb.mana_cost = math.floor((limb.size / 3) * 100) / 100
                                 limb.mana_cost = (limb.size / 3)
                                 # Special case for vampirism
-                                if hasattr(limb, "weapon_effects"):
-                                    for weapon_effect in limb.weapon_effects:
-                                        if issubclass(weapon_effect, eff.Vampirism):
-                                            weapon_effect.vampire = self.target
+                                # if hasattr(limb, "weapon_effects"):
+                                #     for weapon_effect in limb.weapon_effects:
+                                #         if issubclass(weapon_effect, eff.Vampirism):
+                                #             weapon_effect.vampire = self.target
                             print(f"{BC.MAGENTA}The {BC.CYAN}{graft_limb.name}{BC.MAGENTA} crudely grafts itself onto the {BC.CYAN}{target_limb.name}{BC.MAGENTA}!{BC.OFF}")
                             print(f"{C.RED}It will cost {mana_cost} mana to maintain this graft.{C.OFF}")
                             # Lowers humanity, if target is appropriate
@@ -948,11 +942,11 @@ class ReanimateLimb(CorruptionSpell):
                 self.caster.location.addCreature(zombie)
                 self.caster.companions.append(zombie)
                 # Special case for vampirism
-                for limb in zombie.limb_check("name"):
-                    if hasattr(limb, "weapon_effects"):
-                        for weapon_effect in limb.weapon_effects:
-                            if issubclass(weapon_effect, eff.Vampirism):
-                                weapon_effect.vampire = zombie
+                # for limb in zombie.limb_check("name"):
+                #     if hasattr(limb, "weapon_effects"):
+                #         for weapon_effect in limb.weapon_effects:
+                #             if issubclass(weapon_effect, eff.Vampirism):
+                #                 weapon_effect.vampire = zombie
                 print(f"{C.RED}{zombie.name}{BC.MAGENTA} rises from the dead!{BC.OFF}")
 
                 # Reduces caster's humanity
@@ -1089,11 +1083,11 @@ class Meld(CorruptionSpell):
                 limbs = limbs[:random.randint(1, len(limbs))]
                 for limb in limbs:
                     other_creature.subelements[0].remove_limb(limb)
-                    # Special case for vampirism
-                    if hasattr(limb, "weapon_effects"):
-                        for weapon_effect in limb.weapon_effects:
-                            if issubclass(weapon_effect, eff.Vampirism):
-                                weapon_effect.vampire = base_creature
+                    # # Special case for vampirism
+                    # if hasattr(limb, "weapon_effects"):
+                    #     for weapon_effect in limb.weapon_effects:
+                    #         if issubclass(weapon_effect, eff.Vampirism):
+                    #             weapon_effect.vampire = base_creature
                 base_creature.subelements[0].subelements.extend(limbs)
                 base_creature.name = f"{base_creature.name}-{other_creature.name}"[:60]
                 base_creature.classname = f"{base_creature.classname}-{other_creature.classname}"[:60]
@@ -1128,7 +1122,7 @@ class Fear(CorruptionSpell):
     targets = "enemy"
 
     def _cast(self):
-        fear = eff.Fear(creature=self.target, limb=self.target.subelements[0], controller=self.cont)
+        fear = eff.Fear(casting_limb=None, creature=self.target, limb=self.target.subelements[0], controller=self.cont)
         fear.cast()
         return True
 
@@ -1172,7 +1166,7 @@ class PoisonGas(CorruptionSpell):
     def update(self):
         for enemy in [c for c in self.caster.location.creatures if c.team != self.caster.team and c.team != "neutral" and c.can_breathe]:
             print(f"{BC.MAGENTA}{enemy.name} chokes on the poison gas!{BC.OFF}")
-            gas_attack = eff.Poison(creature=enemy, limb=enemy.subelements[0], controller=self.cont)
+            gas_attack = eff.Poison(casting_limb=None, creature=enemy, limb=enemy.subelements[0], controller=self.cont)
             gas_attack.cast()
 
     def _expire(self):
