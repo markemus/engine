@@ -1124,7 +1124,7 @@ class Distract(CorruptionSpell):
 class Fear(CorruptionSpell):
     name = "Fear"
     mana_cost = 5
-    humanity_max = -7
+    humanity_max = -3
     description = f"Terrify an opponent and prevent them from attacking. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "enemy"
