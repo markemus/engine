@@ -1203,7 +1203,7 @@ class Scry(sp.Spell):
 
 class AWayHome(sp.Spell):
     name = "A Way Home"
-    mana_cost = 5
+    mana_cost = 3
     description = f"Manifests the door to your home. {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 1
     targets = "caster"
