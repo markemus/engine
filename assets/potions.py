@@ -17,7 +17,7 @@ class PotionOfStoneskin(I.Potion):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
-            stoniness = eff.Stoneskin(creature, limb, controller=self.cont)
+            stoniness = eff.Stoneskin(None, creature, limb, controller=self.cont)
             stoniness.cast()
 
 class PotionOfMight(I.Potion):
@@ -29,7 +29,7 @@ class PotionOfMight(I.Potion):
         print(f"{BC.CYAN}{creature.name} grows stronger!{BC.OFF}")
         limbs = creature.subelements[0].limb_check("strength")
         for limb in limbs:
-            strength = eff.Might(creature, limb, controller=self.cont)
+            strength = eff.Might(None, creature, limb, controller=self.cont)
             strength.cast()
 
 

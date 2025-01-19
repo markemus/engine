@@ -2,6 +2,8 @@ import engine.creature as cr
 
 from autobattler import golem_limbs as gl
 
+from colorist import BrightColor as BC, Color as C
+
 
 class Eye(gl.GolemLimb):
     name = "eye"
@@ -152,29 +154,29 @@ class Leg(gl.GolemLimb):
 
 # Small limbs
 class SmallHand(Hand):
-    base_hp = int(Hand.base_hp / 2)
+    base_hp = int(Hand.base_hp * 2/3)
     size = 1
 
 
 class SmallArm(Arm):
     subelement_classes = []
-    base_hp = int(Arm.base_hp / 2)
+    base_hp = int(Arm.base_hp * 2/3)
     size = 2
 
 
 class SmallFoot(Foot):
-    base_hp = int(Foot.base_hp / 2)
+    base_hp = int(Foot.base_hp * 2/3)
     size = 1
 
 
 class SmallLeg(Leg):
     subelement_classes = [SmallFoot]
-    base_hp = int(Leg.base_hp / 2)
+    base_hp = int(Leg.base_hp * 2/3)
     size = 2
 
 
 class SmallHead(Head):
-    base_hp = int(Head.base_hp / 2)
+    base_hp = int(Head.base_hp * 2/3)
     size = 1
 
 
@@ -198,21 +200,40 @@ class SmallTorso(cr.Limb):
     size = 2
 
 
-class LargeGolem(cr.creature):
-    classname = "golem"
+class Golem(cr.creature):
     team = "golem"
-    namelist = ["filler"]
-    baseElem = LargeTorso
+    namelist = ["golem"]
     colors = ["red", "brown", "yellow", "black", "beige"]
     textures = ["clay"]
+    usable = True
+    consumable = True
+
+    def use(self, char, controller):
+        if char.golem:
+            print(f"{C.RED}{char} already has a golem deployed!{C.OFF}")
+            return False
+
+        if char.grasp_check():
+            self.name = input(f"{BC.GREEN}Name your golem:{BC.OFF} ")
+            char.location.creatures.append(self)
+            self.location = char.location
+            char.companions.append(self)
+            char.golem = self
+            print(f"{BC.YELLOW}{char.name} deploys {self.name}!{BC.OFF}")
+            return True
+
+
+class LargeGolem(Golem):
+    classname = "large golem"
+    namelist = ["large golem"]
+    baseElem = LargeTorso
+    price = 50
     suits = []
 
 
-class SmallGolem(cr.creature):
-    classname = "golem"
-    team = "golem"
-    namelist = ["filler"]
-    baseElem = LargeTorso
-    colors = ["red", "brown", "yellow", "black", "beige"]
-    textures = ["clay"]
+class SmallGolem(Golem):
+    classname = "small golem"
+    namelist = ["small golem"]
+    baseElem = SmallTorso
+    price = 50
     suits = []

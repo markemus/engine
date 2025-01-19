@@ -185,6 +185,14 @@ class Backpack(i.Holder):
     level = 4
     descends = 0
 
+class BagOfHolding(i.Holder):
+    name = "bag of holding"
+    canwear = i.Item.canwear.copy()
+    covers = i.Item.covers.copy()
+    canwear["body"] = True
+    level = 4
+    descends = 0
+
 class Apron(i.Item):
     name = "apron"
     canwear = i.Item.canwear.copy()

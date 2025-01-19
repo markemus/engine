@@ -42,12 +42,18 @@ class Controller:
              f"Name: {BC.YELLOW}{gc.name}{BC.OFF}\n" \
              f"\n{C.RED}Weapons{C.OFF}\n" \
              f"{''.join(weapons)}"
+
         if hasattr(self.game.char, "humanity"):
             cs += f"\n{C.RED}Humanity:{C.OFF} {self.game.char.humanity}\n"
+
+        if hasattr(self.game.char, "zorkmids"):
+            cs += f"\n{C.RED}Zorkmids:{C.OFF} {self.game.char.zorkmids}\n"
+
         cs+= f"\n{C.RED}Inventories{C.OFF}\n" \
              f"{inventory}\n" \
              f"\n{C.RED}Limbs{C.OFF}\n" \
              f"{self.game.char.desc(stats=True)}"
+
         utils.display_long_text(cs)
 
     def examine(self):
@@ -365,14 +371,14 @@ class Controller:
         i = input(f"\n{BC.GREEN}Which inventory would you like to use item from?{BC.OFF} ")
 
         if i in invs.keys() and i != "x":
-            usables = utils.listtodict([item for item in invs[i].vis_inv if hasattr(item, "usable") and item.usable], add_x=True)
+            usables = utils.listtodict([item for item in invs[i].vis_inv if hasattr(item, "use")], add_x=True)
             utils.dictprint(usables)
             j = input(f"\n{BC.GREEN}Select an item to use:{BC.OFF} ")
 
             if j in usables.keys() and j != "x":
                 usable = usables[j]
-                usable.use(self.game.char, self)
-                if usable.consumable:
+                used = usable.use(self.game.char, self)
+                if used and usable.consumable:
                     invs[i].vis_inv.remove(usable)
 
     def put_on(self):

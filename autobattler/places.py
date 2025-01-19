@@ -1,5 +1,8 @@
 import engine.place as pl
+
 from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway, dwarven_gateway, staircase
+from autobattler.shopkeeper import Shopkeeper
+
 
 class ChangingRooms(pl.Place):
     name = "changing room"
@@ -24,11 +27,11 @@ class Arena(pl.Place):
 
 
 class GolemStore(pl.Place):
-    name = "golem store"
+    name = "Everything Golems"
     sprite = "S"
     count = (1, 2)
     colors = ["white", "brown", "yellow", "gray"]
     textures = ["tiled"]
-    creature_classes = []
+    creature_classes = [[(Shopkeeper, 1)]]
     furniture_classes = []
     subelement_classes = [wall, floor]

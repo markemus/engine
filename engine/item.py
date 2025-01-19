@@ -137,8 +137,6 @@ class Potion(Item):
     usable = True
     consumable = True
     cont = None
-    # def __init__(self, color=None, texture=None):
-    #     super().__init__(color="gray", texture="murky")
 
     def effect(self, creature):
         """Subclasses should define an effect on creature when creature drinks the potion."""
@@ -149,6 +147,7 @@ class Potion(Item):
         if creature.limb_count("eats") >= 1:
             print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
+            return True
 
 
 class Scroll(Item):
@@ -159,6 +158,7 @@ class Scroll(Item):
     consumable = False
     colors = ["white"]
     textures = ["parchment"]
+
     def __init__(self, color=None, texture=None):
         """Color and texture are accepted but ignored."""
         super().__init__(color="white", texture="parchment")
@@ -168,6 +168,7 @@ class Scroll(Item):
             if self.spell not in creature.spellbook:
                 creature.spellbook.append(self.spell)
                 print(f"{BC.YELLOW}{self.spell.name}{BC.OFF} was added to {C.RED}{creature.name}{C.OFF}'s spellbook.")
+                return True
             else:
                 print(f"{C.RED}{creature.name}{C.OFF} already knows this spell.")
         else:
