@@ -250,11 +250,12 @@ class Tentacle(cr.Weapon):
     size = 2
     strength = 1
     _damage = 10
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        class Entangled(eff.Entangled):
-            entangling_limb = self
-        self.weapon_effects = [Entangled]
+    weapon_effects = [eff.Entangled]
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     class Entangled(eff.Entangled):
+    #         entangling_limb = self
+    #     self.weapon_effects = [Entangled]
 
 
 # Small limbs- for smaller creatures
@@ -319,6 +320,7 @@ class TinyHead(Head):
 class PTentacle(Tentacle):
     """This creature only has a small number of tentacles- no big deal."""
     appendageRange = (1, 3)
+    _damage = 5
     colors = ["green"]
     textures = ["slimy"]
 

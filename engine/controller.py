@@ -644,12 +644,12 @@ class Controller:
 
     def ungrasp(self):
         graspers = self.game.char.subelements[0].limb_check("grasp")
-        graspers_desc = utils.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped], add_x=True)
-        utils.dictprint(graspers_desc)
+        graspers = utils.listtodict([f"{g.name}: {BC.CYAN}{g.grasped.name}{BC.OFF}" for g in graspers if g.grasped], add_x=True)
+        utils.dictprint(graspers)
         i = input(f"\n{BC.GREEN}Which hand would you like to empty?{BC.OFF} ")
 
-        if i in graspers_desc.keys() and i != "x":
-            hand = graspers[int(i)]
+        if i in graspers.keys() and i != "x":
+            hand = graspers[i]
             room_inventories = [elem for elem in self.game.char.location.elements if hasattr(elem, "vis_inv")]
             your_inventories = self.game.char.subelements[0].find_invs()
             all_inventories = your_inventories + room_inventories
