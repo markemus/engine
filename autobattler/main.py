@@ -31,6 +31,7 @@ player = player_races[r](location=firstLevel.start)
 player.team = "neutral"
 player.zorkmids = 60
 player.golem = None
+player.level = 0
 player.subelements[0].equip(asu.BagOfHolding(color="brown", texture="leather"))
 firstLevel.start.creatures.append(player)
 player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")

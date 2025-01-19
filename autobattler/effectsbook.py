@@ -12,6 +12,15 @@ class Lightning(eff.Lightning):
     amount = 10
 
 
+class RipLimb(sp.Effect):
+    rounds = 1
+
+    def _cast(self):
+        if self.limb.hp <= (self.limb.base_hp / 4):
+            print(f"{C.RED}The rest of the {self.limb.name} is ripped away!{C.OFF}")
+            self.cont.combat.apply_damage(defender=self.limb.creature, limb=self.limb, amount=self.limb.hp + 1)
+
+
 class ShatterArmor(sp.Effect):
     desc = "shattered"
     rounds = 10

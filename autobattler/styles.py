@@ -46,7 +46,7 @@ from colorist import BrightColor as BC, Color as C
 #  Limb that draws attacks to it
 #  Consumable limbs/equipment that leave permanent buffs behind
 #  TODO-DONE Static- electricity zap on attack. Messes with mechanical and doesn't affect magical.
-# TODO Magic level (lowered by technology). Devotion to damage type.
+# TODO Magic level (lowered by technology). Devotion to damage type (amount of damage dealt, or number of limbs currently affected).
 #  Blood rituals- drain blood, give some effect
 #  Shrink- make limbs smaller, would synergize with effects that give small limbs increased evasion
 #  Eyes that give better vision (counters shadow), laser beams, mastery

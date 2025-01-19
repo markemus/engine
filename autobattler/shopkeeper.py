@@ -19,11 +19,12 @@ from colorist import BrightColor as BC, Color as C
 
 # Each level has a different item list
 item_lists = [
-    [go.LargeGolem, go.SmallGolem],
-    [*gl.basic_weapons],
+    [go.LargeGolem, go.SmallGolem, *gl.basic_weapons],
 ]
 
 
+# TODO separate stores for golem core, golem parts, and equipment.
+# TODO hallway algorithm for level gen so we don't have to walk through stores to reach arena.
 class Store(sp.Effect):
     # Store should open when you enter the room but not need dispelling.
     rounds = 1
@@ -40,7 +41,7 @@ class Store(sp.Effect):
         print(f"{BC.RED}\nShopkeeper{BC.OFF}: {BC.BLUE}Welcome to my shop! We sell only the finest golem parts and apparel. Please feel free to look around.{BC.OFF}")
 
         # Display inventory
-        item_list = item_lists[self.casting_limb.creature.level]
+        item_list = item_lists[self.cont.game.char.level]
         item_dict = utils.listtodict(item_list, add_x=True)
         i = None
 
@@ -85,4 +86,3 @@ class Shopkeeper(shopkeeper_race):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.subelements[0].passive_effects.append(Store)
-        self.level = 0

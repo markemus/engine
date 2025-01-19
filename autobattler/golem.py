@@ -125,6 +125,7 @@ class Arm(gl.GolemLimb):
     strength = 1
     can_parent = ["hand"]
     limb_type = "arm"
+    sublimb_size = 2
 
 
 # Legs
@@ -196,7 +197,7 @@ class SmallTorso(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
-    base_hp = 50
+    base_hp = 66
     size = 2
 
 
