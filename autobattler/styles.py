@@ -1,0 +1,88 @@
+import autobattler.places as apc
+
+from engine.styles import LevelStyle, GameStyle
+
+from colorist import BrightColor as BC, Color as C
+# TODO golem fights (owners are present but neutral)
+# TODO shop
+# TODO save golems from previous runs to spawn to fight against (level matched)
+# TODO crowd effect (more cheering = more gold)
+#  more cash for a close fight (so you can rebuild your golem)
+#  extra cash for every enemy limb removed
+#  more cash for longer fight
+# TODO classes- affect items in shop
+#  torturer- targets small limbs and extends fight
+#  tank- draws aggro, uses heavy armor
+#  mage- uses adds, reduced aggro, no armor
+#  rogue- small limbs, light armor
+# TODO different combat ais per class (limb targeting strategies and weapon choice)
+# TODO synergies.
+#  Suck blood from entangled limbs.
+#  Heal from fire (spread it everywhere).
+#  Fire shield (takes damage and breaks, but heals from fire).
+#  Oil slick that trips enemies that can be lit on fire (anything with oil takes dot).
+#  Acid- like fire, but different synergies.
+#  Buff damage from damage type
+#  Slime- coat a limb and reduce damage from it. Acidic. Puts out fire.
+#  Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.
+#  Revive cut off limbs to fight for you (and buzzsaw).
+#  Pulp limbs so they can't revive.
+#  Buff your little allies.
+#  Energy shield that covers allies as well.
+#  Orbital- orb that blocks
+#  Illusions- allies that don't do damage but draw aggro (somewhat countered by pest ai)
+#  Allies that draw aggro and tank an attack or two.
+#  AOE attacks (multiple enemies), counters adds.
+#  Hook (pull enemies out of the sky)
+#  Ranged weapons countered by armor. (use ammo?)
+#  Melee weapons countered by blockers.
+#  Reactive armor- light weapon on fire, spray it with acid
+#  TODO-DONE Armor breach- reduce limb armor
+# TODO Weaken enemy limb to reduce damage. Allow this to stack so you can build a debuffing build that grows over time
+#  Double tap- next attack happens twice.
+#  Effects that only occur after N rounds.
+#  Dispel- remove N of creature's effects. Counters effect builds.
+#  A weapon/effect that buffs, heals, damages based on how many of same damage type weapons you have
+#  Limb that draws attacks to it
+#  Consumable limbs/equipment that leave permanent buffs behind
+#  TODO-DONE Static- electricity zap on attack. Messes with mechanical and doesn't affect magical.
+# TODO Magic level (lowered by technology). Devotion to damage type.
+#  Blood rituals- drain blood, give some effect
+#  Shrink- make limbs smaller, would synergize with effects that give small limbs increased evasion
+#  Eyes that give better vision (counters shadow), laser beams, mastery
+
+
+
+class Arena:
+    level_text = f"""{BC.BLUE}You've scrimped and saved your whole life for this opportunity. Build a golem and fight your opponents' golems to earn money to build your golem even stronger. Work your way up through the ranks and become a master of the arena.{BC.OFF}"""
+    room_classes = [apc.ChangingRooms]
+    start_room = apc.GolemStore
+    end_room = apc.Arena
+    creature_classes = []
+
+
+LevelStyle.register(Arena)
+
+class Golem:
+    # levels will spawn in this order
+    levelorder = [Arena]
+    # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
+    links = []
+    start_splash = f"""
+    ------------------------
+    |      {C.RED}Golemancy{C.OFF}      |
+    
+    |                      |
+    |  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
+    |     by Markemus      |
+    ------------------------
+        """
+    # This will display on game over
+    death_splash = f"""
+    ------------------------
+    |       {C.RED}YOU DIED{C.OFF}       |
+    ------------------------
+        """
+
+
+GameStyle.register(Golem)
