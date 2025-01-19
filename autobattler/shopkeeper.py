@@ -19,7 +19,7 @@ from colorist import BrightColor as BC, Color as C
 
 # Each level has a different item list
 item_lists = [
-    [go.LargeGolem, go.SmallGolem, *gl.basic_weapons],
+    [go.LargeGolem, go.SmallGolem, *gl.basic_weapons, *gl.basic_small_limbs, *gl.basic_large_limbs],
 ]
 
 
@@ -34,11 +34,12 @@ class Store(sp.Effect):
             if "x" in x.split(":")[0]:
                 fullstr = x
             else:
-                fullstr = f"{x.split(':')[0]}: {BC.CYAN}{y.name if hasattr(y, 'name') else y.classname}{BC.OFF} {BC.RED}({y.price}){BC.OFF}"
+                fullstr = f"{x.split(':')[0]}: {y.printcolor}{y.name if hasattr(y, 'name') else y.classname}{BC.OFF} {BC.RED}({y.price}){BC.OFF}"
             return fullstr
 
         # Shopkeeper
-        print(f"{BC.RED}\nShopkeeper{BC.OFF}: {BC.BLUE}Welcome to my shop! We sell only the finest golem parts and apparel. Please feel free to look around.{BC.OFF}")
+        print(f"{BC.RED}\nShopkeeper{BC.OFF}: {BC.BLUE}Welcome to my shop {self.cont.game.char.name}! I sell only the finest golem parts and apparel. Please feel free to look around.{BC.OFF}")
+        print(f"Purse: {BC.RED}{self.cont.game.char.zorkmids} zorkmids{BC.OFF}")
 
         # Display inventory
         item_list = item_lists[self.cont.game.char.level]

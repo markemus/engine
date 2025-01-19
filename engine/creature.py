@@ -337,6 +337,7 @@ class Weapon(Limb):
     name = "NO_NAME_WEAPON"
     _damage = 0
     blockable = True
+    printcolor = BC.YELLOW
     weapon_effects = []
 
     def __init__(self, *args, **kwargs):
@@ -367,7 +368,7 @@ class creature:
     different objects."""
     classname = "NO_NAME_CREATURE"
     team = None
-    printcolor = BC.CYAN
+    printcolor = C.RED
     # subelements = []         # elements of creature
     location = None   # name of Place where creature is- object
     aggressive = True
