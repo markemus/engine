@@ -122,6 +122,7 @@ class Interface:
         savepath = input("Load stored save:")
         i = save.load(savepath)
         # Overwrite game with the saved game
-        self.cont.game = i.cont.game
+        # self.cont = i.cont
+        self.__init__(i.cont.game)
         self.state = i.state
         print("Save loaded.")

@@ -370,7 +370,6 @@ class creature:
     printcolor = BC.CYAN
     # subelements = []         # elements of creature
     location = None   # name of Place where creature is- object
-    spellbook = []
     aggressive = True
     dead = False
     can_transform = True
@@ -395,6 +394,7 @@ class creature:
 
         self.location = location
         self.ai = ai.CombatAI(self)
+        self.spellbook = []
         # Companions will follow a creature around.
         self.companions = []
 

@@ -124,9 +124,9 @@ class FlamingWeapons(CreationSpell):
     description = f"Wreath a creature's weapons in magical fire. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = "forever"
     targets = "friendly"
-    weapons = []
 
     def _cast(self):
+        self.weapons = []
         weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
         for weapon in weapons:
             weapon = weapon.damage[1]
@@ -151,9 +151,9 @@ class PoisonedWeapons(CreationSpell):
     description = f"Cover a creature's weapons in magical poison. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = "forever"
     targets = "friendly"
-    weapons = []
 
     def _cast(self):
+        self.weapons = []
         weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
         for weapon in weapons:
             weapon = weapon.damage[1]
@@ -177,9 +177,9 @@ class Bleeding(CreationSpell):
     description = f"Cover a creature's weapons in an anti-coagulating fluid. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = "forever"
     targets = "friendly"
-    weapons = []
 
     def _cast(self):
+        self.weapons = []
         weapons = self.cont.combat.get_weapons(self.target, include_webbed=True)
         for weapon in weapons:
             weapon = weapon.damage[1]
@@ -202,9 +202,9 @@ class Flashbang(CreationSpell):
     description = f"Temporarily blind your enemies in the area of effect. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 5
     targets = "caster"
-    original_see = {}
 
     def _cast(self):
+        self.original_see = {}
         enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
         for enemy in enemies:
             for eye in enemy.subelements[0].limb_check("see"):
@@ -600,9 +600,9 @@ class ArmorOfLight(CreationSpell):
     description = f"Conjures a set of armor made of light. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
     rounds = 20
     targets = "friendly"
-    equipped = {}
 
     def find_all_equipped(self):
+        self.equipped = {}
         # Store the equipment information. We need to make sure equipment will be removed on expire even if limbs are chopped off.
         for equipment_type in set(su.lightsuit["wears"].values()):
             for limb in self.target.subelements[0].limb_check("name"):

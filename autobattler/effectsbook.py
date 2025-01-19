@@ -57,6 +57,7 @@ class Slime(sp.Effect):
             weapon._damage = weapon.orig_damage
             del weapon.orig_damage
             print(f"{C.RED}{self.limb.creature}{BC.GREEN}'s {BC.YELLOW}{weapon.name}{BC.GREEN} is no longer slimed.{BC.OFF}")
+
         for weapon in self.damagers:
             weapon.damage = weapon.orig_damage
             del weapon.orig_damage
