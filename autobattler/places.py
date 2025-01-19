@@ -1,6 +1,7 @@
 import engine.place as pl
 
 from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway, dwarven_gateway, staircase
+from autobattler.gamesmaster import Gamesmaster
 from autobattler.shopkeeper import Shopkeeper
 
 
@@ -21,7 +22,7 @@ class Arena(pl.Place):
     count = (1, 2)
     colors = ["white", "brown", "yellow", "gray"]
     textures = ["brick"]
-    creature_classes = []
+    creature_classes = [[(Gamesmaster, 1)]]
     furniture_classes = []
     subelement_classes = [wall, floor]
 

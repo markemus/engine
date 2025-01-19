@@ -18,7 +18,7 @@ class RipLimb(sp.Effect):
     def _cast(self):
         if self.limb.hp <= (self.limb.base_hp / 4):
             print(f"{C.RED}The rest of the {self.limb.name} is ripped away!{C.OFF}")
-            self.cont.combat.apply_damage(defender=self.limb.creature, limb=self.limb, amount=self.limb.hp + 1)
+            self.cont.combat.apply_damage(defender=self.limb.creature, limb=self.limb, damage=self.limb.hp + 1)
 
 
 class ShatterArmor(sp.Effect):

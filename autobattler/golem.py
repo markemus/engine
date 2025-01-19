@@ -1,4 +1,13 @@
+import random
+
 import engine.creature as cr
+import assets.namelists as nm
+
+from assets.dwarf import Dwarf
+from assets.hobbit import Hobbit
+from assets.human import Human
+from assets.elf import Elf
+from assets.goblin import ServantGoblin
 
 from autobattler import golem_limbs as gl
 
@@ -40,5 +49,26 @@ class SmallGolem(Golem):
     classname = "small golem"
     namelist = ["small golem"]
     baseElem = gl.SmallTorso
-    price = 50
+    price = 30
     suits = []
+
+
+def generate_golem_l0(location):
+    owner_race = random.choice([Dwarf, Hobbit, Human, Elf, ServantGoblin])
+    owner = owner_race(location=location)
+    owner.team = "neutral"
+    golem = random.choice([LargeGolem, SmallGolem])(location=location)
+    golem.team = "opponent"
+    golem.name = random.choice(nm.names["golem"])
+    owner.location.creatures.append(owner)
+    owner.location.creatures.append(golem)
+
+    weapon = random.choice(gl.basic_weapons)
+    extremities = [x for x in golem.limb_check("can_parent") if x.has_free_space(weapon.size)]
+    if extremities:
+        extremity = extremities[0]
+        color = random.choice(weapon.colors)
+        texture = random.choice(weapon.textures)
+        extremity.subelements.append(weapon(color=color, texture=texture))
+
+    return owner, golem

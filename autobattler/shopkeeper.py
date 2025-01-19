@@ -39,7 +39,6 @@ class Store(sp.Effect):
 
         # Shopkeeper
         print(f"{BC.RED}\nShopkeeper{BC.OFF}: {BC.BLUE}Welcome to my shop {self.cont.game.char.name}! I sell only the finest golem parts and apparel. Please feel free to look around.{BC.OFF}")
-        print(f"Purse: {BC.RED}{self.cont.game.char.zorkmids} zorkmids{BC.OFF}")
 
         # Display inventory
         item_list = item_lists[self.cont.game.char.level]
@@ -47,6 +46,7 @@ class Store(sp.Effect):
         i = None
 
         while i != "x":
+            print(f"Purse: {BC.RED}{self.cont.game.char.zorkmids} zorkmids{BC.OFF}")
             utils.dictprint(item_dict, pfunc=pfunc)
             i = input(f"{BC.GREEN}Which item would you like to buy?{BC.OFF} ")
             if i in item_dict.keys() and i != "x":
