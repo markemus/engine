@@ -281,6 +281,18 @@ class Buzzsaw(GolemWeapon):
     textures = ["steel", "iron"]
 
 
+class Gun(GolemWeapon):
+    name = "gun"
+    subelement_classes = []
+    limb_type = "hand"
+    base_hp = 50
+    _damage = 25
+    blockable = False
+    price = 5
+    colors = ["gray", "black", "rusty"]
+    textures = ["steel", "iron"]
+
+
 class Hammer(GolemWeapon):
     name = "hammer"
     subelement_classes = []
@@ -402,7 +414,7 @@ class Beak(Module):
     passive_effects = [aeff.EntangledVampirism]
 
 
-basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer]
+basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer, Gun]
 basic_defense = [Shield, Tentacle, NetThrower]
 basic_large_limbs = [Arm, Hand, Leg, Foot, Head]
 basic_small_limbs = [SmallArm, SmallHand, SmallLeg, SmallFoot, SmallHead]
