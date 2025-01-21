@@ -1,3 +1,5 @@
+import math
+
 import engine.effectsbook as eff
 import engine.spells as sp
 
@@ -59,12 +61,17 @@ class Slime(sp.Effect):
             if not hasattr(weapon, "orig_damage"):
                 if hasattr(weapon, "_damage"):
                     weapon.orig_damage = weapon._damage
-                    weapon._damage = weapon._damage / 2
                     self._damagers.append(weapon)
                 else:
                     weapon.orig_damage = weapon.damage
-                    weapon.damage = weapon.damage / 2
                     self.damagers.append(weapon)
+
+            # Notice that this counters Flywheel, resetting damage to base then dividing.
+            if hasattr(weapon, "_damage"):
+                weapon._damage = weapon.orig_damage / 2
+            else:
+                weapon.damage = weapon.orig_damage / 2
+
         else:
             weapon = self.limb
 
@@ -96,3 +103,53 @@ class DigestSlime(sp.Effect):
                 self.cont.combat.apply_damage(defender=opponent, limb=limb, damage=self.amount)
                 self.casting_limb.creature.heal(amount=self.amount)
 
+
+class Flywheel(sp.Effect):
+    """Increases damage as fight goes on."""
+    desc = "spinning"
+    rounds = "forever"
+    ratio = .05
+
+    def _cast(self):
+        self._damagers = []
+        self.damagers = []
+        weapons = self.casting_limb.creature.limb_check("damage")
+        for weapon in weapons:
+            weapon = weapon.damage[1]
+            if hasattr(weapon, "_damage"):
+                self._damagers.append(weapon)
+            elif hasattr(weapon, "damage"):
+                self.damagers.append(weapon)
+        return True
+
+    def update(self):
+        for weapon in self._damagers:
+            if not hasattr(weapon, "orig_damage"):
+                weapon.orig_damage = weapon._damage
+            if not sum([isinstance(e, Slime) for e in weapon.active_effects]):
+                amount = math.floor((self.ratio * weapon._damage) * 100) / 100
+                weapon._damage += amount
+                print(f"{BC.MAGENTA}{self.casting_limb.creature.name} revs up their {weapon.name} for {amount}!{BC.OFF}")
+            else:
+                print(f"{C.RED}{self.casting_limb.creature.name} tries to rev their {weapon.name} but it is slimed!{C.OFF}")
+
+        for weapon in self.damagers:
+            if not hasattr(weapon, "orig_damage"):
+                weapon.orig_damage = weapon.damage
+            if not sum([isinstance(e, Slime) for e in weapon.active_effects]):
+                amount = math.floor((self.ratio * weapon.damage) * 100) / 100
+                weapon.damage += amount
+                print(f"{BC.MAGENTA}{self.casting_limb.creature.name} revs up their {weapon.name} for {amount}!{BC.OFF}")
+            else:
+                print(f"{C.RED}{self.casting_limb.creature.name} tries to rev their {weapon.name} but it is slimed!{C.OFF}")
+
+    def _expire(self):
+        for weapon in self._damagers:
+            weapon._damage = weapon.orig_damage
+            del weapon.orig_damage
+            print(f"{BC.CYAN}{self.limb.creature}'s {weapon.name} spins down.{BC.OFF}")
+
+        for weapon in self.damagers:
+            weapon.damage = weapon.orig_damage
+            del weapon.orig_damage
+            print(f"{BC.CYAN}{self.limb.creature}'s {weapon.name} spins down.{BC.OFF}")

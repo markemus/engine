@@ -70,6 +70,6 @@ def generate_golem_l0(location):
         extremity = extremities[0]
         color = random.choice(weapon.colors)
         texture = random.choice(weapon.textures)
-        extremity.subelements.append(weapon(color=color, texture=texture))
+        extremity.subelements.append(weapon(color=color, texture=texture, creature=golem))
 
     return owner, golem

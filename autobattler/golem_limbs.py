@@ -353,8 +353,20 @@ class Digester(GolemLimb):
     passive_effects = [aeff.DigestSlime]
 
 
+class Flywheel(GolemLimb):
+    name = "flywheel"
+    subelement_classes = []
+    limb_type = "module"
+    base_hp = 20
+    price = 25
+    size = 2
+    colors = ["silver"]
+    textures = ["metallic"]
+    passive_effects = [aeff.Flywheel]
+
+
 basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer]
 basic_defense = [Shield]
 basic_large_limbs = [Arm, Hand, Leg, Foot, Head]
 basic_small_limbs = [SmallArm, SmallHand, SmallLeg, SmallFoot, SmallHead]
-modules = [Digester]
+modules = [Digester, Flywheel]
