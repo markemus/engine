@@ -30,7 +30,8 @@ class GolemBaseLimb:
             if i in parent_limbs.keys() and i != "x":
                 parent_limb = parent_limbs[i]
                 parent_limb.subelements.append(self)
-                print(f"{BC.MAGENTA}{char.name} grafts the {self.name} onto {char.golem.name}'s {parent_limb.name}.{BC.OFF}")
+                self.creature = parent_limb.creature
+                print(f"{BC.MAGENTA}{char.name} grafts the {self.name} onto {self.creature.name}'s {parent_limb.name}.{BC.OFF}")
                 return True
         else:
             print(f"{C.RED}You must deploy a golem before you can graft limbs to it.{C.OFF}")
@@ -251,7 +252,7 @@ class LargeTorso(GolemLimb):
     wears = "body"
     base_hp = 100
     size = 3
-    can_parent = ["head", "arm", "leg"]
+    can_parent = ["head", "arm", "leg", "module"]
     sublimb_size = 23
 
 
@@ -263,7 +264,7 @@ class SmallTorso(GolemLimb):
     wears = "body"
     base_hp = 66
     size = 2
-    can_parent = ["head", "arm", "leg"]
+    can_parent = ["head", "arm", "leg", "module"]
     sublimb_size = 15
 
 
@@ -340,6 +341,20 @@ class Shield(GolemLimb):
     textures = ["steel", "iron"]
 
 
-basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer, Shield]
+class Digester(GolemLimb):
+    name = "digester"
+    subelement_classes = []
+    limb_type = "module"
+    base_hp = 20
+    price = 25
+    size = 2
+    colors = ["red"]
+    textures = ["fleshy"]
+    passive_effects = [aeff.DigestSlime]
+
+
+basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer]
+basic_defense = [Shield]
 basic_large_limbs = [Arm, Hand, Leg, Foot, Head]
 basic_small_limbs = [SmallArm, SmallHand, SmallLeg, SmallFoot, SmallHead]
+modules = [Digester]

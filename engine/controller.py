@@ -177,34 +177,34 @@ class Controller:
             print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
 
     def north(self):
-        self.game.char.leave("n")
-        self.cast_prebattle_effects()
-        self.check_exit()
+        if self.game.char.leave("n"):
+            self.cast_prebattle_effects()
+            self.check_exit()
         return self.check_safety()
 
     def south(self):
-        self.game.char.leave("s")
-        self.cast_prebattle_effects()
-        self.check_exit()
+        if self.game.char.leave("s"):
+            self.cast_prebattle_effects()
+            self.check_exit()
         return self.check_safety()
 
     def west(self):
-        self.game.char.leave("w")
-        self.cast_prebattle_effects()
-        self.check_exit()
+        if self.game.char.leave("w"):
+            self.cast_prebattle_effects()
+            self.check_exit()
         return self.check_safety()
 
     def east(self):
-        self.game.char.leave("e")
-        self.cast_prebattle_effects()
-        self.check_exit()
+        if self.game.char.leave("e"):
+            self.cast_prebattle_effects()
+            self.check_exit()
         return self.check_safety()
 
     def stairs(self):
         """Stairs cross over between levels."""
         left = self.game.char.leave(">")
-        self.cast_prebattle_effects()
         if left:
+            self.cast_prebattle_effects()
             new_level = self.game.char.location.get_level()
             new_level_idx = self.game.level_list.index(new_level)
             self.game.set_current_level(new_level_idx)

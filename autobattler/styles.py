@@ -23,8 +23,8 @@ from colorist import BrightColor as BC, Color as C
 #  Oil slick that trips enemies that can be lit on fire (anything with oil takes dot).
 #  Acid- like fire, but different synergies.
 #  Buff damage from damage type
-#  Slime- coat a limb and reduce damage from it. Acidic. Puts out fire.
-#  Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.
+#  TODO-DONE Slime- coat a limb and reduce damage from it. Acidic. Puts out fire.
+# TODO Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.
 #  Revive cut off limbs to fight for you (and buzzsaw).
 #  Pulp limbs so they can't revive.
 #  Buff your little allies.

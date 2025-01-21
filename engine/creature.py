@@ -552,7 +552,6 @@ class creature:
         nextRoom = self.location.borders[direction]
 
         if nextRoom:
-            # if len(self.subelements[0].limb_check("amble")) >= 1:
             if (self.limb_count("amble") >= 1) or (self.limb_count("flight") >= 1):
                 currentRoom.removeCreature(self)
                 self.location = currentRoom.borders[direction]
@@ -562,8 +561,6 @@ class creature:
                 for companion in self.get_companions():
                     if companion.location == currentRoom:
                         companion.leave(direction=direction)
-                # if nextRoom.borders[">"]:
-                #     print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
             else:
                 print(f"{C.RED}{self.name} is unable to move.{C.OFF}")
         else:

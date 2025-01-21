@@ -33,6 +33,7 @@ class Golem(cr.creature):
             self.location = char.location
             char.companions.append(self)
             char.golem = self
+            self.team = "combatant"
             print(f"{BC.YELLOW}{char.name} deploys {self.name}!{BC.OFF}")
             return True
 
