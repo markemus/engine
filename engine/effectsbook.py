@@ -317,8 +317,10 @@ class Vampirism(sp.Effect):
         else:
             print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to drink!{C.OFF}")
 
+
 class MinorVampirism(Vampirism):
-    amount = 1.5
+    amount = 2
+
 
 class SuckBlood(sp.Effect):
     amount = 5

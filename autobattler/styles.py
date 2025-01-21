@@ -17,17 +17,16 @@ from colorist import BrightColor as BC, Color as C
 #  rogue- small limbs, light armor
 # TODO different combat ais per class (limb targeting strategies and weapon choice)
 # TODO synergies.
-#  Suck blood from entangled limbs.
-#  Heal from fire (spread it everywhere).
+#  TODO-DONE Suck blood from entangled limbs.
+# TODO Heal from fire (spread it everywhere).
 #  Fire shield (takes damage and breaks, but heals from fire).
 #  Oil slick that trips enemies that can be lit on fire (anything with oil takes dot).
 #  Acid- like fire, but different synergies. Should blind.
 #  Ice- freeze limbs, like webbing. But maybe makes them "brittle" so they take more damage. Fire removes ice but not webbing.
 #  Buff damage from damage type
-#  Smoke goggles- light effect on limbs that are on fire.
 #  TODO-DONE Slime- coat a limb and reduce damage from it. Acidic. Puts out fire.
-# TODO Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.
-#  Revive cut off limbs to fight for you (and buzzsaw).
+# TODO-DONE Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.
+# TODO Revive cut off limbs to fight for you (and buzzsaw).
 #  Pulp limbs so they can't revive.
 #  Buff your little allies.
 #  Energy shield that covers allies as well.
@@ -40,8 +39,8 @@ from colorist import BrightColor as BC, Color as C
 #  Melee weapons countered by blockers.
 #  Reactive armor- light weapon on fire, spray it with acid
 #  TODO-DONE Armor breach- reduce limb armor
-# TODO Weaken enemy limb to reduce damage. Allow this to stack so you can build a debuffing build that grows over time
-#  Double tap- next attack happens twice.
+# TODO-DONE Weaken enemy limb to reduce damage. Allow this to stack so you can build a debuffing build that grows over time
+# TODO Double tap- next attack happens twice.
 #  Effects that only occur after N rounds.
 #  Dispel- remove N of creature's effects. Counters effect builds.
 #  A weapon/effect that buffs, heals, damages based on how many of same damage type weapons you have
@@ -51,7 +50,7 @@ from colorist import BrightColor as BC, Color as C
 # TODO Magic level (lowered by technology). Devotion to damage type (amount of damage dealt, or number of limbs currently affected).
 #  Blood rituals- drain blood, give some effect
 #  Shrink- make limbs smaller, would synergize with effects that give small limbs increased evasion
-#  Eyes that give better vision (counters shadow), laser beams, mastery
+#  Eyes that give better vision (counters shadow), laser beams, mastery, smoke goggles- light effect on limbs that are on fire.
 
 
 

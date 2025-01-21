@@ -37,6 +37,15 @@ class Golem(cr.creature):
             print(f"{BC.YELLOW}{char.name} deploys {self.name}!{BC.OFF}")
             return True
 
+    @property
+    def blood(self):
+        """The amount of blood a creature has is proportional to its size.
+        Golems have three times more blood than ordinary creatures."""
+        limbs = self.subelements[0].limb_check("name")
+        total_blood = sum([x.size if not hasattr(x, "orig_size") else x.orig_size for x in limbs]) * 3
+
+        return total_blood
+
 
 class LargeGolem(Golem):
     classname = "large golem"

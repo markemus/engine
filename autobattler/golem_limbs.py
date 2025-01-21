@@ -356,6 +356,18 @@ class Tentacle(GolemWeapon):
     weapon_effects = [eff.Entangled]
 
 
+class NetThrower(GolemWeapon):
+    name = "net thrower"
+    subelement_classes = []
+    limb_type = "mouth"
+    base_hp = 50
+    _damage = 0
+    price = 5
+    colors = ["black", "gray", "brown"]
+    textures = ["fleshy"]
+    weapon_effects = [eff.Webbed]
+
+
 # Modules
 class Module(GolemLimb):
     name = "module"
@@ -391,7 +403,7 @@ class Beak(Module):
 
 
 basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer]
-basic_defense = [Shield, Tentacle]
+basic_defense = [Shield, Tentacle, NetThrower]
 basic_large_limbs = [Arm, Hand, Leg, Foot, Head]
 basic_small_limbs = [SmallArm, SmallHand, SmallLeg, SmallFoot, SmallHead]
 modules = [Digester, Flywheel, Beak]
