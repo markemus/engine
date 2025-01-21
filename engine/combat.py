@@ -255,9 +255,10 @@ class Combat:
             e = Effect(casting_limb=weapon, creature=defender, limb=limb, controller=self.cont)
             e.cast()
 
-    def apply_impact_effects(self, defender, limb):
+    def apply_impact_effects(self, defender, limb, weapon):
+        """Applies impact effects to the attacking limb."""
         for Effect in limb.impact_effects:
-            e = Effect(casting_limb=limb, creature=defender, limb=limb, controller=self.cont)
+            e = Effect(casting_limb=limb, creature=defender, limb=weapon, controller=self.cont)
             e.cast()
 
     def attack(self, actor, defender, limb, weapon):
@@ -266,7 +267,7 @@ class Combat:
         damage = round(random.random() * damage, 2)
         cutoff = self.apply_damage(defender, limb, damage)
         self.apply_weapon_effects(defender, limb, weapon)
-        self.apply_impact_effects(defender, limb)
+        self.apply_impact_effects(defender, limb, weapon)
 
     def get_blockers(self, actor):
         """Any limb that can block damage directly."""

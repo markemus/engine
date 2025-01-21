@@ -117,7 +117,7 @@ class Head(GolemLimb):
     vital = "head"
     base_hp = 75
     size = 2
-    can_parent = ["eye", "mouth", "horn"]
+    can_parent = ["eye", "mouth", "horn", "tentacle"]
     sublimb_size = 10
     price = 5
 
@@ -176,7 +176,7 @@ class Arm(GolemLimb):
     base_hp = 150
     size = 3
     strength = 1
-    can_parent = ["hand"]
+    can_parent = ["hand", "tentacle"]
     limb_type = "arm"
     sublimb_size = 2
     price = 5
@@ -299,7 +299,7 @@ class Flamethrower(GolemWeapon):
     limb_type = "hand"
     base_hp = 50
     _damage = 5
-    weapon_effects = [aeff.FireDOT5]
+    weapon_effects = [aeff.FireDOT]
     price = 5
     colors = ["red", "brown", "yellow", "black"]
     textures = ["tubular"]
@@ -310,7 +310,7 @@ class Taser(GolemWeapon):
     subelement_classes = []
     limb_type = "hand"
     base_hp = 50
-    _damage = 2
+    _damage = 10
     weapon_effects = [aeff.Lightning]
     price = 5
     colors = ["gray", "silver"]
@@ -329,6 +329,7 @@ class Slimer(GolemWeapon):
     textures = ["slimy"]
 
 
+# Defensive
 class Shield(GolemLimb):
     name = "shield"
     subelement_classes = []
@@ -341,32 +342,56 @@ class Shield(GolemLimb):
     textures = ["steel", "iron"]
 
 
-class Digester(GolemLimb):
-    name = "digester"
+class Tentacle(GolemWeapon):
+    name = "tentacle"
+    subelement_classes = []
+    limb_type = "tentacle"
+    base_hp = 50
+    blocker = True
+    _damage = 15
+    price = 5
+    colors = ["black", "green", "gray"]
+    textures = ["slimy", "steel", "ropy"]
+    impact_effects = [eff.Entangled]
+    weapon_effects = [eff.Entangled]
+
+
+# Modules
+class Module(GolemLimb):
+    name = "module"
     subelement_classes = []
     limb_type = "module"
-    base_hp = 20
-    price = 25
+    base_hp = 40
     size = 2
+
+
+class Digester(Module):
+    name = "digester"
+    price = 25
     colors = ["red"]
     textures = ["fleshy"]
     passive_effects = [aeff.DigestSlime]
 
 
-class Flywheel(GolemLimb):
+class Flywheel(Module):
     name = "flywheel"
-    subelement_classes = []
-    limb_type = "module"
-    base_hp = 20
     price = 25
-    size = 2
     colors = ["silver"]
     textures = ["metallic"]
     passive_effects = [aeff.Flywheel]
 
 
+class Beak(Module):
+    name = "beak"
+    limb_type = "mouth"
+    price = 25
+    colors = ["black", "gray", "silver", "reddish", "brown"]
+    textures = ["keratin"]
+    passive_effects = [aeff.EntangledVampirism]
+
+
 basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer]
-basic_defense = [Shield]
+basic_defense = [Shield, Tentacle]
 basic_large_limbs = [Arm, Hand, Leg, Foot, Head]
 basic_small_limbs = [SmallArm, SmallHand, SmallLeg, SmallFoot, SmallHead]
-modules = [Digester, Flywheel]
+modules = [Digester, Flywheel, Beak]

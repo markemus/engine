@@ -21,8 +21,10 @@ from colorist import BrightColor as BC, Color as C
 #  Heal from fire (spread it everywhere).
 #  Fire shield (takes damage and breaks, but heals from fire).
 #  Oil slick that trips enemies that can be lit on fire (anything with oil takes dot).
-#  Acid- like fire, but different synergies.
+#  Acid- like fire, but different synergies. Should blind.
+#  Ice- freeze limbs, like webbing. But maybe makes them "brittle" so they take more damage. Fire removes ice but not webbing.
 #  Buff damage from damage type
+#  Smoke goggles- light effect on limbs that are on fire.
 #  TODO-DONE Slime- coat a limb and reduce damage from it. Acidic. Puts out fire.
 # TODO Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.
 #  Revive cut off limbs to fight for you (and buzzsaw).

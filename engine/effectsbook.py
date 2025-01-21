@@ -317,6 +317,8 @@ class Vampirism(sp.Effect):
         else:
             print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to drink!{C.OFF}")
 
+class MinorVampirism(Vampirism):
+    amount = 1.5
 
 class SuckBlood(sp.Effect):
     amount = 5
@@ -441,15 +443,15 @@ class ExplodeOnDeath(sp.Effect):
     cast_on_removal = True
 
     def _cast(self):
-        if self.creature.dead:
+        if self.casting_limb.creature.dead:
             return True
 
     def update(self):
-        print(f"{C.RED}{self.creature.name}'s corpse bloats and distends.{C.OFF}")
+        print(f"{C.RED}{self.casting_limb.creature.name}'s corpse bloats and distends.{C.OFF}")
 
     def _expire(self):
-        print(f"{C.RED}{self.creature.name}'s bloated corpse explodes!{C.OFF}")
-        enemies = [c for c in self.creature.location.creatures if c.team not in [self.creature.team, "neutral"]]
+        print(f"{C.RED}{self.casting_limb.creature.name}'s bloated corpse explodes!{C.OFF}")
+        enemies = [c for c in self.casting_limb.creature.location.creatures if c.team not in [self.casting_limb.creature.team, "neutral"]]
 
         for enemy in enemies:
             limbs = enemy.limb_check("isSurface")
