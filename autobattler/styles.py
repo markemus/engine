@@ -50,7 +50,8 @@ from colorist import BrightColor as BC, Color as C
 # TODO Magic level (lowered by technology). Devotion to damage type (amount of damage dealt, or number of limbs currently affected).
 #  Blood rituals- drain blood, give some effect
 #  Shrink- make limbs smaller, would synergize with effects that give small limbs increased evasion
-#  Eyes that give better vision (counters shadow), laser beams, mastery, smoke goggles- light effect on limbs that are on fire.
+#  TODO-DONE Eyes that give better vision (counters shadow), mastery, smoke goggles- light effect on limbs that are on fire.
+#  TODO laser beams
 
 
 

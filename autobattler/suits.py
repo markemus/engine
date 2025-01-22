@@ -14,6 +14,7 @@ class SmokeMonacle(it.Item):
     extra_vision = [eff.FireDOT, aeff.FireDOT]
     colors = ["black", "brown", "mirrored"]
     textures = ["glassy"]
+    store_description = "Better vision in fire."
 
 
 class TargetingMonacle(it.Item):
@@ -23,10 +24,11 @@ class TargetingMonacle(it.Item):
     canwear["eye"] = True
     level = 4
     descends = 0
-    price = 10
+    price = 20
     colors = ["black", "brown", "mirrored"]
     textures = ["glassy"]
     passive_effects = [aeff.Mastery]
+    store_description = "Better vision."
 
 
 equipment = [SmokeMonacle, TargetingMonacle]

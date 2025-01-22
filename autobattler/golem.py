@@ -53,6 +53,7 @@ class LargeGolem(Golem):
     baseElem = gl.LargeTorso
     price = 50
     suits = []
+    store_description = f"A golem with large limbs (stronger, but take up more space)."
 
 
 class SmallGolem(Golem):
@@ -61,6 +62,7 @@ class SmallGolem(Golem):
     baseElem = gl.SmallTorso
     price = 30
     suits = []
+    store_description = f"A golem with small limbs (weaker, but take up less space)."
 
 
 def generate_golem_l0(location):

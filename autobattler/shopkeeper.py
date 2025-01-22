@@ -35,7 +35,7 @@ class Store(sp.Effect):
             if "x" in x.split(":")[0]:
                 fullstr = x
             else:
-                fullstr = f"{x.split(':')[0]}: {y.printcolor}{y.name if hasattr(y, 'name') else y.classname}{BC.OFF} {BC.RED}({y.price}){BC.OFF}"
+                fullstr = f"{x.split(':')[0]}: {y.printcolor}{y.name if hasattr(y, 'name') else y.classname}{BC.OFF}: {BC.MAGENTA}{y.store_description} {BC.RED}({y.price}){BC.OFF}"
             return fullstr
 
         # Shopkeeper

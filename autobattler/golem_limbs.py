@@ -62,6 +62,7 @@ class Eye(GolemLimb):
     textures = ["colored"]
     limb_type = "eye"
     price = 5
+    store_description = "Limb that provides vision."
 
 
 class Horn(GolemWeapon):
@@ -78,6 +79,7 @@ class Horn(GolemWeapon):
     textures = ["smooth"]
     limb_type = "horn"
     price = 5
+    store_description = f"Limb that does some damage ({_damage})."
 
 
 class Fang(GolemWeapon):
@@ -92,6 +94,7 @@ class Fang(GolemWeapon):
     textures = ["enameled"]
     limb_type = "tooth"
     price = 5
+    store_description = f"Limb that does some damage ({_damage})."
 
 
 class Jaw(GolemLimb):
@@ -107,6 +110,7 @@ class Jaw(GolemLimb):
     can_parent = ["tooth", "tongue"]
     limb_type = "mouth"
     price = 5
+    store_description = f"Limb that can hold teeth."
 
 
 class Head(GolemLimb):
@@ -121,6 +125,7 @@ class Head(GolemLimb):
     can_parent = ["eye", "mouth", "horn", "tentacle"]
     sublimb_size = 10
     price = 5
+    store_description = f"Limb that can contain eyes, mouths, horns, tentacles."
 
 
 # Hands
@@ -135,6 +140,7 @@ class Finger(GolemLimb):
     size = 1
     limb_type = "finger"
     sublimb_size = 0
+    store_description = f"Limb needed for grasping (along with a thumb)."
 
 
 class Thumb(GolemLimb):
@@ -148,6 +154,7 @@ class Thumb(GolemLimb):
     size = 1
     limb_type = "thumb"
     sublimb_size = 0
+    store_description = f"Limb needed for grasping (along with some fingers)."
 
 
 class Hand(GolemWeapon):
@@ -165,6 +172,7 @@ class Hand(GolemWeapon):
     limb_type = "hand"
     sublimb_size = 5
     price = 5
+    store_description = f"Limb needed for grasping (with sufficient fingers and a thumb)."
 
 
 class Arm(GolemLimb):
@@ -181,6 +189,7 @@ class Arm(GolemLimb):
     limb_type = "arm"
     sublimb_size = 2
     price = 5
+    store_description = f"Limb that can contain a hand."
 
 
 # Legs
@@ -196,6 +205,7 @@ class Foot(GolemLimb):
     limb_type = "foot"
     sublimb_size = 0
     price = 5
+    store_description = f"Limb needed for walking."
 
 
 class Leg(GolemLimb):
@@ -209,6 +219,7 @@ class Leg(GolemLimb):
     can_parent = ["foot"]
     limb_type = "leg"
     price = 5
+    store_description = f"Limb that can contain a foot."
 
 
 # Small limbs
@@ -280,6 +291,7 @@ class Buzzsaw(GolemWeapon):
     price = 5
     colors = ["gray", "black", "rusty"]
     textures = ["steel", "iron"]
+    store_description = f"A weapon that does a lot of damage and can shred damaged limbs."
 
 
 class Gun(GolemWeapon):
@@ -292,6 +304,7 @@ class Gun(GolemWeapon):
     price = 5
     colors = ["gray", "black", "rusty"]
     textures = ["steel", "iron"]
+    store_description = f"A weapon that cannot be blocked."
 
 
 class Hammer(GolemWeapon):
@@ -304,6 +317,7 @@ class Hammer(GolemWeapon):
     price = 5
     colors = ["gray", "black", "rusty"]
     textures = ["steel", "iron"]
+    store_description = f"A weapon that reduces armor and stuns enemies."
 
 
 class Flamethrower(GolemWeapon):
@@ -316,6 +330,7 @@ class Flamethrower(GolemWeapon):
     price = 5
     colors = ["red", "brown", "yellow", "black"]
     textures = ["tubular"]
+    store_description = f"A weapon that deals damage over time."
 
 
 class Taser(GolemWeapon):
@@ -328,6 +343,7 @@ class Taser(GolemWeapon):
     price = 5
     colors = ["gray", "silver"]
     textures = ["metal"]
+    store_description = f"A weapon that sends elecricity through nearby limbs."
 
 
 class Slimer(GolemWeapon):
@@ -340,6 +356,7 @@ class Slimer(GolemWeapon):
     price = 5
     colors = ["green"]
     textures = ["slimy"]
+    store_description = f"A weapon that reduces enemy weapons' damage."
 
 
 # Defensive
@@ -353,6 +370,7 @@ class Shield(GolemLimb):
     price = 5
     colors = ["gray", "black", "rusty"]
     textures = ["steel", "iron"]
+    store_description = f"Blocks enemy attacks."
 
 
 class Tentacle(GolemWeapon):
@@ -367,6 +385,7 @@ class Tentacle(GolemWeapon):
     textures = ["slimy", "steel", "ropy"]
     impact_effects = [eff.Entangled]
     weapon_effects = [eff.Entangled]
+    store_description = f"Entangles enemy limbs."
 
 
 class NetThrower(GolemWeapon):
@@ -379,6 +398,7 @@ class NetThrower(GolemWeapon):
     colors = ["black", "gray", "brown"]
     textures = ["fleshy"]
     weapon_effects = [eff.Webbed]
+    store_description = f"Webs enemy limbs"
 
 
 # Modules
@@ -396,6 +416,7 @@ class Digester(Module):
     colors = ["red"]
     textures = ["fleshy"]
     passive_effects = [aeff.DigestSlime]
+    store_description = f"Digests enemy limbs that are slimed."
 
 
 class Flywheel(Module):
@@ -404,6 +425,7 @@ class Flywheel(Module):
     colors = ["silver"]
     textures = ["metallic"]
     passive_effects = [aeff.Flywheel]
+    store_description = f"Buffs weapon damage the longer the fight continues."
 
 
 class Beak(Module):
@@ -413,6 +435,7 @@ class Beak(Module):
     colors = ["black", "gray", "silver", "reddish", "brown"]
     textures = ["keratin"]
     passive_effects = [aeff.EntangledVampirism]
+    store_description = f"Sucks blood from trapped enemy limbs and heals."
 
 
 basic_weapons = [Buzzsaw, Hammer, Flamethrower, Taser, Slimer, Gun]
