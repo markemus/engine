@@ -17,7 +17,7 @@ class PotionOfStoneskin(I.Potion):
         print(f"{BC.CYAN}{creature.name}'s skin turns to stone.{BC.OFF}")
         limbs = creature.subelements[0].limb_check("name")
         for limb in limbs:
-            stoniness = eff.Stoneskin(None, creature, limb, controller=self.cont)
+            stoniness = eff.Stoneskin(casting_limb=None, limb=limb, controller=self.cont)
             stoniness.cast()
 
 class PotionOfMight(I.Potion):
@@ -29,7 +29,7 @@ class PotionOfMight(I.Potion):
         print(f"{BC.CYAN}{creature.name} grows stronger!{BC.OFF}")
         limbs = creature.subelements[0].limb_check("strength")
         for limb in limbs:
-            strength = eff.Might(None, creature, limb, controller=self.cont)
+            strength = eff.Might(casting_limb=None, limb=limb, controller=self.cont)
             strength.cast()
 
 
@@ -112,18 +112,19 @@ class PotionOfHealing(I.Potion):
     textures = ["murky"]
 
     def effect(self, creature):
-        limbs = creature.subelements[0].limb_check("name")
+        # limbs = creature.subelements[0].limb_check("name")
         total_heal = 30
-        for limb in limbs:
-            to_heal = limb.base_hp - limb.hp
-            if to_heal > total_heal:
-                to_heal = total_heal
-            total_heal -= to_heal
-            limb.hp += to_heal
-            if to_heal:
-                print(f"{BC.CYAN}{limb.name}{BC.OFF} gains {C.RED}({to_heal}/{limb.base_hp}){C.OFF} hp.")
-            if total_heal <= 0:
-                break
+        creature.heal(total_heal)
+        # for limb in limbs:
+        #     to_heal = limb.base_hp - limb.hp
+        #     if to_heal > total_heal:
+        #         to_heal = total_heal
+        #     total_heal -= to_heal
+        #     limb.hp += to_heal
+        #     if to_heal:
+        #         print(f"{BC.CYAN}{limb.name}{BC.OFF} gains {C.RED}({to_heal}/{limb.base_hp}){C.OFF} hp.")
+        #     if total_heal <= 0:
+        #         break
 
 
 class PotionOfMana(I.Potion):

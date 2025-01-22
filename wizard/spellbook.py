@@ -64,7 +64,7 @@ class Shadow(CreationSpell):
     def _cast(self):
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            shadow = eff.Shadow(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
+            shadow = eff.Shadow(casting_limb=None, limb=limb, controller=self.cont)
             shadow.cast()
             self.effects.append(shadow)
 
@@ -97,7 +97,7 @@ class Might(CreationSpell):
         limbs = self.target.subelements[0].limb_check("strength")
         for limb in limbs:
 
-            might = eff.Might(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
+            might = eff.Might(casting_limb=None, limb=limb, controller=self.cont)
             might.cast()
         return True
 
@@ -112,7 +112,7 @@ class Mastery(CreationSpell):
 
     def _cast(self):
         print(f"{BC.MAGENTA}{self.caster.name} lays their thrumming hands on {self.target.name}.{BC.MAGENTA}")
-        mastery = eff.Mastery(casting_limb=None, creature=self.target, limb=self.target.subelements[0], controller=self.cont)
+        mastery = eff.Mastery(casting_limb=None, limb=self.target.subelements[0], controller=self.cont)
         mastery.cast()
         return True
 
@@ -324,7 +324,7 @@ class Fireball(CreationSpell):
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
             if not sum([isinstance(e, eff.FireDOT) for e in limb.active_effects]):
-                fire = eff.FireDOT(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
+                fire = eff.FireDOT(casting_limb=None, limb=limb, controller=self.cont)
                 fire.cast()
         print(f"{BC.MAGENTA}A gigantic fireball flies across the room and explodes on {self.target.name}!{BC.OFF}")
         return True
@@ -356,7 +356,7 @@ class TheFloorIsLava(CreationSpell):
                 limbs = enemy.subelements[0].limb_check("isSurface")
             for limb in limbs:
                 if not sum([isinstance(e, eff.FireDOT) for e in limb.active_effects]):
-                    fire = eff.FireDOT(casting_limb=None, creature=enemy, limb=limb, controller=self.cont)
+                    fire = eff.FireDOT(casting_limb=None, limb=limb, controller=self.cont)
                     fire.cast()
 
     def _expire(self):
@@ -648,7 +648,7 @@ class Light(CorruptionSpell):
         self.original_colors = {}
         limbs = self.target.subelements[0].limb_check("isSurface")
         for limb in limbs:
-            halo = eff.Light(casting_limb=None, creature=self.target, limb=limb, controller=self.cont)
+            halo = eff.Light(casting_limb=None, limb=limb, controller=self.cont)
             halo.cast()
             self.effects.append(halo)
 
@@ -1130,7 +1130,7 @@ class Fear(CorruptionSpell):
     targets = "enemy"
 
     def _cast(self):
-        fear = eff.Fear(casting_limb=None, creature=self.target, limb=self.target.subelements[0], controller=self.cont)
+        fear = eff.Fear(casting_limb=None, limb=self.target.subelements[0], controller=self.cont)
         fear.cast()
         return True
 
@@ -1174,7 +1174,7 @@ class PoisonGas(CorruptionSpell):
     def update(self):
         for enemy in [c for c in self.caster.location.creatures if c.team != self.caster.team and c.team != "neutral" and c.can_breathe]:
             print(f"{BC.MAGENTA}{enemy.name} chokes on the poison gas!{BC.OFF}")
-            gas_attack = eff.Poison(casting_limb=None, creature=enemy, limb=enemy.subelements[0], controller=self.cont)
+            gas_attack = eff.Poison(casting_limb=None, limb=enemy.subelements[0], controller=self.cont)
             gas_attack.cast()
 
     def _expire(self):
