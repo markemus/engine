@@ -183,16 +183,15 @@ class TestCastle():
         print(g.location)
 
         assert g.subelements[0].subelements[1].equipment[0].armor == 1
-        g.auto_clothe()
+        g.auto_equip()
         assert g.subelements[0].subelements[1].equipment[0].armor == 2
         sg.die()
-        g.auto_clothe()
+        g.auto_equip()
         assert g.subelements[0].subelements[1].equipment[0].armor == 3
 
 
 class TestGeneral:
     def test_dependencies(self):
         import colorist
-        import transitions
         import dill
         pass
