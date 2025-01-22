@@ -41,6 +41,7 @@ class DetentionCable(cl.MetalLimb):
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
+    passive_effects = [weff.EntangleFeet]
 
 
 class DetentionCableDeployer(cl.MetalLimb):
@@ -49,14 +50,6 @@ class DetentionCableDeployer(cl.MetalLimb):
     appendageRange = (1, 2)
     base_hp = 10
     size = 1
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        class EntangleFeet(weff.EntangleFeet):
-            entangling_limb = self.subelements[0]
-
-        self.passive_effects = [EntangleFeet]
 
 
 class GasVents(cl.MetalLimb):

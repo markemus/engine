@@ -76,8 +76,6 @@ class StunGrenades(sp.DelayedEffect):
 class EntangleFeet(sp.DelayedEffect):
     rounds = "forever"
     on_message = f"{BC.MAGENTA}A long cable snakes out of the floor and begins wrapping itself around your party's feet.{BC.OFF}"
-    # Subclass and set entangling_limb
-    entangling_limb = None
     delay = 20
 
     def __init__(self, *args, **kwargs):
