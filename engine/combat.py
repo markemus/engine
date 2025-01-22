@@ -138,6 +138,10 @@ class Combat:
 
             # Masters have a higher to-hit roll
             mastery = actor.mastery
+            if weapon.limb_count("mastery") > mastery:
+                mastery = weapon.limb_count("mastery")
+            if mastery > 1:
+                print(f"{C.RED}{actor.name}{C.OFF}{BC.CYAN} aims shrewdly.{BC.OFF}")
 
             # To hit roll- smaller limbs are harder to hit
             if actor.limb_count("see") < 1:

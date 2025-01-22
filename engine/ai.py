@@ -65,8 +65,19 @@ class CombatAI:
 
         weapons = [x for x in limbs if hasattr(x, "damage")]
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
-        effects = [x for x in limbs if x.passive_effects]
         feet = [x for x in limbs if (hasattr(x, "amble") or hasattr(x, "flight"))]
+
+        # Limbs with passive effects are probably important targets as well
+        effects = []
+        for l in limbs:
+            has_passives = False
+            if l.passive_effects:
+                has_passives = True
+            for e in l.equipment:
+                if e.passive_effects:
+                    has_passives = True
+            if has_passives:
+                effects.append(l)
 
         # subelements[0] is always vital
         if target.subelements[0] not in vitals:
@@ -87,8 +98,8 @@ class CombatAI:
             easiest_vital = min(vitals, key=lambda x: x.armored * x.hp)
             target_limbs.append(easiest_vital)
         if effects:
-            random_effect = random.choice(effects)
-            target_limbs.append(random_effect)
+            easiest_effect = min(effects, key=lambda x: x.armored * x.hp)
+            target_limbs.append(easiest_effect)
         if feet:
             easiest_foot = min(feet, key=lambda x: x.armored * x.hp)
             # no point chopping off feet if target is already supine

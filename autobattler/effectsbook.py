@@ -166,3 +166,7 @@ class EntangledVampirism(sp.Effect):
                 vampirism = eff.MinorVampirism(casting_limb=self.casting_limb, creature=opponent, limb=limb, controller=self.cont)
                 print(f"{BC.MAGENTA}{self.casting_limb.creature.name} sucks blood from {opponent.name}'s entangled {limb.name}!{BC.OFF}")
                 vampirism.cast()
+
+
+class Mastery(eff.Mastery):
+    rounds = "forever"

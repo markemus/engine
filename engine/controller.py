@@ -229,8 +229,12 @@ class Controller:
             limbs = creature.subelements[0].limb_check("name")
             # Cast effects
             for limb in limbs:
-                if limb.passive_effects:
-                    for Effect in limb.passive_effects:
+                passive_effects = limb.passive_effects
+                for equipment in limb.equipment:
+                    passive_effects.extend(equipment.passive_effects)
+
+                if passive_effects:
+                    for Effect in passive_effects:
                         # Only one copy of the effect- don't cast if already active.
                         if Effect not in [e.__class__ for e in limb.active_effects]:
                             eff = Effect(casting_limb=limb, creature=creature, limb=limb, controller=self)
@@ -401,8 +405,8 @@ class Controller:
 
                     if j in inventory.keys() and j != "x":
                         gear = inventory[j]
-                        limbs = utils.listtodict(self.game.char.subelements[0].limb_check("name"), add_x=True)
-                        # utils.dictprint(limbs)
+                        limbs = self.game.char.subelements[0].limb_check("wears")
+                        limbs = utils.listtodict([l for l in limbs if l.wears in gear.canwear], add_x=True)
                         utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
                         k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
 
@@ -441,8 +445,10 @@ class Controller:
 
                             if j in inventory.keys() and j != "x":
                                 gear = inventory[j]
-                                limbs = utils.listtodict(ally.subelements[0].limb_check("name"), add_x=True)
-                                # utils.dictprint(limbs)
+                                # limbs = utils.listtodict(ally.subelements[0].limb_check("name"), add_x=True)
+                                limbs = ally.limb_check("wears")
+                                limbs = utils.listtodict([l for l in limbs if l.wears in gear.canwear], add_x=True)
+
                                 utils.dictprint(limbs, pfunc=lambda x, y: x + f": {[z.name for z in y.equipment]}" if hasattr(y, 'equipment') else x)
                                 k = input(f"\n{BC.GREEN}Select a limb to equip the {gear.name} on:{BC.OFF} ")
 

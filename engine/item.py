@@ -26,6 +26,7 @@ class Item:
     blockable = True
     level = 1
     weapon_effects = []
+    passive_effects = []
 
     def __init__(self, color, texture):
         """Copies over mutable objects for objects so they don't share them with other objects (dereference)."""
@@ -35,6 +36,7 @@ class Item:
         self.color = color
         self.texture = texture
         self.weapon_effects = self.weapon_effects.copy()
+        self.passive_effects = self.passive_effects.copy()
 
     def transfer(self, who, wherefrom, whereto):
         """A creature moves an item from one inventory to another."""

@@ -16,4 +16,17 @@ class SmokeMonacle(it.Item):
     textures = ["glassy"]
 
 
-equipment = [SmokeMonacle]
+class TargetingMonacle(it.Item):
+    name = "targeting monacle"
+    canwear = it.Item.canwear.copy()
+    covers = it.Item.covers.copy()
+    canwear["eye"] = True
+    level = 4
+    descends = 0
+    price = 10
+    colors = ["black", "brown", "mirrored"]
+    textures = ["glassy"]
+    passive_effects = [aeff.Mastery]
+
+
+equipment = [SmokeMonacle, TargetingMonacle]
