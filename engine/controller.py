@@ -237,7 +237,7 @@ class Controller:
                     for Effect in passive_effects:
                         # Only one copy of the effect- don't cast if already active.
                         if Effect not in [e.__class__ for e in limb.active_effects]:
-                            eff = Effect(casting_limb=limb, creature=creature, limb=limb, controller=self)
+                            eff = Effect(casting_limb=limb, limb=limb, controller=self)
                             eff.cast()
 
     def pick_target(self, weapon):

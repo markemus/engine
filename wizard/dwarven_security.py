@@ -85,7 +85,7 @@ class BrokenGrenadeDucts(GrenadeDucts):
         self.passive_effects = [BrokenSecurityComponent]
 
 
-class BrokenDetentionCableDeployer(DetentionCableDeployer):
+class BrokenDetentionCable(DetentionCable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -93,6 +93,10 @@ class BrokenDetentionCableDeployer(DetentionCableDeployer):
             delay = self.passive_effects[0].delay
 
         self.passive_effects = [BrokenSecurityComponent]
+
+
+class BrokenDetentionCableDeployer(DetentionCableDeployer):
+    subelement_classes = [BrokenDetentionCable]
 
 
 class BrokenGasVents(GasVents):

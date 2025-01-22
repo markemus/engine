@@ -275,13 +275,13 @@ class Combat:
         true_weapon = weapon.damage[1]
         effects = true_weapon.weapon_effects
         for Effect in effects:
-            e = Effect(casting_limb=weapon, creature=defender, limb=limb, controller=self.cont)
+            e = Effect(casting_limb=weapon, limb=limb, controller=self.cont)
             e.cast()
 
     def apply_impact_effects(self, defender, limb, weapon):
         """Applies impact effects to the attacking limb."""
         for Effect in limb.impact_effects:
-            e = Effect(casting_limb=limb, creature=defender, limb=weapon, controller=self.cont)
+            e = Effect(casting_limb=limb, limb=weapon, controller=self.cont)
             e.cast()
 
     def attack(self, actor, defender, limb, weapon):
