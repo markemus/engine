@@ -208,8 +208,8 @@ class Bleed(sp.Effect):
     cast_on_removal = False
     desc = "bleeding"
 
-    def __init__(self, casting_limb, creature, limb, controller, amount=2):
-        super().__init__(casting_limb, creature, limb, controller)
+    def __init__(self, casting_limb, limb, controller, amount=2):
+        super().__init__(casting_limb, limb, controller)
         self.amount = amount
         # More bleeding lasts for longer
         self.rounds = amount

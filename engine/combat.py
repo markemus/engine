@@ -253,7 +253,7 @@ class Combat:
 
                         if not defender.dead:
                             size = limb.size if not hasattr(limb, "orig_size") else limb.orig_size
-                            bleed = eff.Bleed(casting_limb=limb, creature=defender, limb=parent_limb, controller=self.cont, amount=size * 2)
+                            bleed = eff.Bleed(casting_limb=limb, limb=parent_limb, controller=self.cont, amount=size * 2)
                             bleed.cast()
 
                         # check if target falls over

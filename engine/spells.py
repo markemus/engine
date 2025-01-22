@@ -61,7 +61,7 @@ class Effect:
                 return False
 
         if not self.cast_on_removal:
-            if self.limb not in self.creature.limb_check("name"):
+            if self.limb not in self.limb.creature.limb_check("name"):
                 return False
 
         if self._cast():

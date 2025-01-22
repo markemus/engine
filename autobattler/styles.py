@@ -46,6 +46,7 @@ from colorist import BrightColor as BC, Color as C
 #  A weapon/effect that buffs, heals, damages based on how many of same damage type weapons you have
 #  Limb that draws attacks to it
 #  Consumable limbs/equipment that leave permanent buffs behind
+#  Temporary buffs with longer term negative effects (so good early fight but becomes worse in long fights)
 #  TODO-DONE Static- electricity zap on attack. Messes with mechanical and doesn't affect magical.
 # TODO Magic level (lowered by technology). Devotion to damage type (amount of damage dealt, or number of limbs currently affected).
 #  Blood rituals- drain blood, give some effect
