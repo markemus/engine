@@ -163,7 +163,7 @@ class EntangledVampirism(sp.Effect):
         for opponent in opponents:
             limbs = [l for l in opponent.limb_check("name") if sum([isinstance(e, eff.Entangled) for e in l.active_effects]) or sum([isinstance(e, eff.Webbed) for e in l.active_effects])]
             for limb in limbs:
-                vampirism = eff.MinorVampirism(casting_limb=self.casting_limb, creature=opponent, limb=limb, controller=self.cont)
+                vampirism = eff.MinorVampirism(casting_limb=self.casting_limb, limb=limb, controller=self.cont)
                 print(f"{BC.MAGENTA}{self.casting_limb.creature.name} sucks blood from {opponent.name}'s entangled {limb.name}!{BC.OFF}")
                 vampirism.cast()
 

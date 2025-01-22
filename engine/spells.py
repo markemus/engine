@@ -48,9 +48,8 @@ class Effect:
     allow_duplicates = True
     expired = False
 
-    def __init__(self, casting_limb, creature, limb, controller):
+    def __init__(self, casting_limb, limb, controller):
         self.casting_limb = casting_limb
-        self.creature = creature
         self.limb = limb
         self.cont = controller
 

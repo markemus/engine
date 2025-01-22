@@ -39,7 +39,7 @@ class Store(sp.Effect):
             return fullstr
 
         # Shopkeeper
-        print(f"{BC.RED}\nShopkeeper{BC.OFF}: {BC.BLUE}Welcome to my shop {self.cont.game.char.name}! I sell only the finest golem parts and apparel. Please feel free to look around.{BC.OFF}")
+        print(f"{BC.RED}\n{self.casting_limb.creature}{BC.OFF}: {BC.BLUE}Welcome to my shop {self.cont.game.char.name}! I sell only the finest golem parts and apparel. Please feel free to look around.{BC.OFF}")
 
         # Display inventory
         item_list = item_lists[self.cont.game.char.level]

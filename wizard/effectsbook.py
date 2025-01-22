@@ -10,7 +10,7 @@ class SecurityAnnouncement(sp.DelayedEffect):
     delay = 0
 
     def _cast(self):
-        combatants = [c for c in self.creature.location.creatures if c.team not in ["adventurer", "neutral"]]
+        combatants = [c for c in self.limb.creature.location.creatures if c.team not in ["adventurer", "neutral"]]
         if combatants:
             print(f'{BC.RED}"Conflict detected. Security system is now online. Please desist immediately."{BC.OFF}')
             return True
@@ -41,11 +41,11 @@ class BrightLight(sp.DelayedEffect):
         return True
 
     def _update(self):
-        enemies = [c for c in self.creature.location.creatures if c.team == "adventurer"]
+        enemies = [c for c in self.limb.creature.location.creatures if c.team == "adventurer"]
         for enemy in enemies:
             enemy_illuminated = False
             for limb in enemy.limb_check("isSurface"):
-                light = eff.Light(creature=enemy, limb=limb, controller=self.cont)
+                light = eff.Light(casting_limb=self.limb, limb=limb, controller=self.cont)
                 if light.cast():
                     enemy_illuminated = True
                     self.effects.append(light)
@@ -67,9 +67,9 @@ class StunGrenades(sp.DelayedEffect):
 
     def _update(self):
         if self.counter == self.delay:
-            enemies = [c for c in self.creature.location.creatures if c.team == "adventurer"]
+            enemies = [c for c in self.limb.creature.location.creatures if c.team == "adventurer"]
             for enemy in enemies:
-                e = eff.StunForSure(creature=enemy, limb=enemy.subelements[0], controller=self.cont)
+                e = eff.StunForSure(casting_limb=self.limb, limb=enemy.subelements[0], controller=self.cont)
                 e.cast()
 
 
@@ -85,19 +85,18 @@ class EntangleFeet(sp.DelayedEffect):
 
         class Entangled(eff.Entangled):
             rounds = "forever"
-            entangling_limb = self.entangling_limb
 
         self.Entangled = Entangled
         self.entanglements = []
 
     def _update(self):
-        enemies = [c for c in self.creature.location.creatures if c.team == "adventurer"]
+        enemies = [c for c in self.limb.creature.location.creatures if c.team == "adventurer"]
         for enemy in enemies:
             feet = enemy.limb_check("amble")
             can_fly = enemy.limb_count("flight")
             if not can_fly:
                 for foot in feet:
-                    e = self.Entangled(creature=enemy, limb=foot, controller=self.cont)
+                    e = self.Entangled(casting_limb=self.casting_limb, limb=foot, controller=self.cont)
                     if e.cast():
                         self.entanglements.append(e)
 
@@ -116,9 +115,9 @@ class GasAttack(sp.DelayedEffect):
     delay = 30
 
     def _update(self):
-        for enemy in [c for c in self.creature.location.creatures if c.team == "adventurer" and c.can_breathe]:
+        for enemy in [c for c in self.limb.creature.location.creatures if c.team == "adventurer" and c.can_breathe]:
             print(f"{BC.MAGENTA}{enemy.name} chokes on the poison gas!{BC.OFF}")
-            gas_attack = eff.Poison(creature=enemy, limb=enemy.subelements[0], controller=self.cont)
+            gas_attack = eff.Poison(casting_limb=self.casting_limb, limb=enemy.subelements[0], controller=self.cont)
             gas_attack.cast()
 
 
@@ -155,14 +154,14 @@ class BrokenSecurityAnnouncement(sp.DelayedEffect):
 
 
 class TurnOffAllSecurityEffects(sp.Effect):
-    """Expire all of self.creature's effects."""
+    """Expire all of self.limb.creature's effects."""
     rounds = "forever"
 
     def update(self):
-        combatants = [c for c in self.creature.location.creatures if c.team not in ["adventurer", "neutral"]]
+        combatants = [c for c in self.limb.creature.location.creatures if c.team not in ["adventurer", "neutral"]]
         if not combatants:
             # Expire all security effects, including self
-            creature_effects = [e for e in self.cont.game.active_spells if e.creature == self.creature and e != self]
+            creature_effects = [e for e in self.cont.game.active_spells if e.limb.creature == self.limb.creature and e != self]
             for e in creature_effects:
                 e.expire()
             self.expire()

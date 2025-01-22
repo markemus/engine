@@ -33,12 +33,12 @@ class FireDOT(sp.Effect):
     rounds = 8
 
     def _cast(self):
-        if ((not hasattr(self.creature.location, "wet")) or (not self.creature.location.wet)) and self.limb.can_burn:
+        if ((not hasattr(self.limb.creature.location, "wet")) or (not self.limb.creature.location.wet)) and self.limb.can_burn:
             return True
 
     def update(self):
-        print(f"{C.RED}{self.creature.name}'s {self.limb.name} is burning!{C.OFF}")
-        self.cont.combat.apply_damage(defender=self.creature, limb=self.limb, damage=self.damage)
+        print(f"{C.RED}{self.limb.creature.name}'s {self.limb.name} is burning!{C.OFF}")
+        self.cont.combat.apply_damage(defender=self.limb.creature, limb=self.limb, damage=self.damage)
 
     def _expire(self):
         print(f"{BC.RED}The fire on {C.RED}{self.limb.name}{BC.RED} goes out.{C.OFF}")
@@ -95,10 +95,10 @@ class SquirtInk(sp.Effect):
         class Ink(Shadow):
             desc = "inky"
 
-        for limb in self.creature.subelements[0].limb_check("isSurface"):
-            ink = Ink(creature=self.creature, limb=limb, controller=self.cont)
+        for limb in self.limb.creature.subelements[0].limb_check("isSurface"):
+            ink = Ink(casting_limb=None, limb=limb, controller=self.cont)
             ink.cast()
-        print(f"{C.RED}{self.creature.name} squirts out a cloud of ink!{C.OFF}")
+        print(f"{C.RED}{self.limb.creature.name} squirts out a cloud of ink!{C.OFF}")
 
 
 class Webbed(sp.Effect):
@@ -112,7 +112,7 @@ class Webbed(sp.Effect):
         if hasattr(self.limb, "amble"):
             self.limb.amble = 0
         self.limb.webbed = True
-        print(f"{C.RED}{self.creature.name}'s {self.limb.name} is webbed!{C.OFF}")
+        print(f"{C.RED}{self.limb.creature.name}'s {self.limb.name} is webbed!{C.OFF}")
         return True
 
     def update(self):
@@ -124,7 +124,7 @@ class Webbed(sp.Effect):
         if hasattr(self.limb, "amble"):
             self.limb.amble = self.limb.orig_amble
         self.limb.webbed = False
-        print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} is no longer webbed.{BC.OFF}")
+        print(f"{BC.CYAN}{self.limb.creature.name}'s {self.limb.name} is no longer webbed.{BC.OFF}")
 
 
 class Fear(sp.Effect):
@@ -132,17 +132,17 @@ class Fear(sp.Effect):
     rounds = 5
 
     def _cast(self):
-        if self.creature.can_fear:
-            self.creature.afraid = True
-            print(f"{C.RED}{self.creature.name} cowers in fear!{C.OFF}")
+        if self.limb.creature.can_fear:
+            self.limb.creature.afraid = True
+            print(f"{C.RED}{self.limb.creature.name} cowers in fear!{C.OFF}")
             return True
 
     def update(self):
-        self.creature.afraid = True
+        self.limb.creature.afraid = True
 
     def _expire(self):
-        self.creature.afraid = False
-        print(f"{BC.CYAN}{self.creature.name} is no longer terrified.{C.OFF}")
+        self.limb.creature.afraid = False
+        print(f"{BC.CYAN}{self.limb.creature.name} is no longer terrified.{C.OFF}")
 
 
 class Might(sp.Effect):
@@ -157,7 +157,7 @@ class Might(sp.Effect):
             self.limb.strength = self.limb.orig_strength + .5
         else:
             self.limb.strength = 1.5
-        print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} bulges and swells!{BC.OFF}")
+        print(f"{BC.CYAN}{self.limb.creature.name}'s {self.limb.name} bulges and swells!{BC.OFF}")
         return True
 
     def update(self):
@@ -171,7 +171,7 @@ class Might(sp.Effect):
             self.limb.strength = self.limb.orig_strength
         else:
             del self.limb.strength
-        print(f"{BC.CYAN}{self.creature.name}'s {self.limb.name} shrinks back down to its normal size.{BC.OFF}")
+        print(f"{BC.CYAN}{self.limb.creature.name}'s {self.limb.name} shrinks back down to its normal size.{BC.OFF}")
 
 
 class Mastery(sp.Effect):
@@ -179,28 +179,28 @@ class Mastery(sp.Effect):
     rounds = 15
 
     def _cast(self):
-        if not hasattr(self.creature, "orig_mastery") and hasattr(self.creature, "mastery"):
-            self.creature.orig_mastery = self.creature.mastery
+        if not hasattr(self.limb.creature, "orig_mastery") and hasattr(self.limb.creature, "mastery"):
+            self.limb.creature.orig_mastery = self.limb.creature.mastery
 
-        if hasattr(self.creature, "mastery"):
-            self.creature.mastery = self.creature.orig_mastery + 2
+        if hasattr(self.limb.creature, "mastery"):
+            self.limb.creature.mastery = self.limb.creature.orig_mastery + 2
         else:
-            self.creature.mastery = 2
-        print(f"{BC.CYAN}A thrumming energy fills {self.creature.name}'s body.{BC.OFF}")
+            self.limb.creature.mastery = 2
+        print(f"{BC.CYAN}A thrumming energy fills {self.limb.creature.name}'s body.{BC.OFF}")
         return True
 
     def update(self):
-        if hasattr(self.creature, "orig_mastery"):
-            self.creature.mastery = self.creature.orig_mastery + 2
+        if hasattr(self.limb.creature, "orig_mastery"):
+            self.limb.creature.mastery = self.limb.creature.orig_mastery + 2
         else:
-            self.creature.mastery = 2
+            self.limb.creature.mastery = 2
 
     def _expire(self):
-        if hasattr(self.creature, "orig_mastery"):
-            self.creature.mastery = self.creature.orig_mastery
+        if hasattr(self.limb.creature, "orig_mastery"):
+            self.limb.creature.mastery = self.limb.creature.orig_mastery
         else:
-            del self.creature.mastery
-        print(f"{BC.CYAN}{self.creature.name}'s body stops thrumming.{BC.OFF}")
+            del self.limb.creature.mastery
+        print(f"{BC.CYAN}{self.limb.creature.name}'s body stops thrumming.{BC.OFF}")
 
 
 class Bleed(sp.Effect):
@@ -219,7 +219,7 @@ class Bleed(sp.Effect):
             return True
 
     def update(self):
-        self.creature.bled += self.amount
+        self.limb.creature.bled += self.amount
         if self.amount <= 2:
             desc = "oozes"
         elif self.amount == 4:
@@ -227,14 +227,14 @@ class Bleed(sp.Effect):
         elif self.amount >= 6:
             desc = "spurts"
 
-        print(f"{C.RED}Blood {desc} from {self.creature.name}'s {self.limb.name}.{C.OFF}")
-        if self.creature.bled > self.creature.blood / 2:
-            print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
-        if self.creature.bled >= self.creature.blood:
-            self.creature.die()
+        print(f"{C.RED}Blood {desc} from {self.limb.creature.name}'s {self.limb.name}.{C.OFF}")
+        if self.limb.creature.bled > self.limb.creature.blood / 2:
+            print(f"{C.RED}{self.limb.creature.name}{C.OFF} looks pale.")
+        if self.limb.creature.bled >= self.limb.creature.blood:
+            self.limb.creature.die()
 
     def _expire(self):
-        print(f"{BC.CYAN}The wound on {self.creature.name}'s {self.limb.name} stops bleeding.{BC.OFF}")
+        print(f"{BC.CYAN}The wound on {self.limb.creature.name}'s {self.limb.name} stops bleeding.{BC.OFF}")
 
 
 class Poison(sp.Effect):
@@ -244,14 +244,14 @@ class Poison(sp.Effect):
     cast_on_removal = False
 
     def _cast(self):
-        if self.creature.can_poison:
-            self.creature.poisoned += self.amount
-            print(f"{C.RED}{self.creature.name} absorbs {self.amount} points of poison!{C.OFF}")
-            if self.creature.poisoned > self.creature.poison_resist / 2:
-                print(f"{C.RED}{self.creature.name}{C.OFF} looks green.")
-            if self.creature.poisoned >= self.creature.poison_resist:
-                print(f"{C.RED}{self.creature.name} has taken a fatal dose of poison!{C.OFF}")
-                self.creature.die()
+        if self.limb.creature.can_poison:
+            self.limb.creature.poisoned += self.amount
+            print(f"{C.RED}{self.limb.creature.name} absorbs {self.amount} points of poison!{C.OFF}")
+            if self.limb.creature.poisoned > self.limb.creature.poison_resist / 2:
+                print(f"{C.RED}{self.limb.creature.name}{C.OFF} looks green.")
+            if self.limb.creature.poisoned >= self.limb.creature.poison_resist:
+                print(f"{C.RED}{self.limb.creature.name} has taken a fatal dose of poison!{C.OFF}")
+                self.limb.creature.die()
 
 
 class Stun(sp.Effect):
@@ -260,21 +260,21 @@ class Stun(sp.Effect):
     allow_duplicates = False
 
     def _cast(self):
-        if self.creature.can_stun:
+        if self.limb.creature.can_stun:
             head_wears = ["head", "animal_head", "spider_head"]
             if self.limb.wears in head_wears:
-                other_heads = [x for x in self.creature.subelements[0].limb_check("wears") if x is not self.limb and x.wears in head_wears]
+                other_heads = [x for x in self.limb.creature.subelements[0].limb_check("wears") if x is not self.limb and x.wears in head_wears]
                 if not other_heads:
-                    self.creature.stunned = True
-                    print(f"{C.RED}{self.creature.name} is stunned!{C.OFF}")
+                    self.limb.creature.stunned = True
+                    print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
                     return True
 
     def update(self):
-        self.creature.stunned = True
+        self.limb.creature.stunned = True
 
     def _expire(self):
-        self.creature.stunned = False
-        print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
+        self.limb.creature.stunned = False
+        print(f"{C.RED}{self.limb.creature.name} is no longer stunned.{C.OFF}")
 
 
 class StunForSure(sp.Effect):
@@ -284,17 +284,17 @@ class StunForSure(sp.Effect):
     allow_duplicates = False
 
     def _cast(self):
-        if self.creature.can_stun:
-            self.creature.stunned = True
-            print(f"{C.RED}{self.creature.name} is stunned!{C.OFF}")
+        if self.limb.creature.can_stun:
+            self.limb.creature.stunned = True
+            print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
             return True
 
     def update(self):
-        self.creature.stunned = True
+        self.limb.creature.stunned = True
 
     def _expire(self):
-        self.creature.stunned = False
-        print(f"{C.RED}{self.creature.name} is no longer stunned.{C.OFF}")
+        self.limb.creature.stunned = False
+        print(f"{C.RED}{self.limb.creature.name} is no longer stunned.{C.OFF}")
 
 
 class Vampirism(sp.Effect):
@@ -306,16 +306,16 @@ class Vampirism(sp.Effect):
 
     def _cast(self):
         if self.limb.can_bleed:
-            self.creature.bled += self.amount
-            print(f"{C.RED}{self.casting_limb.creature.name} drinks {self.creature.name}'s blood!{C.OFF}")
-            if self.creature.bled > self.creature.blood / 2:
-                print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
-            if self.creature.bled >= self.creature.blood:
-                self.creature.die()
+            self.limb.creature.bled += self.amount
+            print(f"{C.RED}{self.casting_limb.creature.name} drinks {self.limb.creature.name}'s blood!{C.OFF}")
+            if self.limb.creature.bled > self.limb.creature.blood / 2:
+                print(f"{C.RED}{self.limb.creature.name}{C.OFF} looks pale.")
+            if self.limb.creature.bled >= self.limb.creature.blood:
+                self.limb.creature.die()
 
             self.casting_limb.creature.heal(self.amount)
         else:
-            print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to drink!{C.OFF}")
+            print(f"{C.RED}{self.limb.creature.name}'s {self.limb.name} has no blood to drink!{C.OFF}")
 
 
 class MinorVampirism(Vampirism):
@@ -329,14 +329,14 @@ class SuckBlood(sp.Effect):
 
     def _cast(self):
         if self.limb.can_bleed:
-            self.creature.bled += self.amount
-            print(f"{C.RED}It drinks {self.creature.name}'s blood!{C.OFF}")
-            if self.creature.bled > self.creature.blood / 2:
-                print(f"{C.RED}{self.creature.name}{C.OFF} looks pale.")
-            if self.creature.bled >= self.creature.blood:
-                self.creature.die()
+            self.limb.creature.bled += self.amount
+            print(f"{C.RED}{self.casting_limb.creature} drinks {self.limb.creature.name}'s blood!{C.OFF}")
+            if self.limb.creature.bled > self.limb.creature.blood / 2:
+                print(f"{C.RED}{self.limb.creature.name}{C.OFF} looks pale.")
+            if self.limb.creature.bled >= self.limb.creature.blood:
+                self.limb.creature.die()
         else:
-            print(f"{C.RED}{self.creature.name}'s {self.limb.name} has no blood to suck.{C.OFF}")
+            print(f"{C.RED}{self.limb.creature.name}'s {self.limb.name} has no blood to suck.{C.OFF}")
 
 
 class HealAllies(sp.Effect):
@@ -347,7 +347,7 @@ class HealAllies(sp.Effect):
     expire_on_removal = True
 
     def update(self):
-        allies = [c for c in self.creature.location.creatures if c.team == self.creature.team]
+        allies = [c for c in self.limb.creature.location.creatures if c.team == self.limb.creature.team]
         for ally in allies:
             ally.heal(self.amount)
             if ally.bled:
@@ -370,7 +370,7 @@ class Entangled(sp.Effect):
                 return False
 
         if not self.cast_on_removal:
-            if self.limb not in self.creature.limb_check("name"):
+            if self.limb not in self.limb.creature.limb_check("name"):
                 return False
 
         print(f"{C.RED}{self.casting_limb.name} and {self.limb.name} are entangled!{C.OFF}")
@@ -414,10 +414,10 @@ class DrawAggro(sp.Effect):
     rounds = 1
 
     def _cast(self):
-        old_target = self.creature.ai.target
-        if old_target is not self.casting_limb.creature and not self.creature.dead:
-            self.creature.ai.target = self.casting_limb.creature
-            print(f"{C.RED}{self.creature.name} turns on {self.casting_limb.creature.name}!{C.OFF}")
+        old_target = self.limb.creature.ai.target
+        if old_target is not self.casting_limb.creature and not self.limb.creature.dead:
+            self.limb.creature.ai.target = self.casting_limb.creature
+            print(f"{C.RED}{self.limb.creature.name} turns on {self.casting_limb.creature.name}!{C.OFF}")
 
 
 class RegrowLimb(sp.Effect):
@@ -427,16 +427,16 @@ class RegrowLimb(sp.Effect):
 
     def _cast(self):
         """Will apply if limb has been removed from creature."""
-        limbs = self.creature.subelements[0].limb_check("name")
+        limbs = self.limb.creature.subelements[0].limb_check("name")
         if self.limb not in limbs:
             # fire stops regeneration
             if not sum([isinstance(e, FireDOT) for e in self.limb.active_effects]):
                 return True
 
     def _expire(self):
-        if not self.creature.dead:
+        if not self.limb.creature.dead:
             self.limb_parent.subelements.append(self.limb.__class__(self.limb.color, self.limb.texture, self.limb.creature))
-            print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.creature.name}'s {self.limb_parent.name}!{BC.OFF}")
+            print(f"{BC.CYAN}A new {self.limb.name} sprouts from {self.limb.creature.name}'s {self.limb_parent.name}!{BC.OFF}")
 
 
 class ExplodeOnDeath(sp.Effect):
@@ -471,10 +471,10 @@ class Explosive(sp.Effect):
 
     def _cast(self):
         print(f"{BC.MAGENTA}The shell explodes!{BC.OFF}")
-        neighbors = [self.limb] + self.creature.get_neighbors(self.limb)
+        neighbors = [self.limb] + self.limb.creature.get_neighbors(self.limb)
         for limb in neighbors:
             print(f"{C.RED}{limb.name} is caught in the explosion!{C.OFF}")
-            self.cont.combat.apply_damage(defender=self.creature, limb=limb, damage=self.amount)
+            self.cont.combat.apply_damage(defender=self.limb.creature, limb=limb, damage=self.amount)
         return True
 
 
@@ -485,19 +485,19 @@ class Lightning(sp.Effect):
     def _cast(self):
         cc = self.cont.combat
         # Other limbs to strike from same target
-        other_limbs_to_strike = self.creature.get_neighbors(self.limb)
+        other_limbs_to_strike = self.limb.creature.get_neighbors(self.limb)
         if other_limbs_to_strike:
             other_limbs_to_strike = other_limbs_to_strike[:random.randrange(0, len(other_limbs_to_strike))]
 
-        print(f"{BC.MAGENTA}Lightning zaps {BC.YELLOW}{self.creature.name}{BC.MAGENTA}'s {C.RED}{self.limb.name}{BC.MAGENTA}!{BC.OFF}")
-        cc.apply_damage(self.creature, self.limb, self.amount)
+        print(f"{BC.MAGENTA}Lightning zaps {BC.YELLOW}{self.limb.creature.name}{BC.MAGENTA}'s {C.RED}{self.limb.name}{BC.MAGENTA}!{BC.OFF}")
+        cc.apply_damage(self.limb.creature, self.limb, self.amount)
 
         for limb in other_limbs_to_strike:
             print(f"{BC.MAGENTA}Lightning spreads through {C.RED}{limb.name}{BC.MAGENTA}!{BC.OFF}")
-            cc.apply_damage(self.creature, limb, self.amount)
+            cc.apply_damage(self.limb.creature, limb, self.amount)
 
         # Other limbs to strike from other targets
-        other_targets = [c for c in self.creature.location.creatures if c.team not in [self.casting_limb.creature.team, "neutral"] and c is not self.creature]
+        other_targets = [c for c in self.limb.creature.location.creatures if c.team not in [self.casting_limb.creature.team, "neutral"] and c is not self.limb.creature]
         if other_targets:
             other_targets = other_targets[:random.randrange(0, len(other_targets))]
             for ot in other_targets:
@@ -520,10 +520,10 @@ class Firebreath(sp.Effect):
 
     def _cast(self):
         print(f"{BC.MAGENTA}It exhales a great gout of fire!{BC.OFF}")
-        neighbors = self.creature.get_neighbors(self.limb)
+        neighbors = self.limb.creature.get_neighbors(self.limb)
         for limb in neighbors:
             if not sum([isinstance(e, FireDOT) for e in limb.active_effects]):
-                e = FireDOT(creature=self.creature, limb=limb, controller=self.cont)
+                e = FireDOT(casting_limb=self.casting_limb, limb=limb, controller=self.cont)
                 if e.cast():
                     print(f"{C.RED}{limb.name} is caught in the flames!{BC.OFF}")
         return True
