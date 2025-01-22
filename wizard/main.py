@@ -97,12 +97,12 @@ player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.Ring
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 
 # TODO-DONE disable cheats before release
-cheats.skip_level_one(player, t_game)
-cheats.skip_level_two(player, t_game)
-cheats.skip_level_three(player, t_game)
-cheats.skip_level_four(player, t_game)
-cheats.skip_level_five(player, t_game)
-cheats.skip_level_six(player, t_game)
+# cheats.skip_level_one(player, t_game)
+# cheats.skip_level_two(player, t_game)
+# cheats.skip_level_three(player, t_game)
+# cheats.skip_level_four(player, t_game)
+# cheats.skip_level_five(player, t_game)
+# cheats.skip_level_six(player, t_game)
 
 i = interface.Interface(t_game)
 # Game loop- if you use CTRL-C to cheat, just run this to get back into the game when you're ready.
