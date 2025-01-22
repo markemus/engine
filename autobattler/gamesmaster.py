@@ -37,13 +37,13 @@ class Victory(sp.Effect):
 
     def update(self):
         if self.opponent.dead:
-            print(f"{BC.MAGENTA}Congratulations to {self.combatant}'s owner on their victory! Please collect your winnings.{BC.OFF}")
+            print(f"{BC.MAGENTA}Congratulations to {self.combatant.name}'s owner on their victory! Please collect your winnings.{BC.OFF}")
             self.cont.game.char.level += 1
             print(f"{BC.CYAN}{self.cont.game.char.name} has leveled up!{BC.OFF}")
             self.expire()
 
         elif self.combatant.dead:
-            print(f"{BC.MAGENTA}Congratulations to {self.opponent}'s owner on their victory! Please collect your winnings.{BC.OFF}")
+            print(f"{BC.MAGENTA}Congratulations to {self.opponent.name}'s owner on their victory! Please collect your winnings.{BC.OFF}")
             self.expire()
 
 gamesmaster_race = random.choice([Dwarf, Hobbit, Human, Elf, ServantGoblin])

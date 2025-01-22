@@ -7,7 +7,7 @@ from colorist import BrightColor as BC, Color as C
 
 
 class FireDOT(eff.FireDOT):
-    damage = 10
+    damage = 7
 
 
 class Lightning(eff.Lightning):

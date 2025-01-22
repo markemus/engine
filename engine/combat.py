@@ -153,6 +153,25 @@ class Combat:
             else:
                 roll = random.randint(0, 5) + limb.size + mastery
 
+            # Add extra_vision effects to roll
+            extra_vision = False
+            for eye in actor.limb_check("see"):
+                if eye.limb_check("extra_vision"):
+                    extra_vision_effects = []
+                    if hasattr(eye, "extra_vision"):
+                        extra_vision_effects.extend(eye.extra_vision)
+                    for equipment in eye.equipment:
+                        if hasattr(equipment, "extra_vision"):
+                            extra_vision_effects.extend(equipment.extra_vision)
+
+                    for effect in extra_vision_effects:
+                        if sum([isinstance(limb_effect, effect) for limb_effect in limb.active_effects]):
+                            extra_vision = True
+
+            if extra_vision:
+                print(f"{C.RED}{target.name}'s {limb.name} is highlighted in {actor.name}'s vision!{C.OFF}")
+                roll += 1
+
             if roll >= 5:
                 limb = limb
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack is swift and sure.")

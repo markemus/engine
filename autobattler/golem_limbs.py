@@ -1,5 +1,6 @@
 import engine.creature as cr
 import engine.effectsbook as eff
+import engine.item as it
 import autobattler.effectsbook as aeff
 
 from colorist import BrightColor as BC, Color as C
