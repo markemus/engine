@@ -41,6 +41,7 @@ class Interface:
             "M": self.magic,
             "/": self.save,
             "*": self.load,
+            "Z": self.quit,
         }
 
         fight = {
@@ -54,13 +55,15 @@ class Interface:
             "u": self.cont.ungrasp,
             "a": self.cont.attack,
             "M": self.magic,
-            "w": self.move
+            "w": self.move,
+            "Z": self.quit,
         }
 
         dead = {
             "h": self.help,
             "a": self.cont.attack,
             "*": self.load,
+            "Z": self.quit,
         }
 
         self.commands = {
@@ -126,3 +129,8 @@ class Interface:
         self.__init__(i.cont.game)
         self.state = i.state
         print("Save loaded.")
+
+    def quit(self):
+        i = input(f"{C.RED}Are you sure you want to quit (y/n)?{C.OFF} ")
+        if i == "y":
+            exit()
