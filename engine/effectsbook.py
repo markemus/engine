@@ -271,6 +271,9 @@ class Stun(sp.Effect):
 
     def update(self):
         self.limb.creature.stunned = True
+        # Skip announcement on first round
+        if self.rounds != 4:
+            print(f"{C.RED}{self.limb.creature.name} is still stunned.{C.OFF}")
 
     def _expire(self):
         self.limb.creature.stunned = False
