@@ -3,12 +3,15 @@ import random
 import engine.creature as cr
 import assets.namelists as nm
 
+from engine import utils
+
 from assets.dwarf import Dwarf
 from assets.hobbit import Hobbit
 from assets.human import Human
 from assets.elf import Elf
 from assets.goblin import ServantGoblin
 
+from autobattler import golem_ai as gai
 from autobattler import golem_limbs as gl
 
 from colorist import BrightColor as BC, Color as C
@@ -33,6 +36,7 @@ class Golem(cr.creature):
             self.location = char.location
             char.companions.append(self)
             char.golem = self
+            self.owner = char
             self.team = "combatant"
             print(f"{BC.YELLOW}{char.name} deploys {self.name}!{BC.OFF}")
             return True
@@ -65,12 +69,25 @@ class SmallGolem(Golem):
     store_description = f"A golem with small limbs (weaker, but take up less space)."
 
 
+class TorturerGolem(Golem):
+    classname = "torturer"
+    namelist = ["torturer"]
+    baseElem = gl.LargeTorso
+    price = 50
+    suits = []
+    store_description = f"A golem that focuses on torturing its opponent and extending the fight (crowd pleaser)."
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ai = gai.TorturerAI(self)
+
 def generate_golem_l0(location):
     owner_race = random.choice([Dwarf, Hobbit, Human, Elf, ServantGoblin])
     owner = owner_race(location=location)
     owner.team = "neutral"
     golem = random.choice([LargeGolem, SmallGolem])(location=location)
     golem.team = "opponent"
+    golem.owner = owner
     golem.name = random.choice(nm.names["golem"])
     owner.location.creatures.append(owner)
     owner.location.creatures.append(golem)

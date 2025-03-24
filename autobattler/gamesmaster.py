@@ -16,12 +16,12 @@ class Commencement(sp.Effect):
     rounds = 1
     def _cast(self):
         if self.cont.game.char.golem:
-            print(f'"{BC.RED}\n{self.limb.creature}{BC.OFF}: {BC.MAGENTA}Welcome back to the arena! We have an exciting show lined up for you today.{BC.OFF}"')
+            print(f'{BC.RED}{self.limb.creature.name}{BC.OFF}: "{BC.MAGENTA}Welcome back to the arena! We have an exciting show lined up for you today.{BC.OFF}"')
             owner, golem = autobattler.golem.generate_golem_l0(self.limb.creature.location)
-            print(f'"{BC.RED}\n{self.limb.creature}{BC.OFF}: {BC.MAGENTA}We are about to witness a fight between {owner.name}\'s golem {golem.name} and {self.cont.game.char.name}\'s golem {self.cont.game.char.golem.name}. Who\'s ready for a show?{BC.OFF}"')
-            print(f'"{BC.RED}\n{self.limb.creature}{BC.OFF}: {BC.MAGENTA}The match will begin when you are both ready.{BC.OFF}"')
+            print(f'{BC.RED}{self.limb.creature.name}{BC.OFF}: "{BC.MAGENTA}We are about to witness a fight between {owner.name}\'s golem {golem.name} and {self.cont.game.char.name}\'s golem {self.cont.game.char.golem.name}. Who\'s ready for a show?{BC.OFF}"')
+            print(f'{BC.RED}{self.limb.creature.name}{BC.OFF}: "{BC.MAGENTA}The match will begin when you are both ready.{BC.OFF}"')
         else:
-            print(f'"{BC.RED}\n{self.limb.creature}{BC.OFF}: {BC.MAGENTA}Here comes our combatant... but where is his golem? Please come back when you\'re ready to fight."')
+            print(f'{BC.RED}{self.limb.creature.name}{BC.OFF}: "{BC.MAGENTA}Here comes our combatant... but where is his golem? Please come back when you\'re ready to fight."')
 
 
 class Victory(sp.Effect):
@@ -37,13 +37,13 @@ class Victory(sp.Effect):
 
     def update(self):
         if self.opponent.dead:
-            print(f'"{BC.RED}\n{self.limb.creature}{BC.OFF}: {BC.MAGENTA}Congratulations to {self.combatant.name}\'s owner on their victory! Please collect your winnings.{BC.OFF}"')
+            print(f'{BC.RED}{self.limb.creature.name}{BC.OFF}: "{BC.MAGENTA}Congratulations to {self.combatant.owner.name} on their victory! Please collect your winnings.{BC.OFF}"')
             self.cont.game.char.level += 1
             print(f"{BC.CYAN}{self.cont.game.char.name} has leveled up!{BC.OFF}")
             self.expire()
 
         elif self.combatant.dead:
-            print(f'"{BC.RED}\n{self.limb.creature}{BC.OFF}: {BC.MAGENTA}Congratulations to {self.opponent.name}\'s owner on their victory! Please collect your winnings.{BC.OFF}"')
+            print(f'{BC.RED}{self.limb.creature.name}{BC.OFF}: "{BC.MAGENTA}Congratulations to {self.opponent.owner.name} on their victory! Please collect your winnings.{BC.OFF}"')
             self.expire()
 
 gamesmaster_race = random.choice([Dwarf, Hobbit, Human, Elf, ServantGoblin])

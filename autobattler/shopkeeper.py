@@ -11,6 +11,7 @@ from assets.elf import Elf
 from assets.goblin import ServantGoblin
 
 import autobattler.golem_limbs as gl
+import autobattler.g_items as gi
 import autobattler.golem as go
 import autobattler.suits as asu
 
@@ -20,7 +21,7 @@ from colorist import BrightColor as BC, Color as C
 
 # Each level has a different item list
 item_lists = [
-    [go.LargeGolem, go.SmallGolem, *gl.basic_weapons, *gl.basic_defense, *gl.basic_small_limbs, *gl.basic_large_limbs, *gl.modules, *asu.equipment],
+    [go.LargeGolem, go.SmallGolem, go.TorturerGolem, *gi.item_list, *gl.basic_weapons, *gl.basic_defense, *gl.basic_small_limbs, *gl.basic_large_limbs, *gl.modules, *asu.equipment],
 ]
 
 
@@ -60,9 +61,14 @@ class Store(sp.Effect):
                         # Create item
                         if issubclass(article_class, cr.creature):
                             article = article_class(location=None)
-                        else:
+                        # TODO allow separate texture without default color (get color from golem).
+                        elif hasattr(article_class, "colors"):
                             color = random.choice(article_class.colors)
                             texture = random.choice(article_class.textures)
+                            article = article_class(color=color, texture=texture)
+                        else:
+                            color = "unpainted"
+                            texture = "clay"
                             article = article_class(color=color, texture=texture)
 
                         # Buy item

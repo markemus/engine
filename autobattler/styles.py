@@ -12,7 +12,7 @@ from colorist import BrightColor as BC, Color as C
 #  more cash for longer fight
 # TODO announcer- damage summary every round.
 # TODO classes- affect items in shop and AI.
-#  torturer- targets small limbs and extends fight for more crowd favor.
+#  torturer- targets small limbs, disables opponent, and extends the fight for more crowd favor.
 #  tank- draws aggro, uses heavy armor
 #  mage- uses illusions, reduced aggro, no armor
 #  rogue- small limbs, light armor
