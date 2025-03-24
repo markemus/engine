@@ -10,19 +10,25 @@ from colorist import BrightColor as BC, Color as C
 #  more cash for a close fight (so you can rebuild your golem)
 #  extra cash for every enemy limb removed
 #  more cash for longer fight
-# TODO classes- affect items in shop
-#  torturer- targets small limbs and extends fight
+# TODO announcer- damage summary every round.
+# TODO classes- affect items in shop and AI.
+#  torturer- targets small limbs and extends fight for more crowd favor.
 #  tank- draws aggro, uses heavy armor
-#  mage- uses adds, reduced aggro, no armor
+#  mage- uses illusions, reduced aggro, no armor
 #  rogue- small limbs, light armor
+#  tech- devotion causes % chances for magic to malfunction or backfire (in interesting ways?). Same in reverse.
+#  petmaster- has pets that deal damage for it.
 # TODO different combat ais per class (limb targeting strategies and weapon choice)
+# TODO devotion- weapons that deal damage based on how much equipment of certain type golem has.
 # TODO synergies.
 #  TODO-DONE Suck blood from entangled limbs.
-# TODO Heal from fire (spread it everywhere).
+# TODO Heal from fire on self (spread it everywhere).
+#  Weapons that attack limb on fire catch fire themselves.
 #  Fire shield (takes damage and breaks, but heals from fire).
 #  Oil slick that trips enemies that can be lit on fire (anything with oil takes dot).
 #  Acid- like fire, but different synergies. Should blind.
 #  Ice- freeze limbs, like webbing. But maybe makes them "brittle" so they take more damage. Fire removes ice but not webbing.
+#  Slime- puts out fire, digestion damage over time (or heal over time).
 #  Buff damage from damage type
 #  TODO-DONE Slime- coat a limb and reduce damage from it. Acidic. Puts out fire.
 # TODO-DONE Digestive slime- heal yourself for every enemy limb coated in slime. Does a little damage.

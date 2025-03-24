@@ -41,7 +41,6 @@ player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")
 player.home = homeLevel
 t_game.set_char(player)
 
-# TODO-DONE select starting spells for release
 # Character setup
 player.spellbook.append(starter_spell)
 player.spellbook.append(sb.SummonCerberus)
@@ -88,7 +87,6 @@ player.spellbook.append(sb.AWayHome)
 player.spellbook.append(sb.ReleaseMinion)
 # player.spellbook.append(sb.SetHumanity)
 
-# TODO-DONE player.humanity should be 1 for release
 # Player humanity affects which spells they can cast
 player.humanity = 1
 
@@ -96,7 +94,6 @@ player.humanity = 1
 player.subelements[0].subelements[1].subelements[0].subelements[0].equip(su.RingOfMana(color="amethyst", texture="in silver"))
 player.subelements[0].subelements[1].subelements[0].subelements[1].equip(su.RingOfMana(color="lapiz", texture="in silver"))
 
-# TODO-DONE disable cheats before release
 # cheats.skip_level_one(player, t_game)
 # cheats.skip_level_two(player, t_game)
 # cheats.skip_level_three(player, t_game)
