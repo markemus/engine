@@ -12,7 +12,6 @@ from assets.goblin import ServantGoblin
 
 import autobattler.golem_limbs as gl
 import autobattler.g_items as gi
-import autobattler.golem as go
 import autobattler.suits as asu
 
 from colorist import BrightColor as BC, Color as C
@@ -21,7 +20,7 @@ from colorist import BrightColor as BC, Color as C
 
 # Each level has a different item list
 item_lists = [
-    [go.LargeGolem, go.SmallGolem, go.TorturerGolem, *gi.item_list, *gl.basic_weapons, *gl.basic_defense, *gl.basic_small_limbs, *gl.basic_large_limbs, *gl.modules, *asu.equipment],
+    [*gi.item_list, *gl.basic_weapons, *gl.basic_defense, *gl.basic_small_limbs, *gl.basic_large_limbs, *gl.modules, *asu.equipment],
 ]
 
 
