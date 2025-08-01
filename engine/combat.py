@@ -180,7 +180,7 @@ class Combat:
                 limb = limb
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack is swift and sure.")
                 self.attack(actor, target, limb, weapon)
-            elif roll >= 3:
+            elif (roll >= 3) and len(target.get_neighbors(limb)):
                 limb = random.choice(target.get_neighbors(limb))
                 print(f"{C.RED}{actor.name}{C.OFF}'s attack misses narrowly and strikes {BC.YELLOW}{target.name}{BC.OFF}'s {BC.CYAN}{limb.name}{BC.OFF}.")
                 self.attack(actor, target, limb, weapon)
