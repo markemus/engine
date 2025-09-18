@@ -45,9 +45,9 @@ from colorist import BrightColor as BC, Color as C
 cc = {
     "caverns_1": [(GiantRat, 3), (GiantBat, 3), (ShallowGoblin, 4), (None, 2)],
     "caverns_1_gobs": [(ShallowGoblin, 4), (None, 1)],
-    "caverns_2": [(GiantSpider, 1), (DarkElfScout, 4), (ShallowGoblin, 4), (None, 2)],
+    "caverns_2": [(GiantSpider, 1), (DarkElfScout, 4), (ShallowGoblin, 4), (None, 3)],
     "caverns_2_gobs": [(ShallowGoblin, 4), (None, 1)],
-    "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 1)],
+    "caverns_2_elves": [(GiantSpider, 1), (DarkElfScout, 4), (None, 2)],
     "fish": [(BlindCaveFish, 1), (BlindCaveShrimp, 1), (None, 1)],
     "tunnels": [(TunnelWorm, 1)],
     "de_fortress_guards": [(ArmoredGiantSpider, 1), (DarkElfGuard, 3), (DarkElfFairy, 1), (None, 1)],
@@ -165,7 +165,7 @@ class GoblinChiefVillage(GoblinCavernVillage):
 # Cavern (L2)
 class CavernOpenL2(CavernOpen):
     """An open cavern."""
-    creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
+    creature_classes = [cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"], cc["caverns_2"]]
     furniture_classes = [wizard.furniture.GiantMushroom, (wizard.furniture.GoblinGrave, wizard.furniture.DarkElfGrave, None, None)] + CavernOpen.furniture_classes.copy()
 
 
@@ -179,7 +179,7 @@ class DarkElfOutpost(CavernOpenL2):
     name = "dark elf outpost"
     sprite = "D"
     count = (1, 4)
-    creature_classes = [cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"]]
+    creature_classes = [cc["caverns_2_elves"], cc["caverns_2_elves"], cc["caverns_2_elves"]]
     furniture_classes = [wizard.furniture.GiantMushroomWithHammock, wizard.furniture.PupTent, wizard.furniture.Firepit, wizard.furniture.L2Chest]
 
 

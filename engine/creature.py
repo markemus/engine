@@ -523,7 +523,7 @@ class creature:
                     else:
                         print(f"{C.RED}{article.name} cannot be equipped!{C.OFF}")
 
-    # TODO not equipping armor
+    # TODO-DONE not equipping armor
     def auto_equip(self):
         """Automatically put on clothing from surrounding room. Does not have limb_check because controller will
         do that on whichever creature is doing the auto_clothing."""
