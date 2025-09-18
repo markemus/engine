@@ -857,7 +857,7 @@ class CutLimb(sp.Spell):
                     print(f"{BC.MAGENTA}{self.caster.name} cuts the {sublimb.name} off of the {full_limb.name}.{BC.OFF}")
                 return True
 
-
+# TODO if there's not enough mana there should be a message
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 0
@@ -917,6 +917,8 @@ class GraftLimb(CorruptionSpell):
                                 print(f"{C.RED}{self.caster.name}'s humanity decreases!{C.OFF}")
                             self.caster.siphon_tag("mana", mana_cost)
                             return True
+                else:
+                    print(f"{C.RED}{self.caster.name} does not have {mana_cost} mana!{C.OFF}")
         return False
 
 

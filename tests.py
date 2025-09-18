@@ -185,9 +185,11 @@ class TestCastle():
         assert g.subelements[0].subelements[1].equipment[0].armor == 1
         g.auto_equip()
         assert g.subelements[0].subelements[1].equipment[0].armor == 2
+        assert g.subelements[0].subelements[2].equipment[0].armor == 2
         sg.die()
         g.auto_equip()
         assert g.subelements[0].subelements[1].equipment[0].armor == 3
+        assert g.subelements[0].subelements[2].equipment[0].armor == 3
 
 
 class TestGeneral:

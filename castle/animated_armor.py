@@ -8,6 +8,8 @@ class Gem(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     vital = "gem"
+    colors = ["red", "blue", "green", "gold", "orange"]
+    textures = ["glowing"]
     base_hp = 5
     size = 1
     see = 1
@@ -49,6 +51,7 @@ class RHand(cr.Weapon):
     isSurface = True
     appendageRange = (1, 2)
     wears = "right hand"
+    blocker = True
     base_hp = 15
     size = 2
 
@@ -58,6 +61,7 @@ class RArm(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "arm"
+    blocker = True
     base_hp = 40
     size = 2
 
@@ -68,6 +72,7 @@ class LHand(cr.Weapon):
     isSurface = True
     appendageRange = (1, 2)
     wears = "left hand"
+    blocker = True
     base_hp = 15
     size = 2
 
@@ -77,6 +82,7 @@ class LArm(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "arm"
+    blocker = True
     base_hp = 40
     size = 2
 

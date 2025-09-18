@@ -508,17 +508,22 @@ class creature:
                                 if limb.equip(article):
                                     print(f"{BC.CYAN}{self.name} replaces the {other_article.color} {other_article.texture} {other_article.name} with {article.color} {article.texture} {article.name}.{BC.OFF}")
                                     return True
+                                else:
+                                    print(f"{C.RED}{article.name} cannot be equipped!{C.OFF}")
                             else:
                                 print(f"{C.RED}{other_article.name} cannot be replaced!{C.OFF}")
-                                return False
+                        else:
+                            print(f"{C.RED}{other_article.name} has better armor than {article.name}.{C.OFF}")
                     else:
                         print(f"{C.RED}{self.name} is unsure whether to replace {other_article.name} with {article.name}.{C.OFF}")
-                        return False
                 else:
                     if limb.equip(article):
                         print(f"{BC.CYAN}{self.name} dons {article.color} {article.texture} {article.name}.")
                         return True
+                    else:
+                        print(f"{C.RED}{article.name} cannot be equipped!{C.OFF}")
 
+    # TODO not equipping armor
     def auto_equip(self):
         """Automatically put on clothing from surrounding room. Does not have limb_check because controller will
         do that on whichever creature is doing the auto_clothing."""
