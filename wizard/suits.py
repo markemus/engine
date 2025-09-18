@@ -143,7 +143,7 @@ class RingOfMana(i.Item):
     covers = i.Item.covers.copy()
     canwear["finger"] = True
     level = 2
-    base_mana = 5
+    base_mana = 6
     mana = base_mana
     colors = ["sapphire", "ruby", "emerald", "diamond"]
     textures = ["in silver", "in gold", "in platinum"]
@@ -155,7 +155,7 @@ class ManaLocket(i.Item):
     covers = i.Item.covers.copy()
     canwear["body"] = True
     level = 2
-    base_mana = 10
+    base_mana = 12
     mana = base_mana
     colors = ["sapphire", "ruby", "emerald", "diamond"]
     textures = ["in silver", "in gold", "in platinum"]
