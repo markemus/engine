@@ -98,7 +98,8 @@ class TentacleGrowthPotion(I.Potion):
 
         if head:
             print(f"{BC.CYAN}Tentacles sprout from {creature.name}'s {head.name}!{BC.OFF}")
-            head.subelements.append(cl.PTentacle(color="green", texture="slimy", creature=creature))
+            for i in range(1, 4):
+                head.subelements.append(cl.PTentacle(color="green", texture="slimy", creature=creature))
             if hasattr(creature, "humanity"):
                 creature.humanity -= 1
         else:

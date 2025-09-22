@@ -29,7 +29,7 @@ class Leg(cr.Limb):
     isSurface = True
     appendageRange = (8, 9)
     wears = "animal_leg"
-    base_hp = 10
+    base_hp = 7
     size = 2
     amble = 1/4
     _armor = 2
