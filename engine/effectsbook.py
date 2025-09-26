@@ -256,6 +256,7 @@ class Poison(sp.Effect):
 
 class Stun(sp.Effect):
     rounds = 5
+    cast_on_removal = False
     expire_on_removal = True
     allow_duplicates = False
 
@@ -345,7 +346,7 @@ class SuckBlood(sp.Effect):
 class HealAllies(sp.Effect):
     """Heals allies for a small amount every turn. This is an aura that resides on a creature, such as a fairy."""
     desc = "glowing"
-    amount = 2
+    amount = 5
     rounds = "forever"
     expire_on_removal = True
 

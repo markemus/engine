@@ -227,12 +227,12 @@ class Caltrops(CreationSpell):
     rounds = 5
     targets = "caster"
 
-
     def __init__(self, *args, **kwargs):
         self.legs = {}
         super().__init__(*args, **kwargs)
 
     def _cast(self):
+        self.location = self.caster.location
         self.update()
         print(f"{BC.MAGENTA}Enchanted caltrops scatter themselves across the floor.{BC.OFF}")
         return True
@@ -249,7 +249,7 @@ class Caltrops(CreationSpell):
         # First reset amble for all limbs from last round
         self._fix_legs()
         # Then affect some limbs for this round
-        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
+        enemies = [x for x in self.location.creatures if x.team != self.caster.team and x.team != "neutral"]
         for enemy in enemies:
             legs = enemy.subelements[0].limb_check("amble")
             if legs:
@@ -261,6 +261,7 @@ class Caltrops(CreationSpell):
                     leg.amble = 0
 
     def _expire(self):
+        print(f"{BC.MAGENTA}The caltrops disappear.{BC.OFF}")
         self._fix_legs()
 
 
@@ -339,11 +340,12 @@ class TheFloorIsLava(CreationSpell):
     targets = "caster"
 
     def _cast(self):
+        self.location = self.caster.location
         print(f"{BC.MAGENTA}The ground beneath your feet bursts into magical flames!{BC.OFF}")
         return True
 
     def update(self):
-        enemies = [x for x in self.caster.location.creatures if x.team != self.caster.team and x.team != "neutral"]
+        enemies = [x for x in self.location.creatures if x.team != self.caster.team and x.team != "neutral"]
         for enemy in enemies:
             # Flying enemies are unaffected
             if enemy.limb_count("flight") >= 1:
@@ -426,6 +428,7 @@ class SummonSpider(CreationSpell):
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
 
+
 class SummonEtherealHand(CreationSpell):
     name = "Summon Ethereal Hand"
     mana_cost = 8
@@ -448,6 +451,7 @@ class SummonEtherealHand(CreationSpell):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
+
 
 class SummonTentacleMonster(CreationSpell):
     name = "Summon Tentacle Monster"
@@ -511,7 +515,6 @@ class SummonOwlbear(CreationSpell):
             self.target.humanity += 1
             print(f"{C.RED}{self.target.name}'s humanity increases!{C.OFF}")
         return True
-
 
 
 class SummonExcalibur(CreationSpell):
@@ -857,7 +860,8 @@ class CutLimb(sp.Spell):
                     print(f"{BC.MAGENTA}{self.caster.name} cuts the {sublimb.name} off of the {full_limb.name}.{BC.OFF}")
                 return True
 
-# TODO if there's not enough mana there should be a message
+
+# TODO-DONE if there's not enough mana there should be a message
 class GraftLimb(CorruptionSpell):
     name = "Graft Limb"
     mana_cost = 0
@@ -1170,11 +1174,12 @@ class PoisonGas(CorruptionSpell):
     targets = "caster"
 
     def _cast(self):
+        self.location = self.caster.location
         print(f"{BC.MAGENTA}A magical cloud of poison gas fills the room!{BC.OFF}")
         return True
 
     def update(self):
-        for enemy in [c for c in self.caster.location.creatures if c.team != self.caster.team and c.team != "neutral" and c.can_breathe]:
+        for enemy in [c for c in self.location.creatures if c.team != self.caster.team and c.team != "neutral" and c.can_breathe]:
             print(f"{BC.MAGENTA}{enemy.name} chokes on the poison gas!{BC.OFF}")
             gas_attack = eff.Poison(casting_limb=None, limb=enemy.subelements[0], controller=self.cont)
             gas_attack.cast()

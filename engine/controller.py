@@ -124,7 +124,7 @@ class Controller:
             def pfunc(str, invobj):
                 ex_str = ""
                 if hasattr(invobj, "vis_inv") and invobj.vis_inv:
-                    ex_str += f" ("+ ", ".join([x.name for x in invobj.vis_inv]) +")"
+                    ex_str += f" (" + ", ".join([x.name for x in invobj.vis_inv]) + ")"
                 if hasattr(invobj, "equipment") and invobj.equipment:
                     ex_str += f" ({', '.join([x.name for x in invobj.equipment])})"
                 # if hasattr(invobj, "grasped") and invobj.grasped:
@@ -176,6 +176,7 @@ class Controller:
         if self.game.char.location.borders[">"]:
             print(f"{BC.CYAN}There is an exit here.{BC.OFF}")
 
+    # TODO-DECIDE clear active effects?
     def north(self):
         if self.game.char.leave("n"):
             self.cast_prebattle_effects()
@@ -223,6 +224,7 @@ class Controller:
                 return False
         return True
 
+    # TODO-DECIDE WONTFIX effects should be cast when a creature is summoned as well.
     def cast_prebattle_effects(self):
         """Casts the prebattle effects that a creature has available to it."""
         for creature in self.game.char.location.creatures:
