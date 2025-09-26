@@ -200,7 +200,7 @@ class Flashbang(CreationSpell):
     mana_cost = 3
     humanity_min = -5
     description = f"Temporarily blind your enemies in the area of effect. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 5
+    rounds = 10
     targets = "caster"
 
     def _cast(self):
@@ -224,7 +224,7 @@ class Caltrops(CreationSpell):
     mana_cost = 5
     humanity_min = -10
     description = f"Causes enemies to fall. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 5
+    rounds = 10
     targets = "caster"
 
     def __init__(self, *args, **kwargs):
@@ -336,7 +336,7 @@ class TheFloorIsLava(CreationSpell):
     mana_cost = 7
     humanity_min = -5
     description = f"Set the ground on fire. {C.BLUE}(>{humanity_min}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 20
+    rounds = "forever"
     targets = "caster"
 
     def _cast(self):
@@ -1170,7 +1170,7 @@ class PoisonGas(CorruptionSpell):
     mana_cost = 10
     humanity_max = -7
     description = f"Fill the room with magical poison gas. {C.RED}(<{humanity_max}) {BC.CYAN}[{mana_cost}]{C.OFF}"
-    rounds = 5
+    rounds = "forever"
     targets = "caster"
 
     def _cast(self):
