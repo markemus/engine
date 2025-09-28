@@ -17,6 +17,7 @@ class Fang(cr.Weapon):
     textures = ["enameled"]
     weapon_effects = [eff.Vampirism]
 
+
 class Snout(cr.Limb):
     name = "snout"
     subelement_classes = [Fang, cl.Tongue]
@@ -28,6 +29,7 @@ class Snout(cr.Limb):
     eats = 1
     strength = 1
 
+
 class Head(cr.Limb):
     name = "head"
     subelement_classes = [cl.Ear, cl.Eye, Snout]
@@ -37,6 +39,7 @@ class Head(cr.Limb):
     vital = "head"
     base_hp = 10
     size = 1
+
 
 class Wing(cr.Limb):
     name = "wing"
@@ -50,6 +53,7 @@ class Wing(cr.Limb):
     colors = ["thin"]
     textures = ["skin"]
 
+
 class Torso(cr.Limb):
     name = "torso"
     subelement_classes = [Head, Wing]
@@ -58,6 +62,7 @@ class Torso(cr.Limb):
     wears = "animal_body"
     base_hp = 15
     size = 2
+
 
 class GiantBat(cr.creature):
     """A giant flying rat. Its bite drains its enemy's blood and heals it."""
