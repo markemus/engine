@@ -292,6 +292,33 @@ class StunForSure(sp.Effect):
             self.limb.creature.stunned = True
             print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
             return True
+        else:
+            print(f"{C.RED}{self.limb.creature.name} ignores it.{C.OFF}")
+
+    def update(self):
+        self.limb.creature.stunned = True
+
+    def _expire(self):
+        self.limb.creature.stunned = False
+        print(f"{C.RED}{self.limb.creature.name} is no longer stunned.{C.OFF}")
+
+
+class StunIfUnarmored(sp.Effect):
+    """Stuns only if it hits an unarmored limb."""
+    rounds = 5
+    expire_on_removal = True
+    allow_duplicates_on_creature = False
+
+    def _cast(self):
+        if self.limb.armored <= 1:
+            if self.limb.creature.can_stun:
+                self.limb.creature.stunned = True
+                print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
+                return True
+            else:
+                print(f"{C.RED}{self.limb.creature.name} ignores it.{C.OFF}")
+        else:
+            print(f"{C.RED}The taser is blocked by armor!{C.OFF}")
 
     def update(self):
         self.limb.creature.stunned = True

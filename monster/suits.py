@@ -55,7 +55,7 @@ class CagePole(i.Item):
 class Taser(i.Item):
     name = "taser"
     damage = 3.5
-    weapon_effects = [eff.StunForSure]
+    weapon_effects = [eff.StunIfUnarmored]
 
 
 lab_coat = {
