@@ -4,9 +4,11 @@ from engine.styles import wall, single_wall, floor, water, mirrored_water, lakeb
 import monster.furniture as fur
 from monster.giant_rat import GiantRat
 from monster.human import LabAssistant
+from monster.monster import MonsterHuman
 
 cc = {
     "laboratory": [(GiantRat, 3), (LabAssistant, 3), (None, 2)],
+    "lab_monster": [(MonsterHuman, 3), (None, 2)]
 }
 
 
@@ -16,7 +18,7 @@ class Laboratory(pl.Place):
     count = (1, 2)
     colors = ["white"]
     textures = ["tiled"]
-    creature_classes = [cc["laboratory"], cc["laboratory"], cc["laboratory"], cc["laboratory"]]
+    creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
     furniture_classes = [fur.Table, fur.BrokenCage]
     subelement_classes = [wall, floor]
 

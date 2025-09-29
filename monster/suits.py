@@ -11,6 +11,10 @@ class Labcoat(i.Item):
     level = 2
     descends = 1
 
+class CagePole(i.Item):
+    name = "cage pole"
+    damage = 7
+
 
 
 lab_coat = {
@@ -21,6 +25,18 @@ lab_coat = {
     "color": ["white"],
     "color_scheme": "same",
     "texture": ["cloth"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+starter_weapon = {
+    "grasps": {
+        "right hand": CagePole,
+    },
+    "wears": {},
+    "color": ["black"],
+    "color_scheme": "same",
+    "texture": ["steel"],
     "texture_scheme": "same",
     "full": True,
 }

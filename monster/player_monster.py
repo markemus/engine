@@ -5,6 +5,8 @@ import assets.commonlimbs as cl
 import assets.namelists as nm
 import assets.suits as asu
 
+import monster.suits as msu
+
 
 class Head(cr.Limb):
     name = "head"
@@ -40,6 +42,7 @@ class Spinneret(cr.Weapon):
     subelement_classes = []
     isSurface = True
     appendageRange = (2, 3)
+    blockable = False
     _damage = 0
     base_hp = 5
     weapon_effects = [eff.Webbed]
@@ -69,15 +72,7 @@ class Arachnid(cr.creature):
     baseElem = Thorax
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
-    suits = [asu.backpack]
+    suits = [asu.backpack, msu.starter_weapon]
 
 
-# class Human(cr.creature):
-#     classname = "man"
-#     team = "neutral"
-#     namelist = nm.names["human"]
-#     baseElem = Torso
-#     colors = ["black", "white", "brown", "tan"]
-#     textures = ["skinned"]
-#     suits = [asu.plainsuit, asu.backpack]
 # TODO separate color for human torso and sublimbs

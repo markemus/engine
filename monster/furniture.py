@@ -13,5 +13,5 @@ class Table(pl.DisplayFurniture):
 class BrokenCage(pl.Furniture):
     name = "broken cage"
     count = (1, 2)
-    color = ["gray", "black"]
+    color = ["black"]
     texture = ["steel"]

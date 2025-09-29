@@ -64,6 +64,7 @@ class Spinneret(cr.Weapon):
     name = "spinneret"
     subelement_classes = []
     isSurface = True
+    blockable = False
     appendageRange = (2, 3)
     _damage = 0
     base_hp = 5
