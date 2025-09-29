@@ -1,6 +1,8 @@
 from engine import place as pl
 from engine.styles import wall, single_wall, floor, water, mirrored_water, lakebed, pillar, door, channel, gateway, dwarven_gateway, staircase
 
+import assets.furniture as afur
+
 import monster.furniture as fur
 from monster.giant_rat import GiantRat
 from monster.human import LabAssistant, GuardL1
@@ -26,13 +28,23 @@ class StarterLaboratory(pl.Place):
 class Laboratory(pl.Place):
     name = "laboratory"
     sprite = "L"
-    count = (5, 10)
+    count = (3, 7)
     colors = ["white"]
     textures = ["tiled"]
     creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
     furniture_classes = [fur.LabTable]
     subelement_classes = [wall, floor]
 
+
+class Cell(pl.Place):
+    name = "cell"
+    sprite = "C"
+    count = (2, 5)
+    colors = ["unpainted", "grimy", "grey"]
+    textures = ["stone", "concrete"]
+    creature_classes = [cc["lab_monster"]]
+    furniture_classes = [afur.Manacles, afur.Puddle, afur.Toilet, afur.BedPrison]
+    subelement_classes = [wall, floor]
 
 class GuardRoom(pl.Place):
     name = "guardroom"

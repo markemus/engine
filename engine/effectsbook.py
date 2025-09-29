@@ -261,14 +261,16 @@ class Stun(sp.Effect):
     allow_duplicates = False
 
     def _cast(self):
-        if self.limb.creature.can_stun:
-            head_wears = ["head", "animal_head", "spider_head"]
-            if self.limb.wears in head_wears:
-                other_heads = [x for x in self.limb.creature.subelements[0].limb_check("wears") if x is not self.limb and x.wears in head_wears]
-                if not other_heads:
+        head_wears = ["head", "animal_head", "spider_head"]
+        if self.limb.wears in head_wears:
+            other_heads = [x for x in self.limb.creature.subelements[0].limb_check("wears") if x is not self.limb and x.wears in head_wears]
+            if not other_heads:
+                if self.limb.creature.can_stun:
                     self.limb.creature.stunned = True
                     print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
                     return True
+                else:
+                    print(f"{C.RED}{self.limb.creature.name} is immune to stunning.{C.OFF}")
 
     def update(self):
         self.limb.creature.stunned = True
@@ -293,7 +295,7 @@ class StunForSure(sp.Effect):
             print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
             return True
         else:
-            print(f"{C.RED}{self.limb.creature.name} ignores it.{C.OFF}")
+            print(f"{C.RED}{self.limb.creature.name} is immune to stunning.{C.OFF}")
 
     def update(self):
         self.limb.creature.stunned = True
@@ -316,9 +318,9 @@ class StunIfUnarmored(sp.Effect):
                 print(f"{C.RED}{self.limb.creature.name} is stunned!{C.OFF}")
                 return True
             else:
-                print(f"{C.RED}{self.limb.creature.name} ignores it.{C.OFF}")
+                print(f"{C.RED}{self.limb.creature.name} is immune to stunning.{C.OFF}")
         else:
-            print(f"{C.RED}The taser is blocked by armor!{C.OFF}")
+            print(f"{C.RED}The attack is blocked by armor!{C.OFF}")
 
     def update(self):
         self.limb.creature.stunned = True

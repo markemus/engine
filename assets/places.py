@@ -31,7 +31,7 @@ class Cell(pl.Place):
     colors = ["unpainted", "grimy", "grey"]
     textures = ["stone", "concrete"]
     creature_classes = []
-    furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet]
+    furniture_classes = [fur.Manacles, fur.Puddle, fur.Toilet, fur.BedPrison]
     subelement_classes = [wall, floor]
 
 class Den(pl.Place):

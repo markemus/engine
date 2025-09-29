@@ -7,7 +7,7 @@ from colorist import BrightColor as BC, Color as C
 
 class LabL1:
     level_text = f"""{BC.BLUE}You are a monster. Once you were human, but the experiments have turned you into something else entirely. Now your chance for vengeance has arrived, and you will make them rue the day they kidnapped you from your peaceful home and turned you into this... thing.\n\nYou can never go back. You might as well become the monster they wanted you to be.{BC.OFF}"""
-    room_classes = [monster.places.Laboratory]
+    room_classes = [monster.places.Laboratory, monster.places.Cell]
     start_room = monster.places.StarterLaboratory
     end_room = monster.places.GuardRoom
     algorithm = "labyrinth"
