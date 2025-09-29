@@ -61,6 +61,7 @@ class Branch(pl.DisplayFurniture):
     color = ["green", "orange", "red"]
     texture = ["leafy"]
     vis_collections = [(fruit, (1, 2))]
+
 class TreeTrunk(pl.Furniture):
     name = "trunk"
     count = (1, 2)
