@@ -13,8 +13,7 @@ class Labcoat(i.Item):
 
 class CagePole(i.Item):
     name = "cage pole"
-    damage = 7
-
+    damage = 5
 
 
 lab_coat = {

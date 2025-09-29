@@ -19,7 +19,7 @@ class StarterLaboratory(pl.Place):
     colors = ["white"]
     textures = ["tiled"]
     creature_classes = [cc["laboratory"], cc["laboratory"]]
-    furniture_classes = [fur.Table, fur.BrokenCage]
+    furniture_classes = [fur.LabTable, fur.BrokenCage]
     subelement_classes = [wall, floor]
 
 class Laboratory(pl.Place):
@@ -29,7 +29,7 @@ class Laboratory(pl.Place):
     colors = ["white"]
     textures = ["tiled"]
     creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
-    furniture_classes = [fur.Table]
+    furniture_classes = [fur.LabTable]
     subelement_classes = [wall, floor]
 
 
