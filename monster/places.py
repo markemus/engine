@@ -8,18 +8,28 @@ from monster.monster import MonsterHuman
 
 cc = {
     "laboratory": [(GiantRat, 3), (LabAssistant, 3), (None, 2)],
-    "lab_monster": [(MonsterHuman, 3), (None, 2)]
+    "lab_monster": [(MonsterHuman, 3), (None, 2)],
 }
 
 
-class Laboratory(pl.Place):
-    name = "lab"
-    sprite = "L"
+class StarterLaboratory(pl.Place):
+    name = "laboratory"
+    sprite = "S"
     count = (1, 2)
     colors = ["white"]
     textures = ["tiled"]
-    creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
+    creature_classes = [cc["laboratory"], cc["laboratory"]]
     furniture_classes = [fur.Table, fur.BrokenCage]
+    subelement_classes = [wall, floor]
+
+class Laboratory(pl.Place):
+    name = "laboratory"
+    sprite = "L"
+    count = (5, 10)
+    colors = ["white"]
+    textures = ["tiled"]
+    creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
+    furniture_classes = [fur.Table]
     subelement_classes = [wall, floor]
 
 

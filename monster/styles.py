@@ -6,9 +6,9 @@ from colorist import BrightColor as BC, Color as C
 
 
 class LabL1:
-    level_text = f"""{BC.BLUE}You are a monster. Once you might have been human, but the experiments have turned you into something else entirely. Now however your chance for vengeance has arrived, and you will make them rue the day they kidnapped you from your peaceful home and turned you into this... thing.\n\nYou can never go back. You might as well become the monster they wanted you to be.{BC.OFF}"""
-    room_classes = []
-    start_room = monster.places.Laboratory
+    level_text = f"""{BC.BLUE}You are a monster. Once you were human, but the experiments have turned you into something else entirely. Now your chance for vengeance has arrived, and you will make them rue the day they kidnapped you from your peaceful home and turned you into this... thing.\n\nYou can never go back. You might as well become the monster they wanted you to be.{BC.OFF}"""
+    room_classes = [monster.places.Laboratory]
+    start_room = monster.places.StarterLaboratory
     end_room = monster.places.GuardRoom
     algorithm = "labyrinth"
     creature_classes = []
@@ -22,12 +22,12 @@ class Monster:
     links = []
     start_splash = f"""
     ------------------------
-    |       {C.RED}They Made{C.OFF}       |
-    |          {C.RED}a{C.OFF}          |   
-    |       {C.RED}Mistake{C.OFF}      |
+    |       {C.RED}They Made{C.OFF}      |
+    |          {C.RED} A{C.OFF}          |   
+    |        {C.RED}Mistake{C.OFF}       |
     |                      |
-    |  {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}   |
-    |     by Markemus      |
+    |   {C.BLUE}an {BC.CYAN}EverRogue{BC.OFF} {C.BLUE}game{C.OFF}  |
+    |      by Markemus     |
     ------------------------
         """
     # This will display on game over

@@ -31,9 +31,9 @@ i = interface.Interface(t_game)
 while True:
     i.command()
 
-# TODO club tail
+# TODO-DONE club tail
 # TODO slime thrower (weakens and digests)
-# TODO vampiric teeth
+# TODO-DONE vampiric teeth
 # TODO blinding mist generator
 # TODO blind fighting creatures (hearing)
 # TODO devotion weapons (fire, slime, bleed, poison, for you and enemies)

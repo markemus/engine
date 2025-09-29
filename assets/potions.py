@@ -148,3 +148,19 @@ class PotionOfMana(I.Potion):
             if (mana_equipment.mana < mana_equipment.base_mana) and missing_mana:
                 mana_equipment.mana += missing_mana
                 print(f"{BC.CYAN}{mana_equipment.name}{BC.OFF} recovers ({missing_mana}) mana.")
+
+
+class PotionOfBaseMana(I.Potion):
+    """Increases the base mana of the drinker."""
+    name = "Potion of Increased Mana"
+    colors = ["blue"]
+    textures = ["sparkling"]
+    amount = 5
+
+    def effect(self, creature):
+        torso = creature.subelements[0]
+        if hasattr(torso, "mana"):
+            torso.mana += self.amount
+        else:
+            torso.mana = self.amount
+        print(f"{BC.MAGENTA}{creature.name}'s mana increases by {self.amount}!{BC.OFF}")
