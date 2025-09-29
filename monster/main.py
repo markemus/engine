@@ -43,5 +43,8 @@ while True:
 # TODO negative side effect weapons (light you on fire, blind you, poison you, bleed you). "damaged" weapon
 # TODO diseases (weaken, rot, blind, deafen, effect is permanent until cured and spread and worsen)
 # TODO weapons that strengthen as fight goes on
+# TODO potions that strengthen but also poison
 # TODO focus weapons that grow in strength when attacking the same limb repeatedly
 # TODO dark rooms (everyone's blind unless nightsight or fire (can only see burning limb))
+
+# TODO blood magic (different game). Could work for weapons (weapon effect drains attacker's blood).
