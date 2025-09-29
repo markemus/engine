@@ -18,7 +18,7 @@ class StarterLaboratory(pl.Place):
     count = (1, 2)
     colors = ["white"]
     textures = ["tiled"]
-    creature_classes = [cc["laboratory"], cc["laboratory"]]
+    creature_classes = []
     furniture_classes = [fur.LabTable, fur.BrokenCage]
     subelement_classes = [wall, floor]
 

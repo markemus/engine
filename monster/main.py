@@ -16,8 +16,11 @@ os.system("color")
 t_game = game.Game("They Made A Mistake", styles.Monster)
 firstLevel = t_game.level_list[0]
 
-player = player_monster.Arachnid(location=firstLevel.start)
+player = player_monster.PlayerMonster(location=firstLevel.start)
 player.team = "escapee"
+player.humanity = 1
+player.subelements[0].base_mana = 5
+player.subelements[0].mana = 5
 firstLevel.start.creatures.append(player)
 
 player.spellbook.append(sb.CutLimb)

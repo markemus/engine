@@ -159,8 +159,10 @@ class PotionOfBaseMana(I.Potion):
 
     def effect(self, creature):
         torso = creature.subelements[0]
-        if hasattr(torso, "mana"):
+        if hasattr(torso, "base_mana"):
+            torso.base_mana += self.amount
             torso.mana += self.amount
         else:
+            torso.base_mana = self.amount
             torso.mana = self.amount
         print(f"{BC.MAGENTA}{creature.name}'s mana increases by {self.amount}!{BC.OFF}")

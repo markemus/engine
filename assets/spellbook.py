@@ -906,6 +906,7 @@ class GraftLimb(CorruptionSpell):
                             # Stop limbs from being grafted back on repeatedly- once only
                             for limb in graft_limb.limb_check("name"):
                                 limb.resurrected = True
+                                limb.creature = self.target
                                 # limb.mana_cost = math.floor((limb.size / 3) * 100) / 100
                                 limb.mana_cost = (limb.size / 3)
                                 # Special case for vampirism

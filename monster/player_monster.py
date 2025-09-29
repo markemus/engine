@@ -65,10 +65,10 @@ class Thorax(cr.Limb):
     base_hp = 30
     size = 3
 
-class Arachnid(cr.creature):
-    classname = "arachnid"
-    team = "dark elf"
-    namelist = nm.names["elf"]
+class PlayerMonster(cr.creature):
+    classname = "monster"
+    team = "escapee"
+    namelist = nm.names["human"]
     baseElem = Thorax
     colors = ["black", "brindled", "spotted", "brown", "rust"]
     textures = ["furred"]
