@@ -46,6 +46,7 @@ class Effect:
     expire_on_removal = False
     cast_on_removal = True
     allow_duplicates = True
+    allow_duplicates_on_creature = True
     expired = False
 
     def __init__(self, casting_limb, limb, controller):
@@ -58,6 +59,13 @@ class Effect:
         a spell."""
         if not self.allow_duplicates:
             if sum([isinstance(x, self.__class__) for x in self.limb.active_effects]):
+                return False
+
+        if not self.allow_duplicates_on_creature:
+            active_effects = []
+            for limb in self.limb.creature.limb_check("name"):
+                active_effects.extend(limb.active_effects)
+            if sum([isinstance(x, self.__class__) for x in active_effects]):
                 return False
 
         if not self.cast_on_removal:

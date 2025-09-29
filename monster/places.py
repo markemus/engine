@@ -3,12 +3,13 @@ from engine.styles import wall, single_wall, floor, water, mirrored_water, lakeb
 
 import monster.furniture as fur
 from monster.giant_rat import GiantRat
-from monster.human import LabAssistant
+from monster.human import LabAssistant, GuardL1
 from monster.monster import MonsterHuman
 
 cc = {
     "laboratory": [(GiantRat, 3), (LabAssistant, 3), (None, 2)],
     "lab_monster": [(MonsterHuman, 3), (None, 2)],
+    "lab_guard": [(GuardL1, 1)],
 }
 
 
@@ -39,6 +40,6 @@ class GuardRoom(pl.Place):
     count = (1, 2)
     colors = ["black", "gold", "red"]
     textures = ["painted"]
-    creature_classes = []
+    creature_classes = [cc["lab_guard"]]
     furniture_classes = []
     subelement_classes = [wall, floor]

@@ -285,7 +285,7 @@ class StunForSure(sp.Effect):
     """Cast this effect on creature.subelements[0]."""
     rounds = 5
     expire_on_removal = True
-    allow_duplicates = False
+    allow_duplicates_on_creature = False
 
     def _cast(self):
         if self.limb.creature.can_stun:

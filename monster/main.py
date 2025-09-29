@@ -19,8 +19,8 @@ firstLevel = t_game.level_list[0]
 player = player_monster.PlayerMonster(location=firstLevel.start)
 player.team = "escapee"
 player.humanity = 1
-player.subelements[0].base_mana = 5
-player.subelements[0].mana = 5
+player.subelements[0].base_mana = 3
+player.subelements[0].mana = 3
 firstLevel.start.creatures.append(player)
 
 player.spellbook.append(sb.CutLimb)

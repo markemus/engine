@@ -155,7 +155,7 @@ class PotionOfBaseMana(I.Potion):
     name = "Potion of Increased Mana"
     colors = ["blue"]
     textures = ["sparkling"]
-    amount = 5
+    amount = 3
 
     def effect(self, creature):
         torso = creature.subelements[0]
