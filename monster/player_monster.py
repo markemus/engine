@@ -1,27 +1,83 @@
 import engine.creature as cr
+import engine.effectsbook as eff
+
 import assets.commonlimbs as cl
 import assets.namelists as nm
 import assets.suits as asu
 
-class Head(cl.Head):
-    # optional beard for humans
-    subelement_classes = cl.Head.subelement_classes.copy() + [(cl.Beard, None)]
+
+class Head(cr.Limb):
+    name = "head"
+    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, cl.Jaw]
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "head"
+    vital = "head"
+    base_hp = 15
+    size = 2
 
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, cl.RArm, cl.LArm, cl.Leg]
+    subelement_classes = [Head, cl.RArm, cl.LArm]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
-    base_hp = 40
+    base_hp = 35
     size = 3
 
+class Leg(cr.Limb):
+    name = "leg"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (8, 9)
+    wears = "spider_leg"
+    base_hp = 10
+    size = 2
+    amble = 1/4
 
-class Human(cr.creature):
-    classname = "man"
-    team = "neutral"
-    namelist = nm.names["human"]
-    baseElem = Torso
-    colors = ["black", "white", "brown", "tan"]
-    textures = ["skinned"]
-    suits = [asu.plainsuit, asu.backpack]
+class Spinneret(cr.Weapon):
+    name = "spinneret"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (2, 3)
+    _damage = 0
+    base_hp = 5
+    weapon_effects = [eff.Webbed]
+
+class Abdomen(cr.Limb):
+    name = "abdomen"
+    subelement_classes = [Spinneret]
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "spider_abdomen"
+    base_hp = 20
+    size = 3
+
+class Thorax(cr.Limb):
+    name = "thorax"
+    subelement_classes = [Torso, Leg, Abdomen]
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "spider_body"
+    base_hp = 30
+    size = 3
+
+class Arachnid(cr.creature):
+    classname = "arachnid"
+    team = "dark elf"
+    namelist = nm.names["elf"]
+    baseElem = Thorax
+    colors = ["black", "brindled", "spotted", "brown", "rust"]
+    textures = ["furred"]
+    suits = [asu.backpack]
+
+
+# class Human(cr.creature):
+#     classname = "man"
+#     team = "neutral"
+#     namelist = nm.names["human"]
+#     baseElem = Torso
+#     colors = ["black", "white", "brown", "tan"]
+#     textures = ["skinned"]
+#     suits = [asu.plainsuit, asu.backpack]
+# TODO separate color for human torso and sublimbs
