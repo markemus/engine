@@ -372,6 +372,7 @@ class creature:
     # subelements = []         # elements of creature
     location = None   # name of Place where creature is- object
     aggressive = True
+    hivemind = False
     dead = False
     can_transform = True
     can_fear = True

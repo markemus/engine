@@ -32,6 +32,9 @@ class wall(pl.Element):
 class single_wall(wall):
     count = (1, 2)
 
+class double_wall(wall):
+    count = (2, 3)
+
 class pillar(pl.Element):
     name = "pillar"
     count = (8, 9)
@@ -82,6 +85,14 @@ class dwarven_gateway(pl.Element):
     printcolor = C.RED
     colors = ["carved", "engraved", "etched", "scrolled"]
     textures = ["granite", "obsidian", "marble"]
+
+class passage(pl.Element):
+    name = "passage"
+    sprite = "O"
+    printcolor = C.RED
+    colors = ["white"]
+    textures = ["painted"]
+
 
 class staircase(pl.Element):
     name = "staircase"

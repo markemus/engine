@@ -560,3 +560,27 @@ class Firebreath(sp.Effect):
                 if e.cast():
                     print(f"{C.RED}{limb.name} is caught in the flames!{BC.OFF}")
         return True
+
+
+class HiveMind(sp.Effect):
+    desc = "vibrating"
+    amount = .5
+    rounds = "forever"
+    expire_on_removal = True
+
+    def _cast(self):
+        print(f"{BC.MAGENTA}{self.limb.creature.name} vibrates in sympathy with its fellows!{BC.OFF}")
+        self.strength_limbs = self.limb.creature.limb_check("strength")
+        return True
+
+    def update(self):
+        hive = [c for c in self.limb.creature.location.creatures if c.team == self.limb.creature.team and c.hivemind]
+        for limb in self.strength_limbs:
+            if not hasattr(limb, "orig_strength"):
+                limb.orig_strength = limb.strength
+            limb.strength = limb.orig_strength * self.amount * len(hive)
+
+    def expire(self):
+        print(f"{BC.MAGENTA}{self.limb.creature.name} stops vibrating.{BC.OFF}")
+        for limb in self.strength_limbs:
+            limb.strength = limb.orig_strength

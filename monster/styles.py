@@ -15,11 +15,21 @@ class LabL1:
 
 LevelStyle.register(LabL1)
 
+class MazeL2:
+    level_text = f"""{BC.BLUE}You've escaped from the lab, but you find yourself trapped in an endless maze. Something strange is going on here...{BC.OFF}"""
+    room_classes = [monster.places.MazeHallway]
+    start_room = monster.places.MazeEntrance
+    end_room = monster.places.MazeHallway
+    algorithm = "labyrinth"
+    creature_classes = []
+
+LevelStyle.register(MazeL2)
+
 class Monster:
     # levels will spawn in this order
-    levelorder = [LabL1]
+    levelorder = [LabL1, MazeL2]
     # Doors will be added linking these levels together- level 0 to level 1, level 1 to level 2, etc.
-    links = []
+    links = [(0, 1)]
     start_splash = f"""
     ------------------------
     |       {C.RED}They Made{C.OFF}      |

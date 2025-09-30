@@ -94,7 +94,3 @@ class GiantRat(cr.creature):
     colors = ["gray", "black", "brown"]
     textures = ["furred"]
     suits = []
-
-class GiantRatCooked(GiantRat):
-    colors = ["red", "charred", "blackened"]
-    textures = ["meat"]

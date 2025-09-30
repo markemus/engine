@@ -14,7 +14,8 @@ os.system("color")
 
 # Generate a game using the Wizard template.
 t_game = game.Game("They Made A Mistake", styles.Monster)
-firstLevel = t_game.level_list[0]
+firstLevel = t_game.level_list[1]
+t_game.current_level = firstLevel
 
 player = player_monster.PlayerMonster(location=firstLevel.start)
 player.team = "escapee"
@@ -46,5 +47,7 @@ while True:
 # TODO potions that strengthen but also poison
 # TODO focus weapons that grow in strength when attacking the same limb repeatedly
 # TODO dark rooms (everyone's blind unless nightsight or fire (can only see burning limb))
+# TODO hive rats (stronger the more there are)
+# TODO challenge levels- environmental hazards. Like portal.
 
 # TODO blood magic (different game). Could work for weapons (weapon effect drains attacker's blood).
