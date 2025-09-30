@@ -9,6 +9,7 @@ names = {
     "goblin": ["Reshgar", "Shamrath", "Imptor", "Zagroth", "Marosh", "Eilim", "Hanand", "Sharog", "Murgur", "Amroth", "Kailin", "Meex", "Ralosh", "Loth", "Sharg"],
     "hobbit": ["Mumpto", "Hamlin", "Gooby", "Grint", "Smit", "Rag", "Pap", "Hamwit", "Rocko"],
     "human": ["Emen", "Rami", "Sagden", "Merind", "Hom", "Shriv", "Smith", "Rimtin", "Arthe", "Sinjin", "Mirac", "Arhun"],
+    "greek": ["Odysseus", "Aesop", "Jason", "Leonidas", "Lysander", "Nicanor", "Pericles", "Ptolemy", "Xenophon"],
     "troll": ["Arggh", "Grargh", "Erff", "Smurr", "Urd", "Marg", "Sharm", "Plumb", "Burg", "Harf", "Kersh"],
     "eldritch": ["Krrzt", "Mnuthe", "Ftubh", "Mrzath", "Kbul", "Rathe", "Fzzrth", "Amrrsh", "Gzntch", "Ftaghn"],
     "spider": ["Adonimala", "Septisibula", "Mandicopol", "Sebetina", "Marcopistimun", "Hanadisima", "Samhedin", "Menisthanine", "Hornimustula", "Arathinese", "Aranisteni", "Corpusula", "Araanthiros"],

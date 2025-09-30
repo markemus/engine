@@ -252,6 +252,33 @@ class Tentacle(cr.Weapon):
     _damage = 10
     weapon_effects = [eff.Entangled]
 
+# Large limbs- for giant creatures
+class LargeRHand(RHand):
+    base_hp = int(RHand.base_hp * 2)
+
+class LargeRArm(RArm):
+    subelement_classes = [LargeRHand]
+    base_hp = int(RArm.base_hp * 2)
+    strength = 1.5
+
+class LargeLHand(LHand):
+    base_hp = int(LHand.base_hp * 2)
+
+class LargeLArm(LArm):
+    subelement_classes = [LargeLHand]
+    base_hp = int(LArm.base_hp * 2)
+    strength = 1.5
+
+class LargeFoot(Foot):
+    base_hp = int(Foot.base_hp * 2)
+
+class LargeLeg(Leg):
+    subelement_classes = [LargeFoot]
+    base_hp = int(Leg.base_hp * 2)
+
+class LargeHead(Head):
+    base_hp = int(Head.base_hp * 2)
+
 
 # Small limbs- for smaller creatures
 class SmallRHand(RHand):

@@ -89,7 +89,7 @@ class HiveRat(cr.creature):
     """These creatures share a single mind, growing stronger when in the presence of others of their kind."""
     classname = "hive rat"
     aggressive = True
-    hivemind = True
+    hivemind = "rat"
     team = "prey"
     namelist = ["hive rat"]
     baseElem = Torso

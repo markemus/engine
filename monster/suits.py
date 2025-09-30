@@ -57,6 +57,11 @@ class Taser(i.Item):
     damage = 3.5
     weapon_effects = [eff.StunIfUnarmored]
 
+class Club(i.Item):
+    name = "club"
+    damage = 15
+    weapon_effects = [eff.Stun]
+
 
 lab_coat = {
     "grasps": {},
@@ -105,6 +110,18 @@ taser = {
     "color": ["black", "blue", "orange", "yellow"],
     "color_scheme": "same",
     "texture": ["plastic"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+club = {
+    "grasps": {
+        "right hand": Club,
+    },
+    "wears": {},
+    "color": ["stained", "cracked", "rustic", "splintery"],
+    "color_scheme": "same",
+    "texture": ["wooden"],
     "texture_scheme": "same",
     "full": True,
 }

@@ -574,7 +574,7 @@ class HiveMind(sp.Effect):
         return True
 
     def update(self):
-        hive = [c for c in self.limb.creature.location.creatures if c.team == self.limb.creature.team and c.hivemind]
+        hive = [c for c in self.limb.creature.location.creatures if c.team == self.limb.creature.team and c.hivemind and c.hivemind == self.limb.creature.hivemind]
         for limb in self.strength_limbs:
             if not hasattr(limb, "orig_strength"):
                 limb.orig_strength = limb.strength

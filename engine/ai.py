@@ -61,7 +61,7 @@ class CombatAI:
         return self.target
 
     def target_limb(self, target, attacking_weapon):
-        limbs = target.subelements[0].limb_check("isSurface")
+        limbs = [l for l in target.subelements[0].limb_check("isSurface") if l.isSurface]
 
         weapons = [x for x in limbs if hasattr(x, "damage")]
         vitals = [x for x in limbs if (hasattr(x, "vital"))]
@@ -218,7 +218,7 @@ class PestAI(CombatAI):
 
     def target_limb(self, target, attacking_weapon):
         """Pests just want to attack something, they don't care what."""
-        target_limbs = target.subelements[0].limb_check("isSurface")
+        target_limbs = [l for l in target.subelements[0].limb_check("isSurface") if l.isSurface]
         entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
 
         if entanglements:

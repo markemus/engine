@@ -285,7 +285,7 @@ class Controller:
         return weapon
 
     def pick_limb(self, defender, weapon):
-        limblist = defender.subelements[0].limb_check("isSurface")
+        limblist = [l for l in defender.subelements[0].limb_check("isSurface") if l.isSurface]
         entanglements = [e for e in weapon.active_effects if isinstance(e, eff.Entangled)]
         if entanglements:
             limblist = self.game.char.ai.target_entangling_limbs(target=defender, attacking_weapon=weapon)

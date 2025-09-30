@@ -58,7 +58,7 @@ class levelGenerator:
             if (hasattr(levelstyle, "start_room") and thisRoomNum == 1) or (hasattr(levelstyle, "end_room") and thisRoomNum == roomNum):
                 gennedRoom = roomType(gennedLevel)
             else:
-                gennedRoom = roomType(gennedLevel, extra_creatures=levelstyle.creature_classes)
+                gennedRoom = roomType(gennedLevel)
             # First room needs to be start, doesn't need to connect to a previous room
             if len(roomList) == 0:
                 gennedLevel.start = gennedRoom
@@ -99,6 +99,13 @@ class levelGenerator:
 
             # Set end room
             gennedLevel.end = roomList[-1]
+
+        # Populate level with extra creatures
+        for creature_class in levelstyle.creature_classes:
+            print(gennedLevel.get_rooms())
+            creature_room = random.choice(gennedLevel.get_rooms()[1:-1])
+            creature = creature_class(location=creature_room)
+            creature_room.creatures.append(creature)
 
         # Borders aren't updated until rooms are doored.
         for room in roomList:

@@ -1,4 +1,5 @@
 import monster.places
+import monster.minotaur
 
 from engine.styles import LevelStyle, GameStyle, wall, floor
 
@@ -21,7 +22,7 @@ class MazeL2:
     start_room = monster.places.MazeEntrance
     end_room = monster.places.MazeHallway
     algorithm = "labyrinth"
-    creature_classes = []
+    creature_classes = [monster.minotaur.Minotaur]
 
 LevelStyle.register(MazeL2)
 

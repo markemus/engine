@@ -7,7 +7,7 @@ from engine import effectsbook as eff
 class TorturerAI(ai.CombatAI):
     """Focuses on cutting off small limbs and extending the fight."""
     def target_limb(self, target, attacking_weapon):
-        limbs = target.subelements[0].limb_check("isSurface")
+        limbs = [l for l in target.subelements[0].limb_check("isSurface") if l.isSurface]
         target_limbs = limbs
 
         entanglements = [e for e in attacking_weapon.active_effects if isinstance(e, eff.Entangled)]
