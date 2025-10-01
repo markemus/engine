@@ -4,7 +4,7 @@ from engine.styles import wall, single_wall, double_wall, floor, water, mirrored
 import assets.furniture as afur
 
 import monster.furniture as fur
-from monster.clearcat import ClearCat
+from monster.glasscat import GlassCat
 from monster.giant_rat import GiantRat
 from monster.hive_rat import HiveRat
 from monster.human import LabAssistant, GuardL1
@@ -15,9 +15,8 @@ cc = {
     "lab_monster": [(MonsterHuman, 3), (None, 2)],
     "lab_guard": [(GuardL1, 1)],
     "maze_rats": [(HiveRat, 3), (None, 3)],
-    "maze_cats": [(ClearCat, 1), (None, 1)],
+    "maze_cats": [(GlassCat, 1), (None, 1)],
 }
-
 
 class StarterLaboratory(pl.Place):
     name = "laboratory"
@@ -38,7 +37,6 @@ class Laboratory(pl.Place):
     creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
     furniture_classes = [fur.LabTable]
     subelement_classes = [wall, floor]
-
 
 class Cell(pl.Place):
     name = "cell"
@@ -79,5 +77,16 @@ class MazeHallway(pl.Place):
     textures = ["painted"]
     creature_classes = [cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_rats"], cc["maze_cats"]]
     furniture_classes = []
+    subelement_classes = [double_wall, floor]
+    door_class = passage
+
+class MazeTreasure(pl.Place):
+    name = "maze treasure room"
+    sprite = "M"
+    count = (0, 6)
+    colors = ["white"]
+    textures = ["painted"]
+    creature_classes = [cc["lab_monster"], cc["lab_monster"]]
+    furniture_classes = [fur.L1Chest]
     subelement_classes = [double_wall, floor]
     door_class = passage

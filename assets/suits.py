@@ -175,6 +175,8 @@ class SteelHelm(IronHelm):
 class SteelShield(IronShield):
     armor = 3
 
+# Devotion
+# Bleed devotion
 class BloodBoot(IronBoot):
     armor = 0
     passive_effects = [eff.BloodArmorDevotion]
@@ -183,8 +185,8 @@ class BloodBracer(IronBracer):
     armor = 0
     passive_effects = [eff.BloodArmorDevotion]
 
-class BloodPlatemail(IronChainmail):
-    name = "platemail"
+class BloodThorax(IronChainmail):
+    name = "thorax"
     armor = 0
     passive_effects = [eff.BloodArmorDevotion]
 
@@ -200,9 +202,58 @@ class BloodHelm(IronHelm):
     armor = 0
     passive_effects = [eff.BloodArmorDevotion]
 
-class BloodShield(IronShield):
+
+# Fire devotion
+class FlameBoot(IronBoot):
     armor = 0
-    passive_effects = [eff.BloodArmorDevotion]
+    passive_effects = [eff.FireArmorDevotion]
+
+class FlameBracer(IronBracer):
+    armor = 0
+    passive_effects = [eff.FireArmorDevotion]
+
+class FlameThorax(IronChainmail):
+    name = "thorax"
+    armor = 0
+    passive_effects = [eff.FireArmorDevotion]
+
+class FlameGauntlet(IronGauntlet):
+    armor = 0
+    passive_effects = [eff.FireArmorDevotion]
+
+class FlameGreave(IronGreave):
+    armor = 0
+    passive_effects = [eff.FireArmorDevotion]
+
+class FlameHelm(IronHelm):
+    armor = 0
+    passive_effects = [eff.FireArmorDevotion]
+
+# Poison devotion
+class PoisonBoot(IronBoot):
+    armor = 0
+    passive_effects = [eff.PoisonArmorDevotion]
+
+class PoisonBracer(IronBracer):
+    armor = 0
+    passive_effects = [eff.PoisonArmorDevotion]
+
+class PoisonThorax(IronChainmail):
+    name = "thorax"
+    armor = 0
+    passive_effects = [eff.PoisonArmorDevotion]
+
+class PoisonGauntlet(IronGauntlet):
+    armor = 0
+    passive_effects = [eff.PoisonArmorDevotion]
+
+class PoisonGreave(IronGreave):
+    armor = 0
+    passive_effects = [eff.PoisonArmorDevotion]
+
+class PoisonHelm(IronHelm):
+    armor = 0
+    passive_effects = [eff.PoisonArmorDevotion]
 
 # Clothing
 class Backpack(i.Holder):
@@ -511,9 +562,9 @@ partial_iron_armorsuit["full"] = False
 blood_armorsuit = {
     "wears": {
         "head": BloodHelm,
-        "body": BloodPlatemail,
+        "body": BloodThorax,
         "arm": BloodBracer,
-        "left hand": [BloodGauntlet, BloodShield],
+        "left hand": BloodGauntlet,
         "right hand": BloodGauntlet,
         "leg": BloodGreave,
         "foot": BloodBoot},
@@ -528,6 +579,45 @@ blood_armorsuit = {
 partial_blood_armorsuit = copy.deepcopy(blood_armorsuit)
 partial_blood_armorsuit["full"] = False
 
+flame_armorsuit = {
+    "wears": {
+        "head": FlameHelm,
+        "body": FlameThorax,
+        "arm": FlameBracer,
+        "left hand": FlameGauntlet,
+        "right hand": FlameGauntlet,
+        "leg": FlameGreave,
+        "foot": FlameBoot},
+    "grasps": {},
+    "color": ["orange", "yellow"],
+    "color_scheme": "same",
+    "texture": ["linen"],
+    "texture_scheme": "same",
+    "full": True,
+    }
+
+partial_flame_armorsuit = copy.deepcopy(flame_armorsuit)
+partial_flame_armorsuit["full"] = False
+
+poison_armorsuit = {
+    "wears": {
+        "head": PoisonHelm,
+        "body": PoisonThorax,
+        "arm": PoisonBracer,
+        "left hand": PoisonGauntlet,
+        "right hand": PoisonGauntlet,
+        "leg": PoisonGreave,
+        "foot": PoisonBoot},
+    "grasps": {},
+    "color": ["green"],
+    "color_scheme": "same",
+    "texture": ["linen"],
+    "texture_scheme": "same",
+    "full": True,
+    }
+
+partial_poison_armorsuit = copy.deepcopy(poison_armorsuit)
+partial_poison_armorsuit["full"] = False
 
 iron_weapons = {
     "wears": {},

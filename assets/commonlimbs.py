@@ -352,6 +352,11 @@ class VampireFangs(Teeth):
     _damage = 10
     weapon_effects = [eff.Vampirism]
 
+class PoisonFangs(Teeth):
+    name = "fangs"
+    _damage = 10
+    weapon_effects = [eff.Poison]
+
 class SwordHand(cr.Weapon):
     """A powerful sword hand to replace your hand."""
     name = "sword hand"

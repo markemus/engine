@@ -18,7 +18,7 @@ LevelStyle.register(LabL1)
 
 class MazeL2:
     level_text = f"""{BC.BLUE}You've escaped from the lab, but you find yourself trapped in an endless maze. Something strange is going on here...{BC.OFF}"""
-    room_classes = [monster.places.MazeHallway]
+    room_classes = [monster.places.MazeHallway, monster.places.MazeTreasure]
     start_room = monster.places.MazeEntrance
     end_room = monster.places.MazeHallway
     algorithm = "labyrinth"

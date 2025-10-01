@@ -16,6 +16,7 @@ import wizard.suits as wsu
 from colorist import BrightColor as BC, Color as C
 
 
+# One item will drop from each loot table used.
 lt = {
     "l1_chest_scroll": [(wcol.LevelOneScroll, 1)],
     "l1_chest_mana": [(wsu.RingOfMana, 2), (wsu.ManaLocket, 1)],

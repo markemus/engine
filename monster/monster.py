@@ -15,7 +15,7 @@ class FlameJaw(cr.Weapon):
     wears = "mouth"
     base_hp = 10
     size = 2
-    _damage = 5
+    _damage = 10
     eats = 1
     strength = 1
     weapon_effects = [eff.FireDOT]
@@ -23,9 +23,12 @@ class FlameJaw(cr.Weapon):
 class VampiricJaw(cl.Jaw):
     subelement_classes = [cl.VampireFangs, cl.Tongue]
 
+class PoisonJaw(cl.Jaw):
+    subelement_classes = [cl.PoisonFangs, cl.Tongue]
+
 class Head(cl.Head):
     # optional beard for humans
-    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, (FlameJaw, VampiricJaw, *[cl.Jaw] * 3), (cl.Beard, cl.PTentacle, *[None] * 3)]
+    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, (PoisonJaw, FlameJaw, VampiricJaw, *[cl.Jaw] * 3), (cl.Beard, cl.PTentacle, *[None] * 2)]
 
 class ClubTail(cr.Weapon):
     name = "club tail"

@@ -24,3 +24,12 @@ class BrokenCage(pl.Furniture):
     count = (1, 2)
     color = ["black"]
     texture = ["steel"]
+
+
+class L1Chest(pl.DisplayFurniture):
+    name = "chest"
+    count = (1, 2)
+    color = ["shiny", "gray", "metallic"]
+    texture = ["steel"]
+    vis_collections = [((mcol.c_partial_poison_armor, (1, 2)), (mcol.c_partial_blood_armor, (1, 2)), (mcol.c_partial_flame_armor, (1, 2)))]
+    # vis_collections = [(mcol.c_partial_poison_armor, (1, 2))]

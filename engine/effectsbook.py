@@ -614,3 +614,30 @@ class ArmorDevotionEffect(sp.EquipmentEffect):
 class BloodArmorDevotion(ArmorDevotionEffect):
     devoted_to = Bleed
     amount = .2
+
+
+class FireArmorDevotion(ArmorDevotionEffect):
+    devoted_to = FireDOT
+    amount = .2
+
+
+class PoisonArmorDevotion(sp.EquipmentEffect):
+    """Armor increases as poisoned creatures increase."""
+    # devoted_to can be a tuple of classes or a class
+    amount = .1
+    rounds = "forever"
+
+    def _cast(self):
+        if not hasattr(self.equipment, "orig_armor"):
+            self.equipment.orig_armor = self.equipment.armor
+        return True
+
+    def update(self):
+        count = 0
+        for creature in self.casting_limb.creature.location.creatures:
+            count += creature.poisoned
+
+        self.equipment.armor = self.equipment.orig_armor + (count * self.amount)
+
+    def expire(self):
+        self.equipment.armor = self.equipment.orig_armor

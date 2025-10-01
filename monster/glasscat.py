@@ -214,8 +214,8 @@ class Torso(cr.Limb):
     base_hp = 15
     size = 2
 
-class ClearCat(cr.creature):
-    classname = "clearcat"
+class GlassCat(cr.creature):
+    classname = "glass cat"
     aggressive = False
     team = "escapee"
     namelist = nm.names["cat"]
