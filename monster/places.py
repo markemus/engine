@@ -8,11 +8,11 @@ from monster.glasscat import GlassCat
 from monster.giant_rat import GiantRat
 from monster.hive_rat import HiveRat
 from monster.human import LabAssistant, GuardL1
-from monster.monster import MonsterHuman
+from monster.lab_monster import LabMonster
 
 cc = {
     "laboratory": [(GiantRat, 3), (LabAssistant, 3), (None, 2)],
-    "lab_monster": [(MonsterHuman, 3), (None, 2)],
+    "lab_monster": [(LabMonster, 3), (None, 2)],
     "lab_guard": [(GuardL1, 1)],
     "maze_rats": [(HiveRat, 3), (None, 3)],
     "maze_cats": [(GlassCat, 1), (None, 1)],

@@ -28,8 +28,8 @@ firstLevel.start.creatures.append(player)
 player.spellbook.append(sb.CutLimb)
 player.spellbook.append(sb.GraftLimb)
 
-player.suits = [asu.blood_armorsuit]
-player._clothe()
+# player.suits = [asu.blood_armorsuit]
+# player._clothe()
 
 t_game.set_char(player)
 player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")

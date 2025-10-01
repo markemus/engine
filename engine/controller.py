@@ -236,6 +236,7 @@ class Controller:
                     if Effect not in [e.__class__ for e in limb.active_effects]:
                         eff = Effect(casting_limb=limb, limb=limb, controller=self)
                         eff.cast()
+                        # eff.update()
 
                 for equipment in limb.equipment:
                     for Effect in equipment.passive_effects:
@@ -243,6 +244,7 @@ class Controller:
                         if Effect not in [e.__class__ for e in limb.active_effects]:
                             eff = Effect(casting_limb=limb, limb=limb, equipment=equipment, controller=self)
                             eff.cast()
+                            # eff.update()
 
     def pick_target(self, weapon):
         enemylist = self.game.char.ai.get_enemy_creatures()

@@ -26,7 +26,7 @@ class Stoneskin(sp.Effect):
             self.limb.color = self.limb.orig_color
             self.limb.texture = self.limb.orig_texture
 
-
+# TODO add higher level versions of these effects
 class FireDOT(sp.Effect):
     desc = "burning"
     damage = .5
@@ -571,6 +571,7 @@ class HiveMind(sp.Effect):
     def _cast(self):
         print(f"{BC.MAGENTA}{self.limb.creature.name} vibrates in sympathy with its fellows!{BC.OFF}")
         self.strength_limbs = self.limb.creature.limb_check("strength")
+        self.update()
         return True
 
     def update(self):
@@ -598,6 +599,7 @@ class ArmorDevotionEffect(sp.EquipmentEffect):
     def _cast(self):
         if not hasattr(self.equipment, "orig_armor"):
             self.equipment.orig_armor = self.equipment.armor
+        self.update()
         return True
 
     def update(self):
@@ -630,6 +632,7 @@ class PoisonArmorDevotion(sp.EquipmentEffect):
     def _cast(self):
         if not hasattr(self.equipment, "orig_armor"):
             self.equipment.orig_armor = self.equipment.armor
+        self.update()
         return True
 
     def update(self):
