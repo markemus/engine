@@ -26,6 +26,7 @@ class Stoneskin(sp.Effect):
             self.limb.color = self.limb.orig_color
             self.limb.texture = self.limb.orig_texture
 
+
 # TODO add higher level versions of these effects
 class FireDOT(sp.Effect):
     desc = "burning"
@@ -42,6 +43,10 @@ class FireDOT(sp.Effect):
 
     def _expire(self):
         print(f"{BC.RED}The fire on {C.RED}{self.limb.name}{BC.RED} goes out.{C.OFF}")
+
+
+class FireDOT2(FireDOT):
+    amount = 1
 
 
 class Light(sp.Effect):
@@ -252,6 +257,71 @@ class Poison(sp.Effect):
             if self.limb.creature.poisoned >= self.limb.creature.poison_resist:
                 print(f"{C.RED}{self.limb.creature.name} has taken a fatal dose of poison!{C.OFF}")
                 self.limb.creature.die()
+
+
+class Poison2(Poison):
+    amount = 3
+
+
+class Slime(sp.Effect):
+    desc = "slimy"
+    allow_duplicates = False
+    rounds = 10
+
+    def _cast(self):
+        self._damagers = []
+        self.damagers = []
+        self.update()
+        return True
+
+    def update(self):
+        if hasattr(self.limb, "damage"):
+            weapon = self.limb.damage[1]
+            if not hasattr(weapon, "orig_damage"):
+                if hasattr(weapon, "_damage"):
+                    weapon.orig_damage = weapon._damage
+                    self._damagers.append(weapon)
+                else:
+                    weapon.orig_damage = weapon.damage
+                    self.damagers.append(weapon)
+
+            # Notice that this counters Flywheel, resetting damage to base then dividing.
+            if hasattr(weapon, "_damage"):
+                weapon._damage = weapon.orig_damage / 2
+            else:
+                weapon.damage = weapon.orig_damage / 2
+
+        else:
+            weapon = self.limb
+
+        print(f"{BC.RED}{self.limb.creature.name}'s {weapon.name} is covered in slime!{BC.OFF}")
+
+    def _expire(self):
+        for weapon in self._damagers:
+            weapon._damage = weapon.orig_damage
+            del weapon.orig_damage
+            print(f"{BC.CYAN}{self.limb.creature}'s {weapon.name} is no longer slimed.{BC.OFF}")
+
+        for weapon in self.damagers:
+            weapon.damage = weapon.orig_damage
+            del weapon.orig_damage
+            print(f"{BC.CYAN}{self.limb.creature}'s {weapon.name} is no longer slimed.{BC.OFF}")
+
+
+class DigestSlime(sp.Effect):
+    """Passive effect that digests limbs which are slimed."""
+    desc = "slimy"
+    rounds = "forever"
+    amount = 5
+
+    def update(self):
+        opponents = self.casting_limb.creature.ai.get_enemy_creatures()
+        for opponent in opponents:
+            limbs = [l for l in opponent.limb_check("name") if sum([isinstance(e, Slime) for e in l.active_effects])]
+            for limb in limbs:
+                print(f"{BC.RED}{self.casting_limb.creature.name} digests {limb.name} for {self.amount}!{BC.OFF}")
+                self.cont.combat.apply_damage(defender=opponent, limb=limb, damage=self.amount)
+                self.casting_limb.creature.heal(amount=self.amount)
 
 
 class Stun(sp.Effect):

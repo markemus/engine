@@ -346,6 +346,9 @@ class PTentacle(Tentacle):
     colors = ["green"]
     textures = ["slimy"]
 
+class PTentacle2(PTentacle):
+    _damage = 14
+
 # Vampire fangs
 class VampireFangs(Teeth):
     name = "fangs"
@@ -356,6 +359,11 @@ class PoisonFangs(Teeth):
     name = "fangs"
     _damage = 10
     weapon_effects = [eff.Poison]
+
+class PoisonFangs2(Teeth):
+    name = "fangs"
+    _damage = 15
+    weapon_effects = [eff.Poison2]
 
 class SwordHand(cr.Weapon):
     """A powerful sword hand to replace your hand."""

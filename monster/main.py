@@ -15,8 +15,8 @@ os.system("color")
 
 # Generate a game using the Wizard template.
 t_game = game.Game("They Made A Mistake", styles.Monster)
-firstLevel = t_game.level_list[1]
-t_game.set_current_level(1)
+firstLevel = t_game.level_list[0]
+# t_game.set_current_level(1)
 
 player = player_monster.PlayerMonster(location=firstLevel.start)
 player.team = "escapee"
@@ -53,5 +53,7 @@ while True:
 # TODO dark rooms (everyone's blind unless nightsight or fire (can only see burning limb))
 # TODO hive rats (stronger the more there are)
 # TODO challenge levels- environmental hazards. Like portal.
+# TODO blood sac- increases blood levels.
+# TODO healing nodule- clears poison and bleed
 
 # TODO blood magic (different game). Could work for weapons (weapon effect drains attacker's blood).

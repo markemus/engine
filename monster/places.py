@@ -9,6 +9,8 @@ from monster.giant_rat import GiantRat
 from monster.hive_rat import HiveRat
 from monster.human import LabAssistant, GuardL1
 from monster.lab_monster import LabMonster
+from monster.maze_monster import MazeMonster
+
 
 cc = {
     "laboratory": [(GiantRat, 3), (LabAssistant, 3), (None, 2)],
@@ -16,6 +18,7 @@ cc = {
     "lab_guard": [(GuardL1, 1)],
     "maze_rats": [(HiveRat, 3), (None, 3)],
     "maze_cats": [(GlassCat, 1), (None, 1)],
+    "maze_monster": [(MazeMonster, 3), (None, 2)],
 }
 
 class StarterLaboratory(pl.Place):
@@ -86,7 +89,7 @@ class MazeTreasure(pl.Place):
     count = (0, 6)
     colors = ["white"]
     textures = ["painted"]
-    creature_classes = [cc["lab_monster"], cc["lab_monster"]]
-    furniture_classes = [fur.L1Chest]
+    creature_classes = [cc["maze_monster"]]
+    furniture_classes = []
     subelement_classes = [double_wall, floor]
     door_class = passage
