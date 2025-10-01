@@ -1,10 +1,11 @@
 from engine import game
 from engine import interface
 
-from monster import styles
 from monster import player_monster
+from monster import styles
 
 from assets import spellbook as sb
+from assets import suits as asu
 
 from colorist import BrightColor as BC, Color as C
 
@@ -15,7 +16,7 @@ os.system("color")
 # Generate a game using the Wizard template.
 t_game = game.Game("They Made A Mistake", styles.Monster)
 firstLevel = t_game.level_list[1]
-t_game.current_level = firstLevel
+t_game.set_current_level(1)
 
 player = player_monster.PlayerMonster(location=firstLevel.start)
 player.team = "escapee"
@@ -26,6 +27,9 @@ firstLevel.start.creatures.append(player)
 
 player.spellbook.append(sb.CutLimb)
 player.spellbook.append(sb.GraftLimb)
+
+player.suits = [asu.blood_armorsuit]
+player._clothe()
 
 t_game.set_char(player)
 player.name = input(f"{BC.CYAN}Enter your name: {BC.OFF}")

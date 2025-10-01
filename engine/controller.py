@@ -231,15 +231,17 @@ class Controller:
             limbs = creature.subelements[0].limb_check("name")
             # Cast effects
             for limb in limbs:
-                passive_effects = limb.passive_effects
-                for equipment in limb.equipment:
-                    passive_effects.extend(equipment.passive_effects)
+                for Effect in limb.passive_effects:
+                    # Only one copy of the effect- don't cast if already active.
+                    if Effect not in [e.__class__ for e in limb.active_effects]:
+                        eff = Effect(casting_limb=limb, limb=limb, controller=self)
+                        eff.cast()
 
-                if passive_effects:
-                    for Effect in passive_effects:
+                for equipment in limb.equipment:
+                    for Effect in equipment.passive_effects:
                         # Only one copy of the effect- don't cast if already active.
                         if Effect not in [e.__class__ for e in limb.active_effects]:
-                            eff = Effect(casting_limb=limb, limb=limb, controller=self)
+                            eff = Effect(casting_limb=limb, limb=limb, equipment=equipment, controller=self)
                             eff.cast()
 
     def pick_target(self, weapon):

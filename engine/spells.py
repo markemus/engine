@@ -110,3 +110,9 @@ class DelayedEffect(Effect):
     def _update(self):
         """Subclasses should implement _update()."""
         pass
+
+
+class EquipmentEffect(Effect):
+    def __init__(self, casting_limb, limb, equipment, controller):
+        super().__init__(casting_limb=casting_limb, limb=limb, controller=controller)
+        self.equipment = equipment

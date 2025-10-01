@@ -584,3 +584,33 @@ class HiveMind(sp.Effect):
         print(f"{BC.MAGENTA}{self.limb.creature.name} stops vibrating.{BC.OFF}")
         for limb in self.strength_limbs:
             limb.strength = limb.orig_strength
+
+
+# Devotion
+# Weapons and armor that gain strength the more of a given effect is present in the room.
+class ArmorDevotionEffect(sp.EquipmentEffect):
+    """Armor increases as devoted_to Effect increases."""
+    # devoted_to can be a tuple of classes or a class
+    devoted_to = None
+    amount = None
+    rounds = "forever"
+
+    def _cast(self):
+        if not hasattr(self.equipment, "orig_armor"):
+            self.equipment.orig_armor = self.equipment.armor
+        return True
+
+    def update(self):
+        count = 0
+        for spell in self.cont.game.active_spells:
+            if isinstance(spell, self.devoted_to):
+                count += 1
+        self.equipment.armor = self.equipment.orig_armor + (count * self.amount)
+
+    def expire(self):
+        self.equipment.armor = self.equipment.orig_armor
+
+
+class BloodArmorDevotion(ArmorDevotionEffect):
+    devoted_to = Bleed
+    amount = .2

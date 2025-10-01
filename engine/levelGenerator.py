@@ -102,7 +102,7 @@ class levelGenerator:
 
         # Populate level with extra creatures
         for creature_class in levelstyle.creature_classes:
-            print(gennedLevel.get_rooms())
+            # print(gennedLevel.get_rooms())
             creature_room = random.choice(gennedLevel.get_rooms()[1:-1])
             creature = creature_class(location=creature_room)
             creature_room.creatures.append(creature)

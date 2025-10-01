@@ -175,6 +175,34 @@ class SteelHelm(IronHelm):
 class SteelShield(IronShield):
     armor = 3
 
+class BloodBoot(IronBoot):
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
+
+class BloodBracer(IronBracer):
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
+
+class BloodPlatemail(IronChainmail):
+    name = "platemail"
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
+
+class BloodGauntlet(IronGauntlet):
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
+
+class BloodGreave(IronGreave):
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
+
+class BloodHelm(IronHelm):
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
+
+class BloodShield(IronShield):
+    armor = 0
+    passive_effects = [eff.BloodArmorDevotion]
 
 # Clothing
 class Backpack(i.Holder):
@@ -479,6 +507,26 @@ steel_armorsuit = {
 
 partial_iron_armorsuit = copy.deepcopy(iron_armorsuit)
 partial_iron_armorsuit["full"] = False
+
+blood_armorsuit = {
+    "wears": {
+        "head": BloodHelm,
+        "body": BloodPlatemail,
+        "arm": BloodBracer,
+        "left hand": [BloodGauntlet, BloodShield],
+        "right hand": BloodGauntlet,
+        "leg": BloodGreave,
+        "foot": BloodBoot},
+    "grasps": {},
+    "color": ["red", "crimson"],
+    "color_scheme": "same",
+    "texture": ["linen"],
+    "texture_scheme": "same",
+    "full": True,
+    }
+
+partial_blood_armorsuit = copy.deepcopy(blood_armorsuit)
+partial_blood_armorsuit["full"] = False
 
 
 iron_weapons = {
