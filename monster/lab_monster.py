@@ -28,7 +28,7 @@ class PoisonJaw(cl.Jaw):
 
 class Head(cl.Head):
     # optional beard for humans
-    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, (PoisonJaw, FlameJaw, VampiricJaw, *[cl.Jaw] * 3), (cl.Beard, cl.PTentacle, *[None] * 2)]
+    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, (PoisonJaw, FlameJaw, VampiricJaw, cl.Jaw), (cl.Beard, cl.PTentacle, *[None] * 2)]
 
 class ClubTail(cr.Weapon):
     name = "club tail"

@@ -28,9 +28,13 @@ class VampiricJaw(cl.Jaw):
 class PoisonJaw2(cl.Jaw):
     subelement_classes = [cl.PoisonFangs2, cl.Tongue]
 
+class SlimeJaw(cl.Jaw):
+    weapon_effects = [eff.Slime]
+    passive_effects = [eff.DigestSlime]
+
 class Head(cl.Head):
     # optional beard for humans
-    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, (PoisonJaw2, FlameJaw2, VampiricJaw, *[cl.Jaw] * 3), (cl.Beard, cl.PTentacle2, *[None] * 2)]
+    subelement_classes = [(cl.Horn, None), cl.Ear, cl.Eye, cl.Nose, (SlimeJaw, PoisonJaw2, FlameJaw2, VampiricJaw, *[cl.Jaw] * 2), (cl.Beard, cl.PTentacle2, *[None] * 2)]
 
 class ClubTail2(cr.Weapon):
     name = "spikeball tail"
@@ -86,9 +90,17 @@ class LArm(cl.LArm):
     subelement_classes = [LHand]
     _armor = 1.5
 
+class BloodSac(cr.Limb):
+    name = "blood sac"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (0, 4)
+    base_hp = 20
+    size = 5
+
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, (*[cl.RArm] * 3, RArm), (*[cl.LArm] * 3, LArm), cl.Leg, (*[None] * 3, ClubTail2)]
+    subelement_classes = [Head, (*[None] * 3, BloodSac), (*[cl.RArm] * 3, RArm), (*[cl.LArm] * 3, LArm), cl.Leg, (*[None] * 3, ClubTail2)]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

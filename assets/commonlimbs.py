@@ -342,17 +342,17 @@ class TinyHead(Head):
 class PTentacle(Tentacle):
     """This creature only has a small number of weaker tentacles- no big deal."""
     appendageRange = (2, 5)
-    _damage = 7
+    _damage = 10
     colors = ["green"]
     textures = ["slimy"]
 
 class PTentacle2(PTentacle):
-    _damage = 14
+    _damage = 15
 
 # Vampire fangs
 class VampireFangs(Teeth):
     name = "fangs"
-    _damage = 10
+    _damage = 7
     weapon_effects = [eff.Vampirism]
 
 class PoisonFangs(Teeth):

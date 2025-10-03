@@ -4,8 +4,9 @@ from engine import interface
 from monster import player_monster
 from monster import styles
 
-from assets import spellbook as sb
-from assets import suits as asu
+import assets.potions as pot
+import assets.spellbook as sb
+import assets.suits as asu
 
 from colorist import BrightColor as BC, Color as C
 
@@ -28,6 +29,8 @@ firstLevel.start.creatures.append(player)
 player.spellbook.append(sb.CutLimb)
 player.spellbook.append(sb.GraftLimb)
 
+player.subelements[0].subelements[0].equipment[0].vis_inv.append(pot.PotionOfStoneskin(color="silver", texture="sparkling"))
+
 # player.suits = [asu.blood_armorsuit]
 # player._clothe()
 
@@ -40,7 +43,7 @@ while True:
     i.command()
 
 # TODO-DONE club tail
-# TODO slime thrower (weakens and digests)
+# TODO-DONE slime thrower (weakens and digests)
 # TODO-DONE vampiric teeth
 # TODO blinding mist generator
 # TODO blind fighting creatures (hearing)
@@ -53,7 +56,7 @@ while True:
 # TODO dark rooms (everyone's blind unless nightsight or fire (can only see burning limb))
 # TODO hive rats (stronger the more there are)
 # TODO challenge levels- environmental hazards. Like portal.
-# TODO blood sac- increases blood levels.
+# TODO-DONE blood sac- increases blood levels.
 # TODO healing nodule- clears poison and bleed
 
 # TODO blood magic (different game). Could work for weapons (weapon effect drains attacker's blood).

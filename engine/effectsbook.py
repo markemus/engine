@@ -6,7 +6,7 @@ from colorist import BrightColor as BC, Color as C
 
 
 class Stoneskin(sp.Effect):
-    rounds = 10
+    rounds = 30
 
     def _cast(self):
         if not hasattr(self.limb, "orig_color"):
@@ -52,7 +52,7 @@ class FireDOT2(FireDOT):
 class Light(sp.Effect):
     """The limb is surrounded by a halo, making it easier to hit."""
     desc = "luminous"
-    rounds = 10
+    rounds = 15
     original_size = None
     allow_duplicates = False
 
@@ -75,7 +75,7 @@ class Light(sp.Effect):
 class Shadow(sp.Effect):
     """The limb is surrounded by a shadow, making it harder to hit."""
     desc = "shadowy"
-    rounds = 10
+    rounds = 15
     original_size = None
 
     def _cast(self):
@@ -151,7 +151,7 @@ class Fear(sp.Effect):
 
 
 class Might(sp.Effect):
-    rounds = 10
+    rounds = 20
     desc = "bulging"
 
     def _cast(self):
