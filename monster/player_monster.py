@@ -7,10 +7,12 @@ import assets.suits as asu
 
 import monster.suits as msu
 
+class PoisonJaw(cl.Jaw):
+    subelement_classes = [cl.PoisonFangs, cl.Tongue]
 
 class Head(cr.Limb):
     name = "head"
-    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, cl.Jaw]
+    subelement_classes = [cl.Ear, cl.Eye, cl.Nose, PoisonJaw]
     isSurface = True
     appendageRange = (1, 2)
     wears = "head"

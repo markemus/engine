@@ -29,7 +29,7 @@ firstLevel.start.creatures.append(player)
 player.spellbook.append(sb.CutLimb)
 player.spellbook.append(sb.GraftLimb)
 
-player.subelements[0].subelements[0].equipment[0].vis_inv.append(pot.PotionOfStoneskin(color="silver", texture="sparkling"))
+player.subelements[0].subelements[0].equipment[0].vis_inv.append(pot.PotionOfStoneskin(color="silver", texture="murky"))
 
 # player.suits = [asu.blood_armorsuit]
 # player._clothe()

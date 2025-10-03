@@ -50,7 +50,7 @@ class UniformShirt(i.Item):
 
 class CagePole(i.Item):
     name = "cage pole"
-    damage = 5
+    damage = 7
 
 class Taser(i.Item):
     name = "taser"

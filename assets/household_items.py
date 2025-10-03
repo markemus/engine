@@ -45,6 +45,12 @@ class Pillow(it.Item):
     covers = it.Item.covers.copy()
     canwear["arm"] = True
     covers["arm"] = True
+    canwear["leg"] = True
+    covers["leg"] = True
+    canwear["animal_leg"] = True
+    covers["animal_leg"] = True
+    canwear["spider_leg"] = True
+    covers["spider_leg"] = True
     armor = 1
     descends = 0
     level = 2
