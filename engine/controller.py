@@ -93,6 +93,22 @@ class Controller:
                 if v == True:
                     dstr += "\n" + "|" + f"{k}".center(25) + "|"
 
+        if hasattr(item, "size"):
+            dstr += "\n|" + " "*25 + "|"
+            dstr += "\n" + "|" + f"Size:{item.size}".center(25) + "|"
+
+        if hasattr(item, "passive_effects") and item.passive_effects:
+            dstr += "\n|" + " "*25 + "|"
+            dstr += "\n" + "|" + f"Passive Effects:".center(25) + "|"
+            for k in item.passive_effects:
+                dstr += "\n" + "|" + f"{k}".center(25) + "|"
+
+        if hasattr(item, "weapon_effects") and item.weapon_effects:
+            dstr += "\n|" + " "*25 + "|"
+            dstr += "\n" + "|" + f"Weapon Effects:".center(25) + "|"
+            for k in item.passive_effects:
+                dstr += "\n" + "|" + f"{k}".center(25) + "|"
+
         dstr += "\n" + ("-"*27) + f"{BC.OFF}"
         print(dstr)
 
@@ -109,6 +125,9 @@ class Controller:
             j = input(f"Which {BC.CYAN}item{BC.OFF} would you like to examine (x to cancel)?")
             if j in inv_items.keys() and j != "x":
                 self.detailed_view(inv_items[j])
+                if hasattr(inv_items[j], "subelements"):
+                    for subelem in inv_items[j].limb_check("name"):
+                        self.detailed_view(subelem)
 
     def inventory(self):
         """Transfer items between the character's inventory and another object."""
