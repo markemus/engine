@@ -286,6 +286,7 @@ class KnifeRHand(cr.Weapon):
     _damage = 3
     base_hp = 10
     size = 2
+    weapon_effects = [eff.Bleed]
 
 class KnifeLHand(cr.Weapon):
     name = "left hand"
@@ -298,6 +299,7 @@ class KnifeLHand(cr.Weapon):
     _damage = 2
     base_hp = 10
     size = 2
+    weapon_effects = [eff.Bleed]
 
 class KnifeRArm(RArm):
     subelement_classes = [KnifeRHand]

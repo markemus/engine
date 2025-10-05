@@ -45,18 +45,6 @@ class ClubTail2(cr.Weapon):
     size = 3
     weapon_effects = [eff.Stun, eff.Bleed]
 
-class KnifeFinger2(cr.Weapon):
-    name = "dagger finger"
-    subelement_classes = []
-    f_grasp = 1 / 2
-    isSurface = True
-    appendageRange = (4, 5)
-    wears = "finger"
-    base_hp = 7
-    size = 1
-    _damage = 12
-    weapon_effects = [eff.Bleed]
-
 class BloodSac(cr.Limb):
     name = "blood sac"
     subelement_classes = []
