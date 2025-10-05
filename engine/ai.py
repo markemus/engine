@@ -24,8 +24,8 @@ class CombatAI:
         best_weapon = max(weapons, key=self.calc_true_damage)
         # weapons_effects = [w for w in weapons if w.damage[1].weapon_effects]
         # Gets each set of weapon effects once- eg s={eff.Bleed, eff.FireDOT}
-        # weapons_effects = list({tuple(sorted(w.damage[1].weapon_effects, key=lambda x: id(x))): w for w in weapons if w.damage[1].weapon_effects}.values())
-        weapons_effects = list({tuple(w.damage[1].weapon_effects): w for w in weapons if w.damage[1].weapon_effects}.values())
+        # weapons_effects = list({tuple(sorted(w.damage[1].weapon_effects, key=lambda x: x.rounds)): w for w in weapons if w.damage[1].weapon_effects}.values())
+        weapons_effects = list({tuple(sorted(w.damage[1].weapon_effects, key=lambda x: id(x))): w for w in weapons if w.damage[1].weapon_effects}.values())
         # Best weapon is selected half the time, but we'll get effects as well
         if weapons_effects:
             weapon_list = random.choice([weapons_effects, [best_weapon]])
