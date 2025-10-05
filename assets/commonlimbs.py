@@ -277,7 +277,7 @@ class KnifeFinger(cr.Weapon):
 
 class KnifeRHand(cr.Weapon):
     name = "right hand"
-    subelement_classes = [KnifeFinger, cl.Thumb]
+    subelement_classes = [KnifeFinger, Thumb]
     grasp = 1
     blocker = True
     isSurface = True
