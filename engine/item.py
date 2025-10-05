@@ -150,6 +150,8 @@ class Potion(Item):
             print(f"{BC.CYAN}{creature.name}{BC.OFF} drinks the {BC.RED}{self.name}{BC.OFF}.")
             self.effect(creature)
             return True
+        else:
+            print(f"{C.RED}{creature.name} has no jaw to drink with!{C.OFF}")
 
 
 class Scroll(Item):

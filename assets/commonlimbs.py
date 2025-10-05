@@ -178,7 +178,7 @@ class RHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "right hand"
     _damage = 3
-    base_hp = 10
+    base_hp = 7
     size = 2
 
 class LHand(cr.Weapon):
@@ -190,7 +190,7 @@ class LHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "left hand"
     _damage = 2
-    base_hp = 10
+    base_hp = 7
     size = 2
 
 class RArm(cr.Limb):
@@ -223,7 +223,7 @@ class Foot(cr.Limb):
     isSurface = True
     appendageRange = (1, 2)
     wears = "foot"
-    base_hp = 10
+    base_hp = 7
     size = 2
 
 class Leg(cr.Limb):
@@ -284,7 +284,7 @@ class KnifeRHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "right hand"
     _damage = 3
-    base_hp = 10
+    base_hp = 7
     size = 2
     weapon_effects = [eff.Bleed]
 
@@ -297,7 +297,7 @@ class KnifeLHand(cr.Weapon):
     appendageRange = (1, 2)
     wears = "left hand"
     _damage = 2
-    base_hp = 10
+    base_hp = 7
     size = 2
     weapon_effects = [eff.Bleed]
 
@@ -349,21 +349,21 @@ class LargeHead(Head):
 
 # Small limbs- for smaller creatures
 class SmallRHand(RHand):
-    base_hp = int(RHand.base_hp / 2)
+    base_hp = 5
 
 class SmallRArm(RArm):
     subelement_classes = [SmallRHand]
     base_hp = int(RArm.base_hp / 2)
 
 class SmallLHand(LHand):
-    base_hp = int(LHand.base_hp / 2)
+    base_hp = 5
 
 class SmallLArm(LArm):
     subelement_classes = [SmallLHand]
     base_hp = int(LArm.base_hp / 2)
 
 class SmallFoot(Foot):
-    base_hp = int(Foot.base_hp / 2)
+    base_hp = 5
 
 class SmallLeg(Leg):
     subelement_classes = [SmallFoot]
@@ -374,7 +374,7 @@ class SmallHead(Head):
 
 # Tiny limbs- for tiny creatures
 class TinyRHand(RHand):
-    base_hp = int(RHand.base_hp / 3)
+    base_hp = 3
     size = 1
 
 class TinyRArm(RArm):
@@ -383,7 +383,7 @@ class TinyRArm(RArm):
     size = 1
 
 class TinyLHand(LHand):
-    base_hp = int(LHand.base_hp / 3)
+    base_hp = 3
     size = 1
 
 class TinyLArm(LArm):
@@ -392,7 +392,7 @@ class TinyLArm(LArm):
     size = 1
 
 class TinyFoot(Foot):
-    base_hp = int(Foot.base_hp / 3)
+    base_hp = 3
     size = 1
 
 class TinyLeg(Leg):
