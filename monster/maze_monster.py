@@ -57,38 +57,6 @@ class KnifeFinger2(cr.Weapon):
     _damage = 12
     weapon_effects = [eff.Bleed]
 
-class RHand(cr.Weapon):
-    name = "right hand"
-    subelement_classes = [KnifeFinger2, cl.Thumb]
-    grasp = 1
-    blocker = True
-    isSurface = True
-    appendageRange = (1, 2)
-    wears = "right hand"
-    _damage = 3
-    base_hp = 15
-    size = 2
-
-class LHand(cr.Weapon):
-    name = "left hand"
-    subelement_classes = [KnifeFinger2, cl.Thumb]
-    grasp = 1
-    blocker = True
-    isSurface = True
-    appendageRange = (1, 2)
-    wears = "left hand"
-    _damage = 2
-    base_hp = 15
-    size = 2
-
-class RArm(cl.RArm):
-    subelement_classes = [RHand]
-    _armor = 1.5
-
-class LArm(cl.LArm):
-    subelement_classes = [LHand]
-    _armor = 1.5
-
 class BloodSac(cr.Limb):
     name = "blood sac"
     subelement_classes = []
@@ -108,7 +76,7 @@ class SlimeSac(cr.Limb):
 
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, (*[None] * 4, BloodSac, SlimeSac), (*[cl.RArm] * 3, RArm), (*[cl.LArm] * 3, LArm), (cl.Leg, cl.SpiderLeg), (*[None] * 3, ClubTail2)]
+    subelement_classes = [Head, (*[None] * 4, BloodSac, SlimeSac), (*[cl.RArm] * 2, cl.KnifeRArm, cl.LightningRArm), (*[cl.LArm] * 2, cl.KnifeLArm, cl.LightningLArm), (cl.Leg, cl.SpiderLeg), (*[None] * 3, ClubTail2)]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"
