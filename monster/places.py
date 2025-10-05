@@ -37,7 +37,7 @@ class Laboratory(pl.Place):
     count = (3, 7)
     colors = ["white"]
     textures = ["tiled"]
-    creature_classes = [cc["laboratory"], cc["laboratory"], cc["lab_monster"]]
+    creature_classes = [cc["laboratory"], cc["laboratory"], cc["laboratory"]]
     furniture_classes = [fur.LabTable]
     subelement_classes = [wall, floor]
 
@@ -89,7 +89,7 @@ class MazeTreasure(pl.Place):
     count = (0, 6)
     colors = ["white"]
     textures = ["painted"]
-    creature_classes = [cc["maze_monster"]]
+    creature_classes = [cc["maze_monster"], cc["maze_monster"]]
     furniture_classes = []
     subelement_classes = [double_wall, floor]
     door_class = passage

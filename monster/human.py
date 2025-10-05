@@ -6,7 +6,7 @@ from monster import suits as msu
 class LabAssistant(human.Human):
     """In the wrong place at the wrong time."""
     team = "lab_crew"
-    suits = [msu.lab_coat]
+    suits = [msu.lab_coat, msu.scalpel]
 
 class GuardL1(human.Human):
     """Protect and imprison."""

@@ -52,6 +52,10 @@ class CagePole(i.Item):
     name = "cage pole"
     damage = 7
 
+class Scalpel(i.Item):
+    name = "scalpel"
+    damage = 8
+
 class Taser(i.Item):
     name = "taser"
     damage = 3.5
@@ -96,6 +100,18 @@ starter_weapon = {
     },
     "wears": {},
     "color": ["black"],
+    "color_scheme": "same",
+    "texture": ["steel"],
+    "texture_scheme": "same",
+    "full": True,
+}
+
+scalpel = {
+    "grasps": {
+        "right hand": Scalpel,
+    },
+    "wears": {},
+    "color": ["silver"],
     "color_scheme": "same",
     "texture": ["steel"],
     "texture_scheme": "same",

@@ -40,51 +40,9 @@ class ClubTail(cr.Weapon):
     size = 3
     weapon_effects = [eff.Stun]
 
-class KnifeFinger(cr.Weapon):
-    name = "knife finger"
-    subelement_classes = []
-    f_grasp = 1 / 2
-    isSurface = True
-    appendageRange = (4, 5)
-    wears = "finger"
-    base_hp = 5
-    size = 1
-    _damage = 7
-    weapon_effects = [eff.Bleed]
-
-class RHand(cr.Weapon):
-    name = "right hand"
-    subelement_classes = [KnifeFinger, cl.Thumb]
-    grasp = 1
-    blocker = True
-    isSurface = True
-    appendageRange = (1, 2)
-    wears = "right hand"
-    _damage = 3
-    base_hp = 10
-    size = 2
-
-class LHand(cr.Weapon):
-    name = "left hand"
-    subelement_classes = [KnifeFinger, cl.Thumb]
-    grasp = 1
-    blocker = True
-    isSurface = True
-    appendageRange = (1, 2)
-    wears = "left hand"
-    _damage = 2
-    base_hp = 10
-    size = 2
-
-class RArm(cl.RArm):
-    subelement_classes = [RHand]
-
-class LArm(cl.LArm):
-    subelement_classes = [LHand]
-
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, (*[cl.RArm] * 3, RArm), (*[cl.LArm] * 3, LArm), cl.Leg, (*[None] * 3, ClubTail)]
+    subelement_classes = [Head, (*[cl.RArm] * 2, cl.KnifeRArm, cl.LightningRArm), (*[cl.LArm] * 2, cl.KnifeLArm, cl.LightningLArm), (cl.Leg, cl.SpiderLeg), (*[None] * 3, ClubTail)]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

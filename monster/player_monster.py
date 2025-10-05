@@ -29,7 +29,7 @@ class Torso(cr.Limb):
     base_hp = 35
     size = 3
 
-class Leg(cr.Limb):
+class SpiderLeg(cr.Limb):
     name = "leg"
     subelement_classes = []
     isSurface = True
@@ -60,7 +60,7 @@ class Abdomen(cr.Limb):
 
 class Thorax(cr.Limb):
     name = "thorax"
-    subelement_classes = [Torso, Leg, Abdomen]
+    subelement_classes = [Torso, SpiderLeg, Abdomen]
     isSurface = True
     appendageRange = (1, 2)
     wears = "spider_body"

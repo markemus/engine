@@ -45,6 +45,11 @@ while True:
 # TODO-DONE club tail
 # TODO-DONE slime thrower (weakens and digests)
 # TODO-DONE vampiric teeth
+# TODO double strike
+# TODO hexproof- effects don't affect this limb
+# TODO paingain- limb strengthens as damage is taken by the creature
+# TODO damagegain- limb strengthens as it deals damage
+# TODO shimmering- limb cannot be targeted
 # TODO blinding mist generator
 # TODO blind fighting creatures (hearing)
 # TODO devotion weapons (fire, slime, bleed, poison, for you and enemies)

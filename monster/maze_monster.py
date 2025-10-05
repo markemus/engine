@@ -30,7 +30,6 @@ class PoisonJaw2(cl.Jaw):
 
 class SlimeJaw(cl.Jaw):
     weapon_effects = [eff.Slime]
-    passive_effects = [eff.DigestSlime]
 
 class Head(cl.Head):
     # optional beard for humans
@@ -98,9 +97,18 @@ class BloodSac(cr.Limb):
     base_hp = 20
     size = 5
 
+class SlimeSac(cr.Limb):
+    name = "slime sac"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (0, 1)
+    base_hp = 20
+    size = 3
+    passive_effects = [eff.DigestSlime]
+
 class Torso(cr.Limb):
     name = "torso"
-    subelement_classes = [Head, (*[None] * 3, BloodSac), (*[cl.RArm] * 3, RArm), (*[cl.LArm] * 3, LArm), cl.Leg, (*[None] * 3, ClubTail2)]
+    subelement_classes = [Head, (*[None] * 4, BloodSac, SlimeSac), (*[cl.RArm] * 3, RArm), (*[cl.LArm] * 3, LArm), (cl.Leg, cl.SpiderLeg), (*[None] * 3, ClubTail2)]
     isSurface = True
     appendageRange = (1, 2)
     wears = "body"

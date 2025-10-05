@@ -235,6 +235,16 @@ class Leg(cr.Limb):
     base_hp = 40
     size = 3
 
+class SpiderLeg(cr.Limb):
+    name = "leg"
+    subelement_classes = []
+    isSurface = True
+    appendageRange = (8, 9)
+    wears = "spider_leg"
+    base_hp = 10
+    size = 2
+    amble = 1/4
+
 # Tentacles
 class Tentacle(cr.Weapon):
     name = "tentacle"
@@ -251,6 +261,61 @@ class Tentacle(cr.Weapon):
     strength = 1
     _damage = 10
     weapon_effects = [eff.Entangled]
+
+# Special effect arms
+class KnifeFinger(cr.Weapon):
+    name = "knife finger"
+    subelement_classes = []
+    f_grasp = 1 / 2
+    isSurface = True
+    appendageRange = (4, 5)
+    wears = "finger"
+    base_hp = 5
+    size = 1
+    _damage = 7
+    weapon_effects = [eff.Bleed]
+
+class KnifeRHand(cr.Weapon):
+    name = "right hand"
+    subelement_classes = [KnifeFinger, cl.Thumb]
+    grasp = 1
+    blocker = True
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "right hand"
+    _damage = 3
+    base_hp = 10
+    size = 2
+
+class KnifeLHand(cr.Weapon):
+    name = "left hand"
+    subelement_classes = [KnifeFinger, Thumb]
+    grasp = 1
+    blocker = True
+    isSurface = True
+    appendageRange = (1, 2)
+    wears = "left hand"
+    _damage = 2
+    base_hp = 10
+    size = 2
+
+class KnifeRArm(RArm):
+    subelement_classes = [KnifeRHand]
+
+class KnifeLArm(LArm):
+    subelement_classes = [KnifeLHand]
+
+class LightningRHand(RHand):
+    weapon_effects = [eff.Lightning]
+
+class LightningLHand(LHand):
+    weapon_effects = [eff.Lightning]
+
+class LightningRArm(RArm):
+    subelement_classes = [LightningRHand]
+
+class LightningLArm(LArm):
+    subelement_classes = [LightningLHand]
 
 # Large limbs- for giant creatures
 class LargeRHand(RHand):
