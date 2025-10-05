@@ -14,7 +14,7 @@ class Limb:
     very different objects."""
     name = "NO_NAME_LIMB"
     printcolor = BC.CYAN
-    # Subelement classes are limbs that will be spawned attached to this limb
+    # A list of limbs that will be spawned attached to this limb
     subelement_classes = None
     wears = None
     base_hp = 10
@@ -24,6 +24,8 @@ class Limb:
     # Size should be an int between 1 and 3. This affects to-hit chance.
     size = 2
     isSurface = True
+    # Should be a tuple for how many of the limb will be created; (min, max+1)
+    appendageRange = None
     # Passive effects will be cast before battle begins (if they aren't already active)
     passive_effects = []
     # Impact effects will be cast when limb is hit
